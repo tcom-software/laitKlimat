@@ -1,6 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 import GlobalStyles from "../styles/GlobalStyles";
+import theme from "@styles/theme";
 // import GTAG from "utils/gtag";
 
 export default class MyDocument extends Document {
@@ -59,7 +60,7 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta property="og:url" content="https://www.laitklimat.ru/" />
-          <meta name="theme-color" content="#db5945" />
+          <meta name="theme-color" content={theme.colors.secondary} />
           <meta
             property="og:description"
             content="Стандартная установка кондиционеров"
