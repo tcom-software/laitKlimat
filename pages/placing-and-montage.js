@@ -2,13 +2,17 @@ import Head from "next/head";
 import { Button } from "@atoms";
 import { initializeStore } from "@redux/index";
 
-const Home = () => {
+const PlacingAndMontage = () => {
   return (
-    <>
-      <Head>
-        <title>Кондиционеры и увлажнители</title>
-      </Head>
-    </>
+    <div className="container">
+      <style jsx>{`
+        .container {
+          margin: 50px;
+          padding: 20px;
+        }
+      `}</style>
+      <Button title="add" />
+    </div>
   );
 };
 
@@ -22,4 +26,4 @@ export const getServerSideProps = () => {
   };
 };
 
-export default Home;
+export default PlacingAndMontage;
