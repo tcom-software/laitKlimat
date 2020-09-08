@@ -6,7 +6,8 @@ const sizes = {
     font-size: 16px;
     line-height: 20px;
 
-    ${theme.breakpoints.down("xs")} {
+
+    ${theme.breakpoints.down("lg")} {
       font-size: 14px;
       line-height: 17px;
     }
@@ -15,19 +16,31 @@ const sizes = {
     font-size: 18px;
     line-height: 22px;
 
-    ${theme.breakpoints.down("xs")} {
+    ${theme.breakpoints.down("lg")} {
       font-size: 12px;
       line-height: 15px;
     }
+
+   
   `,
   larg: css`
     font-size: 24px;
     line-height: 29px;
+
+    ${theme.breakpoints.down("lg")} {
+      font-size: 18px;
+      line-height: 22px;
+    }
   `,
   larger: css`
     font-size: 36px;
     line-height: 44px;
     font-weight: bold;
+
+    ${theme.breakpoints.down("lg")} {
+      font-size: 24px;
+      line-height: 30px;
+    }
 
     ${theme.breakpoints.down("xs")} {
       font-size: 18px;

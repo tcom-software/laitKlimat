@@ -15,8 +15,8 @@ export const StyledHeader = styled.header`
 export const GridRow = styled.section`
   position: relative;
   z-index: ${theme.zIndex.searchBar};
-  padding: 0 var(--global-margin);
-  margin: 1em 0 2em;
+  margin-top: 1em;
+  margin-bottom: 2em;
   height: 46px;
   display: grid;
   grid-template-columns: minmax(170px, 270px) minmax(360px, 560px) 1fr repeat(

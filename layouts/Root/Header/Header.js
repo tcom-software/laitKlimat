@@ -412,7 +412,7 @@ const Header = () => {
       <StyledHeader>
         <Addres />
         <Nav tabs={tabs} />
-        <GridRow>
+        <GridRow className="container">
           <NextLink href="/" className="link-wrapper">
             <Image
               alt="logo"

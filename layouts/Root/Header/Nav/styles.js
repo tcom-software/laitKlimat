@@ -2,7 +2,8 @@ import styled from "styled-components";
 import theme from "@styles/theme";
 
 export const Container = styled.section`
-  padding: 1em var(--global-margin);
+  padding-top: 1em;
+  padding-bottom: 1em;
   display: flex;
   align-items: center;
 

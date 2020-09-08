@@ -41,6 +41,12 @@ export const StyledButton = styled.button`
   line-height: 22px;
   filter: ${theme.dropShadow.btn};
 
+  ${theme.breakpoints.down("lg")} {
+    font-size: 16px;
+    line-height: 19px;
+    padding: 10px 2em;
+  }
+
   ${theme.breakpoints.down("xs")} {
     font-size: 12px;
     line-height: 15px;

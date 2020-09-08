@@ -8,6 +8,7 @@ const Home = () => {
       <Head>
         <title>Кондиционеры и увлажнители</title>
       </Head>
+      
     </>
   );
 };

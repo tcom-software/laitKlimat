@@ -11,7 +11,7 @@ import { StyledPicture } from "./styles";
 const Image = ({ path, type, alt, withShadow, responsive, ...imageProps }) => {
   return (
     <StyledPicture withShadow {...imageProps}>
-      {responsive && (
+      {responsive ? (
         <>
           <source
             srcSet={`${path}_mobile.webp`}
@@ -23,11 +23,17 @@ const Image = ({ path, type, alt, withShadow, responsive, ...imageProps }) => {
             media={`(max-width: ${breakoints.xs}px)`}
             type={`image/${type}`}
           />
+          <source srcSet={`${path}_desktop.webp`} type="image/webp" />
+          <source srcSet={`${path}_desktop.${type}`} type={`image/${type}`} />
+          <img src={`${path}_desktop.${type}`} alt={alt} />
+        </>
+      ) : (
+        <>
+          <source srcSet={`${path}.webp`} type="image/webp" />
+          <source srcSet={`${path}.${type}`} type={`image/${type}`} />
+          <img src={`${path}.${type}`} alt={alt} />
         </>
       )}
-      <source srcSet={`${path}_desktop.webp`} type="image/webp" />
-      <source srcSet={`${path}_desktop.${type}`} type={`image/${type}`} />
-      <img src={`${path}_desktop.${type}`} alt={alt} />
     </StyledPicture>
   );
 };

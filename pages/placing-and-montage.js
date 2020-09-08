@@ -21,7 +21,7 @@ export const getServerSideProps = () => {
 
   return {
     props: {
-      bannerVariant: "primary",
+      bannerVariant: "secondary",
     },
   };
 };

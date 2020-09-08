@@ -3,13 +3,17 @@ import PropTypes from "prop-types";
 import NextLink from "next/link";
 import cn from "classnames";
 
+import { Text } from "@atoms";
+
 const Link = props => {
   const { title, href, className, ...linkProps } = props;
 
   return (
     <NextLink href={href} {...linkProps}>
       <a className={cn([className])}>
-        <span>{title}</span>
+        <Text sz="normal" clr="primary">
+          {title}
+        </Text>
       </a>
     </NextLink>
   );

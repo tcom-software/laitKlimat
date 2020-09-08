@@ -9,7 +9,7 @@ const Nav = ({ tabs }) => {
   const route = useRouter();
 
   return (
-    <Container>
+    <Container className="container">
       <NextLink href="/" className="link-wrapper">
         <Image
           alt="logo"

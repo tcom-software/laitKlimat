@@ -115,6 +115,7 @@ export const Container = styled.div`
 export const Section = styled.section`
   width: 100%;
   max-width: 1400px;
+  padding: 0 var(--global-margin);
   margin: auto;
   z-index: 1;
 

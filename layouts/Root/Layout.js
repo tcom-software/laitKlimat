@@ -7,8 +7,7 @@ const Layout = ({ children, bannerVariant }) => {
     <>
       <Header />
       <Banner variant={bannerVariant} />
-
-      {children}
+      <main>{children}</main>
       <Footer />
     </>
   );

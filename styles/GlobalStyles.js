@@ -80,6 +80,13 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
+  .container {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding-right: var(--global-margin);
+    padding-left: var(--global-margin);
+  }
+
   .srOnly {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important;
