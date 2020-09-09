@@ -11,15 +11,10 @@ export const StyledFooter = styled.footer`
     .link-wrapper {
       display: flex;
       justify-content: center;
-      margin-bottom: 3em;
+      margin: 0 auto 3em;
 
       img {
         filter: brightness(0) invert(1);
-
-        ${theme.breakpoints.down("xs")} {
-          width: 60%;
-          max-width: 300px;
-        }
       }
     }
 
