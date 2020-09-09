@@ -11,7 +11,7 @@ const Link = props => {
   return (
     <NextLink href={href} {...linkProps}>
       <a className={cn([className])}>
-        <Text sz="normal" clr="primary">
+        <Text sz="normal" clr="primary" tag="span">
           {title}
         </Text>
       </a>
