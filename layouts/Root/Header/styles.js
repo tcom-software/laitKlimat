@@ -9,6 +9,10 @@ export const StyledHeader = styled.header`
     padding: 0.5em 0;
     margin-bottom: 1.2em;
     box-shadow: 0px 4px 7px rgb(0 0 0 / 22%);
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    background-color: ${theme.colors.white};
   }
 `;
 

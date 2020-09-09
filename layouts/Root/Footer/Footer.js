@@ -111,6 +111,17 @@ const Footer = () => {
             ))}
           </ul>
         </section>
+        <address>
+          <div className="location">
+            <Image path="/images/footer/location" type="png" />
+            <Text tag="span" clr="white" sz="larg">
+              {"127254, г. Москва,\n Огородный проезд д.6 стр.1"}
+            </Text>
+          </div>
+          <Text tag="p" clr="white" sz="larg" className="copyright">
+            © 2012—2020 Компания Лайт климат
+          </Text>
+        </address>
       </div>
       <article>
         <Text tag="p" sz="small" clr="white">

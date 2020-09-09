@@ -45,7 +45,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   #__next {
-    overflow: hidden;
+    
   }
 
   button {

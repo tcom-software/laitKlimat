@@ -6,7 +6,7 @@ export const StyledFooter = styled.footer`
 
   .inner {
     padding-top: 3.8em;
-    padding-bottom: 5em;
+    padding-bottom: 2em;
 
     .link-wrapper {
       display: flex;
@@ -112,6 +112,46 @@ export const StyledFooter = styled.footer`
         }
       }
     }
+
+    address {
+      font-style: normal;
+      text-align: center;
+      margin-top: 2em;
+
+      ${theme.breakpoints.down("xs")} {
+        margin-top: 0;
+        margin-bottom: 3em;
+      }
+
+      .location {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.5em;
+
+        ${theme.breakpoints.down("xs")} {
+          margin-bottom: 4em;
+
+          span {
+            white-space: pre-wrap;
+            text-align: left;
+          }
+        }
+
+        img {
+          width: 2.5em;
+          margin-right: 0.5em;
+
+          ${theme.breakpoints.down("lg")} {
+            width: 2em;
+          }
+
+          ${theme.breakpoints.down("xs")} {
+            width: 4em;
+          }
+        }
+      }
+    }
   }
 
   article {
@@ -124,7 +164,7 @@ export const StyledFooter = styled.footer`
 
     ${theme.breakpoints.down("xs")} {
       background-color: inherit;
-      padding: 0 var(--global-margin) 4em;
+      padding: 0 5vw 8em;
     }
 
     p {
@@ -133,6 +173,10 @@ export const StyledFooter = styled.footer`
       white-space: pre-wrap;
       text-align: center;
       line-height: 150%;
+
+      ${theme.breakpoints.down("xs")} {
+        white-space: initial;
+      }
     }
   }
 `;
