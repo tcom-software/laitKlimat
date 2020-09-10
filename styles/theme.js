@@ -5,7 +5,7 @@ import Color from "color";
 
 const colors = {
   primary: "#000000",
-  secondary: "#2591D1",
+  secondary: "#2591D1", // colors.blue700
   tercary: "#59B52A",
   fourth: "#626262",
   gray: "#9E9E9E",
@@ -16,6 +16,11 @@ const colors = {
   placeholder: "#9E9E9E", // colors.gray
   footer: "#282828",
   footerDark: "#111111",
+  blue100: "#86C9F1",
+  blue300: "#5C9CC2",
+  blue500: "#4AA9E2",
+  blue700: "#2591D1",
+  blue900: "#3079A5",
 };
 
 const shadow = {

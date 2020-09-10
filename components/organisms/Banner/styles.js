@@ -154,10 +154,11 @@ export const Section = styled.section`
     display: contents;
 
     img {
+      filter: ${theme.dropShadow.banner};
+      
       ${theme.breakpoints.down("xs")} {
         width: 80%;
         flex-direction: column-reverse;
-        filter: ${theme.dropShadow.banner};
       }
     }
   }

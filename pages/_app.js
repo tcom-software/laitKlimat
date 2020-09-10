@@ -21,7 +21,7 @@ const MyApp = ({ Component, pageProps }) => {
       </Head>
       <GlobalStyles />
       <ReduxProvider store={store}>
-        <PersistGate loading={<div>loading</div>} persistor={persistor}>
+        <PersistGate loading={null} persistor={persistor}>
           <Layout bannerVariant={bannerVariant}>
             <Component {...pageProps} />
           </Layout>

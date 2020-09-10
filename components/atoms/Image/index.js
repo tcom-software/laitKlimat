@@ -8,7 +8,15 @@ import { StyledPicture } from "./styles";
  * Image component for responsive images
  * @param {Object} props
  */
-const Image = ({ path, type, alt, withShadow, responsive, ...imageProps }) => {
+const Image = ({
+  path,
+  type,
+  alt,
+  withShadow,
+  responsive,
+  onClick,
+  ...imageProps
+}) => {
   return (
     <StyledPicture withShadow {...imageProps}>
       {responsive ? (
@@ -25,13 +33,13 @@ const Image = ({ path, type, alt, withShadow, responsive, ...imageProps }) => {
           />
           <source srcSet={`${path}_desktop.webp`} type="image/webp" />
           <source srcSet={`${path}_desktop.${type}`} type={`image/${type}`} />
-          <img src={`${path}_desktop.${type}`} alt={alt} />
+          <img src={`${path}_desktop.${type}`} alt={alt} onClick={onClick} />
         </>
       ) : (
         <>
           <source srcSet={`${path}.webp`} type="image/webp" />
           <source srcSet={`${path}.${type}`} type={`image/${type}`} />
-          <img src={`${path}.${type}`} alt={alt} />
+          <img src={`${path}.${type}`} alt={alt} onClick={onClick} />
         </>
       )}
     </StyledPicture>

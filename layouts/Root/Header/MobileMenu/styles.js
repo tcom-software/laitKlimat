@@ -5,16 +5,18 @@ export const Container = styled.section`
   display: none;
   top: 128px;
   width: 100%;
-  position: absolute;
+  position: fixed;
+  overflow: scroll;
 
-  min-height: calc(100vh - 128px);
+  height: calc(100vh - 128px);
   background-color: ${theme.colors.white};
   z-index: 98;
 
+  padding: 0 var(--global-margin);
+  padding-bottom: 2em;
+
   ${theme.breakpoints.down("xs")} {
     display: block;
-    padding: 0 var(--global-margin);
-    padding-bottom: 2em;
   }
 
   ul {
@@ -41,7 +43,11 @@ export const Container = styled.section`
 
       &.active {
         background-color: ${theme.colors.secondary};
-        color: ${theme.colors.white};
+
+        span,
+        a {
+          color: ${theme.colors.white};
+        }
       }
     }
 

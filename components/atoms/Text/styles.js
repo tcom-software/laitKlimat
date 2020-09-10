@@ -6,7 +6,6 @@ const sizes = {
     font-size: 16px;
     line-height: 20px;
 
-
     ${theme.breakpoints.down("lg")} {
       font-size: 14px;
       line-height: 17px;
@@ -20,8 +19,6 @@ const sizes = {
       font-size: 12px;
       line-height: 15px;
     }
-
-   
   `,
   larg: css`
     font-size: 24px;

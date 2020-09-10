@@ -87,6 +87,13 @@ const GlobalStyles = createGlobalStyle`
     padding-left: var(--global-margin);
   }
 
+  .scroll-hidden {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+
   .srOnly {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important;
