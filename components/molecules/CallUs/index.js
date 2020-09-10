@@ -1,8 +1,20 @@
+import { useRef, useEffect } from "react";
 import { Icon, Text } from "@atoms";
 
 import { Container } from "./styles";
 
-const CallUs = props => {
+const CallUs = ({ showNumberBox = () => null, ...props }) => {
+  const textRef = useRef(null);
+  const styles = useRef(null);
+
+  useEffect(() => {
+    const { top, left, width } = textRef.current.getBoundingClientRect();
+    styles.current = {
+      top: `${top}px`,
+      right: `${globalThis.innerWidth - left - width / 2}px`,
+    };
+  }, []);
+
   return (
     <Container className="call-us" {...props}>
       <Icon name="phone" width={38} fill="secondary" aria-label="корзина" />
@@ -16,11 +28,15 @@ const CallUs = props => {
           </Text>
         </p>
         <Text
+          textRef={textRef}
           tag="span"
           sz="small"
           clr="primary"
           title="Оставить мой номер"
           className="leave-my-number"
+          onClick={() =>
+            showNumberBox(globalThis.innerWidth > 768 ? styles.current : {})
+          }
         >
           Оставить мой номер
         </Text>

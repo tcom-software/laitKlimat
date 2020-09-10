@@ -2,6 +2,7 @@ import cn from "classnames";
 import { useRouter } from "next/router";
 
 import { Image, Link, NextLink } from "@atoms";
+import { Logo } from "@molecules";
 
 import { StyledNav, Container } from "./styles";
 
@@ -10,14 +11,7 @@ const Nav = ({ tabs }) => {
 
   return (
     <Container className="container">
-      <NextLink href="/" className="link-wrapper">
-        <Image
-          alt="logo"
-          path="/images/logo/logo"
-          type="png"
-          className="logo"
-        />
-      </NextLink>
+      <Logo className="logo" />
       <StyledNav>
         <ul className="menu-list">
           {tabs.map(({ tab, name }, idx) => (

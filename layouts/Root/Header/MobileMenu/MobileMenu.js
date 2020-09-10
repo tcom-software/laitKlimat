@@ -44,7 +44,7 @@ const Category = ({ title, subCategories, query, toggleOpen, icon }) => {
   );
 };
 
-const MobileMenu = ({ tabs, categories, toggleOpen }) => {
+const MobileMenu = ({ tabs, categories, toggleOpen, showNumberBox }) => {
   const route = useRouter();
   const [isOpenCategories, setOpenCategories] = useState(false);
 
@@ -77,7 +77,7 @@ const MobileMenu = ({ tabs, categories, toggleOpen }) => {
         ))}
       </ul>
       <StyledAddress>
-        <CallUs />
+        <CallUs showNumberBox={showNumberBox} />
         <div className="address">
           <Icon name="location" />
           <Text tag="span" sz="small" clr="primary">

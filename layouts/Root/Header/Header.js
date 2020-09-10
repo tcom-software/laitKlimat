@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { StyledHeader, GridRow } from "./styles";
-import MobileMenu from "./MobileMenu";
-import Addres from "./Addres";
-import Nav from "./Nav";
 
-import { tabs, categories } from "data";
+import Nav from "./Nav";
+import Address from "./Address";
+import MobileMenu from "./MobileMenu";
+import { StyledHeader, GridRow } from "./styles";
 
 import { Icon, Link, Text, NextLink, Image } from "@atoms";
-import { CallUs } from "@molecules";
+import { CallUs, Logo } from "@molecules";
+import { tabs, categories } from "data";
 
 const acardion = categories => {
   return (
@@ -32,8 +32,9 @@ const categoriesList = acardion(categories);
  * Header
  * @returns {Node} header component
  */
-const Header = () => {
+const Header = ({ showModal }) => {
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
+  const [isOpenMenu, setOpenMenu] = useState(false);
   const handleSearch = e => {
     e.preventDefault();
     console.log(e.target.search.value);
@@ -46,24 +47,32 @@ const Header = () => {
 
   const hideMobileMenu = () => {
     document.body.classList.remove("scroll-hidden");
-    setOpenMobileMenu(false);
+    setOpenMenu(false);
+  };
+
+  const handleShowMenu = () => {
+    globalThis.innerWidth < 768
+      ? toggleMobileMenu()
+      : showModal({
+          modalType: "menu",
+          modalProps: {},
+        });
+  };
+
+  const handleShowNumberBox = style => {
+    showModal({
+      modalType: "numberBox",
+      modalProps: style,
+    });
   };
 
   return (
     <>
       <StyledHeader>
-        <Addres />
+        <Address />
         <Nav tabs={tabs} />
         <GridRow className="container">
-          <NextLink href="/" className="link-wrapper">
-            <Image
-              alt="logo"
-              path="/images/logo/logo"
-              type="png"
-              className="logo"
-              onClick={hideMobileMenu}
-            />
-          </NextLink>
+          <Logo className="logo" onClick={hideMobileMenu} />
           <div className="categories">
             <button className="root">
               <Text clr="fourth" sz="normal" tag="span">
@@ -90,7 +99,7 @@ const Header = () => {
               </button>
             </form>
           </div>
-          <CallUs />
+          <CallUs showNumberBox={handleShowNumberBox} />
           <div className="basket" title="корзина" aria-label="корзина">
             <div className="basket-inner">
               <Icon name="basket" width={30} fill="tercary" />
@@ -107,7 +116,7 @@ const Header = () => {
           <div className="search-mobile">
             <Icon name="search" width={24} fill="tercary" />
           </div>
-          <div className="humburger" onClick={toggleMobileMenu}>
+          <div className="humburger" onClick={handleShowMenu}>
             <button title="меню" aria-label="меню" data-open={isOpenMobileMenu}>
               <span />
               <span />
@@ -121,6 +130,7 @@ const Header = () => {
           tabs={tabs}
           categories={categories}
           toggleOpen={toggleMobileMenu}
+          showNumberBox={handleShowNumberBox}
         />
       )}
     </>

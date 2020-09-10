@@ -1,7 +1,7 @@
 import { ActionType, ActionCreatorType } from "../types";
-import { exactlyKeyAndValue } from "./exactlyKeyAndValue";
+import { equalKeyAndValue } from "./equalKeyAndValue";
 
-export const types: ActionType = exactlyKeyAndValue([
+export const types: ActionType = equalKeyAndValue([
   "MODAL_HIDE",
   "MODAL_SHOW",
 ] as Array<string>);
@@ -11,7 +11,12 @@ export const hideModal = (): ActionCreatorType => ({
   type: types.MODAL_HIDE,
 });
 
-export const showModal = (payload: any): ActionCreatorType => ({
+interface showModalPayload {
+  modalType: string | null;
+  modalProps: object;
+}
+
+export const showModal = (payload: showModalPayload): ActionCreatorType => ({
   type: types.MODAL_SHOW,
   payload,
 });

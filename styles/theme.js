@@ -16,6 +16,7 @@ const colors = {
   placeholder: "#9E9E9E", // colors.gray
   footer: "#282828",
   footerDark: "#111111",
+  blueFon: "#65B3DB",
   blue100: "#86C9F1",
   blue300: "#5C9CC2",
   blue500: "#4AA9E2",
@@ -38,10 +39,9 @@ const dropShadow = {
 };
 
 const gradients = {
-  primary: "linear-gradient(90deg, #65B3DB 0%, #77C5EC 100%)",
-  secondary:
-    "linear-gradient(90deg, #65B3DB 0%, #97D5F4 0.01%, #70CFB8 67.71%)",
-  tercary: "linear-gradient(90deg, #65BFDB 0%, #93A6DD 51.04%, #F2A6EB 100%)",
+  primary: `linear-gradient(90deg, ${colors.blueFon} 0%, #77C5EC 100%)`,
+  secondary: `linear-gradient(90deg, ${colors.blueFon} 0%, #97D5F4 0.01%, #70CFB8 67.71%)`,
+  tercary: `linear-gradient(90deg, ${colors.blueFon} 0%, #93A6DD 51.04%, #F2A6EB 100%)`,
   btn: `linear-gradient(90deg, ${colors.secondary} 0%, #337FAC 100.18%);`,
 };
 
@@ -58,9 +58,9 @@ export default {
     // Keep all zIndexes here in one place so it’s easy to see what order things are in
     header: 99,
     searchBar: 100,
+    modal: 101,
     // nav: 100,
     // cart: 101,
-    // popup: 102,
     // pageLoadingBar: 103,
   },
 };

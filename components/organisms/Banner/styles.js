@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import theme from "@styles/theme";
 
 const variants = {
@@ -38,11 +38,31 @@ export const Container = styled.div`
     svg[data-circle1] {
       top: 0;
       left: 0;
+      animation: svgElemAnimate infinite linear 20s forwards;
+
+      @keyframes svgElemAnimate {
+        from {
+          transform: translate(0%, 0%);
+        }
+        25% {
+          transform: translate(5%, 5%);
+        }
+        50% {
+          transform: translate(10%, 0%);
+        }
+        75% {
+          transform: translate(5%, 5%);
+        }
+        to {
+          transform: translate(0%, 0%);
+        }
+      }
 
       ${theme.breakpoints.down("xs")} {
         top: -5%;
         left: -13%;
         transform: scale(1.1);
+        animation: none;
       }
     }
 
@@ -50,11 +70,31 @@ export const Container = styled.div`
       bottom: 0;
       left: 44%;
       transform: translateY(50%) scale(1.5);
+      animation: svgElemAnimate1 infinite linear 20s forwards;
+
+      @keyframes svgElemAnimate1 {
+        from {
+          transform: translate(0%, 50%) scale(1.5);
+        }
+        25% {
+          transform: translate(5%, 45%) scale(1.5);
+        }
+        50% {
+          transform: translate(10%, 50%) scale(1.5);
+        }
+        75% {
+          transform: translate(5%, 45%) scale(1.5);
+        }
+        to {
+          transform: translate(0%, 50%) scale(1.5);
+        }
+      }
 
       ${theme.breakpoints.down("xs")} {
         right: 5%;
         left: unset;
         transform: translateY(60%) scale(1.2);
+        animation: none;
       }
     }
 
@@ -62,6 +102,25 @@ export const Container = styled.div`
       top: 0;
       right: 0;
       transform: translate(25%, -70%) scale(1.5);
+      animation: svgElemAnimate3 infinite linear 20s forwards;
+
+      @keyframes svgElemAnimate3 {
+        from {
+          transform: translate(25%, -70%) scale(1.5);
+        }
+        25% {
+          transform: translate(30%, -75%) scale(1.5);
+        }
+        50% {
+          transform: translate(35%, -70%) scale(1.5);
+        }
+        75% {
+          transform: translate(30%, -75%) scale(1.5);
+        }
+        to {
+          transform: translate(25%, -70%) scale(1.5);
+        }
+      }
 
       ${theme.breakpoints.down("xs")} {
         display: none;
@@ -155,7 +214,7 @@ export const Section = styled.section`
 
     img {
       filter: ${theme.dropShadow.banner};
-      
+
       ${theme.breakpoints.down("xs")} {
         width: 80%;
         flex-direction: column-reverse;

@@ -34,7 +34,7 @@ export const StyledAddress = styled.address`
       }
     }
 
-    .address {
+    .location {
       flex: 1;
       margin-left: 5vw;
       display: flex;
@@ -72,7 +72,7 @@ export const StyledAddress = styled.address`
     }
 
     .icons,
-    .address,
+    .location,
     .work-hours {
       span {
         white-space: nowrap;

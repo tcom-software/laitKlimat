@@ -11,7 +11,7 @@ export const Container = styled.section`
     display: none;
   }
 
-  .link-wrapper {
+  .logo-wrapper {
     display: contents;
 
     .logo {
@@ -38,10 +38,10 @@ export const StyledNav = styled.nav`
       a {
         color: inherit;
 
-        span {
+        /* span {
           font-size: 16px;
           line-height: 20px;
-        }
+        } */
       }
     }
   }

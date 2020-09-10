@@ -46,7 +46,7 @@ export const GridRow = styled.section`
 
   /******** logo ********/
 
-  .link-wrapper {
+  .logo-wrapper {
     display: none;
     grid-area: logo;
 
