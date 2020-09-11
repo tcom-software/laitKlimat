@@ -24,11 +24,11 @@ const animateInMount = keyframes`
 
 const animateInMobile = keyframes`
   from {
-    transform: translateY( 50%) ;
+    transform: translateY(50%) ;
     opacity: 0;
   }
   to {
-    transform: translateY( 0);
+    transform: translateY(0);
     opacity: 1;
   }
 `;
@@ -79,7 +79,7 @@ export const Container = styled.div`
     background: url(/images/feather-full.png) center/ auto 200%;
     opacity: 0.15;
     pointer-events: none;
-    animation: ${backgroundAnim} linear 40s infinite forwards;
+    animation: ${backgroundAnim} linear 80s infinite forwards;
     overflow: hidden;
   }
 

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import theme from "@styles/theme";
+import Color from "color";
 
 export const Container = styled.div`
   max-width: 1478px;
@@ -70,12 +71,10 @@ export const Container = styled.div`
     }
 
     .boxes {
-      ul {
+      > ul {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(2, 250px);
-        justify-items: center;
-        align-items: center;
 
         ${theme.breakpoints.down("lg")} {
           grid-template-rows: repeat(2, 200px);
@@ -87,18 +86,83 @@ export const Container = styled.div`
 
         ${theme.breakpoints.down("xs")} {
           grid-template-columns: 1fr;
-          grid-auto-rows: 250px;
+          grid-template-rows: initial;
+          grid-auto-rows: 300px;
         }
 
-        li {
-          width: 100%;
-          height: 100%;
+        > li {
           display: flex;
           align-items: center;
           flex-direction: column;
           justify-content: center;
-          padding: 0 5em;
           cursor: pointer;
+          overflow: hidden;
+          position: relative;
+
+          > div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 0 5em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
+
+          &:nth-of-type(1) {
+            background-color: ${theme.colors.blue900};
+          }
+          &:nth-of-type(2) {
+            background-color: ${theme.colors.blue700};
+          }
+          &:nth-of-type(3) {
+            background-color: ${theme.colors.blue500};
+          }
+          &:nth-of-type(4) {
+            background-color: ${theme.colors.blue300};
+          }
+          &:nth-of-type(5) {
+            background-color: ${theme.colors.blue100};
+          }
+
+          .sub-menu-list {
+            padding: 0 3em;
+            counter-reset: section;
+
+            &_item {
+              padding: 0.3em 0;
+
+              &:not(:last-of-type) {
+                border-bottom: 1px solid ${Color(theme.colors.white).fade(0.8)};
+              }
+
+              span {
+                font-size: 16px;
+                line-height: 18px;
+                color: ${theme.colors.white};
+
+                :hover {
+                  font-weight: bold;
+                }
+              }
+
+              + .subsub-menu-list {
+                position: absolute;
+                display: none;
+
+                left: -100%;
+                
+              }
+
+              + .subsub-menu-list[data-visible="true"] {
+                display: block;
+              }
+            }
+
+            + ul {
+            }
+          }
 
           ${theme.breakpoints.between("md", "lg")} {
             padding: 0 3em;
@@ -125,22 +189,6 @@ export const Container = styled.div`
               line-height: 22px;
             }
           }
-        }
-
-        li:nth-of-type(1) {
-          background-color: ${theme.colors.blue900};
-        }
-        li:nth-of-type(2) {
-          background-color: ${theme.colors.blue700};
-        }
-        li:nth-of-type(3) {
-          background-color: ${theme.colors.blue500};
-        }
-        li:nth-of-type(4) {
-          background-color: ${theme.colors.blue300};
-        }
-        li:nth-of-type(5) {
-          background-color: ${theme.colors.blue100};
         }
       }
     }

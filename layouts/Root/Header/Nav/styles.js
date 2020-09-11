@@ -38,10 +38,10 @@ export const StyledNav = styled.nav`
       a {
         color: inherit;
 
-        /* span {
+        span {
           font-size: 16px;
           line-height: 20px;
-        } */
+        }
       }
     }
   }

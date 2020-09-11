@@ -5,7 +5,7 @@ import Address from "./Address";
 import MobileMenu from "./MobileMenu";
 import { StyledHeader, GridRow } from "./styles";
 
-import { Icon, Link, Text, NextLink, Image } from "@atoms";
+import { Icon, Link, Text } from "@atoms";
 import { CallUs, Logo } from "@molecules";
 import { tabs, categories } from "data";
 

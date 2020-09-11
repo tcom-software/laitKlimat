@@ -18,7 +18,11 @@ const Modal = ({ modalType, modalProps, hideModal }) => {
 
   return createPortal(
     <Container>
-      <CurrentModal modalRef={modalRef} hideModal={hideModal} />
+      <CurrentModal
+        modalRef={modalRef}
+        hideModal={hideModal}
+        modalProps={modalProps}
+      />
     </Container>,
     document.getElementById("portal")
   );
