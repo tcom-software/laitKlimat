@@ -33,7 +33,6 @@ const Menu = ({ modalRef, hideModal }) => {
           <SocialIcons />
         </address>
       </div>
-      <div data-bg-image />
     </Container>
   );
 };

@@ -10,50 +10,59 @@ import eases from "utils/easing";
 
 import { tabs, categories } from "data";
 
-const SubMenu = memo(
-  ({ title, subCategories, subSub, setSubSub, rootTitle, sub }) => {
-    const { opacity, delta } = useSpring({
-      opacity: subSub.isOpen && title === subSub.type ? 1 : 0,
-      delta: subSub.isOpen && title === subSub.type ? -100 : -200,
-      config: {
-        duration: 500,
-        easing: eases.OutQuart,
-      },
-    });
+const SubMenu = memo(({ title, subCategories, subSub, setSubSub }) => {
+  const { opacity, delta } = useSpring({
+    opacity: subSub.isOpen && title === subSub.type ? 1 : 0,
+    delta: subSub.isOpen && title === subSub.type ? -100 : -200,
+    config: {
+      duration: 500,
+      easing: eases.OutQuart,
+    },
+  });
 
-    return (
-      <>
-        <li
-          className="sub-menu-list_item"
+  return (
+    <>
+      <li
+        className="sub-menu-list_item"
+        onClick={() =>
+          setSubSub(state => ({
+            isOpen: state.type !== title ? true : false,
+            type: state.type !== title ? title : "",
+          }))
+        }
+      >
+        <Text tag="span" sz="normal" clr="primary">
+          {title}
+        </Text>
+      </li>
+      <ul
+        className="subsub-menu-list"
+        data-visible={subSub.type === title}
+        style={{
+          transform: delta.interpolate(x => `translateX(${x}%)`),
+          opacity: opacity.interpolate(o => o),
+        }}
+      >
+        {subCategories.map(({ id, title, query }) => (
+          <li className="subsub-menu-list_item" key={id}>
+            <Link title={title} href={query} />
+          </li>
+        ))}
+        <div
+          data-go-back
           onClick={() =>
             setSubSub(state => ({
-              isOpen: state.type !== title ? true : false,
-              type: state.type !== title ? title : "",
+              isOpen: false,
+              type: "",
             }))
           }
         >
-          <Text tag="span" sz="normal" clr="primary">
-            {title}
-          </Text>
-        </li>
-        <ul
-          className="subsub-menu-list"
-          data-visible={subSub.type === title}
-          style={{
-            transform: delta.interpolate(x => `translateX(${x}%)`),
-            opacity: opacity.interpolate(o => o),
-          }}
-        >
-          {subCategories.map(({ id, title, query }) => (
-            <li className="subsub-menu-list_item" key={id}>
-              <Link title={title} href={query} />
-            </li>
-          ))}
-        </ul>
-      </>
-    );
-  }
-);
+          <div />
+        </div>
+      </ul>
+    </>
+  );
+});
 
 const Menu = memo(
   ({ title, iconLarg, subCategories, sub, setSub, subSub, setSubSub }) => {
@@ -107,6 +116,18 @@ const Menu = memo(
               rootTitle={title}
             />
           ))}
+
+          <div
+            data-go-back
+            onClick={() =>
+              setSub(state => ({
+                isOpen: false,
+                type: "",
+              }))
+            }
+          >
+            <div />
+          </div>
         </animated.ul>
       </>
     );
@@ -143,7 +164,7 @@ const Home = () => {
               {categories.map(({ id, title, iconLarg, subCategories }) => (
                 <li className="menu-list_item" key={id}>
                   <Menu
-                    idժ={id}
+                    id={id}
                     title={title}
                     iconLarg={iconLarg}
                     subCategories={subCategories}

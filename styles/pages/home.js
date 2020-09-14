@@ -129,8 +129,41 @@ export const Container = styled.div`
           .sub-menu-list {
             padding: 0 3em;
             counter-reset: section;
+            height: 100%;
+            display: grid;
+            place-content: center;
 
-            &_item {
+            div[data-go-back] {
+              position: absolute;
+              bottom: 1em;
+              right: 2em;
+              width: 2em;
+              height: 1em;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              div {
+                width: 100%;
+                height: 2px;
+                background-color: white;
+
+                ::before {
+                  content: "";
+                  width: 0.5em;
+                  height: 0.5em;
+                  border: 2px solid white;
+                  border-left-width: 0;
+                  border-bottom-width: 0;
+                  position: absolute;
+                  left: 0;
+                  top: 50%;
+                  transform: translateY(-50%) rotate(-135deg);
+                }
+              }
+            }
+
+            li {
               padding: 0.3em 0;
 
               &:not(:last-of-type) {
@@ -146,21 +179,29 @@ export const Container = styled.div`
                   font-weight: bold;
                 }
               }
+            }
 
+            &_item {
               + .subsub-menu-list {
-                position: absolute;
-                display: none;
+                padding: 0 3em;
+                width: 100%;
+                height: 100%;
 
+                display: grid;
+                align-content: center;
+                position: absolute;
+                top: 50%;
                 left: -100%;
-                
+                transform: translateY(-50%);
+
+                visibility: hidden;
+                transition: visibility 0s 0.5s;
               }
 
               + .subsub-menu-list[data-visible="true"] {
-                display: block;
+                visibility: visible;
+                transition: visibility 0s 0s;
               }
-            }
-
-            + ul {
             }
           }
 
