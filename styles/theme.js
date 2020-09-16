@@ -9,6 +9,7 @@ const colors = {
   tercary: "#59B52A",
   fourth: "#626262",
   gray: "#9E9E9E",
+  gray000: "#F2F2F2",
   gray100: "#E8E8E8",
   gray300: "#A2A2A2",
   white: "#FFF",
@@ -25,17 +26,17 @@ const colors = {
 };
 
 const shadow = {
-  effect1: `0px 2px 10px ${Color(colors.primary).fade(0.8)}`,
+  effect1: `0 2px 10px ${Color(colors.primary).fade(0.8)}`,
   effect3: `3px 5px 10px ${Color(colors.primary).fade(0.75)}`,
   // effect2: "0px 0px 20px rgba(0, 0, 0, 0.15)",
 };
 
 const dropShadow = {
-  btn: `drop-shadow(0px 2px 10px ${Color(colors.black).fade(0.9)})`,
+  btn: `drop-shadow(0 2px 10px ${Color(colors.black).fade(0.9)})`,
   banner: `drop-shadow(-5px -5px 30px ${Color(colors.white).fade(
     0.4
   )}) drop-shadow(15px 10px 20px ${Color(colors.black).fade(0.65)})`,
-  effect2: `drop-shadow(0px 4px 10px ${colors.tercary})`,
+  effect2: `drop-shadow(0 0.25em 0.625rem ${colors.tercary})`,
 };
 
 const gradients = {

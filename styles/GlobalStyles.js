@@ -81,7 +81,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .container {
-    max-width: 1800px;
+    max-width: 1900px;
     margin: 0 auto;
     padding-right: var(--global-margin);
     padding-left: var(--global-margin);

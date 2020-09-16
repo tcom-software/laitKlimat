@@ -3,45 +3,45 @@ import theme from "@styles/theme";
 
 const sizes = {
   small: css`
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 1em;
+    line-height: 1.25rem;
 
     ${theme.breakpoints.down("lg")} {
-      font-size: 14px;
-      line-height: 17px;
+      font-size: 0.875em;
+      line-height: 1.0625rem;
     }
   `,
   normal: css`
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 1.125em;
+    line-height: 1.375rem;
 
     ${theme.breakpoints.down("lg")} {
-      font-size: 12px;
-      line-height: 15px;
+      font-size: 0.75em;
+      line-height: 1rem;
     }
   `,
   larg: css`
-    font-size: 24px;
-    line-height: 29px;
+    font-size: 1.5em;
+    line-height: 1.875rem;
 
     ${theme.breakpoints.down("lg")} {
-      font-size: 18px;
-      line-height: 22px;
+      font-size: 1.125em;
+      line-height: 1.375rem;
     }
   `,
   larger: css`
-    font-size: 36px;
-    line-height: 44px;
+    font-size: 2.25em;
+    line-height: 2.75rem;
     font-weight: bold;
 
     ${theme.breakpoints.down("lg")} {
-      font-size: 24px;
-      line-height: 30px;
+      font-size: 1.5em;
+      line-height: 1.875rem;
     }
 
     ${theme.breakpoints.down("xs")} {
-      font-size: 18px;
-      line-height: 22px;
+      font-size: 1.125em;
+      line-height: 1.375rem;
     }
   `,
 };

@@ -20,7 +20,7 @@ const variants = {
 };
 
 export const StyledButton = styled.button`
-  padding: 13px 2em;
+  padding: 0.8125em 2em;
   border-radius: 2em;
   text-transform: uppercase;
   font-family: ${theme.fonts.primary};
@@ -37,20 +37,20 @@ export const StyledButton = styled.button`
     transition: transform 50ms ease;
   }
 
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 1.125em;
+  line-height: 1.375rem;
   filter: ${theme.dropShadow.btn};
 
   ${theme.breakpoints.down("lg")} {
-    font-size: 16px;
-    line-height: 19px;
-    padding: 10px 2em;
+    font-size:  1em;
+    line-height: 1.25rem;
+    padding: 0.625rem 2em;
   }
 
   ${theme.breakpoints.down("xs")} {
-    font-size: 12px;
-    line-height: 15px;
-    padding: 7px 2em;
+    font-size: 0.75em;
+    line-height: 0.9375rem;
+    padding: 0.4375rem 2em;
   }
 
   ${({ variant }) => variants[variant]}
