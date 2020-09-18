@@ -1,9 +1,9 @@
 import { useSpring, animated } from "react-spring";
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 
-import { useForceUpdate, useOutsideClickClose } from "hooks";
+import { useOutsideClickClose } from "hooks";
 import { Image, Text, Button } from "@atoms";
-import { Container } from "./styles";
+import { Container, ContainerSimilarProduct } from "./styles";
 import eases from "utils/easing";
 
 const info = [
@@ -14,7 +14,6 @@ const info = [
 ];
 
 const Product = ({ view }) => {
-  const forceUpdate = useForceUpdate();
   const productRef = useRef(null);
   const [isOpen, setOpen] = useState(false);
   const { x } = useSpring({
@@ -25,115 +24,182 @@ const Product = ({ view }) => {
     },
   });
 
-  console.log(view)
-
-
   useOutsideClickClose(productRef, setOpen);
-  useEffect(() => {
-    globalThis.addEventListener("resize", () => forceUpdate());
-    return () => forceUpdate();
-  }, []);
 
   return (
     <Container ref={productRef}>
-      <div className="inner">
-        {view === "box" || globalThis.innerWidth <= 768 ? (
-          <>
-            <section className="product">
-              <div className="articule">
-                <span>{"Артикул:\n1464"}</span>
-                <Image path="/images/product/market" type="png" />
-              </div>
-              <Image
-                path="/images/product/product"
-                type="png"
-                className="product"
-              />
-              <div className="image-wrapper">
-                <div className="sale">
-                  <Text tag="span" sz="small" bold>
-                    {"Получить\nскидку %"}
-                  </Text>
-                </div>
-                <Image
-                  path="/images/product/gift"
-                  type="png"
-                  className="gift"
-                />
-              </div>
-            </section>
-            <Text tag="span" sz="larg" clr="secondary" bold className="title">
-              Besshof STARK-ZS/ZU-T07KC
-            </Text>
-            <section className="price row">
-              <Image path="/images/product/logo" type="png" />
-              <Button title="Купить в 1 клик" variant="tercary" />
-              <Text tag="span" sz="larg" clr="tercary" bold className="price">
-                15 494 ₽
-              </Text>
-            </section>
-            <section className="info">
-              <table>
-                {info.map(({ title, value }, idx) => (
-                  <tr key={idx}>
-                    <td>
-                      <Text tag="span" sz="normall">
-                        {title}
-                      </Text>
-                    </td>
-                    <td>
-                      <Text tag="span" sz="normall">
-                        {value}
-                      </Text>
-                    </td>
-                  </tr>
-                ))}
-              </table>
-            </section>
-            {globalThis.innerWidth <= 768 ? (
-              <>
-                <section
-                  className="btn-group-mobile"
-                  onClick={() => setOpen(true)}
-                >
-                  <span>{"Артикул:\n1464"}</span>
-                  <Button title="сделать заказ" />
-                </section>
-                <animated.section
-                  className="btn-group-mobile-open row"
-                  style={{
-                    transform: x.interpolate(x => `translateX(${x}%)`),
-                  }}
-                >
-                  <Image
-                    type="png"
-                    path="/images/product/arrow"
-                    onClick={() => setOpen(false)}
-                  />
-                  <Button title="купить" />
-                  <Button title="купить в кредит" variant="secondary" />
-                  <Button title="Купить в 1 клик" variant="tercary" />
-                </animated.section>
-              </>
-            ) : (
-              <section className="btn-group row">
-                <Button title="купить в кредит" variant="tercary" />
-                <Button title="купить" />
+      {view === "box" ? (
+        <div className="potoduct potoduct-box-view">
+          <section className="product">
+            <div className="articule">
+              <Articule value={"1464"} />
+              <Image path="/images/product/market" type="png" />
+            </div>
+            <Image
+              path="/images/product/product"
+              type="png"
+              className="product"
+            />
+            <div className="image-wrapper">
+              <Sale />
+              <Image path="/images/product/gift" type="png" className="gift" />
+            </div>
+          </section>
+          <ProductName value={"Besshof STARK-ZS/ZU-T07KC"} />
+          <section className="price row">
+            <Image path="/images/product/logo" type="png" />
+            <Button title="Купить в 1 клик" variant="tercary" />
+            <Price value={"15 494 ₽"} />
+          </section>
+          <section className="info">
+            <Table value={info} />
+          </section>
+          {globalThis.innerWidth <= 768 ? (
+            <>
+              <section
+                className="btn-group-mobile"
+                onClick={() => setOpen(true)}
+              >
+                <Articule value={"1464"} />
+                <Button title="сделать заказ" />
               </section>
-            )}
-          </>
-        ) : (
-          <>
-            <section className="btn-group-line-view">
-              <Button title="купить" />
-              <Button title="купить в кредит" variant="secondary" />
-              <Button title="Купить в 1 клик" variant="tercary" />
+              <animated.section
+                className="btn-group-mobile-open row"
+                style={{
+                  transform: x.interpolate(x => `translateX(${x}%)`),
+                }}
+              >
+                <Image
+                  type="png"
+                  path="/images/product/arrow"
+                  onClick={() => setOpen(false)}
+                />
+                <BtnsGroup />
+              </animated.section>
+            </>
+          ) : (
+            <section className="btn-group row">
+              <Button title="купить в кредит" variant="tercary" />
+              <Button title="в корзину" />
             </section>
-          </>
-        )}
-      </div>
+          )}
+        </div>
+      ) : (
+        <div className="potoduct potoduct-line-view">
+          <section className="product">
+            <Sale />
+            <Image path="/images/product/product" type="png" />
+          </section>
+          <section className="info">
+            <div className="info-title">
+              <ProductName value={"Besshof STARK-ZS/ZU-T07KC"} />
+              <Image path="/images/product/logo" type="png" />
+            </div>
+            <Table value={info} />
+          </section>
+          <section className="gift">
+            <div className="articule">
+              <Articule value={"1464"} />
+              <Image path="/images/product/market" type="png" />
+            </div>
+            <Image path="/images/product/gift-big" type="png" />
+          </section>
+          <section className="btns">
+            <div className="price">
+              <Text tag="span" sz="normall" clr="primary">
+                цена
+              </Text>
+              <Price value={"15 494 ₽"} />
+            </div>
+            <div className="btn-group">
+              <BtnsGroup />
+            </div>
+          </section>
+        </div>
+      )}
     </Container>
   );
 };
+
+export const SimilarProduct = () => {
+  return (
+    <ContainerSimilarProduct>
+      <div className="potoduct">
+        <section className="product">
+          <Image path="/images/product/market" type="png" className="market" />
+          <Image
+            path="/images/product/product"
+            type="png"
+            className="product"
+          />
+          <Image path="/images/product/gift" type="png" className="gift" />
+          <Sale />
+        </section>
+
+        <ProductName value={"Besshof STARK-ZS/ZU-T07KC"} />
+
+        <section className="price row">
+          <Image path="/images/product/logo" type="png" />
+          <Price value={"15 494 ₽"} />
+        </section>
+
+        <Articule value={"1464"} />
+
+        <section className="btn">
+          <Button title="сделать заказ" />
+        </section>
+      </div>
+    </ContainerSimilarProduct>
+  );
+};
+
+const ProductName = ({ value }) => (
+  <Text tag="span" sz="larg" clr="secondary" bold className="title">
+    {value}
+  </Text>
+);
+
+const Price = ({ value }) => (
+  <Text tag="span" sz="larg" clr="tercary" bold className="price">
+    {value}
+  </Text>
+);
+
+const Sale = () => (
+  <div className="sale">
+    <Text tag="span" sz="small" bold>
+      {"Получить\nскидку %"}
+    </Text>
+  </div>
+);
+
+const BtnsGroup = () => (
+  <>
+    <Button title="в корзину" />
+    <Button title="купить в кредит" variant="secondary" />
+    <Button title="Купить в 1 клик" variant="tercary" />
+  </>
+);
+
+const Articule = ({ value }) => <span>{`Артикул:\n${value}`}</span>;
+
+const Table = ({ value }) => (
+  <table>
+    {value.map(({ title, value }, idx) => (
+      <tr key={idx}>
+        <td>
+          <Text tag="span" sz="normall">
+            {title}
+          </Text>
+        </td>
+        <td>
+          <Text tag="span" sz="normall">
+            {value}
+          </Text>
+        </td>
+      </tr>
+    ))}
+  </table>
+);
 
 export default Product;

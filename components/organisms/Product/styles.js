@@ -1,10 +1,103 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import theme from "@styles/theme";
 
-export const Container = styled.div`
-  .inner {
-    padding: 1.5em 2em;
+const product = css`
+  .potoduct {
+    padding: 2em 3em;
     box-shadow: ${theme.shadow.effect1};
+
+    img {
+      pointer-events: none;
+    }
+
+    span.price {
+      white-space: nowrap;
+    }
+
+    .title {
+      font-size: 1vw;
+
+      ${theme.breakpoints.down(1200)} {
+        font-size: 1.3vw;
+      }
+
+      ${theme.breakpoints.down("xs")} {
+        font-size: 2.8vw;
+      }
+    }
+
+    .sale {
+      width: 8em;
+      height: 8em;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #67ce33 0%, #4c8c2b 100%);
+      box-shadow: ${theme.shadow.effect3};
+      margin-left: -1.3em;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      ${theme.breakpoints.down("xs")} {
+        width: 13vw;
+        height: 13vw;
+        position: absolute;
+        right: 0;
+      }
+
+      span {
+        font-style: italic;
+        text-align: center;
+        user-select: none;
+        white-space: pre-wrap;
+        line-height: normal;
+
+        ${theme.breakpoints.down("lg")} {
+          font-size: 1.175em;
+        }
+
+        ${theme.breakpoints.down("xs")} {
+          font-size: 2vw;
+        }
+      }
+    }
+
+    .info {
+      font-size: 0.8vw;
+
+      ${theme.breakpoints.down(1200)} {
+        font-size: 1vw;
+      }
+
+      ${theme.breakpoints.down("xs")} {
+        display: none;
+      }
+
+      table {
+        width: 100%;
+
+        tr {
+          td:first-of-type {
+            span {
+              color: ${theme.colors.primary};
+            }
+          }
+          td:last-of-type {
+            span {
+              color: ${theme.colors.secondary};
+              font-style: italic;
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const Container = styled.div`
+  ${product};
+
+  .potoduct-box-view {
     display: grid;
     grid-row-gap: 1.5em;
 
@@ -19,10 +112,6 @@ export const Container = styled.div`
       grid-row-gap: 2.5em;
       position: relative;
       overflow: hidden;
-    }
-
-    img {
-      pointer-events: none;
     }
 
     .row {
@@ -89,9 +178,8 @@ export const Container = styled.div`
       button {
         flex: 1;
 
-        ${theme.breakpoints.down("lg")} {
-          padding: 0.4rem 2em;
-        }
+        font-size: 1em;
+        padding: 0.4rem 1.7em;
 
         ${theme.breakpoints.down(1200)} {
           padding: 0.225rem 2em;
@@ -108,7 +196,6 @@ export const Container = styled.div`
     }
 
     .btn-group-mobile {
-
       > span {
         font-size: 2.2vw;
       }
@@ -155,16 +242,16 @@ export const Container = styled.div`
     .product {
       display: flex;
       align-items: flex-start;
-
+      position: relative;
       user-select: none;
-
-      ${theme.breakpoints.down("xs")} {
-        position: relative;
-      }
 
       .articule {
         font-size: 0.8vw;
         z-index: 1;
+
+        ${theme.breakpoints.down(1200)} {
+          font-size: 1vw;
+        }
 
         span {
           display: block;
@@ -199,39 +286,11 @@ export const Container = styled.div`
       }
 
       .image-wrapper {
+        z-index: 1;
+
         .sale {
-          width: 8em;
-          height: 8em;
-          border-radius: 50%;
-          background: linear-gradient(180deg, #67ce33 0%, #4c8c2b 100%);
-          box-shadow: ${theme.shadow.effect3};
-          margin-left: -1.3em;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          ${theme.breakpoints.down("xs")} {
-            width: 13vw;
-            height: 13vw;
-            position: absolute;
-            right: 0;
-          }
-
-          span {
-            font-style: italic;
-            text-align: center;
-            user-select: none;
-            white-space: pre-wrap;
-            line-height: normal;
-
-            ${theme.breakpoints.down("lg")} {
-              font-size: 1.175em;
-            }
-
-            ${theme.breakpoints.down("xs")} {
-              font-size: 2vw;
-            }
+          ${theme.breakpoints.down(1200)} {
+            font-size: 0.9vw;
           }
         }
 
@@ -250,47 +309,155 @@ export const Container = styled.div`
         }
       }
     }
+  }
 
-    .title {
-      font-size: 1vw;
+  .potoduct-line-view {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-      ${theme.breakpoints.down(1200)} {
-        font-size: 1.3vw;
+    > *:not(:last-child) {
+      margin-right: 1em;
+    }
+
+    ${theme.breakpoints.down("lg")} {
+      padding-left: 1vw;
+      padding: 1em 1em;
+    }
+
+    .product {
+      position: relative;
+
+      .sale {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 105px;
+        width: 105px;
+        transform: translate(10%, 10%);
+
+        ${theme.breakpoints.down("lg")} {
+          height: 6.5vw;
+          width: 6.5vw;
+
+          span {
+            font-size: 1vw;
+          }
+        }
       }
 
-      ${theme.breakpoints.down("xs")} {
-        font-size: 2.8vw;
+      img {
+        max-width: 15vw;
+
+        ${theme.breakpoints.down("lg")} {
+          width: 13vw;
+        }
       }
     }
 
     .info {
-      font-size: 0.8vw;
+      display: flex;
+      flex-direction: column;
 
-      ${theme.breakpoints.down(1200)} {
-        font-size: 1vw;
-      }
-
-      ${theme.breakpoints.down("xs")} {
-        display: none;
+      &-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2em;
       }
 
       table {
-        width: 100%;
-
         tr {
-          td:first-of-type {
-            span {
-              color: ${theme.colors.primary};
+          td:last-of-type {
+            padding-left: 3em;
+            white-space: nowrap;
+
+            ${theme.breakpoints.down("lg")} {
+              padding-left: 1vw;
             }
           }
-          td:last-of-type {
+
+          td {
             span {
-              color: ${theme.colors.secondary};
-              font-style: italic;
+              ${theme.breakpoints.down("lg")} {
+                font-size: 1vw;
+              }
             }
           }
         }
       }
     }
+
+    .gift {
+      width: 180px;
+
+      ${theme.breakpoints.down("lg")} {
+        width: 12vw;
+      }
+
+      .articule {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1em;
+
+        ${theme.breakpoints.down(1200)} {
+          font-size: 1.3vw;
+        }
+
+        img {
+          height: 2.2em;
+          filter: ${theme.dropShadow.effect2};
+        }
+      }
+
+      > picture {
+        display: flex;
+        justify-content: center;
+
+        img {
+          height: 7em;
+          margin: 0 auto;
+
+          ${theme.breakpoints.down("lg")} {
+            height: 5vw;
+          }
+        }
+      }
+    }
+
+    .btns {
+      max-width: 250px;
+
+      > .price {
+        padding: 0 1em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1em;
+
+        span:not(.price) {
+          font-size: 1vw;
+        }
+      }
+
+      .btn-group {
+        display: grid;
+        grid-row-gap: 0.7em;
+
+        button {
+          /* padding: 0.4rem 2em; */
+
+          ${theme.breakpoints.down("lg")} {
+            font-size: 1vw;
+            padding: 0.4rem 2em;
+          }
+        }
+      }
+    }
   }
+`;
+
+export const ContainerSimilarProduct = styled.div`
+  ${product};
 `;

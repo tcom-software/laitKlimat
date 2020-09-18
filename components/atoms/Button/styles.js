@@ -20,7 +20,7 @@ const variants = {
 };
 
 export const StyledButton = styled.button`
-  padding: 0.8125em 2em;
+  padding: 0.75rem 2em;
   border-radius: 2em;
   text-transform: uppercase;
   font-family: ${theme.fonts.primary};
