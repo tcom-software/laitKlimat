@@ -217,6 +217,8 @@ export const Section = styled.section`
 
       ${theme.breakpoints.down("xs")} {
         width: 80%;
+        height: auto;
+        object-fit: contain;
         flex-direction: column-reverse;
       }
     }

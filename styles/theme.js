@@ -1,6 +1,6 @@
 import * as breakpoints from "./breakpoints";
 import * as grid from "./grid";
-import { fonts, fontWeight } from "./fonts";
+import { fonts } from "./fonts";
 import Color from "color";
 
 const colors = {
@@ -36,7 +36,7 @@ const dropShadow = {
   banner: `drop-shadow(-5px -5px 30px ${Color(colors.white).fade(
     0.4
   )}) drop-shadow(15px 10px 20px ${Color(colors.black).fade(0.65)})`,
-  effect2: `drop-shadow(0 0.25em 0.625rem ${colors.tercary})`,
+  effect2: `drop-shadow(0.0625em 0.25em 0.3125em ${colors.tercary})`,
 };
 
 const gradients = {
@@ -48,7 +48,6 @@ const gradients = {
 
 export default {
   fonts,
-  fontWeight,
   breakpoints,
   grid,
   colors,

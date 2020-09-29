@@ -1,12 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 import { values as breakoints } from "@styles/breakpoints";
 import { StyledPicture } from "./styles";
 
+interface ImageInterface {
+  path: string;
+  type: string;
+  alt: string;
+  withShadow?: boolean;
+  responsive?: boolean;
+  onClick?: (evant: any) => void;
+  imageProps?: Object;
+}
+
 /**
  * Image component for responsive images
- * @param {Object} props
  */
 const Image = ({
   path,
@@ -16,7 +24,7 @@ const Image = ({
   responsive,
   onClick,
   ...imageProps
-}) => {
+}: ImageInterface) => {
   return (
     <StyledPicture withShadow {...imageProps}>
       {responsive ? (
@@ -53,11 +61,11 @@ Image.defaultProps = {
   withShadow: false,
 };
 
-Image.propTypes = {
-  alt: PropTypes.string,
-  path: PropTypes.string,
-  type: PropTypes.string,
-  withShadow: PropTypes.bool,
-};
+// Image.propTypes = {
+//   alt: PropTypes.string,
+//   path: PropTypes.string,
+//   type: PropTypes.string,
+//   withShadow: PropTypes.bool,
+// };
 
 export default Image;

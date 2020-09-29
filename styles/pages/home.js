@@ -5,7 +5,7 @@ import Color from "color";
 export const Container = styled.div`
   max-width: 1478px;
   box-sizing: content-box;
-  padding-top: 1.5em;
+  padding-top: 0;
   padding-bottom: 1.5em;
 
   ${theme.breakpoints.down("xs")} {
@@ -16,7 +16,7 @@ export const Container = styled.div`
   h1 {
     font-weight: normal;
     text-align: center;
-    padding: 0.5em 0 1.5em;
+    padding: var(--heading-margin) 1.5em;
 
     ${theme.breakpoints.down("xs")} {
       font-weight: bold;

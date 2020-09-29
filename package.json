@@ -3,24 +3,30 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "body-scroll-lock": "^3.1.5",
     "classnames": "^2.2.6",
     "color": "^3.1.2",
+    "knex": "^0.21.5",
+    "mysql": "^2.18.1",
     "next": "9.5.2",
     "next-redux-wrapper": "^6.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-paginate": "^6.5.0",
     "react-redux": "^7.2.1",
+    "react-slick": "^0.27.11",
     "react-spring": "^8.0.27",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "serverless-mysql": "^1.5.4",
+    "sql-template-strings": "^2.2.2",
     "styled-components": "^5.1.1"
   },
   "devDependencies": {

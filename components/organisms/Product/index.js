@@ -1,6 +1,8 @@
 import { useSpring, animated } from "react-spring";
 import { useState, useRef } from "react";
 
+import { Sale } from "./Sale";
+
 import { useOutsideClickClose } from "hooks";
 import { Image, Text, Button } from "@atoms";
 import { Container, ContainerSimilarProduct } from "./styles";
@@ -27,18 +29,18 @@ const Product = ({ view }) => {
   useOutsideClickClose(productRef, setOpen);
 
   return (
-    <Container ref={productRef}>
+    <>
       {view === "box" ? (
-        <div className="potoduct potoduct-box-view">
+        <Container ref={productRef} className="potoduct-box-view">
           <section className="product">
             <div className="articule">
               <Articule value={"1464"} />
               <Image path="/images/product/market" type="png" />
             </div>
             <Image
-              path="/images/product/product"
               type="png"
-              className="product"
+              className="product-image"
+              path="/images/product/product"
             />
             <div className="image-wrapper">
               <Sale />
@@ -72,6 +74,7 @@ const Product = ({ view }) => {
                 <Image
                   type="png"
                   path="/images/product/arrow"
+                  responsive
                   onClick={() => setOpen(false)}
                 />
                 <BtnsGroup />
@@ -83,9 +86,9 @@ const Product = ({ view }) => {
               <Button title="в корзину" />
             </section>
           )}
-        </div>
+        </Container>
       ) : (
-        <div className="potoduct potoduct-line-view">
+        <Container ref={productRef} className="potoduct-line-view">
           <section className="product">
             <Sale />
             <Image path="/images/product/product" type="png" />
@@ -115,40 +118,34 @@ const Product = ({ view }) => {
               <BtnsGroup />
             </div>
           </section>
-        </div>
+        </Container>
       )}
-    </Container>
+    </>
   );
 };
 
 export const SimilarProduct = () => {
   return (
     <ContainerSimilarProduct>
-      <div className="potoduct">
-        <section className="product">
-          <Image path="/images/product/market" type="png" className="market" />
-          <Image
-            path="/images/product/product"
-            type="png"
-            className="product"
-          />
-          <Image path="/images/product/gift" type="png" className="gift" />
-          <Sale />
-        </section>
+      <section className="product">
+        {/* <Image path="/images/product/market" type="png" className="market" /> */}
+        <Image path="/images/product/product" type="png" className="product" />
+        {/* <Image path="/images/product/gift" type="png" className="gift" /> */}
+        {/* <Sale /> */}
+      </section>
 
-        <ProductName value={"Besshof STARK-ZS/ZU-T07KC"} />
+      <ProductName value={"Besshof STARK-ZS/ZU-T07KC"} />
 
-        <section className="price row">
-          <Image path="/images/product/logo" type="png" />
-          <Price value={"15 494 ₽"} />
-        </section>
+      <section className="price row">
+        <Image path="/images/product/logo" type="png" />
+        <Price value={"15 494 ₽"} />
+      </section>
 
-        <Articule value={"1464"} />
+      <Articule value={"1464"} />
 
-        <section className="btn">
-          <Button title="сделать заказ" />
-        </section>
-      </div>
+      <section className="btn">
+        <Button title="сделать заказ" />
+      </section>
     </ContainerSimilarProduct>
   );
 };
@@ -165,14 +162,6 @@ const Price = ({ value }) => (
   </Text>
 );
 
-const Sale = () => (
-  <div className="sale">
-    <Text tag="span" sz="small" bold>
-      {"Получить\nскидку %"}
-    </Text>
-  </div>
-);
-
 const BtnsGroup = () => (
   <>
     <Button title="в корзину" />
@@ -181,7 +170,9 @@ const BtnsGroup = () => (
   </>
 );
 
-const Articule = ({ value }) => <span>{`Артикул:\n${value}`}</span>;
+const Articule = ({ value }) => (
+  <span className="article">{`Артикул:\n${value}`}</span>
+);
 
 const Table = ({ value }) => (
   <table>

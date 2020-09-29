@@ -19,8 +19,3 @@ export const fontfaces = (publicPath = "/") => `
 export const fonts = {
   primary: "Century Gothic",
 };
-
-export const fontWeight = {
-  normal: "normal",
-  bold: "bold",
-};

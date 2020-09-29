@@ -9,6 +9,7 @@ import { Product, SimilarProduct } from "@organisms";
 import { Text, Icon } from "@atoms";
 
 import { Container } from "@styles/pages/product";
+import PreviousViews from "../components/organisms/PreviousViews";
 
 const PlacingAndMontage = () => {
   const [viewState, setViewState] = useState("box");
@@ -83,16 +84,7 @@ const PlacingAndMontage = () => {
           />
         </section>
 
-        <section className="similiar-product">
-          <Text tag="h3" sz="larg" clr="primary">
-            Ваши предыдущие просмотры
-          </Text>
-          <section>
-            {[...Array(3)].map((_, i) => (
-              <SimilarProduct key={i} view={"line"} />
-            ))}
-          </section>
-        </section>
+        <PreviousViews />
       </section>
     </Container>
   );

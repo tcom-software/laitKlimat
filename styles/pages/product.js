@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import theme from "@styles/theme";
-import Color from "color";
 
 export const Container = styled.div`
-  margin-top: 2em;
   position: relative;
 
-  .title {
+  > .title {
+    margin: var(--heading-margin) auto;
+
     .viewVariants {
       position: absolute;
       display: flex;
@@ -92,7 +92,7 @@ export const Container = styled.div`
   }
 
   .main-content {
-    margin: 2em auto;
+    margin-bottom: var(--heading-margin);
 
     .products {
       display: grid;
@@ -131,6 +131,7 @@ export const Container = styled.div`
         display: none;
       }
     }
+
     .pagination--wrapper {
       display: flex;
       justify-content: center;
@@ -138,7 +139,7 @@ export const Container = styled.div`
 
       .pagination {
         display: flex;
-        position: absolute;
+        position: relative;
 
         li {
           font-size: 18px;
@@ -205,11 +206,20 @@ export const Container = styled.div`
       h3 {
         text-align: center;
         margin-bottom: 2em;
+        font-weight: normal;
       }
 
       > section {
         display: flex;
         justify-content: space-between;
+
+        /* product wrapper */
+        > div {
+          width: 19%;
+
+          .product {
+          }
+        }
       }
     }
   }

@@ -72,19 +72,26 @@ const GlobalStyles = createGlobalStyle`
     display: contents;
   }
 
+  img {
+    -webkit-user-drag: none;
+  }
+  
   :root {
     --global-margin: 4vw;
+    --heading-margin: 36px;
 
     @media (max-width: 768px) {  
       --global-margin: 2vw;
+      --heading-margin: 25px;
     }
   }
 
   .container {
     max-width: 1900px;
-    margin: 0 auto;
-    padding-right: var(--global-margin);
+    margin-left: auto;
+    margin-right: auto;
     padding-left: var(--global-margin);
+    padding-right: var(--global-margin);
   }
 
   .scroll-hidden {
