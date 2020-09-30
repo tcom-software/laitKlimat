@@ -33,7 +33,6 @@ export const Container = styled.div`
 
   .gallery {
     padding-top: 1em;
-
     display: flex;
     flex-flow: wrap;
     justify-content: space-around;
@@ -49,9 +48,8 @@ export const Container = styled.div`
         border: 1em solid #eeeeee;
         box-shadow: 7px 7px 11px 0px rgb(0 0 0 / 0.25),
           inset 0px 0px 8px 3px rgb(0 0 0 / 0.2);
-        /* width: 100%; */
-
         height: 300px;
+        transition: 0.5s ease;
         cursor: pointer;
 
         ${theme.breakpoints.down("xs")} {

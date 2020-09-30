@@ -1,10 +1,6 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-  clearAllBodyScrollLocks,
-} from "body-scroll-lock";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 import modals from "./Modals";
 import { Container } from "./styles";
@@ -16,9 +12,6 @@ const Modal = ({ modalType, modalProps, hideModal }) => {
 
   useEffect(() => {
     disableBodyScroll(document.body);
-
-    // document.body.classList.add("scroll-hidden");
-    // return () => document.body.classList.remove("scroll-hidden");
     return () => enableBodyScroll(document.body);
   }, []);
 

@@ -24,6 +24,7 @@
       "@atoms": ["components/atoms"],
       "@molecules": ["components/molecules"],
       "@organisms": ["components/organisms"],
+      "@screens": ["components/screens"],
       "@styles/*": ["styles/*"],
       "@redux/*": ["store/*"],
       "@hooks": ["hooks"]
