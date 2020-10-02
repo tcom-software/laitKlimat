@@ -1,18 +1,14 @@
-import Head from "next/head";
-import { Button } from "@atoms";
+import { initializeStore } from "@redux/index";
+import { ClientsView } from "@screens";
 
-const Clients = () => {
-  return (
-    <div className="container">
-      <style jsx>{`
-        .container {
-          margin: 50px;
-          padding: 20px;
-        }
-      `}</style>
-      <Button title="add" />
-    </div>
-  );
+export default ClientsView;
+
+export const getServerSideProps = () => {
+  const reduxStore = initializeStore();
+
+  return {
+    props: {
+      bannerVariant: "tercary",
+    },
+  };
 };
-
-export default Clients;

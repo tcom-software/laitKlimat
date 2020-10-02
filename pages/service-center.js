@@ -1,24 +1,14 @@
-import Head from "next/head";
-import { Button } from "@atoms";
-
-const ServiceCenter = () => {
-  return (
-    <div className="container">
-      <style jsx>{`
-        .container {
-          margin: 50px;
-          padding: 20px;
-        }
-      `}</style>
-      <Button title="add" />
-    </div>
-  );
-};
-
-ServiceCenter.getInitialProps = () => {
-  return {
-    bannerVariant: "tercary",
-  };
-};
+import { initializeStore } from "@redux/index";
+import { ServiceCenter } from "@screens";
 
 export default ServiceCenter;
+
+export const getServerSideProps = () => {
+  const reduxStore = initializeStore();
+
+  return {
+    props: {
+      bannerVariant: "tercary",
+    },
+  };
+};

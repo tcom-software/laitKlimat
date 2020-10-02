@@ -136,8 +136,8 @@ export const Container = styled.div`
       font-size: 16px;
       line-height: 18px;
 
-      &[type="number"]::-webkit-inner-spin-button,
-      &[type="number"]::-webkit-outer-spin-button {
+      ::-webkit-inner-spin-button,
+      ::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
       }

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Text } from "@atoms";
+import { Hgroup } from "@molecules";
 import { Container } from "./styles";
 import CertificateView from "./CertificateView";
 
@@ -9,16 +10,10 @@ import { certificates } from "./data";
 const CertificatesView = ({ showModal }) => {
   return (
     <Container className="container">
-      <hgroup>
-        <Text tag="h1" sz="larg" clr="primary">
-          Наши сертификаты
-        </Text>
-        <Text tag="h2" sz="normal" clr="primary">
-          {
-            "Подтверждение официального статуса авторизованного дилера <strong>58 брендов.</strong>"
-          }
-        </Text>
-      </hgroup>
+      <Hgroup
+        h1="Наши сертификаты"
+        h2="Подтверждение официального статуса авторизованного дилера <strong>58 брендов.</strong>"
+      />
       <div className="gallery">
         {certificates.map((props, idx) => (
           <CertificateView key={idx} {...props} />

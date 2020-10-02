@@ -2,7 +2,7 @@ import styled from "styled-components";
 import theme from "@styles/theme";
 
 export const Container = styled.div`
-  hgroup {
+  /* hgroup {
     margin-top: var(--heading-margin);
 
     h1 {
@@ -29,7 +29,7 @@ export const Container = styled.div`
         color: ${theme.colors.tercary};
       }
     }
-  }
+  } */
 
   .gallery {
     padding-top: 1em;
