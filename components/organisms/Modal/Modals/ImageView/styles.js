@@ -39,8 +39,9 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 
-  > div {
+  .close {
     width: 2.5em;
     height: 2.5em;
     min-height: 2.5em;
@@ -69,6 +70,36 @@ export const Container = styled.div`
         height: 1em;
       }
     }
+  }
+
+  .next,
+  .prev {
+    width: 2em;
+    height: 2em;
+    position: absolute;
+    border: 3px solid white;
+    border-right: none;
+    border-bottom: none;
+    background: transparent;
+    cursor: pointer;
+
+    ::before {
+      content: "";
+      width: 150%;
+      height: 150%;
+      transform: translate(-40%, -40%);
+      display: block;
+    }
+  }
+
+  .next {
+    right: 0;
+    transform: translateX(100%) rotate(135deg);
+  }
+
+  .prev {
+    left: 0;
+    transform: translateX(-100%) rotate(-45deg);
   }
 
   picture {

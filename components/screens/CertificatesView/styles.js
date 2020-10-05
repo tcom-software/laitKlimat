@@ -2,34 +2,13 @@ import styled from "styled-components";
 import theme from "@styles/theme";
 
 export const Container = styled.div`
-  /* hgroup {
-    margin-top: var(--heading-margin);
-
-    h1 {
-      text-align: center;
-      font-weight: normal;
-
-      ${theme.breakpoints.down("xs")} {
-        color: ${theme.colors.secondary};
-        font-weight: revert;
-      }
-    }
-
+  hgroup {
     h2 {
-      font-weight: normal;
-      margin: 1.5em 0;
-
       ${theme.breakpoints.down("xs")} {
-        margin: 0.625em 0;
-        text-align: center;
-      }
-
-      strong {
-        font-weight: normal;
-        color: ${theme.colors.tercary};
+        color: ${theme.colors.primary};
       }
     }
-  } */
+  }
 
   .gallery {
     padding-top: 1em;

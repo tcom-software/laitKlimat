@@ -1,3 +1,4 @@
+export { default as Gallery } from "./Gallery";
 export { default as ProductView } from "./ProductView";
 export { default as ClientsView } from "./ClientsView";
 export { default as ServiceCenter } from "./ServiceCenter";

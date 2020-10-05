@@ -23,6 +23,7 @@ export const StyledHgroup = styled.hgroup`
       margin: 0.625em 0;
       text-align: center;
       letter-spacing: 0.06em;
+      color: ${theme.colors.tercary};
     }
 
     strong {
