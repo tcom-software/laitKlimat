@@ -19,7 +19,7 @@ const lazyLoadImages = (
             entry.isIntersecting &&
             entry.target.getAttribute("data-srcSet")
           ) {
-            entry.target.srcSet = entry.target.getAttribute("data-srcSet");
+            entry.target.srcset = entry.target.getAttribute("data-srcSet");
             entry.target.removeAttribute("data-srcSet");
             observerChild.unobserve(entry.target);
           }
