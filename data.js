@@ -3,8 +3,8 @@ export const tabs = [
   { tab: "/certificates", name: "Наши сертификаты" },
   { tab: "/clients", name: "Наши клиенты" },
   { tab: "/gallery", name: "Фото наших монтажей" },
-  { tab: "/feedback", name: "Отзывы наших клиентов" },
-  { tab: "/shipping-and-payment", name: "Доставка и оплата" },
+  { tab: "/reviews", name: "Отзывы наших клиентов" },
+  { tab: "/delivery", name: "Доставка и оплата" },
   { tab: "/service-center", name: "Сервис центр" },
 ];
 

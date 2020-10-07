@@ -7,16 +7,17 @@ export const StyledHgroup = styled.hgroup`
   h1 {
     text-align: center;
     font-weight: normal;
+    margin-bottom: 1em;
 
     ${theme.breakpoints.down("xs")} {
-      color: ${theme.colors.secondary};
       font-weight: revert;
+      color: ${theme.colors.secondary};
     }
   }
 
   h2 {
     font-weight: normal;
-    margin: 1.5em 0;
+    margin-bottom: 1.5em;
     letter-spacing: 0.1em;
 
     ${theme.breakpoints.down("xs")} {

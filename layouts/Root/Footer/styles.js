@@ -51,7 +51,7 @@ export const StyledFooter = styled.footer`
           }
 
           .list,
-          .icons {
+          .payment-icons {
             margin-top: 1.2em;
 
             ${theme.breakpoints.down("xs")} {
@@ -68,7 +68,7 @@ export const StyledFooter = styled.footer`
             }
           }
 
-          .icons {
+          .payment-icons {
             display: flex;
             flex-flow: wrap;
             justify-content: center;

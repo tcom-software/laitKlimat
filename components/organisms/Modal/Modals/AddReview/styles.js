@@ -1,6 +1,37 @@
 import styled, { keyframes } from "styled-components";
 import theme from "@styles/theme";
 
+const backgroundAnim = keyframes`
+  from {
+    left: -123%;
+  }
+  to {
+    left: 0;
+  }
+`;
+
+const animateInMount = keyframes`
+  from {
+    transform: translate(50%, 50%) ;
+    opacity: 0;
+  }
+  to {
+    transform: translate(50%, 0);
+    opacity: 1;
+  }
+`;
+
+const animateInMobile = keyframes`
+  from {
+    transform: translateY(50%) ;
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
+
 export const Container = styled.div`
   height: 100%;
   max-height: 70vh;
@@ -80,4 +111,6 @@ export const Container = styled.div`
       object-fit: contain;
     }
   }
+
+  /* animation: ${animateInMobile} 0.5s ease; */
 `;

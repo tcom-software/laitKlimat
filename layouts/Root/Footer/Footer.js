@@ -1,4 +1,5 @@
-import { Icon, Link, Text, NextLink, Image } from "@atoms";
+import { Payment } from "@molecules";
+import { Icon, Text, NextLink, Image } from "@atoms";
 import { StyledFooter } from "./styles";
 
 const menu = [
@@ -47,15 +48,6 @@ const menu = [
   {
     id: 5,
     title: "Способы оплаты",
-    imageType: "png",
-    paths: [
-      "maestro",
-      "master-card",
-      "uniteller",
-      "american-express",
-      "mir",
-      "visa",
-    ],
   },
 ];
 
@@ -89,16 +81,7 @@ const Footer = () => {
                     ))}
                   </ul>
                 ) : (
-                  <ul className="icons">
-                    {paths.map((path, idx) => (
-                      <li key={idx}>
-                        <Image
-                          path={`/images/footer/${path}`}
-                          type={imageType}
-                        />
-                      </li>
-                    ))}
-                  </ul>
+                  <Payment />
                 )}
                 {idx === 0 && (
                   <div className="social-icons">

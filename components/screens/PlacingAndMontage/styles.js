@@ -83,7 +83,9 @@ export const Container = styled.div`
       td {
         box-sizing: content-box;
         border-bottom: 1em solid white;
-        ${mmp("height", "2.75em", { xs: "1.85em" })};
+        
+        padding-top: 0.7rem;
+        padding-bottom: 0.7rem;
       }
 
       :not(:first-of-type) {
