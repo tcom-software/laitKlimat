@@ -9,6 +9,13 @@ export default class MyDocument extends Document {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
+    // const styleTags = sheet.getStyleElement();
+    // styleTags[0].props.dangerouslySetInnerHTML.__html = styleTags[0].props.dangerouslySetInnerHTML.__html
+    //   .replace(/\/\*.*\*\//g, " ")
+    //   .replace(/\s+/g, " ");
+
+    // console.log(styleTags[0].props.dangerouslySetInnerHTML.__html);
+
     try {
       ctx.renderPage = () =>
         originalRenderPage({
@@ -19,12 +26,11 @@ export default class MyDocument extends Document {
       const initialProps = await Document.getInitialProps(ctx);
 
       return {
-        ...initialProps,
         isProduction,
+        ...initialProps,
         styles: (
           <>
             {initialProps.styles}
-            {sheet.getStyleElement()}
           </>
         ),
       };
@@ -33,23 +39,34 @@ export default class MyDocument extends Document {
     }
   }
 
-  // setGoogleTags() {
-  //   return {
-  //     __html: `
-  //       window.dataLayer = window.dataLayer || [];
-  //       function gtag(){dataLayer.push(arguments);}
-  //       gtag('js', new Date());
-  //       gtag('config', '${GTAG.GA_TRACKING_ID}');
-  //     `,
-  //   };
-  // }
-
-  // setYandexMetrika() {
-  //   return {
-  //     __html:
-  //       '!function(e,t,a,n,c,m,r){e.ym=e.ym||function(){(e.ym.a=e.ym.a||[]).push(arguments)},e.ym.l=1*new Date,m=t.createElement(a),r=t.getElementsByTagName(a)[0],m.defer=1,m.src="https://mc.yandex.ru/metrika/tag.js",r.parentNode.insertBefore(m,r)}(window,document,"script"),ym(57218449,"init",{clickmap:!0,trackLinks:!0,accurateTrackBounce:!0,webvisor:!0});',
-  //   };
-  // }
+  setYandexMap() {
+    return {
+      __html: `
+        window.ymaps.ready(init);
+        let myMap, myPlacemark;
+        function init() {
+          myMap = new ymaps.Map("map", {
+            center: [55.812313, 37.606477],
+            zoom: 12,
+          });
+          myPlacemark = new ymaps.Placemark(
+            [55.812313, 37.606477],
+            {
+              hintContent: "Laitklimat.ru",
+              balloonContent: "Климатическая Компания N1",
+            },
+            {
+              iconLayout: "default#image",
+              iconImageHref: "/images/footer/location.png",
+              iconImageSize: [60, 60],
+              iconImageOffset: [-20, -38],
+            }
+          );
+          myMap.geoObjects.add(myPlacemark);
+        }
+      `,
+    };
+  }
 
   render() {
     // const { isProduction } = this.props;
@@ -88,30 +105,11 @@ export default class MyDocument extends Document {
             href="/favicon-16x16.png"
           />
           <link rel="manifest" href="/site.webmanifest"></link>
-
-          {
-            // isProduction && (
-            //   <>
-            //     {/* Global site tag (gtag.js) - Google Analytics */}
-            //     <script
-            //       async
-            //       src="https://www.googletagmanager.com/gtag/js?id=UA-147552183-1"
-            //     />
-            //     <script dangerouslySetInnerHTML={this.setGoogleTags()} />
-            //     {/* Yandex.Metrika counter */}
-            //     <script dangerouslySetInnerHTML={this.setYandexMetrika()} />
-            //     <noscript>
-            //       <div>
-            //         <img
-            //           src="https://mc.yandex.ru/watch/57218449"
-            //           style={{ position: "absolute", left: "-9999px" }}
-            //           alt="yandex"
-            //         />
-            //       </div>
-            //     </noscript>
-            //   </>
-            // )
-          }
+          <script
+            src="https://api-maps.yandex.ru/2.1/?apikey=b2769c37-b37e-4924-9162-e52f41c8d89f&lang=ru_RU"
+            type="text/javascript"
+          />
+          <script dangerouslySetInnerHTML={this.setYandexMap()} />
           <GlobalStyles />
         </Head>
         <body>

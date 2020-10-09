@@ -23,7 +23,9 @@ const Reviews = () => {
       <Review />
       <Review />
       <Text tag="span" clr="primary" sz="normal">
-        Рейтинг нашей компании! 5 звезд на основе 15 отзывов
+        {
+          "Рейтинг нашей компании! <strong>5 звезд</strong> на основе 15 отзывов"
+        }
       </Text>
       <Button variant="primary" title="Добавить отзыв" onClick={addReview} />
     </Container>

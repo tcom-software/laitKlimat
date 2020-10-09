@@ -1,9 +1,11 @@
 export { default as Text } from "./Text";
 export { default as Link } from "./Link";
 export { default as Icon } from "./Icon";
+export { default as Input } from "./Input";
 export { default as Image } from "./Image";
 export { default as Button } from "./Button";
 export { default as NextLink } from "./NextLink";
+export { default as Textarea } from "./Textarea";
 // export { default as TitleBox } from "./TitleBox";
 // export { default as Section } from "./Section";
 // export { default as Input } from "./Input";

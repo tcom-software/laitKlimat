@@ -28,7 +28,7 @@ const Menu = ({ modalRef, hideModal }) => {
           ))}
         </ul>
         <address>
-          <Location />
+          <Location icon />
           <WorkHours />
           <SocialIcons />
         </address>

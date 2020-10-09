@@ -1,5 +1,5 @@
-import { Payment } from "@molecules";
 import { Icon, Text, NextLink, Image } from "@atoms";
+import { Payment, Location } from "@molecules";
 import { StyledFooter } from "./styles";
 
 const menu = [
@@ -95,12 +95,7 @@ const Footer = () => {
           </ul>
         </section>
         <address>
-          <div className="location">
-            <Image path="/images/footer/location" type="png" />
-            <Text tag="span" clr="white" sz="larg">
-              {"127254, г. Москва,\n Огородный проезд д.6 стр.1"}
-            </Text>
-          </div>
+          <Location size="larg" />
           <Text tag="p" clr="white" sz="larg" className="copyright">
             © 2012—2020 Компания Лайт климат
           </Text>

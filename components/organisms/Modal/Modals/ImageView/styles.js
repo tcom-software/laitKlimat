@@ -15,7 +15,6 @@ export const Container = styled.div`
     height: 2.5em;
     min-height: 2.5em;
     min-width: 2.5em;
-    background-color: ${theme.colors.white};
     margin-left: auto;
     display: flex;
     align-items: center;

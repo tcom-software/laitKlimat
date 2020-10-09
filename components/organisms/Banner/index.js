@@ -278,11 +278,11 @@ import { Container, Section } from "./styles";
 import { Text, Button, Image } from "@atoms";
 
 const texts = [
-  { title: "доставка по всей россии", sz: "normal", clr: "white" },
-  { title: "Hitachi RAK-18NH6AS", sz: "larger", clr: "white" },
-  { title: "Лучшая цена на рынке", sz: "normal", clr: "white" },
-  { title: "9 900 ₽", sz: "larger", clr: "white" },
-  { title: "Антибактериальный фильтр <strong>в подарок<strong>", sz: "normal", clr: "white" },
+  { title: "доставка по всей россии", sz: "normal" },
+  { title: "Hitachi RAK-18NH6AS", sz: "larger" },
+  { title: "Лучшая цена на рынке", sz: "normal" },
+  { title: "9 900 ₽", sz: "larger" },
+  { title: "Антибактериальный фильтр <strong>в подарок<strong>", sz: "normal" },
 ];
 
 const variants = ["primary", "secondary", "tercary"];
@@ -302,8 +302,8 @@ const Banner = ({ variant }) => {
       <Section>
         <div className="info">
           <div className="texts">
-            {texts.map(({ title, sz, clr }, idx) => (
-              <Text sz={sz} clr={clr} key={idx}>
+            {texts.map(({ title, sz }, idx) => (
+              <Text sz={sz} clr="white" key={idx}>
                 {title}
               </Text>
             ))}

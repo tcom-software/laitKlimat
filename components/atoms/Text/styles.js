@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import theme from "@styles/theme";
 
-const sizes = {
+export const sizes = {
   small: css`
     font-size: 1em;
     line-height: 1.25rem;
@@ -49,6 +49,10 @@ const sizes = {
 export const Tag = styled.div`
   text-transform: uppercase;
   color: ${({ clr }) => theme.colors[clr]};
+
+  strong {
+    color: ${theme.colors.tercary};
+  }
 
   ${({ sz }) =>
     typeof sz === "number"

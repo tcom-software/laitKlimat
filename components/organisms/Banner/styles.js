@@ -193,6 +193,11 @@ export const Section = styled.section`
     width: 100%;
 
     .texts {
+      p {
+        strong {
+          color: white;
+        }
+      }
     }
 
     .buttons {

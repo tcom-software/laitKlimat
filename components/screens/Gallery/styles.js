@@ -3,6 +3,8 @@ import theme from "@styles/theme";
 import { mmp } from "@styles/utils/mediaProperty";
 
 export const Container = styled.div`
+  margin-bottom: 4em;
+
   hgroup {
   }
 

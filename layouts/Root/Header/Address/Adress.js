@@ -1,4 +1,3 @@
-import { Icon, Text } from "@atoms";
 import { SocialIcons, Location, WorkHours } from "@molecules";
 
 import { StyledAddress } from "./styles";
@@ -8,7 +7,7 @@ const Address = () => {
     <StyledAddress>
       <div className="inner container">
         <SocialIcons />
-        <Location />
+        <Location icon />
         <WorkHours />
       </div>
     </StyledAddress>

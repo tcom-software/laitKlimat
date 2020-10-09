@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useEffect } from "react";
 import { useStore } from "@redux/index";
 import { persistStore } from "redux-persist";
 import { Provider as ReduxProvider } from "react-redux";
@@ -13,6 +14,13 @@ const MyApp = ({ Component, pageProps }) => {
   const persistor = persistStore(store, {}, function () {
     persistor.persist();
   });
+
+  useEffect(() => {
+    const data = document.querySelector("#__NEXT_DATA__");
+    if (data) {
+      data.remove();
+    }
+  }, []);
 
   return (
     <>

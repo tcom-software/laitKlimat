@@ -27,6 +27,7 @@ const colors = {
 
 const shadow = {
   effect1: `0 2px 10px ${Color(colors.primary).fade(0.8)}`,
+  effect1Hover: `0 2px 15px ${Color(colors.primary).fade(0.8)}`,
   effect3: `3px 5px 10px ${Color(colors.primary).fade(0.75)}`,
   // effect2: "0px 0px 20px rgba(0, 0, 0, 0.15)",
 };
