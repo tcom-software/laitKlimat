@@ -28,7 +28,12 @@ export default class MyDocument extends Document {
       return {
         isProduction,
         ...initialProps,
-        styles: <>{initialProps.styles}</>,
+        styles: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        ),
       };
     } finally {
       sheet.seal();
