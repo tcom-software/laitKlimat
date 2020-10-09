@@ -28,11 +28,7 @@ export default class MyDocument extends Document {
       return {
         isProduction,
         ...initialProps,
-        styles: (
-          <>
-            {initialProps.styles}
-          </>
-        ),
+        styles: <>{initialProps.styles}</>,
       };
     } finally {
       sheet.seal();
@@ -41,30 +37,8 @@ export default class MyDocument extends Document {
 
   setYandexMap() {
     return {
-      __html: `
-        window.ymaps.ready(init);
-        let myMap, myPlacemark;
-        function init() {
-          myMap = new ymaps.Map("map", {
-            center: [55.812313, 37.606477],
-            zoom: 12,
-          });
-          myPlacemark = new ymaps.Placemark(
-            [55.812313, 37.606477],
-            {
-              hintContent: "Laitklimat.ru",
-              balloonContent: "Климатическая Компания N1",
-            },
-            {
-              iconLayout: "default#image",
-              iconImageHref: "/images/footer/location.png",
-              iconImageSize: [60, 60],
-              iconImageOffset: [-20, -38],
-            }
-          );
-          myMap.geoObjects.add(myPlacemark);
-        }
-      `,
+      __html:
+        'let myMap,myPlacemark;function init(){myMap=new ymaps.Map("map",{center:[55.812313,37.606477],zoom:12}),myPlacemark=new ymaps.Placemark([55.812313,37.606477],{hintContent:"Laitklimat.ru",balloonContent:"Климатическая Компания N1"},{iconLayout:"default#image",iconImageHref:"/images/footer/location.png",iconImageSize:[60,60],iconImageOffset:[-20,-38]}),myMap.geoObjects.add(myPlacemark)}window.ymaps.ready(init);',
     };
   }
 
