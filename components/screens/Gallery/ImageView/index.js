@@ -36,8 +36,8 @@ const ImageView = ({ name, count }) => {
       onClick={() => handleShowImage()}
     >
       <picture>
-        <source data-srcSet={`${imagePath}_min.webp`} type="image/webp" />
-        <source data-srcSet={`${imagePath}_min.jpg`} type="image/jpg" />
+        <source data-srcset={`${imagePath}_min.webp`} type="image/webp" />
+        <source data-srcset={`${imagePath}_min.jpg`} type="image/jpg" />
         <img
           alt="Фото наших монтажей"
           data-src={`${imagePath}_min.jpg`}

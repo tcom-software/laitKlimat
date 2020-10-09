@@ -46,10 +46,10 @@ const CertificateView = ({ brandName, certificate }) => {
       >
         <picture>
           <source
-            data-srcSet={`${certificatePath}_min.webp`}
+            data-srcset={`${certificatePath}_min.webp`}
             type="image/webp"
           />
-          <source data-srcSet={`${certificatePath}_min.jpg`} type="image/jpg" />
+          <source data-srcset={`${certificatePath}_min.jpg`} type="image/jpg" />
           <img
             alt={brandName}
             data-src={`${certificatePath}_min.jpg`}

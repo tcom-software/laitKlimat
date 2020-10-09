@@ -32,14 +32,14 @@ const ClientView = ({ frontUrl, name }) => {
   return (
     <div>
       <div
-        class="scene"
+        className="scene"
         style={{
           visibility: loaded ? "visible" : "hidden",
           opacity: loaded ? 1 : 0,
         }}
       >
-        <div class="card">
-          <div class="card__face card__face--front">
+        <div className="card">
+          <div className="card__face card__face--front">
             <picture>
               <source srcSet={`${frontPath}.webp`} type="image/webp" />
               <source srcSet={`${frontPath}.jpg`} type="image/jpg" />
@@ -51,7 +51,7 @@ const ClientView = ({ frontUrl, name }) => {
             </picture>
           </div>
           <div
-            class="card__face card__face--back"
+            className="card__face card__face--back"
             onClick={() => handleShowImage()}
           >
             <picture>

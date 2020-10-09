@@ -17,10 +17,10 @@ const lazyLoadImages = (
             observerChild.unobserve(entry.target);
           } else if (
             entry.isIntersecting &&
-            entry.target.getAttribute("data-srcSet")
+            entry.target.getAttribute("data-srcset")
           ) {
-            entry.target.srcset = entry.target.getAttribute("data-srcSet");
-            entry.target.removeAttribute("data-srcSet");
+            entry.target.srcset = entry.target.getAttribute("data-srcset");
+            entry.target.removeAttribute("data-srcset");
             observerChild.unobserve(entry.target);
           }
         });

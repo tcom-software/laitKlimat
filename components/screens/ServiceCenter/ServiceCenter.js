@@ -58,7 +58,7 @@ const ServiceCenter = () => {
               </Text>
             </legend>
             {radio.inputs.map((title, idx) => (
-              <label htmlFor={`radio-${idx}`}>
+              <label htmlFor={`radio-${idx}`} key={idx}>
                 <input
                   type="radio"
                   id={`radio-${idx}`}
