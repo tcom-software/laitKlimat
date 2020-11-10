@@ -11,6 +11,7 @@ export const StyledCeckbox = styled.input`
   ${theme.breakpoints.down("lg")} {
     width: 1.3em;
     height: 1.3em;
+    
   }
 
   :checked {
