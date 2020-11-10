@@ -2,13 +2,26 @@ import { memo } from "react";
 import { Text } from "@atoms";
 import { StyledLabel } from "../styles";
 
-const Input = ({ label, type, inputRef }) => {
+const Input = ({
+  label,
+  type,
+  name = "",
+  inputRef = null,
+  placeholder = "",
+  ...rest
+}) => {
   return (
     <StyledLabel>
       <Text tag="p" clr="secondary" sz="normal">
         {label}
       </Text>
-      <input ref={inputRef} type={type} placeholder={label} />
+      <input
+        {...rest}
+        type={type}
+        name={name}
+        ref={inputRef}
+        placeholder={placeholder ? placeholder : label}
+      />
     </StyledLabel>
   );
 };

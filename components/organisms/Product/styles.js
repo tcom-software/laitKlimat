@@ -86,7 +86,6 @@ export const Container = styled(Product)`
   &.potoduct-box-view {
     display: grid;
     grid-row-gap: 1.5em;
-
     font-size: 0.6vw;
 
     ${theme.breakpoints.down("md")} {
@@ -181,6 +180,17 @@ export const Container = styled(Product)`
       }
     }
 
+    .btn-group-mobile,
+    .btn-group-mobile-open {
+      button {
+        width: 100%;
+        border-radius: 10em;
+        font-size: 2.7vw;
+        line-height: 0.9375em;
+        padding: 2vw 2em;
+      }
+    }
+
     .btn-group-mobile {
       > span {
         font-size: 2.2vw;
@@ -192,10 +202,6 @@ export const Container = styled(Product)`
 
       button {
         margin-top: 1em;
-        width: 100%;
-        border-radius: 10em;
-        font-size: 2.7vw;
-        padding: 0.75rem 2em;
       }
     }
 
@@ -212,10 +218,6 @@ export const Container = styled(Product)`
       z-index: 2;
 
       button {
-        width: 100%;
-        border-radius: 10em;
-        font-size: 2.7vw;
-        padding: 0.75rem 2em;
       }
 
       img {
@@ -258,9 +260,7 @@ export const Container = styled(Product)`
           filter: ${theme.dropShadow.effect2};
           width: 60%;
           /* 
-          ${theme.breakpoints.down(
-            "xs"
-          )} {
+          ${theme.breakpoints.down("xs")} {
             width: 100%;
           } */
         }
@@ -275,6 +275,7 @@ export const Container = styled(Product)`
           }
 
           ${theme.breakpoints.down("xs")} {
+            width: 85%;
             padding-top: 4em;
             padding-right: 8em;
           }

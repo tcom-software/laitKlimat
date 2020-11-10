@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "@styles/theme";
-import { Image, Text, Button } from "@atoms";
+import { Text, Button } from "@atoms";
 
 const StyledSale = styled.div`
   width: 8em;
@@ -29,4 +29,31 @@ export const Sale = () => (
       {"Получить\nскидку %"}
     </Text>
   </StyledSale>
+);
+
+export const BtnsGroup = () => (
+  <>
+    <Button title="в корзину" />
+    <Button title="купить в кредит" variant="secondary" />
+    <Button title="Купить в 1 клик" variant="tercary" />
+  </>
+);
+
+export const Table = ({ value }) => (
+  <table>
+    {value.map(({ title, value }, idx) => (
+      <tr key={idx}>
+        <td>
+          <Text tag="span" sz="normall">
+            {title}
+          </Text>
+        </td>
+        <td>
+          <Text tag="span" sz="normall">
+            {value}
+          </Text>
+        </td>
+      </tr>
+    ))}
+  </table>
 );

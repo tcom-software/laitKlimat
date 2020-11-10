@@ -118,17 +118,32 @@ export const Container = styled.div`
 
     .filters {
       float: left;
-      padding: 0 7em;
+      width: min-content;
+      padding: 3.25em 2.5em;
       margin-right: 1.5em;
       box-shadow: ${theme.shadow.effect1};
-      height: 100vh;
 
       ${theme.breakpoints.down("lg")} {
-        padding: 0 7vw;
+        padding: 1.5em;
+      }
+
+      ${theme.breakpoints.down("md")} {
+        padding: 0.875em;
       }
 
       ${theme.breakpoints.down("xs")} {
         display: none;
+      }
+
+      > div {
+        fieldset {
+          width: 100%;
+        }
+      }
+
+      button[type="reset"] {
+        display: block;
+        margin: 2em 0 0 auto;
       }
     }
 
@@ -201,7 +216,9 @@ export const Container = styled.div`
     }
 
     .similiar-product {
+      width: 100%;
       margin-top: 4em;
+      display: flow-root;
 
       h3 {
         text-align: center;

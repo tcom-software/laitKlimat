@@ -2,7 +2,7 @@ import { memo } from "react";
 import { Text } from "@atoms";
 import { StyledLabel } from "../styles";
 
-const Input = ({ label, type, inputRef }) => {
+const Select = ({ label, type, inputRef }) => {
   return (
     <StyledLabel>
       <Text tag="p" clr="secondary" sz="normal">
@@ -13,4 +13,4 @@ const Input = ({ label, type, inputRef }) => {
   );
 };
 
-export default memo(Input);
+export default memo(Select);

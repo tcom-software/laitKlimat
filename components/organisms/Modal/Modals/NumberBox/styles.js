@@ -97,27 +97,24 @@ export const Container = styled.div`
     }
 
     > div {
+      display: flex;
+
       label:first-of-type {
-        display: flex;
-        float: left;
         margin-right: 0.7em;
       }
 
       label {
         display: flex;
-        align-items: center;
-        width: min-content;
 
         input {
-          margin-left: 0.5em;
-          padding: 0.6em;
-          border: 1px solid ${theme.colors.secondary};
-          background-color: white;
           width: 1.7em;
           height: 1.7em;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          padding: 0.6em;
+          margin-left: 0.5em;
+          background-color: ${theme.colors.white};
+          border: 1px solid ${theme.colors.secondary};
+          display: grid;
+          place-content: center;
 
           ${theme.breakpoints.down("lg")} {
             width: 1.3em;

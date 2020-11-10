@@ -1,17 +1,9 @@
-import { useState } from "react";
 import { useRouter } from "next/router";
-import cn from "classnames";
 
-import { tabs } from "data";
-import { Link, Icon, Button, Text } from "@atoms";
-import { Logo } from "@molecules";
+import { Icon, Button, Text } from "@atoms";
 import { Container } from "./styles";
 
-import { SocialIcons, Location, WorkHours } from "@molecules";
-
 const NumberBox = ({ modalRef, hideModal, style }) => {
-  const route = useRouter();
-  const [checked, setChecked] = useState("no");
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -38,31 +30,22 @@ const NumberBox = ({ modalRef, hideModal, style }) => {
             Ранее обращались к нам ?
           </Text>
           <div>
-            <label htmlFor="checkbox-no">
+            <label>
               <Text tag="span" sz="normal" clr="white">
                 нет
               </Text>
               <input
                 type="radio"
-                id="checkbox-no"
                 name="checkbox_answer"
                 value="no"
-                checked={checked === "no"}
-                onChange={() => setChecked("no")}
+                defaultChecked={true}
               />
             </label>
-            <label htmlFor="checkbox-yes">
+            <label>
               <Text tag="span" sz="normal" clr="white">
                 да
               </Text>
-              <input
-                type="radio"
-                id="checkbox-yes"
-                name="checkbox_answer"
-                value="yes"
-                checked={checked === "yes"}
-                onChange={() => setChecked("yes")}
-              />
+              <input type="radio" name="checkbox_answer" value="yes" />
             </label>
           </div>
           <Button variant="secondary" title="Отправить" type="submit" />

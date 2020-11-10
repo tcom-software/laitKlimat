@@ -5,11 +5,11 @@ import cn from "classnames";
 
 import { initializeStore } from "@redux/index";
 import { useForceUpdate } from "hooks";
-import { Product, SimilarProduct } from "@organisms";
-import { Text, Icon } from "@atoms";
+
+import { Button, Text, Icon } from "@atoms";
+import { PreviousViews, Product, Filter } from "@organisms";
 
 import { Container } from "@styles/pages/product";
-import PreviousViews from "components/organisms/PreviousViews";
 
 const PlacingAndMontage = () => {
   const [viewState, setViewState] = useState("box");
@@ -22,9 +22,7 @@ const PlacingAndMontage = () => {
       }
       forceUpdate();
     };
-
     globalThis.addEventListener("resize", resize);
-
     return () => globalThis.removeEventListener("resize", resize);
   }, []);
 
@@ -55,7 +53,10 @@ const PlacingAndMontage = () => {
       </section>
 
       <section className="container main-content">
-        <div className="filters">filtersfiltersfilters</div>
+        <form className="filters">
+          <Filter />
+          <Button variant="secondary" title="сброс" type="reset" />
+        </form>
 
         <div className={cn("products", `${viewState}-view`)}>
           {[...Array(10)].map((_, i) => (

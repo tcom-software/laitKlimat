@@ -214,6 +214,7 @@ export const Container = styled.div`
         width: 2.4em;
         height: 2.4em;
         margin: 0 1.2em 0 0.2em;
+        cursor: pointer;
       }
 
       .btn-group {

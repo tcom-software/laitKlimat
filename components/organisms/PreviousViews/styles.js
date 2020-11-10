@@ -4,6 +4,9 @@ import theme from "@styles/theme";
 export const Container = styled.section`
   margin-top: 4em;
 
+  width: 100%;
+  display: flow-root;
+
   h3 {
     text-align: center;
     margin-bottom: 2em;
@@ -83,9 +86,7 @@ export const Container = styled.section`
           height: auto;
           padding: 0.5em;
 
-          /* ${theme.breakpoints.down(
-            "xs"
-          )}{
+          /* ${theme.breakpoints.down("xs")}{
             padding: 0.5em 1em;
           } */
         }

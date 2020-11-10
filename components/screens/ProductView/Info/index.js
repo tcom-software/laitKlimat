@@ -1,6 +1,17 @@
+import { useDispatch } from "react-redux";
+import { showModal } from "@redux/actions/modal";
 import { Text, Image, Icon, Button } from "@atoms";
 
 const Info = () => {
+  const dispatch = useDispatch();
+  const openCompare = () => {
+    dispatch(
+      showModal({
+        modalType: "compare",
+      })
+    );
+  };
+
   return (
     <section className="info">
       <table>
@@ -91,7 +102,7 @@ const Info = () => {
         </tfoot>
       </table>
       <div className="row">
-        <Icon name="compare" fill="tercary" />
+        <Icon name="compare" fill="tercary" onClick={openCompare} />
         <Text tag="span" sz="normal" clr="tercary">
           Сравнить
         </Text>

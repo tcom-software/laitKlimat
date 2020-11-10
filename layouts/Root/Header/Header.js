@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import Nav from "./Nav";
 import Address from "./Address";
@@ -40,31 +40,37 @@ const Header = ({ showModal }) => {
     console.log(e.target.search.value);
   };
 
-  const toggleMobileMenu = () => {
+  const toggleMobileMenu = useCallback(() => {
     document.body.classList.toggle("scroll-hidden");
     setOpenMobileMenu(state => !state);
-  };
+  }, [setOpenMobileMenu]);
 
   const hideMobileMenu = () => {
     document.body.classList.remove("scroll-hidden");
     setOpenMenu(false);
   };
 
-  const handleShowMenu = () => {
+  const handleShowMenu = useCallback(() => {
     globalThis.innerWidth < 768
       ? toggleMobileMenu()
       : showModal({
           modalType: "menu",
           modalProps: {},
         });
-  };
+  }, [toggleMobileMenu]);
 
-  const handleShowNumberBox = style => {
+  const handleShowNumberBox = useCallback(style => {
     showModal({
       modalType: "numberBox",
       modalProps: style,
     });
-  };
+  }, []);
+
+  const handleShowFilter = useCallback(() => {
+    showModal({
+      modalType: "filter",
+    });
+  }, []);
 
   return (
     <>
@@ -106,7 +112,7 @@ const Header = ({ showModal }) => {
               <span className="count">0</span>
             </div>
           </div>
-          <div className="filter">
+          <div className="filter" onClick={handleShowFilter}>
             <button title="фильтры продуктов" aria-label="фильтры продуктов">
               <span />
               <span />

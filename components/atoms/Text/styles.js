@@ -2,6 +2,10 @@ import styled, { css } from "styled-components";
 import theme from "@styles/theme";
 
 export const sizes = {
+  smaller: css`
+    font-size: 0.875em;
+    line-height: 1.05rem;
+  `,
   small: css`
     font-size: 1em;
     line-height: 1.25rem;
@@ -16,8 +20,8 @@ export const sizes = {
     line-height: 1.375rem;
 
     ${theme.breakpoints.down("lg")} {
-      font-size: 0.75em;
-      line-height: 1rem;
+      font-size: 0.875em;
+      line-height: 1.0625rem;
     }
   `,
   larg: css`

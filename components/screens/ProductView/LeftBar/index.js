@@ -1,5 +1,5 @@
 import { Text, Image, Icon, Button } from "@atoms";
-import { Sale } from "components/organisms/Product/Sale";
+import { Sale } from "components/organisms/Product/Components";
 
 const LeftBar = () => {
   return (

@@ -12,6 +12,7 @@ const Button = ({
   refName,
   variant,
   className,
+  children=null,
   ...buttonProps
 }) => {
   return (
@@ -23,6 +24,7 @@ const Button = ({
       aria-label={title}
       {...buttonProps}
     >
+      {children}
       <span>{title}</span>
     </StyledButton>
   );

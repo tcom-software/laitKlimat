@@ -1,11 +1,12 @@
 import { useCallback } from "react";
-import { Text, Button } from "@atoms";
-import { Hgroup } from "@molecules";
 import { useDispatch } from "react-redux";
 import { showModal } from "@redux/actions/modal";
 
-import { Container } from "./styles";
+import { Hgroup } from "@molecules";
+import { Text, Button } from "@atoms";
+
 import Review from "./Review";
+import { Container } from "./styles";
 
 const Reviews = () => {
   const dispatch = useDispatch();
