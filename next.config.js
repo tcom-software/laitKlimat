@@ -13,7 +13,7 @@ module.exports = {
     productsPath: "api/getProducts/",
     productPath: "api/getProduct/",
     filterPath: "api/getFilterData/",
-    searchPath: "api/searchProduct/",
+    searchPath: "api/searchProduct",
   },
   publicRuntimeConfig: {
     staticFolder: "",

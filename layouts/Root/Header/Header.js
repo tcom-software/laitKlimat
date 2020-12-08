@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 
 import Nav from "./Nav";
 import Address from "./Address";
@@ -44,24 +44,45 @@ const acardion = (categories, changeCategory) => {
   );
 };
 
+let timeId;
+
 /**
  * Header
  */
 const Header = ({ changeCategory }) => {
   const dispatch = useDispatch();
   const categoryRef = useRef(null);
+  const [search, setSearch] = useState("");
   const [isOpenMenu, setOpenMenu] = useState(false);
+  const [searchResults, setSearchResults] = useState(null);
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
   const categories = useSelector(getCategories);
   const basketCount = useSelector(getBasketCount);
 
   /**
-   *
+   * search products
    */
-  const handleSearch = e => {
-    e.preventDefault();
-    console.log(e.target.search.value);
-  };
+  const fetchSearchData = useCallback(async () => {
+    const response = await fetch("/api/searchProduct", {
+      method: "POST",
+      body: JSON.stringify({ search, page: 2 }),
+    });
+    return await response.json();
+  }, [search]);
+
+  useEffect(() => {
+    clearTimeout(timeId);
+
+    timeId = setTimeout(async () => {
+      if (search) {
+        const { payload } = await fetchSearchData();
+        console.log(payload);
+        setSearchResults(payload);
+      } else {
+        setSearchResults(null);
+      }
+    }, 300);
+  }, [search]);
 
   const toggleMobileMenu = useCallback(() => {
     document.body.classList.toggle("scroll-hidden");
@@ -122,15 +143,25 @@ const Header = ({ changeCategory }) => {
             {acardion(categories, closeCategories)}
           </div>
           <div className="search-bar">
-            <form onSubmit={handleSearch}>
+            <form>
               <label>
                 <span className="srOnly">поиск продуктов</span>
                 <input
                   type="text"
                   name="search"
                   placeholder="написать для поиска"
+                  onChange={e => setSearch(e.target.value)}
                 />
               </label>
+              {searchResults && (
+                <div className="search-result">
+                  <ul>
+                    {searchResults.searchResponse.map(({ brand }, i) => {
+                      <li key={i}>{brand}</li>;
+                    })}
+                  </ul>
+                </div>
+              )}
               <button type="submit">
                 <Text clr="white" sz="normal" tag="span">
                   поиск

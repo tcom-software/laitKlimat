@@ -145,7 +145,7 @@ export const initializeProducts = async ({
   }
 
   if (!hasCache) {
-    console.log({ body, fromTo: body.fromTo });
+    // console.log({ body, fromTo: body.fromTo });
     const filters = `${category}?page=${page || 1}`;
     const url = `${fetchUrl}${productsPath}${filters}`;
     const response = await fetch(url, {
