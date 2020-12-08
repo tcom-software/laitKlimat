@@ -14,15 +14,19 @@ export const Container = styled.div`
 
     main {
       overflow-y: auto;
+      position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
       ${theme.breakpoints.between("xs", "lg")} {
         padding: 1.5em 4em 2em;
       }
 
-      ${theme.breakpoints.between("xs", "md")} {
+      /*${theme.breakpoints.between("xs", "md")} {
         display: flex;
         justify-content: center;
-      }
+      }*/
 
       ::-webkit-scrollbar {
         width: 12px;
