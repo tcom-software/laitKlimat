@@ -44,8 +44,8 @@ export function between(start, end) {
   }
 
   return (
-    `@media (min-width:${values[start]}${unit}) and ` +
-    `(max-width:${values[keys[endIndex]] - step / 100}${unit})`
+    `@media (min-width:${values[start] || start}${unit}) and ` +
+    `(max-width:${(values[keys[endIndex]] || end) - step / 100}${unit})`
   );
 }
 

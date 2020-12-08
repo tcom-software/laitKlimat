@@ -164,10 +164,6 @@ export const Container = styled.div`
           margin: 0 0.2em;
 
           background-color: ${theme.colors.white};
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
           cursor: pointer;
 
           &.previous,
@@ -203,6 +199,10 @@ export const Container = styled.div`
 
           a {
             color: ${theme.colors.primary};
+            width: inherit;
+            height: inherit;
+            display: grid;
+            place-content: center;
 
             :focus {
               outline: none;

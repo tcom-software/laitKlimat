@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import thunkMiddleware from "redux-thunk";
-import { persistReducer } from "redux-persist";
+import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { createStore, applyMiddleware } from "redux";
 import combinedReducer from "./reducers";
@@ -31,7 +31,7 @@ const initStore = (preloadedState = {}) => {
   );
 };
 
-export const initializeStore = (preloadedState: any) => {
+export const initializeStore = (preloadedState: any = undefined) => {
   let _store = store ?? initStore(preloadedState);
 
   // After navigating to a page with an initial Redux state, merge that state
@@ -55,5 +55,6 @@ export const initializeStore = (preloadedState: any) => {
 
 export const useStore = (initialState: any) => {
   const store = useMemo(() => initializeStore(initialState), [initialState]);
-  return store;
+  const persistor = persistStore(store);
+  return { store, persistor };
 };

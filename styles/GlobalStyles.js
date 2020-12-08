@@ -52,6 +52,24 @@ const GlobalStyles = createGlobalStyle`
   #__next { 
   }
 
+  #nprogress { 
+    .bar {
+      /* z-index: 100000; */
+      background:  ${theme.colors.secondary};
+      height: 4px;
+
+      .peg {
+        box-shadow: 0 0 10px ${theme.colors.secondary}, 0 0 5px ${
+  theme.colors.secondary
+};
+      }
+    }
+
+    .spinner {
+      display: none;
+    }
+  }
+
   button {
     font-family: inherit;
     white-space: nowrap;
@@ -83,6 +101,7 @@ const GlobalStyles = createGlobalStyle`
   :root {
     --global-margin: 4vw;
     --heading-margin: 36px;
+    --animation-play-state: paused; /* or running*/
 
     @media (max-width: 768px) {  
       --global-margin: 3vw;
@@ -134,6 +153,24 @@ const GlobalStyles = createGlobalStyle`
     /* &-thumb:hover {
       background: #555;
     } */
+  }
+
+  @keyframes loader {
+    from {
+      pointer-events: all;
+      opacity: 1;
+      background-color: #fff;
+    }
+    50% {
+      pointer-events: all;
+      opacity: 1;
+      background-color: #daecea;
+    }
+    to {
+      pointer-events: all;
+      opacity: 1;
+      background-color: #fff;
+    }
   }
 `;
 

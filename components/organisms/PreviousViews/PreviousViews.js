@@ -8,7 +8,7 @@ import { values as breakpoints } from "@styles/breakpoints";
 // const BASE_URL = "/images/home/gallery";
 const TOTAL_ITEMS = 5;
 
-const Arrow = props => (
+const Arrow = ({ currentSlide,slideCount, ...props }) => (
   <button {...props}>
     <Icon name="arrow" />
   </button>

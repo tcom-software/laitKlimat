@@ -3,25 +3,42 @@ import { Sale, BtnsGroup, Table } from "../Components";
 import { Image, Text } from "@atoms";
 import { Container } from "../styles";
 
-const ProductHorizontalView = ({ data }) => {
+const ProductHorizontalView = ({ data, loading, addToBasket }) => {
+  const {
+    brand,
+    brandLogo,
+    productName,
+    productImageX300,
+    characteristics,
+    articule,
+    setupPrice,
+    // price,
+    formatedPrice,
+    characteristic,
+  } = data;
+
   return (
     <Container className="potoduct-line-view">
       <section className="product">
         <Sale />
-        <Image path="/images/product/product" type="png" />
+        <picture>
+          <img src={productImageX300} alt={brand} width="180" height="140" />
+        </picture>
       </section>
       <section className="info">
         <div className="info-title">
           <Text tag="span" sz="larg" clr="secondary" bold className="title">
-            {"Besshof STARK-ZS/ZU-T07KC"}
+            {productName}
           </Text>
-          <Image path="/images/product/logo" type="png" />
+          <picture>
+            <img src={brandLogo} alt={brand} />
+          </picture>
         </div>
-        <Table value={data} />
+        <Table characteristic={characteristic} />
       </section>
       <section className="gift">
         <div className="articule">
-          <span className="article">{`Артикул:\n${1464}`}</span>
+          <span className="article">{`Артикул:\n${articule}`}</span>
           <Image path="/images/product/market" type="png" />
         </div>
         <Image path="/images/product/gift-big" type="png" />
@@ -32,11 +49,11 @@ const ProductHorizontalView = ({ data }) => {
             цена
           </Text>
           <Text tag="span" sz="larg" clr="tercary" bold className="price">
-            {"15 494 ₽"}
+            {formatedPrice}
           </Text>
         </div>
         <div className="btn-group">
-          <BtnsGroup />
+          <BtnsGroup loading={loading} addToBasket={addToBasket} />
         </div>
       </section>
     </Container>

@@ -26,6 +26,14 @@ export const Container = styled.div`
       }
 
       .arrow-back {
+        cursor: pointer;
+
+        img {
+          transition: transform 0.3s ease;
+          :hover {
+            transform: translateX(-10%);
+          }
+        }
       }
 
       .images {
@@ -82,7 +90,10 @@ export const Container = styled.div`
           }
 
           > img {
-            width: 90%;
+            width: 70px;
+            margin-bottom: 0.5em;
+            margin: 0 auto;
+            display: block;
             margin-bottom: 0.5em;
           }
 
@@ -92,6 +103,11 @@ export const Container = styled.div`
             box-shadow: 7px 7px 11px 0px rgb(0 0 0 / 0.25),
               inset 0px 0px 8px 3px rgb(0 0 0 / 0.2);
             width: 100%;
+
+            ${theme.breakpoints.between("md", 1200)} {
+              width: 70%;
+              margin: 0 auto;
+            }
 
             img {
               padding: 0.1em;
@@ -280,6 +296,12 @@ export const Container = styled.div`
           display: flex;
           justify-content: space-between;
           padding: 2px 0;
+
+          td:last-of-type {
+            span {
+              text-transform: lowercase;
+            }
+          }
         }
       }
     }

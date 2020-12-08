@@ -3,19 +3,31 @@ import ProductHorizontalView from "./HorizontalView";
 
 import { Image, Icon, Text, Button } from "@atoms";
 import { ContainerSimilarProduct } from "./styles";
+import { serializeProductCardData } from "helper/serializeProduct";
+import { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { basketAddProduct } from "@redux/actions/basket";
 
-export const productData = [
-  { title: "Обслуживаемая площадь до", value: "20 м2" },
-  { title: "Стоимость установки", value: "14 900 ₽" },
-  { title: "Доставка в пределах МКАД", value: "бесплатно" },
-  { title: "В кредит от", value: "645 р./месяц" },
-];
+const Product = ({ view, data }) => {
+  const dispatch = useDispatch();
+  const serializedData = serializeProductCardData(data);
+  const ProduvtView = view === "box" ? ProductBoxView : ProductHorizontalView;
+  const [loading, setLoading] = useState(false);
 
-const Product = ({ view }) => {
-  return view === "box" ? (
-    <ProductBoxView data={productData} />
-  ) : (
-    <ProductHorizontalView data={productData} />
+  const addToBasket = useCallback(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      dispatch(basketAddProduct(serializedData));
+    }, 300);
+  });
+
+  return (
+    <ProduvtView
+      loading={loading}
+      addToBasket={addToBasket}
+      data={serializedData}
+    />
   );
 };
 

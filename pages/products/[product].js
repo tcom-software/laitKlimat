@@ -1,13 +1,45 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductsCacheByKey } from "@redux/selectors/products";
 import { initializeStore } from "@redux/index";
 import { ProductView } from "components/screens";
+import { compose } from "utils/compose";
+import {
+  initializeCategories,
+  initializeProduct,
+} from "helper/initialReduxState";
+import { addProductsCache } from "@redux/actions/products";
 
-const Product = props => <ProductView {...props} />;
+const Product = ({ initialStore }) => {
+  const dispatch = useDispatch();
+  const product = useSelector(
+    getProductsCacheByKey(initialStore.product.productId)
+  );
 
-export const getServerSideProps = () => {
-  const reduxStore = initializeStore();
+  useEffect(() => {
+    const { hasCache, productId, payload } = initialStore.product;
+    if (!hasCache) {
+      dispatch(addProductsCache(productId, payload));
+    }
+  }, []);
+
+  return <ProductView product={product} />;
+};
+
+export const getServerSideProps = async ctx => {
+  const store = initializeStore();
+  const { initialStore } = await compose(
+    initializeCategories,
+    initializeProduct
+  )({
+    store,
+    ctx,
+    initialStore: {},
+  });
 
   return {
     props: {
+      initialStore,
       bannerVariant: "secondary",
     },
   };

@@ -4,10 +4,9 @@
     [
       "styled-components",
       {
-        "ssr": true,
-        "displayName": false,
-        "preprocess": false,
-        "minify": false
+        "ssr": false,
+        "displayName": true,
+        "minify": true
       }
     ]
   ]

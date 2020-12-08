@@ -1,0 +1,27 @@
+// action types
+export const types = {
+  ADD_PRODUCT: "basket/ADD_PRODUCT",
+  REMOVE_PRODUCT: "basket/REMOVE_PRODUCT",
+  CLEAR_BASKET: "basket/CLEAR_BASKET",
+  INCREMENT_PRODUCT_COUNT: "basket/INCREMENT_PRODUCT_COUNT",
+  DECREMENT_PRODUCT_COUNT: "basket/DECREMENT_PRODUCT_COUNT",
+
+  ORDER_PRODUCT_LOADING: "basket/ORDER_PRODUCT_LOADING",
+  ORDER_PRODUCT_SUCCESS: "basket/ORDER_PRODUCT_SUCCESS",
+  ORDER_PRODUCT_FAILURE: "basket/ORDER_PRODUCT_FAILURE",
+};
+
+// action creators
+export const basketAddProduct = (product: any) => ({
+  type: types.ADD_PRODUCT,
+  payload: product,
+});
+
+export const basketRemoveProduct = (id: number) => ({
+  type: types.REMOVE_PRODUCT,
+  payload: id,
+});
+
+export const basketClear = () => ({
+  type: types.CLEAR_BASKET,
+});

@@ -81,7 +81,7 @@ const Product = ({ data }) => {
           </Text>
           <Image path="/images/product/logo" type="png" />
         </div>
-        <Table value={data} />
+        {/* <Table value={data} /> */}
       </section>
       <sections className="count">
         <Text tag="span" sz="normall" clr="primary">

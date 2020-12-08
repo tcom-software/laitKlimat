@@ -1,11 +1,19 @@
+import { FilterState } from "@redux/reducers/filters";
+import { ModalState } from "@redux/reducers/modal";
+
 interface actionTypes {
   [name: string]: string;
 }
 
-interface actionInterface {
+export interface ActionCreatorType {
   type: string;
   payload?: any;
 }
 
-export type ActionCreatorType = Readonly<actionInterface>;
+// export type ActionCreatorType = Readonly<ActionInterface>;
 export type ActionType = Readonly<actionTypes>;
+export type AppState = {
+  filters: FilterState;
+  modal: ModalState;
+  categories: any;
+};

@@ -33,6 +33,12 @@ export const Container = styled.div`
         grid-template-columns: repeat(4, min-content);
         grid-template-rows: repeat(7, max-content);
 
+        .column {
+          display: grid;
+          grid-row-gap: 1em;
+          grid-auto-rows: max-content;
+        }
+
         ${theme.breakpoints.down("xs")} {
           margin: 0 auto;
           width: fit-content;
@@ -51,7 +57,7 @@ export const Container = styled.div`
         }
 
         fieldset {
-          :nth-of-type(1) {
+          /* :nth-of-type(1) {
             grid-area: 1 / 1 / 6 / 2;
 
             ${theme.breakpoints.between("xs", "lg")} {
@@ -93,7 +99,7 @@ export const Container = styled.div`
           }
           :nth-of-type(13) {
             grid-area: 4 / 4 / 8 / 5;
-          }
+          } */
         }
       }
     }

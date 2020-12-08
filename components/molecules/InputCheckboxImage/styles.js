@@ -20,6 +20,11 @@ export const StyledFieldSet = styled.fieldset`
       grid-template-columns: min-content;
       margin-bottom: 0.4em;
 
+      img {
+        width: 30px;
+        height: auto;
+      }
+
       span {
         text-overflow: ellipsis;
         word-break: break-word;

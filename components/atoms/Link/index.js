@@ -6,11 +6,18 @@ import cn from "classnames";
 import { Text } from "@atoms";
 
 const Link = props => {
-  const { title, href, className, ...linkProps } = props;
+  const {
+    title,
+    href,
+    className,
+    onClick = null,
+    innerRef = null,
+    ...linkProps
+  } = props;
 
   return (
     <NextLink href={href} {...linkProps}>
-      <a className={cn([className])}>
+      <a className={cn([className])} onClick={onClick} ref={innerRef}>
         <Text sz="normal" clr="primary" tag="span">
           {title}
         </Text>

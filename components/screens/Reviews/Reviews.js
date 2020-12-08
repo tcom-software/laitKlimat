@@ -13,7 +13,7 @@ const Reviews = () => {
   const addReview = useCallback(() => {
     dispatch(
       showModal({
-        modalType: "addReview",
+        modalType: "filter",
       })
     );
   }, []);

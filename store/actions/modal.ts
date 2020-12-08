@@ -1,10 +1,9 @@
-import { ActionType, ActionCreatorType } from "../types";
-import { equalKeyAndValue } from "./equalKeyAndValue";
+import { ActionCreatorType } from "../types";
 
-export const types: ActionType = equalKeyAndValue([
-  "MODAL_HIDE",
-  "MODAL_SHOW",
-] as Array<string>);
+export const types = {
+  MODAL_HIDE: "modal/MODAL_HIDE",
+  MODAL_SHOW: "modal/MODAL_SHOW",
+};
 
 //action creators
 export const hideModal = (): ActionCreatorType => ({

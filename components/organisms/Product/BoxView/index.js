@@ -1,5 +1,5 @@
 import { useSpring, animated } from "react-spring";
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 
 import { Sale, BtnsGroup, Table } from "../Components";
 
@@ -7,10 +7,12 @@ import { useOutsideClickClose } from "hooks";
 import { Image, Text, Button } from "@atoms";
 import { Container } from "../styles";
 import eases from "utils/easing";
+import Link from "next/link";
 
-const ProductBoxView = ({ data }) => {
+const ProductBoxView = ({ data, loading, addToBasket }) => {
   const productRef = useRef(null);
   const [isOpen, setOpen] = useState(false);
+  useOutsideClickClose(productRef, setOpen);
   const { x } = useSpring({
     x: isOpen ? 0 : -100,
     config: {
@@ -19,42 +21,61 @@ const ProductBoxView = ({ data }) => {
     },
   });
 
-  useOutsideClickClose(productRef, setOpen);
+  const {
+    brand,
+    brandLogo,
+    productName,
+    productImageX300,
+    characteristics,
+    articule,
+    setupPrice,
+    // price,
+    formatedPrice,
+    characteristic,
+  } = data;
 
   return (
     <Container ref={productRef} className="potoduct-box-view">
       <section className="product">
-        <div className="articule">
-          <span className="article">{`Артикул:\n${1464}`}</span>
-          <Image path="/images/product/market" type="png" />
+        <div className="articule left-side">
+          <span className="article">{`Артикул:\n${articule}`}</span>
+          <img src="/images/product/market.png" alt="product market" />
         </div>
-        <Image
-          type="png"
-          className="product-image"
-          path="/images/product/product"
-        />
-        <div className="image-wrapper">
+        <Link href={`products/[product]`} as={`products/${articule}`}>
+          <a>
+            <img
+              src={productImageX300}
+              className="product-image"
+              alt="product image"
+            />
+          </a>
+        </Link>
+        <div className="right-side">
           <Sale />
-          <Image path="/images/product/gift" type="png" className="gift" />
+          <img src="/images/product/gift.png" className="gift" alt="gift" />
         </div>
       </section>
-      <Text tag="span" sz="larg" clr="secondary" bold className="title">
-        {"Besshof STARK-ZS/ZU-T07KC"}
-      </Text>
+      <Link href={`products/[product]`} as={`products/${articule}`}>
+        <a>
+          <Text tag="span" sz="larg" clr="secondary" bold className="title">
+            {productName}
+          </Text>
+        </a>
+      </Link>
       <section className="price row">
-        <Image path="/images/product/logo" type="png" />
+        <img src={brandLogo} alt="brand logo" />
         <Button title="Купить в 1 клик" variant="tercary" />
         <Text tag="span" sz="larg" clr="tercary" bold className="price">
-          {"15 494 ₽"}
+          {formatedPrice}
         </Text>
       </section>
       <section className="info">
-        <Table value={data} />
+        <Table characteristic={characteristic} />
       </section>
       {globalThis.innerWidth <= 768 ? (
         <>
           <section className="btn-group-mobile" onClick={() => setOpen(true)}>
-            <span className="article">{`Артикул:\n${1464}`}</span>
+            <span className="article">{`Артикул:\n${articule}`}</span>
             <Button title="сделать заказ" />
           </section>
           <animated.section
@@ -63,19 +84,18 @@ const ProductBoxView = ({ data }) => {
               transform: x.interpolate(x => `translateX(${x}%)`),
             }}
           >
-            <Image
-              type="png"
-              path="/images/product/arrow"
-              responsive
+            <img
+              src="/images/product/arrow_mobile.png"
               onClick={() => setOpen(false)}
+              alt="arrow"
             />
-            <BtnsGroup />
+            <BtnsGroup loading={loading} addToBasket={addToBasket} />
           </animated.section>
         </>
       ) : (
         <section className="btn-group row">
           <Button title="купить в кредит" variant="tercary" />
-          <Button title="в корзину" />
+          <Button title="в корзину" loading={loading} onClick={addToBasket} />
         </section>
       )}
     </Container>

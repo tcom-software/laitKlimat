@@ -11,8 +11,12 @@ export const StyledFieldSet = styled.fieldset`
   }
 
   .wrapper {
-    height: 400px;
+    max-height: 400px;
     overflow-y: auto;
+
+    .no-search {
+      text-transform: unset;
+    }
 
     label {
       display: grid;

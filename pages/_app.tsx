@@ -1,0 +1,65 @@
+import Head from "next/head";
+import { useEffect } from "react";
+import { AppProps } from "next/app";
+import { Router } from "next/router";
+
+import { PersistGate } from "redux-persist/integration/react";
+import { initializeCategories } from "@redux/actions/site";
+import { Provider as ReduxProvider } from "react-redux";
+import { useStore } from "@redux/index";
+
+import GlobalStyles from "@styles/GlobalStyles";
+import Layout from "../layouts/Root";
+
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+import { setCookie } from "utils/cookies";
+import { storage } from "constants/storageKeys";
+
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  const { bannerVariant, initialStore } = pageProps;
+  const { store, persistor } = useStore(undefined);
+
+  // dispatch initial store
+  useEffect(() => {
+    const { categories } = initialStore;
+    if (categories) {
+      store.dispatch(initializeCategories(categories));
+    }
+    window.addEventListener("unload", () => {
+      setCookie(storage.FILTERS, "[]");
+      setCookie(storage.PRODUCTS, "[]");
+    });
+    // return () => {};
+  }, []);
+
+  // hide next data
+  useEffect(() => {
+    const data = document.querySelector("#__NEXT_DATA__");
+    if (data) {
+      data.remove();
+    }
+  }, []);
+
+  return (
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <GlobalStyles />
+      <ReduxProvider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Layout data={{ bannerVariant }}>
+            <Component {...pageProps} />
+          </Layout>
+        </PersistGate>
+      </ReduxProvider>
+    </>
+  );
+};
+
+export default MyApp;

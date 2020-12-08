@@ -25,11 +25,13 @@
       "@molecules": ["components/molecules"],
       "@organisms": ["components/organisms"],
       "@screens": ["components/screens"],
+      "@styles": ["styles"],
       "@styles/*": ["styles/*"],
+      "@redux": ["store"],
       "@redux/*": ["store/*"],
       "@hooks": ["hooks"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "exclude": ["node_modules"]
 }

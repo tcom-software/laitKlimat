@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
 import { showModal } from "@redux/actions/modal";
 import { Text, Image, Icon, Button } from "@atoms";
+import { useCallback } from "react";
 
-const Info = () => {
+const Info = ({ data: { table, creditFrom } }) => {
   const dispatch = useDispatch();
   const openCompare = () => {
     dispatch(
@@ -12,94 +13,39 @@ const Info = () => {
     );
   };
 
+  const TableComponent = useCallback(({ data }) => {
+    const types = {
+      text: Text,
+      image: Image,
+    };
+    const Component = types[data.type];
+    return <Component {...data.value}>{data.value.text}</Component>;
+  }, []);
+
+  // name = "head" | "body" | "footer"
+  const renderTRs = name => {
+    return (
+      <>
+        {table[name].map(({ key, value, className, notRender }, idx) =>
+          !notRender ? (
+            <tr className={className} key={idx}>
+              <td {...(key.colSpan ? { colSpan: key.colSpan } : {})}>
+                <TableComponent data={key} />
+              </td>
+              <td>{value && <TableComponent data={value} />}</td>
+            </tr>
+          ) : null
+        )}
+      </>
+    );
+  };
+
   return (
     <section className="info">
       <table>
-        <thead>
-          <tr>
-            <td colSpan="2">
-              <Text tag="h4" sz="normal" clr="secondary">
-                Лучшая цена на рынке
-              </Text>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="price">
-            <td>
-              <Text tag="span" sz="normal" clr="primary">
-                цена
-              </Text>
-            </td>
-            <td>
-              <Text tag="span" sz="larg" clr="tercary">
-                15 494 ₽
-              </Text>
-            </td>
-          </tr>
-          <tr className="articule">
-            <td>
-              <Text tag="span" sz="normal" clr="primary">
-                Артикул: 1464
-              </Text>
-            </td>
-            <td></td>
-          </tr>
-          <tr className="market">
-            <td>
-              <Text tag="span" sz="normal" clr="primary">
-                {"Товар выставлен на Маркете <br /> Есть в наличии"}
-              </Text>
-            </td>
-            <td>
-              <Image path="/images/product/market" type="png" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Text tag="span" sz="normal" clr="primary">
-                Стоимость установки
-              </Text>
-            </td>
-            <td>
-              <Text tag="span" sz="normal" clr="tercary">
-                ₽13522
-              </Text>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Text tag="span" sz="normal" clr="primary">
-                Доставка в пределах МКАД
-              </Text>
-            </td>
-            <td>
-              <Text tag="span" sz="normal" clr="tercary">
-                бесплатно
-              </Text>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Text tag="span" sz="normal" clr="primary">
-                Заказ от 40 000 руб. 3% предоплата
-              </Text>
-            </td>
-            <td></td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td>
-              <Text tag="h4" sz="normal" clr="secondary">
-                Антибактериальный фильтр в подарок
-              </Text>
-            </td>
-            <td>
-              <Image path="/images/product/gift" type="png" />
-            </td>
-          </tr>
-        </tfoot>
+        <thead>{renderTRs("head")}</thead>
+        <tbody>{renderTRs("body")}</tbody>
+        <tfoot>{renderTRs("footer")}</tfoot>
       </table>
       <div className="row">
         <Icon name="compare" fill="tercary" onClick={openCompare} />
@@ -111,7 +57,7 @@ const Info = () => {
         <Button variant="primary" title="купить" />
         <Button variant="tercary" title="Купить в 1 клик" />
         <Button variant="secondary" title="купить в кредит" />
-        <Button variant="tercary" title="В кредит от 495 р./месяц" />
+        <Button variant="tercary" title={`В кредит от <strong>${creditFrom}</strong>/месяц`} />
       </section>
     </section>
   );

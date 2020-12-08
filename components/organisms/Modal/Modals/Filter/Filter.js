@@ -10,7 +10,6 @@ const Filter = ({ modalRef, hideModal }) => {
     e.preventDefault();
 
     const formElement = e.target;
-
     const formData = {};
     const inputs = Array.from(formElement.elements).filter(
       ({ name }, idx, self) =>
@@ -27,11 +26,9 @@ const Filter = ({ modalRef, hideModal }) => {
               )
                 .filter(checkbox => checkbox.checked)
                 .map(checkbox => checkbox.value);
-
         formData[inputs[i].name] = value;
       }
     }
-
     console.log(formData);
   };
 

@@ -42,7 +42,7 @@ export const StyledButton = styled.button`
   filter: ${theme.dropShadow.btn};
 
   ${theme.breakpoints.down("lg")} {
-    font-size:  1em;
+    font-size: 1em;
     line-height: 1.25rem;
     padding: 0.625rem 2em;
   }
@@ -54,4 +54,30 @@ export const StyledButton = styled.button`
   }
 
   ${({ variant }) => variants[variant]}
+
+  &.loading {
+    span {
+      img {
+        height: 60%;
+        top: 50%;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: loop-rotate 0.8s linear infinite;
+      }
+
+      &:last-of-type {
+        opacity: 0;
+      }
+    }
+
+    @keyframes loop-rotate {
+      0% {
+        transform: translate(-50%, -50%) rotate(0);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+  }
 `;

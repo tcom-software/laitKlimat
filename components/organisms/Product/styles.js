@@ -14,12 +14,14 @@ const Product = styled.div`
   }
 
   .title {
-    font-size: 1vw;
+    font-size: 19px;
 
-    ${theme.breakpoints.down(1200)} {
+    ${theme.breakpoints.down(1681)} {
+      font-size: 1.2vw;
+    }
+    ${theme.breakpoints.down(1025)} {
       font-size: 1.3vw;
     }
-
     ${theme.breakpoints.down("xs")} {
       font-size: 2.8vw;
     }
@@ -31,8 +33,6 @@ const Product = styled.div`
   }
 
   .sale {
-    margin-left: -1.3em;
-
     ${theme.breakpoints.down("xs")} {
       width: 13vw;
       height: 13vw;
@@ -52,7 +52,11 @@ const Product = styled.div`
   }
 
   .info {
-    font-size: 0.8vw;
+    font-size: 15px;
+
+    ${theme.breakpoints.down(1681)} {
+      font-size: 0.85vw;
+    }
 
     ${theme.breakpoints.down(1200)} {
       font-size: 1vw;
@@ -85,16 +89,23 @@ const Product = styled.div`
 export const Container = styled(Product)`
   &.potoduct-box-view {
     display: grid;
-    grid-row-gap: 1.5em;
-    font-size: 0.6vw;
+    grid-row-gap: 20px;
+    grid-template-rows: min-content min-content min-content 1fr;
+    padding: 30px 35px;
 
-    ${theme.breakpoints.down("md")} {
-      padding: 2em 2em;
+    ${theme.breakpoints.down(1681)} {
+      padding: 20px 25px;
+      grid-row-gap: 15px;
+    }
+
+    ${theme.breakpoints.down(1441)} {
+      padding: 20px 25px;
+      grid-row-gap: 10px;
     }
 
     ${theme.breakpoints.down("xs")} {
-      padding: 3em 3em 7em;
-      grid-row-gap: 2.5em;
+      padding: 10px 15px;
+      grid-row-gap: 5px;
       position: relative;
       overflow: hidden;
     }
@@ -118,7 +129,11 @@ export const Container = styled(Product)`
       }
 
       img {
-        width: 30%;
+        width: 20%;
+
+        ${theme.breakpoints.down(1681)} {
+          width: 18%;
+        }
       }
 
       button {
@@ -126,10 +141,14 @@ export const Container = styled(Product)`
         filter: none;
         font-style: inherit;
         padding: 0;
-        font-size: 0.9vw;
+        font-size: 17px;
+
+        ${theme.breakpoints.down(1681)} {
+          font-size: 0.85vw;
+        }
 
         ${theme.breakpoints.down(1200)} {
-          font-size: 1vw;
+          font-size: 1.1vw;
         }
 
         ${theme.breakpoints.down("xs")} {
@@ -140,12 +159,14 @@ export const Container = styled(Product)`
       span.price {
         white-space: nowrap;
         justify-self: flex-end;
-        font-size: 1.1vw;
+        font-size: 21px;
 
-        ${theme.breakpoints.down(1200)} {
+        ${theme.breakpoints.down(1681)} {
           font-size: 1.3vw;
         }
-
+        ${theme.breakpoints.down(1200)} {
+          font-size: 1.7vw;
+        }
         ${theme.breakpoints.down("xs")} {
           font-size: 4vw;
         }
@@ -154,8 +175,11 @@ export const Container = styled(Product)`
 
     .row.btn-group {
       margin-top: 0.5em;
-      font-size: 0.8vw;
+      align-self: end;
 
+      ${theme.breakpoints.down(1681)} {
+        font-size: 0.8vw;
+      }
       ${theme.breakpoints.down(1200)} {
         font-size: 1vw;
       }
@@ -233,16 +257,38 @@ export const Container = styled(Product)`
 
     .product {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
+      justify-content: center;
       position: relative;
       user-select: none;
+      height: 12vw;
+      max-height: 230px;
 
-      .articule {
-        font-size: 0.8vw;
+      ${theme.breakpoints.down(1441)} {
+        max-height: 180px;
+      }
+
+      ${theme.breakpoints.down(1200)} {
+        height: 18vw;
+      }
+
+      ${theme.breakpoints.down("xs")} {
+        height: 30vw;
+      }
+
+      .left-side.articule {
+        font-size: 15px;
+        position: absolute;
+        top: 0;
+        left: 0;
         z-index: 1;
 
-        ${theme.breakpoints.down(1200)} {
-          font-size: 1vw;
+        ${theme.breakpoints.up(1200)} {
+          font-size: 0.8vw;
+        }
+
+        ${theme.breakpoints.up(1900)} {
+          font-size: 15px;
         }
 
         span {
@@ -258,50 +304,70 @@ export const Container = styled(Product)`
 
         img {
           filter: ${theme.dropShadow.effect2};
-          width: 60%;
-          /* 
+          width: 30px;
+          height: 30px;
+
           ${theme.breakpoints.down("xs")} {
-            width: 100%;
-          } */
+            width: 4vw;
+            height: 4vw;
+          }
         }
       }
 
-      picture.product-image {
+      a {
+        display: contents;
+
         img {
           width: 70%;
 
-          ${theme.breakpoints.up("xs")} {
-            margin-left: -2em;
-          }
-
           ${theme.breakpoints.down("xs")} {
-            width: 85%;
-            padding-top: 4em;
-            padding-right: 8em;
+            width: 70%;
           }
         }
       }
 
-      .image-wrapper {
+      .right-side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        right: 0;
         z-index: 1;
 
         .sale {
-          ${theme.breakpoints.down(1200)} {
-            font-size: 0.9vw;
+          width: 80px;
+          height: 80px;
+
+          span {
+            font-size: 0.8em;
+          }
+
+          ${theme.breakpoints.down(1441)} {
+            width: 60px;
+            height: 60px;
+
+            span {
+              font-size: 0.6em;
+            }
+          }
+
+          ${theme.breakpoints.down("xs")} {
+            width: 12vw;
+            height: 12vw;
+
+            span {
+              font-size: 1.8vw;
+            }
           }
         }
 
         .gift {
-          img {
-            margin-top: 1.5em;
-            width: 60%;
+          margin-top: 30%;
+          width: 60%;
 
-            ${theme.breakpoints.down("xs")} {
-              position: absolute;
-              left: 2em;
-              bottom: 2em;
-              width: 8vw;
-            }
+          ${theme.breakpoints.down("xs")} {
+            margin-top: 30%;
           }
         }
       }
@@ -314,7 +380,11 @@ export const Container = styled(Product)`
     justify-content: space-between;
 
     > *:not(:last-child) {
-      margin-right: 1em;
+      margin-right: 4em;
+
+      ${theme.breakpoints.down("xxl")} {
+        margin-right: 2vw;
+      }
     }
 
     ${theme.breakpoints.down("lg")} {
@@ -329,22 +399,28 @@ export const Container = styled(Product)`
         position: absolute;
         top: 0;
         right: 0;
-        height: 105px;
-        width: 105px;
+        width: 80px;
+        height: 80px;
         transform: translate(10%, 10%);
 
-        ${theme.breakpoints.down("lg")} {
-          height: 6.5vw;
-          width: 6.5vw;
+        span {
+          font-size: 0.8em;
+        }
+
+        ${theme.breakpoints.down(1441)} {
+          width: 60px;
+          height: 60px;
 
           span {
-            font-size: 1vw;
+            font-size: 0.6em;
           }
         }
       }
 
       img {
-        max-width: 15vw;
+        max-width: 180px;
+        height: auto;
+        aspect-ratio: 2 / 3;
 
         ${theme.breakpoints.down("lg")} {
           width: 13vw;
@@ -353,17 +429,27 @@ export const Container = styled(Product)`
     }
 
     .info {
+      flex: 1;
       display: flex;
       flex-direction: column;
+      margin-right: 2em;
+
+      ${theme.breakpoints.down("xxl")} {
+        margin-right: 1vw;
+      }
 
       &-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 2em;
+        margin-bottom: 1em;
+
+        .title {
+          display: block;
+          margin-bottom: 0.5em;
+        }
       }
 
       table {
+        width: max-content;
+
         tr {
           td:last-of-type {
             padding-left: 3em;
@@ -386,7 +472,7 @@ export const Container = styled(Product)`
     }
 
     .gift {
-      width: 180px;
+      width: 160px;
 
       ${theme.breakpoints.down("lg")} {
         width: 12vw;
@@ -413,10 +499,10 @@ export const Container = styled(Product)`
         justify-content: center;
 
         img {
-          height: 7em;
+          height: 6em;
           margin: 0 auto;
 
-          ${theme.breakpoints.down("lg")} {
+          ${theme.breakpoints.down("xxl")} {
             height: 5vw;
           }
         }
@@ -434,7 +520,7 @@ export const Container = styled(Product)`
         margin-bottom: 1em;
 
         span:not(.price) {
-          font-size: 1vw;
+          font-size: 20px;
         }
       }
 
@@ -445,12 +531,32 @@ export const Container = styled(Product)`
         button {
           /* padding: 0.4rem 2em; */
 
-          ${theme.breakpoints.down("lg")} {
-            font-size: 1vw;
-            padding: 0.4rem 2em;
+          ${theme.breakpoints.down(1640)} {
+            font-size: 1.1vw;
+            padding: 0.4vw 2vw;
           }
         }
       }
+    }
+  }
+
+  &.potoduct-line-view,
+  &.potoduct-box-view {
+    position: relative;
+
+    ::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: #e8e8e8;
+      z-index: 10;
+      opacity: 0;
+      pointer-events: none;
+      transition: opasity 0.3s ease;
+      animation: var(--animation-name) 1.5s infinite linear;
     }
   }
 `;

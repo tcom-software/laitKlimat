@@ -1,13 +1,16 @@
-import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { useEffect, useRef } from "react";
+import { hideModal } from "@redux/actions/modal";
+import { connect, useSelector } from "react-redux";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 import modals from "./Modals";
 import { Container } from "./styles";
 import { useOutsideClickClose } from "@hooks";
 
-const Modal = ({ modalType, modalProps, hideModal }) => {
+const Modal = ({ hideModal }) => {
   const modalRef = useRef(null);
+  const { modalType, modalProps } = useSelector(state => state.modal);
   useOutsideClickClose(modalRef, hideModal);
 
   useEffect(() => {
@@ -29,4 +32,8 @@ const Modal = ({ modalType, modalProps, hideModal }) => {
   );
 };
 
-export default Modal;
+const mapDispatchToProps = {
+  hideModal,
+};
+
+export default connect(null, mapDispatchToProps)(Modal);

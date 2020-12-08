@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import cn from "classnames";
 
 import { StyledButton } from "./styles";
 
@@ -9,10 +10,11 @@ const variants = ["primary", "secondary", "tercary"];
 const Button = ({
   title,
   type,
-  refName,
   variant,
-  className,
-  children=null,
+  className = "",
+  refName = null,
+  children = null,
+  loading = false,
   ...buttonProps
 }) => {
   return (
@@ -20,12 +22,17 @@ const Button = ({
       type={type}
       ref={refName}
       variant={variant}
-      className={className}
+      className={cn([className, { loading }])}
       aria-label={title}
       {...buttonProps}
     >
+      {loading && (
+        <span>
+          <img src="/images/loading.svg" />
+        </span>
+      )}
       {children}
-      <span>{title}</span>
+      <span dangerouslySetInnerHTML={{ __html: title }} />
     </StyledButton>
   );
 };
@@ -33,8 +40,6 @@ const Button = ({
 Button.defaultProps = {
   type: "button",
   variant: "primary",
-  refName: null,
-  className: "",
 };
 
 Button.propTypes = {

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 
 import Nav from "./Nav";
 import Address from "./Address";
@@ -7,34 +7,57 @@ import { StyledHeader, GridRow } from "./styles";
 
 import { Icon, Link, Text } from "@atoms";
 import { CallUs, Logo } from "@molecules";
-import { tabs, categories } from "data";
+import { tabs } from "data";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategories } from "@redux/selectors/site";
+import { showModal } from "@redux/actions/modal";
+import { getBasketCount } from "@redux/selectors/basket";
 
-const acardion = categories => {
+const acardion = (categories, changeCategory) => {
   return (
     <ul className="category-list">
-      {categories.map(({ id, title, subCategories, query }) => (
-        <li
-          key={id}
-          className="category-item"
-          data-arrow={query ? false : true}
-        >
-          {query ? <Link title={title} href={query} /> : <span>{title}</span>}
-          {subCategories && acardion(subCategories)}
-        </li>
-      ))}
+      {categories.map(({ id, name, subCategories }) => {
+        const isTreeLeaf = !subCategories;
+
+        return (
+          <li
+            key={id}
+            className="category-item"
+            data-arrow={isTreeLeaf ? false : true}
+          >
+            {isTreeLeaf ? (
+              <Link
+                title={name}
+                href={`/category?c=${id}&page=1`}
+                onClick={() => changeCategory(id + "")} // կարիք չունենք սրա
+              />
+            ) : (
+              <>
+                <span>{name}</span>
+                {acardion(subCategories, changeCategory)}
+              </>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 };
 
-const categoriesList = acardion(categories);
-
 /**
  * Header
- * @returns {Node} header component
  */
-const Header = ({ showModal }) => {
-  const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
+const Header = ({ changeCategory }) => {
+  const dispatch = useDispatch();
+  const categoryRef = useRef(null);
   const [isOpenMenu, setOpenMenu] = useState(false);
+  const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
+  const categories = useSelector(getCategories);
+  const basketCount = useSelector(getBasketCount);
+
+  /**
+   *
+   */
   const handleSearch = e => {
     e.preventDefault();
     console.log(e.target.search.value);
@@ -53,24 +76,35 @@ const Header = ({ showModal }) => {
   const handleShowMenu = useCallback(() => {
     globalThis.innerWidth < 768
       ? toggleMobileMenu()
-      : showModal({
-          modalType: "menu",
-          modalProps: {},
-        });
+      : dispatch(
+          showModal({
+            modalType: "menu",
+            modalProps: {},
+          })
+        );
   }, [toggleMobileMenu]);
 
   const handleShowNumberBox = useCallback(style => {
-    showModal({
-      modalType: "numberBox",
-      modalProps: style,
-    });
+    dispatch(
+      showModal({
+        modalType: "numberBox",
+        modalProps: style,
+      })
+    );
   }, []);
 
   const handleShowFilter = useCallback(() => {
-    showModal({
-      modalType: "filter",
-    });
+    dispatch(
+      showModal({
+        modalType: "filter",
+      })
+    );
   }, []);
+
+  const closeCategories = () => {
+    categoryRef.current.style.pointerEvents = "none";
+    setTimeout(() => (categoryRef.current.style.pointerEvents = ""), 100);
+  };
 
   return (
     <>
@@ -79,13 +113,13 @@ const Header = ({ showModal }) => {
         <Nav tabs={tabs} />
         <GridRow className="container">
           <Logo className="logo" onClick={hideMobileMenu} />
-          <div className="categories">
+          <div className="categories" ref={categoryRef}>
             <button className="root">
               <Text clr="fourth" sz="normal" tag="span">
                 категории
               </Text>
             </button>
-            {categoriesList}
+            {acardion(categories, closeCategories)}
           </div>
           <div className="search-bar">
             <form onSubmit={handleSearch}>
@@ -109,7 +143,7 @@ const Header = ({ showModal }) => {
           <div className="basket" title="корзина" aria-label="корзина">
             <div className="basket-inner">
               <Icon name="basket" width={30} fill="tercary" />
-              <span className="count">0</span>
+              <span className="count">{basketCount}</span>
             </div>
           </div>
           <div className="filter" onClick={handleShowFilter}>

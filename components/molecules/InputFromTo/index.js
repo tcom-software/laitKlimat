@@ -1,7 +1,50 @@
 import { Input, Text } from "@atoms";
+import { useDidUpdate } from "@hooks";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+// import useCheckedFilters from "hooks/useCheckedFilters";
 import { StyledFieldSet } from "./styles";
 
+let timeId;
+
 const InputFromTo = ({ fromText = "От", toText = "до", title, inputName }) => {
+  const router = useRouter();
+  const [to, setTo] = useState("");
+  const [from, setFrom] = useState("");
+
+  const changeQuery = (from, to) => {
+    clearTimeout(timeId);
+    setFrom(from);
+    setTo(to);
+
+    timeId = setTimeout(() => {
+      const query = { ...router.query, page: 1 };
+
+      if (from || to) {
+        query[inputName] = [from || "null", to || "null"].join(" ");
+      } else {
+        delete query[inputName];
+      }
+
+      router.push({
+        pathname: router.pathname,
+        query,
+      });
+    }, 1500);
+  };
+
+  useEffect(() => {
+    const range = router.query[inputName];
+    if (!range) {
+      setFrom("");
+      setTo("");
+    } else {
+      const [from, to] = range.split(" ");
+      setFrom(from === "null" ? "" : Number(from));
+      setTo(to === "null" ? "" : Number(to));
+    }
+  }, [router.query[inputName]]);
+
   return (
     <StyledFieldSet>
       <legend>
@@ -10,8 +53,20 @@ const InputFromTo = ({ fromText = "От", toText = "до", title, inputName }) =
         </Text>
       </legend>
       <div>
-        <Input label={fromText} type="number" name={`${inputName}_from`} />
-        <Input label={toText} type="number" name={`${inputName}_to`} />
+        <Input
+          label={fromText}
+          value={from}
+          type="number"
+          name={`${inputName}_from`}
+          onChange={e => changeQuery(e.target.value || null, to)}
+        />
+        <Input
+          label={toText}
+          value={to}
+          type="number"
+          name={`${inputName}_to`}
+          onChange={e => changeQuery(from, e.target.value || null)}
+        />
       </div>
     </StyledFieldSet>
   );

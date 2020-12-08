@@ -1,13 +1,9 @@
 import { types } from "../actions/modal";
 import { ActionCreatorType } from "../types";
 
-interface State {
-  modalIsOpen: boolean;
-  modalType: string | null;
-  modalProps: object;
-}
+export type ModalState = Readonly<typeof initialState>;
 
-const initialState: Readonly<State> = {
+const initialState = {
   modalIsOpen: false,
   modalType: null,
   modalProps: {},
@@ -16,16 +12,17 @@ const initialState: Readonly<State> = {
 const modalReducer = (
   state = initialState,
   action: ActionCreatorType
-): State => {
+): ModalState => {
   switch (action.type) {
     case types.MODAL_SHOW:
       return {
+        ...state,
         modalIsOpen: true,
         modalType: action.payload.modalType,
         modalProps: action.payload.modalProps,
       };
     case types.MODAL_HIDE:
-      return initialState;
+      return { ...initialState };
     default:
       return state;
   }

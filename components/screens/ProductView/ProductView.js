@@ -5,18 +5,30 @@ import Info from "./Info";
 import LeftBar from "./LeftBar";
 import { Container } from "./styles";
 import Characteristics from "./Characteristics";
+import { serializeProductData } from "helper/serializeProduct";
 
-const ProductView = () => {
+const ProductView = ({ product }) => {
+  if (!product) {
+    return <p>loading</p>;
+  }
+
+  const {
+    leftSide,
+    infoTable,
+    productName,
+    characteristics,
+  } = serializeProductData(product);
+
   return (
     <Container>
       <Text tag="h2" clr="secondary" sz="larg">
-        Besshof STARK-ZS/ZU-T07KC
+        {productName}
       </Text>
       <div className="product-info container">
-        <LeftBar />
-        <Info />
+        <LeftBar data={leftSide} />
+        <Info data={infoTable} />
       </div>
-      <Characteristics />
+      <Characteristics data={characteristics} />
       <PreviousViews className="container" title="Похожие товары" />
       <PreviousViews className="container" />
     </Container>

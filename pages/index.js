@@ -1,19 +1,28 @@
 import { Fragment, useRef, useState, useEffect, memo } from "react";
 import { animated, useSpring } from "react-spring";
-import { useOutsideClickClose } from "@hooks";
 import Head from "next/head";
 
-import { Text, Link } from "@atoms";
+import { localKeys, useLocalState, useOutsideClickClose } from "@hooks";
 import { Container } from "@styles/pages/home";
 import { initializeStore } from "@redux/index";
+import { Text, Link } from "@atoms";
 import eases from "utils/easing";
+import { compose } from "utils/compose";
 
-import { tabs, categories } from "data";
+import { tabs } from "data";
+import { useDispatch, useSelector } from "react-redux";
+import { addFilters } from "@redux/actions/filters";
+import { initializeCategories } from "helper/initialReduxState";
+import { getCategories } from "@redux/selectors/site";
 
-const SubMenu = memo(({ title, subCategories, subSub, setSubSub }) => {
+/**
+ *
+ */
+const SubMenu = memo(({ name, subCategories, subSub, setSubSub }) => {
+  const dispatch = useDispatch();
   const { opacity, delta } = useSpring({
-    opacity: subSub.isOpen && title === subSub.type ? 1 : 0,
-    delta: subSub.isOpen && title === subSub.type ? -100 : -200,
+    opacity: subSub.isOpen && name === subSub.type ? 1 : 0,
+    delta: subSub.isOpen && name === subSub.type ? -100 : -200,
     config: {
       duration: 500,
       easing: eases.OutQuart,
@@ -26,26 +35,30 @@ const SubMenu = memo(({ title, subCategories, subSub, setSubSub }) => {
         className="sub-menu-list_item"
         onClick={() =>
           setSubSub(state => ({
-            isOpen: state.type !== title ? true : false,
-            type: state.type !== title ? title : "",
+            isOpen: state.type !== name ? true : false,
+            type: state.type !== name ? name : "",
           }))
         }
       >
         <Text tag="span" sz="normal" clr="primary">
-          {title}
+          {name}
         </Text>
       </li>
       <ul
         className="subsub-menu-list"
-        data-visible={subSub.type === title}
+        data-visible={subSub.type === name}
         style={{
           transform: delta.interpolate(x => `translateX(${x}%)`),
           opacity: opacity.interpolate(o => o),
         }}
       >
-        {subCategories.map(({ id, title, query }) => (
+        {subCategories.map(({ id, name }) => (
           <li className="subsub-menu-list_item" key={id}>
-            <Link title={title} href={query} />
+            <Link
+              title={name}
+              href="/products"
+              onClick={() => dispatch(addFilters({ category: id }))}
+            />
           </li>
         ))}
         <div
@@ -64,11 +77,14 @@ const SubMenu = memo(({ title, subCategories, subSub, setSubSub }) => {
   );
 });
 
+/**
+ *
+ */
 const Menu = memo(
-  ({ title, iconLarg, subCategories, sub, setSub, subSub, setSubSub }) => {
+  ({ name, icon, subCategories, sub, setSub, subSub, setSubSub }) => {
     const { opacity, delta } = useSpring({
-      opacity: sub.isOpen && title === sub.type ? 0 : 1,
-      delta: sub.isOpen && title === sub.type ? (subSub.isOpen ? 200 : 100) : 0,
+      opacity: sub.isOpen && name === sub.type ? 0 : 1,
+      delta: sub.isOpen && name === sub.type ? (subSub.isOpen ? 200 : 100) : 0,
       config: {
         duration: 500,
         easing: eases.OutQuart,
@@ -80,8 +96,8 @@ const Menu = memo(
         <animated.div
           onClick={() => {
             setSub(state => ({
-              isOpen: state.type !== title ? true : false,
-              type: state.type !== title ? title : "",
+              isOpen: state.type !== name ? true : false,
+              type: state.type !== name ? name : "",
             }));
             setSubSub(state => ({
               isOpen: false,
@@ -93,9 +109,12 @@ const Menu = memo(
             opacity: opacity.interpolate(o => o),
           }}
         >
-          <img src={iconLarg} alt={title} />
+          <img
+            src={"/images/categories/icons/" + icon.slice(0, -4) + "_larg.png"}
+            alt={name}
+          />
           <Text tag="span" sz="normal" clr="white">
-            {title}
+            {name}
           </Text>
         </animated.div>
         <animated.ul
@@ -105,15 +124,15 @@ const Menu = memo(
             opacity: opacity.interpolate(o => 1 - o),
           }}
         >
-          {subCategories.map(({ id, title, subCategories }) => (
+          {subCategories.map(({ id, name, subCategories }) => (
             <SubMenu
               key={id}
               sub={sub}
-              title={title}
+              name={name}
               subSub={subSub}
               setSubSub={setSubSub}
               subCategories={subCategories}
-              rootTitle={title}
+              rootTitle={name}
             />
           ))}
 
@@ -135,6 +154,7 @@ const Menu = memo(
 );
 
 const Home = () => {
+  const categories = useSelector(getCategories);
   const [sub, setSub] = useState({ isOpen: false, type: "" });
   const [subSub, setSubSub] = useState({ isOpen: false, type: "" });
 
@@ -161,12 +181,12 @@ const Home = () => {
           </nav>
           <section className="boxes">
             <ul>
-              {categories.map(({ id, title, iconLarg, subCategories }) => (
+              {categories.map(({ id, name, icon, subCategories }) => (
                 <li className="menu-list_item" key={id}>
                   <Menu
                     id={id}
-                    title={title}
-                    iconLarg={iconLarg}
+                    name={name}
+                    icon={icon}
                     subCategories={subCategories}
                     sub={sub}
                     setSub={setSub}
@@ -183,11 +203,18 @@ const Home = () => {
   );
 };
 
-export const getServerSideProps = () => {
-  const reduxStore = initializeStore();
+export const getServerSideProps = async ctx => {
+  const store = initializeStore();
+
+  const { initialStore } = await compose(initializeCategories)({
+    store,
+    ctx,
+    initialStore: {},
+  });
 
   return {
     props: {
+      initialStore,
       bannerVariant: "primary",
     },
   };
