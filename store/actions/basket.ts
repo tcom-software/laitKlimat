@@ -25,3 +25,13 @@ export const basketRemoveProduct = (id: number) => ({
 export const basketClear = () => ({
   type: types.CLEAR_BASKET,
 });
+
+export const incrementProductCount = (productId: number) => ({
+  type: types.INCREMENT_PRODUCT_COUNT,
+  payload: productId,
+});
+
+export const decrementProductCount = (productId: number) => ({
+  type: types.DECREMENT_PRODUCT_COUNT,
+  payload: productId,
+});

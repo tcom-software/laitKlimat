@@ -1,5 +1,6 @@
 import { makePriceView } from "utils/makePriceView";
 import getConfig from "next/config";
+import { getProductImageX300 } from "./getProductImageX300";
 
 const {
   publicRuntimeConfig: { uploadsUrl },
@@ -13,22 +14,12 @@ export const serializeProductCardData = (data: any) => {
     series_name,
     model,
     brand_logo,
-    product_picture_folder,
-    product_picture_file_name,
-    product_picture_format,
-
-    series_picture_folder,
-    series_picture_file_name,
-    series_picture_format,
 
     setup_price,
     characteristics: chtrs,
   } = data;
 
-  const productImageX300PathName = product_picture_folder
-    ? `products/${product_picture_folder}/size300/${product_picture_file_name}.${product_picture_format}`
-    : `product_series/${series_picture_folder}/size300/${series_picture_file_name}.${series_picture_format}`;
-
+  const productImageX300PathName = getProductImageX300(data);
   const productName = `${brand} ${series_name}-${model}`;
   const productImageX300 = `${uploadsUrl}${productImageX300PathName}`;
   const brandLogo = `${uploadsUrl}brands/${brand_logo}`;

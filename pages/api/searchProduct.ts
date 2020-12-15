@@ -7,7 +7,6 @@ const {
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { search, page } = JSON.parse(req.body);
-  console.log({ search, page });
   const searchData = {
     payload: {},
   };

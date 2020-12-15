@@ -3,7 +3,7 @@ import { StyledHgroup } from "./styles";
 
 const Hgroup = ({ h1, h2, className = "" }) => {
   return (
-    <StyledHgroup className={className}>
+    <StyledHgroup className={className} id="title">
       <Text tag="h1" sz="larg" clr="primary">
         {h1}
       </Text>

@@ -5,6 +5,10 @@ import { AppState } from "@redux/types";
 export const getBasket = (state: AppState) => get(state, ["basket"]);
 export const getBasketCount = (state: AppState) =>
   get(state, ["basket", "count"]);
+export const getBasketTotalPrice = (state: AppState) =>
+  get(state, ["basket", "totalPrice"]);
+export const getBasketProducts = (state: AppState) =>
+  get(state, ["basket", "products"]);
 
 // export const getCurrentCategoryId = (state: AppState) =>
 //   get(state, ["filters", "filters", "c"]);

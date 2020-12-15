@@ -6,6 +6,7 @@ import LeftBar from "./LeftBar";
 import { Container } from "./styles";
 import Characteristics from "./Characteristics";
 import { serializeProductData } from "helper/serializeProduct";
+import { Hgroup } from "@molecules";
 
 const ProductView = ({ product }) => {
   if (!product) {
@@ -21,7 +22,7 @@ const ProductView = ({ product }) => {
 
   return (
     <Container>
-      <Text tag="h2" clr="secondary" sz="larg">
+      <Text tag="h2" clr="secondary" sz="larg" id="title">
         {productName}
       </Text>
       <div className="product-info container">

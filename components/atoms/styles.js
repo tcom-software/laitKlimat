@@ -3,6 +3,8 @@ import theme from "@styles/theme";
 import { sizes } from "./Text/styles";
 
 export const StyledLabel = styled.label`
+  position: relative;
+
   p {
     padding: 0 0 0.7em 0.3em;
   }
@@ -28,7 +30,46 @@ export const StyledLabel = styled.label`
     }
   }
 
-  input {
+  &.select {
+    pointer-events: none;
+
+    input {
+      pointer-events: painted;
+      user-select: none;
+      position: relative;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .custom-selest {
+      pointer-events: all;
+      position: absolute;
+      overflow: hidden;
+      top: 100%;
+      width: 100%;
+      background-color: #2591d1;
+      border-bottom-right-radius: 0.7em;
+      border-bottom-left-radius: 0.7em;
+      color: white;
+      will-change: transform;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.3s ease;
+
+      &.isOpen {
+        transform: scaleY(1);
+      }
+
+      li {
+        padding: 0.4em 1.875em;
+        cursor: pointer;
+
+        :hover,
+        &.selected {
+          background-color: #47abe6;
+        }
+      }
+    }
   }
 
   textarea {

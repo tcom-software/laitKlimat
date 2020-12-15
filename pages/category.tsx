@@ -19,9 +19,9 @@ import { addFilters, addFiltersCache } from "@redux/actions/filters";
 import { getCurrentCategoryTitle } from "@redux/selectors/site";
 import { getFiltersCacheByKey } from "@redux/selectors/filters";
 import { useDispatch, useSelector } from "react-redux";
-import smoothScroll from "utils/smoothScroll";
 import { initializeStore } from "@redux";
 import { compose } from "utils/compose";
+import { Hgroup } from "@molecules";
 
 interface Props {
   initialStore: {
@@ -54,11 +54,6 @@ const Category: FC<Props> = ({ initialStore }) => {
       dispatch(addFiltersCache(products.cachedKey, products.payload));
     }
     dispatch(addFilters(router.query));
-  }, [router.query]);
-
-  // every "page change" and "category change" scrollTo category title
-  useEffect(() => {
-    smoothScroll("category-title");
   }, [router.query]);
 
   useEffect(() => {
@@ -94,48 +89,51 @@ const Category: FC<Props> = ({ initialStore }) => {
             </button>
           </div>
         )}
-        <hgroup id="category-title">
-          <Text tag="h1" sz="larg" clr="primary">
-            {titles?.category || ""}
-          </Text>
-          <Text tag="h2" sz="larg" clr="primary">
-            {titles?.subSubCategory || ""}
-          </Text>
-        </hgroup>
+        <Hgroup h1={titles?.category || ""} h2={titles?.subSubCategory || ""} />
       </section>
       <ChosenFilters />
       <section className="container main-content">
-        <form className="filters">
-          <Filter />
-          <Button variant="secondary" title="сброс" type="reset" />
-        </form>
+        {products_info?.total !== 0 && (
+          <form className="filters">
+            <>
+              <Filter />
+              <Button variant="secondary" title="сброс" type="reset" />
+            </>
+          </form>
+        )}
         <div className={cn("products", `${viewState}-view`)}>
           {products.map((product: any, i: number) => (
             <Product key={i} view={viewState} data={product} />
           ))}
         </div>
-        <div className="pagination--wrapper">
-          <ReactPaginate
-            containerClassName="pagination"
-            pageCount={Math.ceil(products_info?.total / 10) || 1}
-            pageRangeDisplayed={3}
-            marginPagesDisplayed={3}
-            previousLabel={
-              <span className="arrow-icons" data-direction="left">
-                &#x3c;
-              </span>
-            }
-            nextLabel={
-              <span className="arrow-icons" data-direction="right">
-                &#x3e;
-              </span>
-            }
-            forcePage={Number(router.query.page) - 1}
-            initialPage={Number(router.query.page) - 1}
-            onPageChange={onPageChange}
-            disableInitialCallback={false}
-          />
-        </div>
+        {products_info?.total === 0 ? (
+          <Text tag="p" sz="normal" clr="tercary" className="no-products">
+            Нет результатов
+          </Text>
+        ) : (
+          <div className="pagination--wrapper">
+            <ReactPaginate
+              containerClassName="pagination"
+              pageCount={Math.ceil(products_info?.total / 10) || 1}
+              pageRangeDisplayed={3}
+              marginPagesDisplayed={3}
+              previousLabel={
+                <span className="arrow-icons" data-direction="left">
+                  &#x3c;
+                </span>
+              }
+              nextLabel={
+                <span className="arrow-icons" data-direction="right">
+                  &#x3e;
+                </span>
+              }
+              forcePage={Number(router.query.page) - 1}
+              initialPage={Number(router.query.page) - 1}
+              onPageChange={onPageChange}
+              disableInitialCallback={false}
+            />
+          </div>
+        )}
         <PreviousViews />
       </section>
     </Container>

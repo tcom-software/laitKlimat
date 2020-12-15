@@ -1,15 +1,29 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 import { Icon, Button, Text } from "@atoms";
 import { Container } from "./styles";
 
 const NumberBox = ({ modalRef, hideModal, style }) => {
+  const [loading, setLoading] = useState(false);
 
+  // send data
   const handleSubmit = e => {
     e.preventDefault();
+    const { phone, name, answer } = e.target;
 
-    // console.log(e.target.phone_number.value);
-    // console.log(e.target.checkbox_answer.value);
+    setLoading(true);
+    fetch("/api/callBack", {
+      method: "POST",
+      body: JSON.stringify({
+        phone: phone.value,
+        name: name.value,
+        previouslyContactedUs: Boolean(Number(answer.value)),
+      }),
+    }).then(() => {
+      setLoading(false);
+      hideModal();
+    });
   };
 
   return (
@@ -17,15 +31,28 @@ const NumberBox = ({ modalRef, hideModal, style }) => {
       <div>
         <Icon name="close" width={20} height={20} onClick={hideModal} />
         <form onSubmit={handleSubmit}>
+          <label htmlFor="name" className="srOnly">
+            номер
+          </label>
+          <input
+            type="text"
+            placeholder="ваше имя"
+            id="name"
+            name="name"
+            required
+          />
+
           <label htmlFor="phone" className="srOnly">
             номер
           </label>
           <input
-            type="number"
+            type="text"
             placeholder="номер"
             id="phone"
-            name="phone_number"
+            name="phone"
+            required
           />
+
           <Text tag="legend" sz="normal" clr="white">
             Ранее обращались к нам ?
           </Text>
@@ -36,8 +63,8 @@ const NumberBox = ({ modalRef, hideModal, style }) => {
               </Text>
               <input
                 type="radio"
-                name="checkbox_answer"
-                value="no"
+                name="answer"
+                value="0"
                 defaultChecked={true}
               />
             </label>
@@ -45,10 +72,16 @@ const NumberBox = ({ modalRef, hideModal, style }) => {
               <Text tag="span" sz="normal" clr="white">
                 да
               </Text>
-              <input type="radio" name="checkbox_answer" value="yes" />
+              <input type="radio" name="answer" value="1" />
             </label>
           </div>
-          <Button variant="secondary" title="Отправить" type="submit" />
+          <Button
+            type="submit"
+            title="Отправить"
+            variant="secondary"
+            loading={loading}
+            loadingMode="light"
+          />
         </form>
       </div>
       <div data-bg-image />

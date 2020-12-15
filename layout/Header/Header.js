@@ -5,15 +5,24 @@ import Address from "./Address";
 import MobileMenu from "./MobileMenu";
 import { StyledHeader, GridRow } from "./styles";
 
-import { Icon, Link, Text } from "@atoms";
+import { Search } from "@organisms";
 import { CallUs, Logo } from "@molecules";
+import { Icon, Link, Text } from "@atoms";
+
 import { tabs } from "data";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "@redux/selectors/site";
 import { showModal } from "@redux/actions/modal";
 import { getBasketCount } from "@redux/selectors/basket";
+import NextLink from "next/link";
 
-const acardion = (categories, changeCategory) => {
+const acardion = categories => {
+  const closeCategories = () => {
+    const cateegories = document.getElementById("categories");
+    cateegories.style.pointerEvents = "none";
+    setTimeout(() => (cateegories.style.pointerEvents = ""), 100);
+  };
+
   return (
     <ul className="category-list">
       {categories.map(({ id, name, subCategories }) => {
@@ -29,12 +38,12 @@ const acardion = (categories, changeCategory) => {
               <Link
                 title={name}
                 href={`/category?c=${id}&page=1`}
-                onClick={() => changeCategory(id + "")} // կարիք չունենք սրա
+                onClick={() => closeCategories()}
               />
             ) : (
               <>
                 <span>{name}</span>
-                {acardion(subCategories, changeCategory)}
+                {acardion(subCategories)}
               </>
             )}
           </li>
@@ -44,45 +53,15 @@ const acardion = (categories, changeCategory) => {
   );
 };
 
-let timeId;
-
 /**
  * Header
  */
-const Header = ({ changeCategory }) => {
+const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
   const dispatch = useDispatch();
-  const categoryRef = useRef(null);
-  const [search, setSearch] = useState("");
   const [isOpenMenu, setOpenMenu] = useState(false);
-  const [searchResults, setSearchResults] = useState(null);
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
   const categories = useSelector(getCategories);
   const basketCount = useSelector(getBasketCount);
-
-  /**
-   * search products
-   */
-  const fetchSearchData = useCallback(async () => {
-    const response = await fetch("/api/searchProduct", {
-      method: "POST",
-      body: JSON.stringify({ search, page: 2 }),
-    });
-    return await response.json();
-  }, [search]);
-
-  useEffect(() => {
-    clearTimeout(timeId);
-
-    timeId = setTimeout(async () => {
-      if (search) {
-        const { payload } = await fetchSearchData();
-        console.log(payload);
-        setSearchResults(payload);
-      } else {
-        setSearchResults(null);
-      }
-    }, 300);
-  }, [search]);
 
   const toggleMobileMenu = useCallback(() => {
     document.body.classList.toggle("scroll-hidden");
@@ -97,35 +76,24 @@ const Header = ({ changeCategory }) => {
   const handleShowMenu = useCallback(() => {
     globalThis.innerWidth < 768
       ? toggleMobileMenu()
-      : dispatch(
-          showModal({
-            modalType: "menu",
-            modalProps: {},
-          })
-        );
+      : showMenu({
+          modalType: "menu",
+          modalProps: {},
+        });
   }, [toggleMobileMenu]);
 
   const handleShowNumberBox = useCallback(style => {
-    dispatch(
-      showModal({
-        modalType: "numberBox",
-        modalProps: style,
-      })
-    );
+    showNumberBox({
+      modalType: "numberBox",
+      modalProps: style,
+    });
   }, []);
 
   const handleShowFilter = useCallback(() => {
-    dispatch(
-      showModal({
-        modalType: "filter",
-      })
-    );
+    showFilters({
+      modalType: "filter",
+    });
   }, []);
-
-  const closeCategories = () => {
-    categoryRef.current.style.pointerEvents = "none";
-    setTimeout(() => (categoryRef.current.style.pointerEvents = ""), 100);
-  };
 
   return (
     <>
@@ -134,58 +102,30 @@ const Header = ({ changeCategory }) => {
         <Nav tabs={tabs} />
         <GridRow className="container">
           <Logo className="logo" onClick={hideMobileMenu} />
-          <div className="categories" ref={categoryRef}>
+          <div className="categories" id="categories">
             <button className="root">
               <Text clr="fourth" sz="normal" tag="span">
                 категории
               </Text>
             </button>
-            {acardion(categories, closeCategories)}
+            {acardion(categories)}
           </div>
-          <div className="search-bar">
-            <form>
-              <label>
-                <span className="srOnly">поиск продуктов</span>
-                <input
-                  type="text"
-                  name="search"
-                  placeholder="написать для поиска"
-                  onChange={e => setSearch(e.target.value)}
-                />
-              </label>
-              {searchResults && (
-                <div className="search-result">
-                  <ul>
-                    {searchResults.searchResponse.map(({ brand }, i) => {
-                      <li key={i}>{brand}</li>;
-                    })}
-                  </ul>
-                </div>
-              )}
-              <button type="submit">
-                <Text clr="white" sz="normal" tag="span">
-                  поиск
-                </Text>
-                <Icon name="search" width={24} />
-              </button>
-            </form>
-          </div>
+          <Search />
           <CallUs showNumberBox={handleShowNumberBox} />
-          <div className="basket" title="корзина" aria-label="корзина">
-            <div className="basket-inner">
-              <Icon name="basket" width={30} fill="tercary" />
-              <span className="count">{basketCount}</span>
-            </div>
-          </div>
+          <NextLink href="/basket">
+            <a className="basket" title="корзина" aria-label="корзина">
+              <div className="basket-inner">
+                <Icon name="basket" width={30} fill="tercary" />
+                <span className="count">{basketCount}</span>
+              </div>
+            </a>
+          </NextLink>
           <div className="filter" onClick={handleShowFilter}>
             <button title="фильтры продуктов" aria-label="фильтры продуктов">
               <span />
               <span />
               <span />
             </button>
-          </div>
-          <div className="search-mobile">
-            <Icon name="search" width={24} fill="tercary" />
           </div>
           <div className="humburger" onClick={handleShowMenu}>
             <button title="меню" aria-label="меню" data-open={isOpenMobileMenu}>

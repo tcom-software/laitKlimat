@@ -64,9 +64,9 @@ const smoothScroll = function (el, duration, callback, context) {
   step();
 };
 
-const ScrollWrapper = elementId => {
+const ScrollWrapper = elementSelector => {
   return new Promise(function (resolve, reject) {
-    const el = document.getElementById(elementId);
+    const el = document.getElementById(elementSelector);
     if (el) {
       smoothScroll(el, 1000, resolve);
       return;

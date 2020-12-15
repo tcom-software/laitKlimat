@@ -7,6 +7,7 @@ export const Container = styled.div`
   form {
     display: grid;
     height: 80vh;
+    grid-template-rows: max-content 1fr max-content;
 
     ${theme.breakpoints.between("xs", "md")} {
       width: 100vw;
@@ -15,9 +16,9 @@ export const Container = styled.div`
     main {
       overflow-y: auto;
       position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
       ${theme.breakpoints.between("xs", "lg")} {
         padding: 1.5em 4em 2em;

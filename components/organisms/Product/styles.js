@@ -120,10 +120,6 @@ export const Container = styled(Product)`
       font-style: italic;
       justify-content: space-between;
 
-      ${theme.breakpoints.down("xs")} {
-        margin-top: 5em;
-      }
-
       source {
         display: none;
       }
@@ -132,7 +128,7 @@ export const Container = styled(Product)`
         width: 20%;
 
         ${theme.breakpoints.down(1681)} {
-          width: 18%;
+          width: 30%;
         }
       }
 
@@ -216,6 +212,10 @@ export const Container = styled(Product)`
     }
 
     .btn-group-mobile {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
       > span {
         font-size: 2.2vw;
       }
@@ -233,9 +233,9 @@ export const Container = styled(Product)`
       width: 100%;
       height: 100%;
       display: grid;
-      grid-row-gap: 3em;
+      grid-row-gap: 1em;
       align-content: center;
-      justify-content: stretch;
+      justify-content: center;
       background-color: ${theme.colors.white};
       position: absolute;
       padding: 0 3em;
@@ -244,11 +244,11 @@ export const Container = styled(Product)`
       button {
       }
 
-      img {
+      > img {
         position: absolute;
-        top: 4em;
-        left: 4em;
-        width: 8em;
+        top: 1em;
+        left: 1em;
+        width: 1.4em;
         height: auto;
         user-select: none;
         pointer-events: all;
@@ -367,7 +367,9 @@ export const Container = styled(Product)`
           width: 60%;
 
           ${theme.breakpoints.down("xs")} {
-            margin-top: 30%;
+            margin-top: 120%;
+            align-self: flex-end;
+            width: 40%;
           }
         }
       }
@@ -421,6 +423,7 @@ export const Container = styled(Product)`
         max-width: 180px;
         height: auto;
         aspect-ratio: 2 / 3;
+        cursor: pointer;
 
         ${theme.breakpoints.down("lg")} {
           width: 13vw;

@@ -1,10 +1,21 @@
 import { useDispatch } from "react-redux";
+import { useCallback, useState } from "react";
 import { showModal } from "@redux/actions/modal";
 import { Text, Image, Icon, Button } from "@atoms";
-import { useCallback } from "react";
+import { basketAddProduct } from "@redux/actions/basket";
 
 const Info = ({ data: { table, creditFrom } }) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
+  const addToBasket = useCallback(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      // dispatch(basketAddProduct(serializedData));
+    }, 300);
+  });
+
   const openCompare = () => {
     dispatch(
       showModal({
@@ -54,10 +65,13 @@ const Info = ({ data: { table, creditFrom } }) => {
         </Text>
       </div>
       <section className="btn-group">
-        <Button variant="primary" title="купить" />
+        <Button variant="primary" title="в корзину" loading={loading} onClick={addToBasket}/>
         <Button variant="tercary" title="Купить в 1 клик" />
         <Button variant="secondary" title="купить в кредит" />
-        <Button variant="tercary" title={`В кредит от <strong>${creditFrom}</strong>/месяц`} />
+        <Button
+          variant="tercary"
+          title={`В кредит от <strong>${creditFrom}</strong>/месяц`}
+        />
       </section>
     </section>
   );

@@ -1,8 +1,10 @@
-import { useSpring, animated } from "react-spring";
 import { useState, useRef, useCallback } from "react";
+import { useSpring, animated } from "react-spring";
+import { useDispatch } from "react-redux";
 
-import { Sale, BtnsGroup, Table } from "../Components";
+import { Sale, BtnsGroup, Table, ProductLinkWrapper } from "../Components";
 
+import { showModal } from "@redux/actions/modal";
 import { useOutsideClickClose } from "hooks";
 import { Image, Text, Button } from "@atoms";
 import { Container } from "../styles";
@@ -10,6 +12,7 @@ import eases from "utils/easing";
 import Link from "next/link";
 
 const ProductBoxView = ({ data, loading, addToBasket }) => {
+  const dispatch = useDispatch();
   const productRef = useRef(null);
   const [isOpen, setOpen] = useState(false);
   useOutsideClickClose(productRef, setOpen);
@@ -20,6 +23,19 @@ const ProductBoxView = ({ data, loading, addToBasket }) => {
       easing: eases.OutQuart,
     },
   });
+
+  const handleShowNumberBox = useCallback(style => {
+    dispatch(
+      showModal({
+        modalType: "numberBox",
+        modalProps: {
+          position: "relative",
+          transform: "translate(0, 0)",
+          animation: "none",
+        },
+      })
+    );
+  }, []);
 
   const {
     brand,
@@ -41,7 +57,7 @@ const ProductBoxView = ({ data, loading, addToBasket }) => {
           <span className="article">{`Артикул:\n${articule}`}</span>
           <img src="/images/product/market.png" alt="product market" />
         </div>
-        <Link href={`products/[product]`} as={`products/${articule}`}>
+        <ProductLinkWrapper articule={articule}>
           <a>
             <img
               src={productImageX300}
@@ -49,22 +65,26 @@ const ProductBoxView = ({ data, loading, addToBasket }) => {
               alt="product image"
             />
           </a>
-        </Link>
+        </ProductLinkWrapper>
         <div className="right-side">
           <Sale />
           <img src="/images/product/gift.png" className="gift" alt="gift" />
         </div>
       </section>
-      <Link href={`products/[product]`} as={`products/${articule}`}>
+      <ProductLinkWrapper articule={articule}>
         <a>
           <Text tag="span" sz="larg" clr="secondary" bold className="title">
             {productName}
           </Text>
         </a>
-      </Link>
+      </ProductLinkWrapper>
       <section className="price row">
         <img src={brandLogo} alt="brand logo" />
-        <Button title="Купить в 1 клик" variant="tercary" />
+        <Button
+          variant="tercary"
+          title="Купить в 1 клик"
+          onClick={handleShowNumberBox}
+        />
         <Text tag="span" sz="larg" clr="tercary" bold className="price">
           {formatedPrice}
         </Text>
@@ -89,7 +109,11 @@ const ProductBoxView = ({ data, loading, addToBasket }) => {
               onClick={() => setOpen(false)}
               alt="arrow"
             />
-            <BtnsGroup loading={loading} addToBasket={addToBasket} />
+            <BtnsGroup
+              loading={loading}
+              addToBasket={addToBasket}
+              showNumberBox={handleShowNumberBox}
+            />
           </animated.section>
         </>
       ) : (

@@ -13,6 +13,7 @@ export const StyledForm = styled.form`
     background-color: ${theme.colors.white};
     box-shadow: ${theme.shadow.effect1};
     position: relative;
+    z-index: 1;
   }
 
   header {

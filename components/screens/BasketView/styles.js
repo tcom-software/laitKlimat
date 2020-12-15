@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import theme from "@styles/theme";
+import { mmp } from "@styles/utils/mediaProperty";
 
 export const Container = styled.div`
   margin-bottom: 4em;
@@ -16,15 +17,17 @@ export const Container = styled.div`
     }
 
     .product {
-      display: flex;
-      align-items: stretch;
-      justify-content: space-between;
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-columns: 3fr 5fr 1fr max-content;
+      ${mmp("grid-column-gap", "5em", {
+        lg: "4em",
+        md: "1em",
+      })};
       padding: 2em 3em;
       box-shadow: ${theme.shadow.effect1};
-
-      > *:not(:last-child) {
-        margin-right: 1em;
-      }
+      margin-bottom: 2em;
+      position: relative;
 
       ${theme.breakpoints.down("lg")} {
         padding-left: 1vw;
@@ -32,7 +35,8 @@ export const Container = styled.div`
       }
 
       ${theme.breakpoints.down("xs")} {
-        flex-direction: column;
+        grid-auto-flow: row;
+        grid-template-columns: none;
       }
 
       img {
@@ -71,6 +75,14 @@ export const Container = styled.div`
         }
       }
 
+      .trash {
+        position: absolute;
+        right: 2em;
+        top: 1em;
+        margin-top: 0;
+        cursor: pointer;
+      }
+
       .image {
         position: relative;
         height: 16em;
@@ -107,22 +119,20 @@ export const Container = styled.div`
           }
 
           ${theme.breakpoints.down("xs")} {
-            height: 110px;
-            width: 110px;
+            top: 2em;
+            width: 80px;
+            height: 80px;
 
             span {
-              font-size: 1em;
+              font-size: 0.7em;
             }
           }
         }
 
         img {
           height: 100%;
-
-          ${theme.breakpoints.down("xs")} {
-            width: 100%;
-            object-fit: contain;
-          }
+          width: 100%;
+          object-fit: contain;
         }
       }
 
@@ -142,7 +152,9 @@ export const Container = styled.div`
           margin-bottom: 2em;
 
           ${theme.breakpoints.down("xs")} {
-            white-space: nowrap;
+            white-space: pre-wrap;
+            flex-direction: column;
+            align-items: flex-start;
           }
         }
 
@@ -304,6 +316,12 @@ export const Container = styled.div`
               line-height: 1.25rem;
               padding: 0.625rem 1.5em;
             }
+
+            ${theme.breakpoints.down("xs")} {
+              font-size: 0.7em;
+              line-height: 1.25rem;
+              padding: 0.4rem 1.5em;
+            }
           }
         }
       }
@@ -318,6 +336,11 @@ export const Container = styled.div`
     ${theme.breakpoints.down("xs")} {
       flex-direction: column;
       align-items: flex-start;
+    }
+
+    .basket-empty {
+      text-align: center;
+      width: 100%;
     }
 
     &__value {
@@ -350,10 +373,19 @@ export const Container = styled.div`
       display: grid;
       grid-gap: 2em;
       grid-template-columns: repeat(3, 1fr);
+      position: relative;
+      z-index: 1;
 
       ${theme.breakpoints.down("xs")} {
         grid-gap: 1em;
         grid-template-columns: 1fr;
+      }
+
+      label:nth-of-type(5) {
+        z-index: 2;
+      }
+      label:nth-of-type(6) {
+        z-index: 1;
       }
     }
 

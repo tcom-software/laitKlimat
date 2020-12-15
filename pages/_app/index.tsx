@@ -9,18 +9,24 @@ import { Provider as ReduxProvider } from "react-redux";
 import { useStore } from "@redux/index";
 
 import GlobalStyles from "@styles/GlobalStyles";
-import Layout from "../layouts/Root";
+import Layout from "layout";
 
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { setCookie } from "utils/cookies";
 import { storage } from "constants/storageKeys";
+import smoothScroll from "utils/smoothScroll";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+Router.events.on("routeChangeComplete", () => {
+  console.log(window.innerWidth)
+  if (window.innerWidth > 768) smoothScroll("title");
+});
+
+const App = ({ Component, pageProps }: AppProps) => {
   const { bannerVariant, initialStore } = pageProps;
   const { store, persistor } = useStore(undefined);
 
@@ -34,7 +40,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       setCookie(storage.FILTERS, "[]");
       setCookie(storage.PRODUCTS, "[]");
     });
-    // return () => {};
   }, []);
 
   // hide next data
@@ -62,4 +67,4 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default MyApp;
+export default App;

@@ -29,6 +29,7 @@ Text.propTypes = {
   sz: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   clr: PropTypes.string,
   children: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
 export default Text;

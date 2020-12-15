@@ -2,6 +2,7 @@ import styled from "styled-components";
 import theme from "@styles/theme";
 import { Text, Button } from "@atoms";
 import { makePriceView } from "utils/makePriceView";
+import Link from "next/link";
 
 const StyledSale = styled.div`
   border-radius: 50%;
@@ -29,13 +30,21 @@ export const Sale = () => (
   </StyledSale>
 );
 
-export const BtnsGroup = ({ loading, addToBasket }) => (
+export const BtnsGroup = ({ loading, addToBasket, showNumberBox }) => (
   <>
     <Button title="в корзину" loading={loading} onClick={addToBasket} />
     <Button title="купить в кредит" variant="secondary" />
-    <Button title="Купить в 1 клик" variant="tercary" />
+    <Button title="Купить в 1 клик" variant="tercary" onClick={showNumberBox} />
   </>
 );
+
+export const ProductLinkWrapper = ({ children, articule }) => {
+  return (
+    <Link href={`products/[product]`} as={`products/${articule}`}>
+      {children}
+    </Link>
+  );
+};
 
 export const Table = ({ characteristic }) => {
   return (

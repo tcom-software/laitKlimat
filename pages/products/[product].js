@@ -9,8 +9,10 @@ import {
   initializeProduct,
 } from "helper/initialReduxState";
 import { addProductsCache } from "@redux/actions/products";
+import { useRouter } from "next/router";
 
 const Product = ({ initialStore }) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const product = useSelector(
     getProductsCacheByKey(initialStore.product.productId)
@@ -21,7 +23,7 @@ const Product = ({ initialStore }) => {
     if (!hasCache) {
       dispatch(addProductsCache(productId, payload));
     }
-  }, []);
+  }, [product]);
 
   return <ProductView product={product} />;
 };

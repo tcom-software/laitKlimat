@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
-import GlobalStyles from "../styles/GlobalStyles";
+import GlobalStyles from "@styles/GlobalStyles";
 import theme from "@styles/theme";
 // import GTAG from "utils/gtag";
 

@@ -1,8 +1,22 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Hgroup } from "@molecules";
-import { Button, Image, Text, Input, Textarea } from "@atoms";
+import { Button, Image, Text, Input, Textarea, Select } from "@atoms";
 import { Sale, BtnsGroup, Table } from "../../organisms/Product/Components";
 import { Container } from "./styles";
+
+import { makePriceView } from "utils/makePriceView";
+import {
+  basketClear,
+  basketRemoveProduct,
+  decrementProductCount,
+  incrementProductCount,
+} from "@redux/actions/basket";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getBasketCount,
+  getBasketProducts,
+  getBasketTotalPrice,
+} from "@redux/selectors/basket";
 
 export const productData = [
   { title: "Обслуживаемая площадь до", value: "20 м2" },
@@ -13,6 +27,8 @@ export const productData = [
 ];
 
 const BasketView = () => {
+  const [loading, setLoading] = useState(false);
+
   const nameRef = useRef();
   const telRef = useRef();
   const emailRef = useRef();
@@ -20,68 +36,136 @@ const BasketView = () => {
   const paymentTypeRef = useRef();
   const delivaryTypeRef = useRef();
 
+  const dispatch = useDispatch();
+  const totalPrice = useSelector(getBasketTotalPrice);
+  const productsCount = useSelector(getBasketCount);
+  const products = useSelector(getBasketProducts);
+
+  const handleOnSubmit = async e => {
+    e.preventDefault();
+
+    const _products = Object.entries(products).reduce(
+      (acc, [key, value]) => ({ ...acc, [key]: String(value.count) }),
+      {}
+    );
+
+    setLoading(true);
+    const orderData = {
+      delivery_address: addressRef.current.value,
+      delivery_type: delivaryTypeRef.current.value,
+      email: emailRef.current.value,
+      name: nameRef.current.value,
+      last_name: "not last name",
+      payment_type: paymentTypeRef.current.value,
+      phone_number: telRef.current.value,
+      comment: "",
+      products: _products,
+    };
+
+    await fetch("/api/orderBasket", {
+      method: "POST",
+      body: JSON.stringify(orderData),
+    });
+
+    setLoading(false);
+  };
+
   return (
     <Container className="container">
       <Hgroup h1="КОРЗИНА" />
       <div className="basket">
-        <Product data={productData} />
+        {Object.values(products).map(props => (
+          <Product {...props} />
+        ))}
       </div>
       <div className="basket__footer">
-        <Button variant="tercary" title="Очистить КОРЗИНY"></Button>
-        <div className="basket__footer__value">
-          <Text tag="span" sz="normal" clr="primary">
-            стоимость заказа:
+        {productsCount !== 0 ? (
+          <>
+            <Button
+              variant="tercary"
+              title="Очистить КОРЗИНY"
+              onClick={() => dispatch(basketClear())}
+            ></Button>
+            <div className="basket__footer__value">
+              <Text tag="span" sz="normal" clr="primary">
+                стоимость заказа:
+              </Text>
+              <Text tag="span" sz="larg" clr="tercary" bold>
+                {makePriceView(totalPrice, { unit: "₽", split: " " })}
+              </Text>
+            </div>
+          </>
+        ) : (
+          <Text tag="p" clr="tercary" sz="normal" className="basket-empty">
+            КОРЗИНА пуста
           </Text>
-          <Text tag="span" sz="larg" clr="tercary" bold>
-            15 494 ₽
-          </Text>
-        </div>
+        )}
       </div>
-      <form>
+      <form onSubmit={handleOnSubmit}>
         <div className="inputs">
-          <Input type="text" inputRef={nameRef} label={"Имя"} />
-          <Input type="text" inputRef={telRef} label={"Номер телефона"} />
-          <Input type="text" inputRef={emailRef} label={"E-MAIL"} />
+          <Input type="text" inputRef={nameRef} label={"Имя"} required />
           <Input
             type="text"
-            inputRef={delivaryTypeRef}
+            inputRef={telRef}
+            label={"Номер телефона"}
+            required
+          />
+          <Input type="email" inputRef={emailRef} label={"E-MAIL"} required />
+          <Input type="text" inputRef={addressRef} label={"Адрес:"} required />
+          <Select
+            type="text"
             label={"Тип доставки"}
-            placeholder={"placeholder"}
+            inputRef={delivaryTypeRef}
+            options={[{ title: "С доставкой" }, { title: "Самовывоз" }]}
           />
-          <Input
+          <Select
             type="text"
-            inputRef={addressRef}
-            label={"Адрес:"}
-            placeholder={"Адрес"}
-          />
-          <Input
-            type="text"
-            inputRef={paymentTypeRef}
             label={"Тип оплаты"}
-            placeholder={"Наличными курьеру"}
+            inputRef={paymentTypeRef}
+            options={[
+              { title: "Наличными курьеру" },
+              { title: "Банковской картой курьеру" },
+              { title: "Взять в кредит" },
+            ]}
           />
         </div>
-        <Button variant="primary" title="Оформить заказ" type="submit"/>
+        <Button
+          type="submit"
+          variant="primary"
+          title="Оформить заказ"
+          loading={loading}
+        />
       </form>
     </Container>
   );
 };
 
-const Product = ({ data }) => {
+const Product = ({
+  brand,
+  brandLogo,
+  productName,
+  productImageX300,
+  characteristic,
+  articule,
+  price,
+  count,
+}) => {
+  const dispatch = useDispatch();
+
   return (
     <section className="product">
       <section className="image">
         <Sale />
-        <Image path="/images/product/product" type="png" />
+        <img src={productImageX300} alt={brand} />
       </section>
       <section className="info">
         <div className="info-title">
           <Text tag="span" sz="larg" clr="secondary" bold className="title">
-            {"Besshof STARK-ZS/ZU-T07KC"}
+            {productName}
           </Text>
-          <Image path="/images/product/logo" type="png" />
+          <img src={brandLogo} alt={brand} />
         </div>
-        {/* <Table value={data} /> */}
+        <Table characteristic={characteristic} />
       </section>
       <sections className="count">
         <Text tag="span" sz="normall" clr="primary">
@@ -89,10 +173,14 @@ const Product = ({ data }) => {
         </Text>
         <div>
           <Text tag="span" sz="normall" clr="secondary" bold>
-            1
+            {count}
           </Text>
-          <button>-</button>
-          <button>+</button>
+          <button onClick={() => dispatch(decrementProductCount(articule))}>
+            -
+          </button>
+          <button onClick={() => dispatch(incrementProductCount(articule))}>
+            +
+          </button>
         </div>
       </sections>
       <section className="btns">
@@ -101,13 +189,19 @@ const Product = ({ data }) => {
             цена
           </Text>
           <Text tag="span" sz="larg" clr="tercary" bold className="price">
-            {"15 494 ₽"}
+            {makePriceView(count * price, { unit: "₽", split: " " })}
           </Text>
         </div>
         <div className="btn-group">
           <BtnsGroup />
         </div>
       </section>
+      <img
+        alt="trash"
+        className="trash"
+        src="/images/trash.svg"
+        onClick={() => dispatch(basketRemoveProduct(articule))}
+      />
     </section>
   );
 };

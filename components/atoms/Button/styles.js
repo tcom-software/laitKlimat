@@ -1,5 +1,14 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import theme from "@styles/theme";
+
+const loopRotate = keyframes`
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+`;
 
 const variants = {
   primary: css`
@@ -63,20 +72,17 @@ export const StyledButton = styled.button`
         position: absolute;
         left: 50%;
         transform: translate(-50%, -50%);
-        animation: loop-rotate 0.8s linear infinite;
+        animation: ${loopRotate} 0.8s linear infinite;
+      }
+
+      &.light {
+        img {
+          filter: invert(41%) sepia(100%) saturate(341%) hue-rotate(157deg) brightness(100%) contrast(107%);
+        }
       }
 
       &:last-of-type {
         opacity: 0;
-      }
-    }
-
-    @keyframes loop-rotate {
-      0% {
-        transform: translate(-50%, -50%) rotate(0);
-      }
-      100% {
-        transform: translate(-50%, -50%) rotate(360deg);
       }
     }
   }

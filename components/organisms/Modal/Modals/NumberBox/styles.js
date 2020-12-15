@@ -96,6 +96,22 @@ export const Container = styled.div`
       white-space: nowrap;
     }
 
+    > input {
+      padding: 0.6em;
+      font-size: 16px;
+      line-height: 18px;
+
+      ::-webkit-inner-spin-button,
+      ::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      ::placeholder {
+        text-transform: capitalize;
+      }
+    }
+
     > div {
       display: flex;
 
@@ -125,22 +141,6 @@ export const Container = styled.div`
             content: url(/images/checkbox.svg);
           }
         }
-      }
-    }
-
-    input[type="number"] {
-      padding: 0.6em;
-      font-size: 16px;
-      line-height: 18px;
-
-      ::-webkit-inner-spin-button,
-      ::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-
-      ::placeholder {
-        text-transform: capitalize;
       }
     }
 

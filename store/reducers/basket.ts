@@ -28,6 +28,49 @@ const addProduct = (state: BaketState, action: ActionCreatorType) => {
   };
 };
 
+const incrementProductCount = (
+  state: BaketState,
+  action: ActionCreatorType
+) => {
+  const { [action.payload]: decProduct, ...rest } = state.products;
+
+  return {
+    ...state,
+    count: state.count - 1,
+    totalPrice: state.totalPrice - decProduct.price,
+    products:
+      decProduct.count === 1
+        ? rest
+        : {
+            ...rest,
+            [action.payload]: {
+              ...decProduct,
+              count: decProduct.count - 1,
+            },
+          },
+  };
+};
+
+const decrementProductCount = (
+  state: BaketState,
+  action: ActionCreatorType
+) => {
+  const { [action.payload]: incProduct, ...rest } = state.products;
+
+  return {
+    ...state,
+    count: state.count + 1,
+    totalPrice: state.totalPrice + incProduct.price,
+    products: {
+      ...rest,
+      [action.payload]: {
+        ...incProduct,
+        count: incProduct.count + 1,
+      },
+    },
+  };
+};
+
 const initialState = {
   count: 0,
   products: {} as any,
@@ -42,38 +85,19 @@ const basketReducer = (
   switch (action.type) {
     case types.ADD_PRODUCT:
       return addProduct(state, action);
+
     case types.REMOVE_PRODUCT:
       return removeProduct(state, action);
+
     case types.CLEAR_BASKET:
       return { ...initialState };
+
     case types.INCREMENT_PRODUCT_COUNT:
-      const incProduct = state.products[action.payload];
-      return {
-        ...state,
-        count: state.count + 1,
-        products: {
-          ...state.products,
-          [action.payload]: {
-            ...incProduct,
-            count: incProduct.count + 1,
-          },
-        },
-        totalPrice: state.totalPrice + incProduct.price,
-      };
+      return decrementProductCount(state, action);
+
     case types.DECREMENT_PRODUCT_COUNT:
-      const decProduct = state.products[action.payload];
-      return {
-        ...state,
-        count: state.count - 1,
-        products: {
-          ...state.products,
-          [action.payload]: {
-            ...decProduct,
-            count: decProduct.count - 1,
-          },
-        },
-        totalPrice: state.totalPrice - decProduct.price,
-      };
+      return incrementProductCount(state, action);
+
     default:
       return state;
   }

@@ -15,6 +15,7 @@ const Button = ({
   refName = null,
   children = null,
   loading = false,
+  loadingMode = "dark",
   ...buttonProps
 }) => {
   return (
@@ -27,7 +28,7 @@ const Button = ({
       {...buttonProps}
     >
       {loading && (
-        <span>
+        <span className={cn(loadingMode)}>
           <img src="/images/loading.svg" />
         </span>
       )}

@@ -79,13 +79,14 @@ export const Container = styled.div`
         h1 {
           font-weight: bold;
           color: ${theme.colors.secondary};
-          padding-bottom: 0.5em;
           font-size: 4vw;
         }
 
         h2 {
           color: ${theme.colors.tercary};
+          color: #59b52a;
           font-size: 3.5vw;
+          line-height: 4vw;
         }
       }
     }
@@ -93,7 +94,8 @@ export const Container = styled.div`
 
   .main-content {
     margin-bottom: var(--heading-margin);
-
+    position: relative;
+    
     .products {
       display: grid;
       grid-gap: 1em;
@@ -145,6 +147,13 @@ export const Container = styled.div`
         display: block;
         margin: 2em 0 0 auto;
       }
+    }
+
+    .no-products {
+      top: 0;
+      left: 50%;
+      position: absolute;
+      transform: translateX(-50%);
     }
 
     .pagination--wrapper {

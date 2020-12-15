@@ -5,7 +5,9 @@ import { showModal } from "@redux/actions/modal";
 import { addFilters, changeCategory } from "@redux/actions/filters";
 
 const mapDispatchToProps = dispatch => ({
-  showModal: props => dispatch(showModal(props)),
+  showMenu: props => dispatch(showModal(props)),
+  showNumberBox: props => dispatch(showModal(props)),
+  showFilters: props => dispatch(showModal(props)),
   changeCategory: category => dispatch(changeCategory(category)),
 });
 

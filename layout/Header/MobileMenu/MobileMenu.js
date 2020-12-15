@@ -10,14 +10,15 @@ const acardion = (categories, toggleOpen) => {
   return (
     <ul className="category-list">
       {categories.map(({ id, ...rest }) => (
-        <Category key={id} {...rest} toggleOpen={toggleOpen} />
+        <Category key={id} id={id} {...rest} toggleOpen={toggleOpen} />
       ))}
     </ul>
   );
 };
 
-const Category = ({ title, subCategories, query, toggleOpen, icon }) => {
+const Category = ({ id, name, subCategories, icon, toggleOpen }) => {
   const [isOpen, setOpen] = useState(false);
+  const isTreeLeaf = !subCategories;
 
   const handleOpenCategories = () => {
     setOpen(state => !state);
@@ -30,16 +31,20 @@ const Category = ({ title, subCategories, query, toggleOpen, icon }) => {
         className={cn("category-item", {
           "category-item_open": isOpen,
         })}
-        data-arrow={query ? false : true}
+        data-arrow={isTreeLeaf ? false : true}
       >
-        {icon && <img src={icon} alt={title} />}
-        {query ? (
-          <Link title={title} href={query} onClick={toggleOpen} />
+        {icon && <img src={"/images/categories/icons/" + icon} alt={name} />}
+        {isTreeLeaf ? (
+          <Link
+            title={name}
+            onClick={toggleOpen}
+            href={`/category?c=${id}&page=1`}
+          />
         ) : (
-          <span>{title}</span>
+          <span>{name}</span>
         )}
       </li>
-      {subCategories && acardion(subCategories)}
+      {subCategories && acardion(subCategories, toggleOpen)}
     </>
   );
 };
