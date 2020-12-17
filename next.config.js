@@ -16,6 +16,8 @@ module.exports = {
     searchPath: "api/searchProduct",
     callBackPath: "api/oneClickOrder",
     checkoutPath: "api/checkout",
+    getReviewsPath: "api/getReviews",
+    addReviewPath: "api/review",
   },
   publicRuntimeConfig: {
     staticFolder: "",

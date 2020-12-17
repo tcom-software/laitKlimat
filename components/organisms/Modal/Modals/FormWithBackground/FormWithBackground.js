@@ -1,4 +1,5 @@
 import { Button, Text, Icon, Input, Textarea } from "@atoms";
+import { rest } from "lodash";
 import { StyledForm } from "./styles";
 
 const FormWithBackground = ({
@@ -6,9 +7,10 @@ const FormWithBackground = ({
   children,
   footerRenderProps,
   handleSubmit,
+  id,
 }) => {
   return (
-    <StyledForm onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit} id={id}>
       <header>
         <div className="close" onClick={hideModal}>
           <Icon name="close" fill="secondary" />

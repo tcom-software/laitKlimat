@@ -93,19 +93,20 @@ const Category: FC<Props> = ({ initialStore }) => {
       </section>
       <ChosenFilters />
       <section className="container main-content">
+        {/* ******************* Filter ********************** */}
         {products_info?.total !== 0 && (
           <form className="filters">
-            <>
-              <Filter />
-              <Button variant="secondary" title="сброс" type="reset" />
-            </>
+            <Filter />
+            <Button variant="secondary" title="сброс" type="reset" />
           </form>
         )}
+        {/* ******************* Products ********************** */}
         <div className={cn("products", `${viewState}-view`)}>
           {products.map((product: any, i: number) => (
             <Product key={i} view={viewState} data={product} />
           ))}
         </div>
+        {/* ******************* Pagination ********************** */}
         {products_info?.total === 0 ? (
           <Text tag="p" sz="normal" clr="tercary" className="no-products">
             Нет результатов

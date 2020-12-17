@@ -18,7 +18,7 @@ export const Container = styled.div`
       }
 
       .stars {
-        grid-area: 1 / 3 / 3 / 3;
+        grid-area: 1 / 3 / 4 / 3;
 
         p {
           padding: 0 0 0.7em 0.3em;
@@ -42,7 +42,7 @@ export const Container = styled.div`
       }
 
       .images {
-        grid-area: 3 / 2 / 3 / 4;
+        grid-area: 4 / 2 / 4 / 4;
 
         display: grid;
         grid-auto-flow: column;
