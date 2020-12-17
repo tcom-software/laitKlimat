@@ -5,7 +5,7 @@ import { Container } from "./styles";
 const ImageView = ({
   modalRef,
   hideModal,
-  modalProps: { url, alt, type, asSlider, number, count },
+  modalProps: { url, alt, type, asSlider, number, count, responsive = true },
 }) => {
   const [loading, setLoading] = useState(true);
   const [photoNumber, setPhotoNumber] = useState(number);
@@ -16,7 +16,7 @@ const ImageView = ({
   /**
    * Change slide when using in gallery page
    */
-  const changeSlide = to => {
+  const changeSlide = (to) => {
     const changeTo =
       to === "prev"
         ? photoNumber === 1
@@ -26,7 +26,7 @@ const ImageView = ({
         ? 0
         : 1;
     setCurrentUrl(`${url}${photoNumber + changeTo}_max`);
-    setPhotoNumber(number => number + changeTo);
+    setPhotoNumber((number) => number + changeTo);
   };
 
   return (
@@ -42,8 +42,12 @@ const ImageView = ({
         <div className="prev" onClick={() => changeSlide("prev")}></div>
       )}
       <picture>
-        <source srcSet={`${currentUrl}.webp`} type="image/webp" />
-        <source srcSet={`${currentUrl}.${type}`} type={`image/${type}`} />
+        {responsive && (
+          <>
+            <source srcSet={`${currentUrl}.webp`} type="image/webp" />
+            <source srcSet={`${currentUrl}.${type}`} type={`image/${type}`} />
+          </>
+        )}
         <img
           alt={alt}
           src={`${currentUrl}.${type}`}

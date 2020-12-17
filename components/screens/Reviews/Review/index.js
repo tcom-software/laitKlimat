@@ -1,28 +1,39 @@
 import { Container } from "./styles";
 import { Text, Icon } from "@atoms";
+import { useDispatch } from "react-redux";
+import { showModal } from "@redux/actions/modal";
+import { useCallback } from "react";
 
-const r = {
-  fullName: "Сергей Поляков",
-  city: "г. Москва",
-  stars: 5,
-  review: {
-    title: "Отличный магазин",
-    message:
-      "“Это вторая компания, куда я обратился за установкой кондиционера. В отличии от предыдущей, все соглашения по просмотру и установке, были выполнены с высоким качеством. Первое- соглашения о дате всегда сопровождались контрольным звонком, все было в оговоренные сроки и время. Второе -профессиональная работа монтажников. Компания достойная уважения, побольше таких. Рекомендую всем.”",
-  },
-  conditioner: {
-    name: "Fujitsu ASYG09LLCE-R/AOYG09LLCE-R",
-    date: "14.04.2020",
-  },
-  admin: {
-    title: "Администратор сайта Лайт Климат",
-    message:
-      "Администратор сайта Лайт Климат Здравствуйте, Сергей Поляков. Спасибо Вам за отзыв, всегда готовы Вам помочь.",
-  },
-};
+const Review = ({ data }) => {
+  const dispatch = useDispatch();
 
-const Review = () => {
-  const { fullName, city, review, conditioner, admin, stars } = r;
+  const handleShowImage = useCallback((url, type) => {
+    dispatch(
+      showModal({
+        modalType: "imageView",
+        modalProps: {
+          url,
+          type,
+          alt: "review photo",
+          responsive: false,
+        },
+      })
+    );
+  }, []);
+
+  const {
+    admin_comment,
+    advantages,
+    limitations,
+    comment,
+    date,
+    installed_conditioner,
+    last_name,
+    name,
+    rating,
+    images,
+  } = data;
+  // const { fullName, city, review, conditioner, admin, stars } = r;
 
   return (
     <Container>
@@ -33,58 +44,90 @@ const Review = () => {
       <div className="title">
         <div className="name">
           <Text tag="h4" clr="secondary" sz="larg">
-            {fullName}
+            {`${name} ${last_name}`}
           </Text>
-          <Text tag="p" clr="primary" sz="normal" className="city">
+          {/* <Text tag="p" clr="primary" sz="normal" className="city">
             {city}
-          </Text>
+          </Text> */}
         </div>
         <div className="stars">
-          {[...Array(stars)].map((_, idx) => (
+          {[...Array(rating)].map((_, idx) => (
             <Icon name="star" key={idx} />
           ))}
         </div>
       </div>
 
       <div className="main">
-        <div className="review">
-          <Text tag="span" clr="tercary" sz="normal" bold>
-            {review.title}
-          </Text>
-          <Text tag="p" clr="primary" sz="normal">
-            {review.message}
-          </Text>
-        </div>
-        <ul className="conditioner">
-          <li>
-            <Text tag="span" clr="primary" sz="normal">
-              Установленный кондиционер:
-            </Text>
+        {advantages && (
+          <div className="review">
             <Text tag="span" clr="tercary" sz="normal" bold>
-              {conditioner.name}
+              {"ПРЕИМУЩЕСТВА"}
             </Text>
-          </li>
+            <Text tag="p" clr="primary" sz="normal">
+              {advantages}
+            </Text>
+          </div>
+        )}
+        {limitations && (
+          <div className="review">
+            <Text tag="span" clr="tercary" sz="normal" bold>
+              {"НЕДОСТАТКИ"}
+            </Text>
+            <Text tag="p" clr="primary" sz="normal">
+              {limitations}
+            </Text>
+          </div>
+        )}
+        {comment && (
+          <div className="review">
+            <Text tag="span" clr="tercary" sz="normal" bold>
+              {"ОПИСАНИЕ"}
+            </Text>
+            <Text tag="p" clr="primary" sz="normal">
+              {comment}
+            </Text>
+          </div>
+        )}
+
+        <ul className="conditioner">
+          {installed_conditioner && (
+            <li>
+              <Text tag="span" clr="primary" sz="normal">
+                Установленный кондиционер:
+              </Text>
+              <Text tag="span" clr="tercary" sz="normal" bold>
+                {installed_conditioner}
+              </Text>
+            </li>
+          )}
           <li>
             <Text tag="span" clr="primary" sz="normal">
               дата установки:
             </Text>
             <Text tag="span" clr="tercary" sz="normal" bold>
-              {conditioner.date}
+              {date}
             </Text>
           </li>
         </ul>
         <div className="admin">
           <Text tag="span" clr="tercary" sz="normal" bold>
-            {admin.title}
+            {"Администратор сайта Лайт Климат"}
           </Text>
           <Text tag="p" clr="primary" sz="normal">
-            {admin.message}
+            {admin_comment}
           </Text>
         </div>
-        <div className="images">
-          <img src="/images/gallery/1_min.jpg" alt="photo" />
-          <img src="/images/gallery/2_min.jpg" alt="photo" />
-        </div>
+        {images && (
+          <div className="images">
+            {images.map(({ path, format }) => (
+              <img
+                src={path + "." + format}
+                alt="photo"
+                onClick={() => handleShowImage(path, format)}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </Container>
   );

@@ -18,6 +18,7 @@ module.exports = {
     checkoutPath: "api/checkout",
     getReviewsPath: "api/getReviews",
     addReviewPath: "api/review",
+    getReviewPath: "api/getReviews"
   },
   publicRuntimeConfig: {
     staticFolder: "",

@@ -80,7 +80,7 @@ export const initializeProducts = async ({
   const cachedKey = serialezeKey(ctx.query);
   const filters: string[] = JSON.parse(readCookie(ctx.req, storage.FILTERS));
   const isFirstRender = ctx.req.headers["sec-fetch-mode"] !== "cors";
-  const hasCache = !isFirstRender && filters.includes(cachedKey);
+  const hasCache = !isFirstRender && filters?.includes(cachedKey);
   const products = {
     hasCache,
     cachedKey,
@@ -92,7 +92,7 @@ export const initializeProducts = async ({
     c: category,
     manufacturerCountries,
     price,
-    // ranges from to
+    // ranges "from to"
     range1,
     range2,
     range4,
@@ -145,7 +145,6 @@ export const initializeProducts = async ({
   }
 
   if (!hasCache) {
-    // console.log({ body, fromTo: body.fromTo });
     const filters = `${category}?page=${page || 1}`;
     const url = `${fetchUrl}${productsPath}${filters}`;
     const response = await fetch(url, {

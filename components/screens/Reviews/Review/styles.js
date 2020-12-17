@@ -106,13 +106,20 @@ export const Container = styled.div`
       display: flex;
       overflow-x: auto;
 
+      img {
+        width: 140px;
+        height: 140px;
+        object-fit: cover;
+      }
+
       img:not(:last-child) {
         margin-right: 1em;
       }
 
       ${theme.breakpoints.down("xs")} {
         img {
-          width: 60%;
+          width: 130px;
+          height: 130px;
         }
       }
     }
