@@ -8,21 +8,25 @@ interface Props {
   modalProps: {
     heading: string;
     description?: string;
+    callBack?: () => void;
   };
 }
 
 const Alert: FC<Props> = ({
   modalRef,
   hideModal,
-  modalProps: { heading, description },
+  modalProps: { heading, description, callBack },
 }) => {
+  const hideModalWithCallBack = () => {
+    hideModal();
+    if (typeof callBack === "function") {
+      callBack();
+    }
+  };
+
   return (
     <Container ref={modalRef}>
-      <div
-        className="close"
-        onClick={hideModal}
-        // style={{ visibility: loading ? "hidden" : "visible" }}
-      >
+      <div className="close" onClick={hideModalWithCallBack}>
         <Icon name="close" fill="secondary" />
       </div>
       <Icon name="done" className="done" />

@@ -45,6 +45,15 @@ const BasketView = () => {
 
   const clearBasket = () => dispatch(basketClear());
 
+  // delete all basket info when close the alert modal
+  const deleteBasket = () => {
+    clearBasket();
+    nameRef.current.value = "";
+    telRef.current.value = "";
+    emailRef.current.value = "";
+    addressRef.current.value = "";
+  };
+
   // show order busket success
   const showDone = () => {
     dispatch(
@@ -53,6 +62,7 @@ const BasketView = () => {
         modalProps: {
           heading: "Order have been Success",
           description: "Thanks sooo much",
+          callBack: deleteBasket,
         },
       })
     );
@@ -85,10 +95,6 @@ const BasketView = () => {
     });
 
     setLoading(false);
-    nameRef.current.value = "";
-    telRef.current.value = "";
-    emailRef.current.value = "";
-    addressRef.current.value = "";
     setTimeout(showDone, 400);
   };
 
