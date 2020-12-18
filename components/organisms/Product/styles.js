@@ -542,26 +542,6 @@ export const Container = styled(Product)`
       }
     }
   }
-
-  &.potoduct-line-view,
-  &.potoduct-box-view {
-    position: relative;
-
-    ::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: #e8e8e8;
-      z-index: 10;
-      opacity: 0;
-      pointer-events: none;
-      transition: opasity 0.3s ease;
-      animation: var(--animation-name) 1.5s infinite linear;
-    }
-  }
 `;
 
 export const ContainerSimilarProduct = styled(Product)`

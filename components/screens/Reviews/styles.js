@@ -21,12 +21,7 @@ export const Container = styled.div`
   }
 
   > button {
-    float: right;
-
-    ${theme.breakpoints.down("xs")} {
-      float: unset;
-      display: block;
-      margin-left: auto;
-    }
+    display: block;
+    margin-left: auto;
   }
 `;

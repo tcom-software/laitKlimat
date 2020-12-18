@@ -3,8 +3,9 @@ import { Text, Icon } from "@atoms";
 import { useDispatch } from "react-redux";
 import { showModal } from "@redux/actions/modal";
 import { useCallback } from "react";
+import cn from "classnames";
 
-const Review = ({ data }) => {
+const Review = ({ data, loading }) => {
   const dispatch = useDispatch();
 
   const handleShowImage = useCallback((url, type) => {
@@ -33,10 +34,9 @@ const Review = ({ data }) => {
     rating,
     images,
   } = data;
-  // const { fullName, city, review, conditioner, admin, stars } = r;
 
   return (
-    <Container>
+    <Container className={cn({ "g-loading": loading })}>
       <div className="profile">
         <img src="/images/profile.png" alt="user" />
       </div>
@@ -119,10 +119,11 @@ const Review = ({ data }) => {
         </div>
         {images && (
           <div className="images">
-            {images.map(({ path, format }) => (
+            {images.map(({ path, format }, idx) => (
               <img
-                src={path + "." + format}
+                key={idx}
                 alt="photo"
+                src={path + "." + format}
                 onClick={() => handleShowImage(path, format)}
               />
             ))}

@@ -1,11 +1,16 @@
 import { GetServerSidePropsContext } from "next";
 import { FC, useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import { useRouter } from "next/router";
 import { useForceUpdate } from "hooks";
 import cn from "classnames";
 
-import { PreviousViews, Product, Filter, ChosenFilters } from "@organisms";
+import {
+  PreviousViews,
+  Product,
+  Filter,
+  ChosenFilters,
+  Pagination,
+} from "@organisms";
 import { Container } from "@styles/pages/product";
 import { Button, Text, Icon } from "@atoms";
 
@@ -75,6 +80,7 @@ const Category: FC<Props> = ({ initialStore }) => {
 
   return (
     <Container>
+      {/* ******************* Title ********************** */}
       <section className="title container">
         {globalThis.innerWidth >= 1024 && (
           <div className="viewVariants">
@@ -91,6 +97,7 @@ const Category: FC<Props> = ({ initialStore }) => {
         )}
         <Hgroup h1={titles?.category || ""} h2={titles?.subSubCategory || ""} />
       </section>
+      {/* ******************* Chosen Filters ********************** */}
       <ChosenFilters />
       <section className="container main-content">
         {/* ******************* Filter ********************** */}
@@ -107,33 +114,17 @@ const Category: FC<Props> = ({ initialStore }) => {
           ))}
         </div>
         {/* ******************* Pagination ********************** */}
-        {products_info?.total === 0 ? (
+        {!products_info || products_info.total === 0 ? (
           <Text tag="p" sz="normal" clr="tercary" className="no-products">
             Нет результатов
           </Text>
         ) : (
-          <div className="pagination--wrapper">
-            <ReactPaginate
-              containerClassName="pagination"
-              pageCount={Math.ceil(products_info?.total / 10) || 1}
-              pageRangeDisplayed={3}
-              marginPagesDisplayed={3}
-              previousLabel={
-                <span className="arrow-icons" data-direction="left">
-                  &#x3c;
-                </span>
-              }
-              nextLabel={
-                <span className="arrow-icons" data-direction="right">
-                  &#x3e;
-                </span>
-              }
-              forcePage={Number(router.query.page) - 1}
-              initialPage={Number(router.query.page) - 1}
-              onPageChange={onPageChange}
-              disableInitialCallback={false}
-            />
-          </div>
+          <Pagination
+            pages={products_info.total}
+            onPageChange={onPageChange}
+            forcePage={Number(router.query.page) - 1}
+            initialPage={Number(router.query.page) - 1}
+          />
         )}
         <PreviousViews />
       </section>

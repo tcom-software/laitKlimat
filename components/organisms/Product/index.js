@@ -12,19 +12,19 @@ const Product = ({ view, data }) => {
   const dispatch = useDispatch();
   const serializedData = serializeProductCardData(data);
   const ProduvtView = view === "box" ? ProductBoxView : ProductHorizontalView;
-  const [loading, setLoading] = useState(false);
+  const [basketLoading, setBasketLoading] = useState(false);
 
   const addToBasket = useCallback(() => {
-    setLoading(true);
+    setBasketLoading(true);
     setTimeout(() => {
-      setLoading(false);
+      setBasketLoading(false);
       dispatch(basketAddProduct(serializedData));
     }, 300);
   });
 
   return (
     <ProduvtView
-      loading={loading}
+      basketLoading={basketLoading}
       addToBasket={addToBasket}
       data={serializedData}
     />

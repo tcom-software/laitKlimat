@@ -5,32 +5,26 @@ import { Container } from "./styles";
 import FormWithBackground from "../FormWithBackground";
 
 const AddReview = ({ modalRef, hideModal }) => {
-  const [stars, setStars] = useState(2);
+  const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
   const [files, setFiles] = useState([]);
+  const [stars, setStars] = useState(2);
   const fileRef = useRef(null);
 
+  // add new review
   const addReview = async e => {
     e.preventDefault();
-    const {
-      name,
-      last_name,
-      limitations,
-      advantages,
-      comment,
-      rating,
-      installed_conditioner,
-      date,
-    } = e.target;
+    setLoading(true);
 
+    const tgt = e.target
     const formData = new FormData();
-    formData.append("name", name.value);
-    formData.append("last_name", last_name.value);
-    formData.append("installed_conditioner", installed_conditioner.value);
-    formData.append("limitations", limitations.value);
-    formData.append("advantages", advantages.value);
-    formData.append("comment", comment.value);
-    formData.append("date", date.value);
+    formData.append("name", tgt.name.value);
+    formData.append("last_name", tgt.last_name.value);
+    formData.append("installed_conditioner", tgt.installed_conditioner.value);
+    formData.append("limitations", tgt.limitations.value);
+    formData.append("advantages", tgt.advantages.value);
+    formData.append("comment", tgt.comment.value);
+    formData.append("date", tgt.date.value);
     formData.append("rating", stars);
     for (const file of files) {
       formData.append("file[]", file);
@@ -41,7 +35,7 @@ const AddReview = ({ modalRef, hideModal }) => {
     const addReviewPath = "api/review";
 
     const url = `${fetchUrl}${addReviewPath}`;
-    const json = await fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         projectId,
@@ -49,7 +43,8 @@ const AddReview = ({ modalRef, hideModal }) => {
       body: formData,
     });
 
-    const response = await json.json();
+    const data = await response.json();
+    setLoading(false);
   };
 
   return (
@@ -59,7 +54,12 @@ const AddReview = ({ modalRef, hideModal }) => {
         hideModal={hideModal}
         handleSubmit={addReview}
         footerRenderProps={() => (
-          <Button variant="primary" title="Отправить" type="submit" />
+          <Button
+            type="submit"
+            title="Отправить"
+            variant="primary"
+            loading={loading}
+          />
         )}
       >
         <Input type="text" label={"Имя"} name="name" required />
@@ -134,8 +134,12 @@ const AddReview = ({ modalRef, hideModal }) => {
                 src={image}
                 alt="photo"
                 onClick={() => {
-                  setImages(images => images.filter((_, index) => index !== idx));
-                  setFiles(images => images.filter((_, index) => index !== idx));
+                  setImages(images =>
+                    images.filter((_, index) => index !== idx)
+                  );
+                  setFiles(images =>
+                    images.filter((_, index) => index !== idx)
+                  );
                 }}
               />
             </div>

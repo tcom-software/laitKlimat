@@ -22,7 +22,6 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 Router.events.on("routeChangeComplete", () => {
-  console.log(window.innerWidth)
   if (window.innerWidth > 768) smoothScroll("title");
 });
 

@@ -11,7 +11,7 @@ import { Container } from "../styles";
 import eases from "utils/easing";
 import Link from "next/link";
 
-const ProductBoxView = ({ data, loading, addToBasket }) => {
+const ProductBoxView = ({ data, basketLoading, addToBasket }) => {
   const dispatch = useDispatch();
   const productRef = useRef(null);
   const [isOpen, setOpen] = useState(false);
@@ -110,7 +110,7 @@ const ProductBoxView = ({ data, loading, addToBasket }) => {
               alt="arrow"
             />
             <BtnsGroup
-              loading={loading}
+              loading={basketLoading}
               addToBasket={addToBasket}
               showNumberBox={handleShowNumberBox}
             />
@@ -119,7 +119,11 @@ const ProductBoxView = ({ data, loading, addToBasket }) => {
       ) : (
         <section className="btn-group row">
           <Button title="купить в кредит" variant="tercary" />
-          <Button title="в корзину" loading={loading} onClick={addToBasket} />
+          <Button
+            title="в корзину"
+            loading={basketLoading}
+            onClick={addToBasket}
+          />
         </section>
       )}
     </Container>

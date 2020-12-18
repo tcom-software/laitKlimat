@@ -3,7 +3,7 @@ import { Sale, BtnsGroup, Table, ProductLinkWrapper } from "../Components";
 import { Image, Text } from "@atoms";
 import { Container } from "../styles";
 
-const ProductHorizontalView = ({ data, loading, addToBasket }) => {
+const ProductHorizontalView = ({ data, basketLoading, addToBasket }) => {
   const {
     brand,
     brandLogo,
@@ -59,7 +59,7 @@ const ProductHorizontalView = ({ data, loading, addToBasket }) => {
           </Text>
         </div>
         <div className="btn-group">
-          <BtnsGroup loading={loading} addToBasket={addToBasket} />
+          <BtnsGroup loading={basketLoading} addToBasket={addToBasket} />
         </div>
       </section>
     </Container>
