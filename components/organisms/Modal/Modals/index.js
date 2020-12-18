@@ -4,6 +4,7 @@ import Compare from "./Compare";
 import NumberBox from "./NumberBox";
 import ImageView from "./ImageView";
 import AddReview from "./AddReview";
+import Alert from "./Alert";
 
 const modals = {
   menu: Menu,
@@ -12,6 +13,7 @@ const modals = {
   numberBox: NumberBox,
   imageView: ImageView,
   addReview: AddReview,
+  alert: Alert,
 };
 
 export default modals;

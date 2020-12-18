@@ -1,22 +1,38 @@
 import { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { Button, Text, Icon, Input, Textarea } from "@atoms";
 import { Container } from "./styles";
 
 import FormWithBackground from "../FormWithBackground";
+import { showModal } from "@redux/actions/modal";
 
 const AddReview = ({ modalRef, hideModal }) => {
-  const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState([]);
-  const [files, setFiles] = useState([]);
-  const [stars, setStars] = useState(2);
+  const dispatch = useDispatch();
   const fileRef = useRef(null);
+  const [stars, setStars] = useState(2);
+  const [files, setFiles] = useState([]);
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // show add review success
+  const showDone = () => {
+    dispatch(
+      showModal({
+        modalType: "alert",
+        modalProps: {
+          heading: "Thank you",
+          description: "Thanks sooo much",
+        },
+      })
+    );
+  };
 
   // add new review
   const addReview = async e => {
     e.preventDefault();
     setLoading(true);
 
-    const tgt = e.target
+    const tgt = e.target;
     const formData = new FormData();
     formData.append("name", tgt.name.value);
     formData.append("last_name", tgt.last_name.value);
@@ -45,6 +61,8 @@ const AddReview = ({ modalRef, hideModal }) => {
 
     const data = await response.json();
     setLoading(false);
+    hideModal();
+    setTimeout(showDone, 400);
   };
 
   return (

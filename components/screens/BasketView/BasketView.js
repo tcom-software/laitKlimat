@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+
 import { Hgroup } from "@molecules";
 import { Button, Image, Text, Input, Textarea, Select } from "@atoms";
 import { Sale, BtnsGroup, Table } from "../../organisms/Product/Components";
@@ -17,6 +18,7 @@ import {
   getBasketProducts,
   getBasketTotalPrice,
 } from "@redux/selectors/basket";
+import { showModal } from "@redux/actions/modal";
 
 export const productData = [
   { title: "Обслуживаемая площадь до", value: "20 м2" },
@@ -29,27 +31,42 @@ export const productData = [
 const BasketView = () => {
   const [loading, setLoading] = useState(false);
 
-  const nameRef = useRef();
-  const telRef = useRef();
-  const emailRef = useRef();
-  const addressRef = useRef();
-  const paymentTypeRef = useRef();
-  const delivaryTypeRef = useRef();
+  const nameRef = useRef(null);
+  const telRef = useRef(null);
+  const emailRef = useRef(null);
+  const addressRef = useRef(null);
+  const paymentTypeRef = useRef(null);
+  const delivaryTypeRef = useRef(null);
 
   const dispatch = useDispatch();
   const totalPrice = useSelector(getBasketTotalPrice);
   const productsCount = useSelector(getBasketCount);
   const products = useSelector(getBasketProducts);
 
+  const clearBasket = () => dispatch(basketClear());
+
+  // show order busket success
+  const showDone = () => {
+    dispatch(
+      showModal({
+        modalType: "alert",
+        modalProps: {
+          heading: "Order have been Success",
+          description: "Thanks sooo much",
+        },
+      })
+    );
+  };
+
+  // order busket
   const handleOnSubmit = async e => {
     e.preventDefault();
+    setLoading(true);
 
     const _products = Object.entries(products).reduce(
       (acc, [key, value]) => ({ ...acc, [key]: String(value.count) }),
       {}
     );
-
-    setLoading(true);
     const orderData = {
       delivery_address: addressRef.current.value,
       delivery_type: delivaryTypeRef.current.value,
@@ -68,6 +85,11 @@ const BasketView = () => {
     });
 
     setLoading(false);
+    nameRef.current.value = "";
+    telRef.current.value = "";
+    emailRef.current.value = "";
+    addressRef.current.value = "";
+    setTimeout(showDone, 400);
   };
 
   return (
@@ -84,7 +106,7 @@ const BasketView = () => {
             <Button
               variant="tercary"
               title="Очистить КОРЗИНY"
-              onClick={() => dispatch(basketClear())}
+              onClick={clearBasket}
             ></Button>
             <div className="basket__footer__value">
               <Text tag="span" sz="normal" clr="primary">
@@ -101,41 +123,48 @@ const BasketView = () => {
           </Text>
         )}
       </div>
-      <form onSubmit={handleOnSubmit}>
-        <div className="inputs">
-          <Input type="text" inputRef={nameRef} label={"Имя"} required />
-          <Input
-            type="text"
-            inputRef={telRef}
-            label={"Номер телефона"}
-            required
+      {productsCount !== 0 && (
+        <form onSubmit={handleOnSubmit}>
+          <div className="inputs">
+            <Input type="text" inputRef={nameRef} label={"Имя"} required />
+            <Input
+              type="text"
+              inputRef={telRef}
+              label={"Номер телефона"}
+              required
+            />
+            <Input type="email" inputRef={emailRef} label={"E-MAIL"} required />
+            <Input
+              type="text"
+              inputRef={addressRef}
+              label={"Адрес:"}
+              required
+            />
+            <Select
+              type="text"
+              label={"Тип доставки"}
+              inputRef={delivaryTypeRef}
+              options={[{ title: "С доставкой" }, { title: "Самовывоз" }]}
+            />
+            <Select
+              type="text"
+              label={"Тип оплаты"}
+              inputRef={paymentTypeRef}
+              options={[
+                { title: "Наличными курьеру" },
+                { title: "Банковской картой курьеру" },
+                { title: "Взять в кредит" },
+              ]}
+            />
+          </div>
+          <Button
+            type="submit"
+            variant="primary"
+            title="Оформить заказ"
+            loading={loading}
           />
-          <Input type="email" inputRef={emailRef} label={"E-MAIL"} required />
-          <Input type="text" inputRef={addressRef} label={"Адрес:"} required />
-          <Select
-            type="text"
-            label={"Тип доставки"}
-            inputRef={delivaryTypeRef}
-            options={[{ title: "С доставкой" }, { title: "Самовывоз" }]}
-          />
-          <Select
-            type="text"
-            label={"Тип оплаты"}
-            inputRef={paymentTypeRef}
-            options={[
-              { title: "Наличными курьеру" },
-              { title: "Банковской картой курьеру" },
-              { title: "Взять в кредит" },
-            ]}
-          />
-        </div>
-        <Button
-          type="submit"
-          variant="primary"
-          title="Оформить заказ"
-          loading={loading}
-        />
-      </form>
+        </form>
+      )}
     </Container>
   );
 };

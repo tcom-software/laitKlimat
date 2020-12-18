@@ -28,6 +28,8 @@ const Icon = ({ name, style, fill, width, height, className, ...svgProps }) => {
         return "0 0 46 19";
       case "star":
         return "0 0 22 22";
+      case "done":
+        return "0 0 512 512";
       default:
         return "";
     }
@@ -100,6 +102,15 @@ const Icon = ({ name, style, fill, width, height, className, ...svgProps }) => {
         <path
           d="M11.483.702a.55.55 0 00-1.011 0l-2.73 6.376-6.875.64a.555.555 0 00-.312.968l5.186 4.582-1.518 6.772a.552.552 0 00.819.598l1.325-.791c.183-7.59 3.69-12.935 6.466-15.993L11.483.702z"
           fill="inherit"
+        />
+      </>
+    ),
+    done: (
+      <>
+        <ellipse cx={256} cy={256} rx={256} ry={255.832} fill="#2591D1" />
+        <path
+          fill="#fff"
+          d="M235.472 392.08l-121.04-94.296 34.416-44.168 74.328 57.904 122.672-177.016 46.032 31.888z"
         />
       </>
     ),

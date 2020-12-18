@@ -1,9 +1,14 @@
 import { Sale, BtnsGroup, Table, ProductLinkWrapper } from "../Components";
-
 import { Image, Text } from "@atoms";
 import { Container } from "../styles";
+import cn from "classnames";
 
-const ProductHorizontalView = ({ data, basketLoading, addToBasket }) => {
+const ProductHorizontalView = ({
+  data,
+  basketLoading,
+  addToBasket,
+  loading,
+}) => {
   const {
     brand,
     brandLogo,
@@ -18,7 +23,7 @@ const ProductHorizontalView = ({ data, basketLoading, addToBasket }) => {
   } = data;
 
   return (
-    <Container className="potoduct-line-view">
+    <Container className={cn("potoduct-line-view", { "g-loading": loading })}>
       <section className="product">
         <Sale />
         <ProductLinkWrapper articule={articule}>

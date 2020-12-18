@@ -5,11 +5,13 @@ import { Image, Icon, Text, Button } from "@atoms";
 import { ContainerSimilarProduct } from "./styles";
 import { serializeProductCardData } from "helper/serializeProduct";
 import { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { basketAddProduct } from "@redux/actions/basket";
+import { getLoader } from "@redux/selectors/loader";
 
 const Product = ({ view, data }) => {
   const dispatch = useDispatch();
+  const loading = useSelector(getLoader);
   const serializedData = serializeProductCardData(data);
   const ProduvtView = view === "box" ? ProductBoxView : ProductHorizontalView;
   const [basketLoading, setBasketLoading] = useState(false);
@@ -27,6 +29,7 @@ const Product = ({ view, data }) => {
       basketLoading={basketLoading}
       addToBasket={addToBasket}
       data={serializedData}
+      loading={loading}
     />
   );
 };

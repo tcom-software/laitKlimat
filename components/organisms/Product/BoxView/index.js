@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useSpring, animated } from "react-spring";
 import { useDispatch } from "react-redux";
+import cn from "classnames";
 
 import { Sale, BtnsGroup, Table, ProductLinkWrapper } from "../Components";
 
@@ -11,7 +12,7 @@ import { Container } from "../styles";
 import eases from "utils/easing";
 import Link from "next/link";
 
-const ProductBoxView = ({ data, basketLoading, addToBasket }) => {
+const ProductBoxView = ({ data, basketLoading, addToBasket, loading }) => {
   const dispatch = useDispatch();
   const productRef = useRef(null);
   const [isOpen, setOpen] = useState(false);
@@ -51,7 +52,10 @@ const ProductBoxView = ({ data, basketLoading, addToBasket }) => {
   } = data;
 
   return (
-    <Container ref={productRef} className="potoduct-box-view">
+    <Container
+      ref={productRef}
+      className={cn("potoduct-box-view", { "g-loading": loading })}
+    >
       <section className="product">
         <div className="articule left-side">
           <span className="article">{`Артикул:\n${articule}`}</span>

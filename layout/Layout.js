@@ -20,12 +20,6 @@ const Layout = ({ children, data }) => {
       dispatch(toggleLoader(false))
     );
   }, []);
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--animation-name",
-      isloading ? "loader" : ""
-    );
-  }, [isloading]);
 
   return (
     <>
