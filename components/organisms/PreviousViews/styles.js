@@ -13,6 +13,10 @@ export const Container = styled.section`
     font-weight: normal;
   }
 
+  .no_products {
+    text-align: center;
+  }
+
   .prev-products {
     position: relative;
     overflow: hidden;

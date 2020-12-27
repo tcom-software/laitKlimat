@@ -1,4 +1,4 @@
-import { types } from "../actions/basket";
+import { ProductPayload, types } from "../actions/basket";
 import { ActionCreatorType } from "../types";
 
 const removeProduct = (state: BaketState, action: ActionCreatorType) => {
@@ -13,15 +13,15 @@ const removeProduct = (state: BaketState, action: ActionCreatorType) => {
     totalPrice: state.totalPrice - price * count,
   };
 };
-const addProduct = (state: BaketState, action: ActionCreatorType) => {
+const addProduct = (state: BaketState, action: { payload: ProductPayload }) => {
   return {
     ...state,
     count: state.count + 1,
     products: {
       ...state.products,
-      [action.payload.articule]: {
+      [action.payload.id]: {
         ...action.payload,
-        count: -~(state.products[action.payload.articule] || {}).count,
+        count: -~state.products[action.payload.id]?.count,
       },
     },
     totalPrice: state.totalPrice + action.payload.price,
@@ -32,20 +32,20 @@ const incrementProductCount = (
   state: BaketState,
   action: ActionCreatorType
 ) => {
-  const { [action.payload]: decProduct, ...rest } = state.products;
+  const { [action.payload]: incProduct, ...rest } = state.products;
 
   return {
     ...state,
     count: state.count - 1,
-    totalPrice: state.totalPrice - decProduct.price,
+    totalPrice: state.totalPrice - incProduct.price,
     products:
-      decProduct.count === 1
+      incProduct.count === 1
         ? rest
         : {
             ...rest,
             [action.payload]: {
-              ...decProduct,
-              count: decProduct.count - 1,
+              ...incProduct,
+              count: incProduct.count - 1,
             },
           },
   };
@@ -55,17 +55,17 @@ const decrementProductCount = (
   state: BaketState,
   action: ActionCreatorType
 ) => {
-  const { [action.payload]: incProduct, ...rest } = state.products;
+  const { [action.payload]: decProduct, ...rest } = state.products;
 
   return {
     ...state,
     count: state.count + 1,
-    totalPrice: state.totalPrice + incProduct.price,
+    totalPrice: state.totalPrice + decProduct.price,
     products: {
       ...rest,
       [action.payload]: {
-        ...incProduct,
-        count: incProduct.count + 1,
+        ...decProduct,
+        count: decProduct.count + 1,
       },
     },
   };
@@ -84,7 +84,7 @@ const basketReducer = (
 ): BaketState => {
   switch (action.type) {
     case types.ADD_PRODUCT:
-      return addProduct(state, action);
+      return addProduct(state, action as any);
 
     case types.REMOVE_PRODUCT:
       return removeProduct(state, action);

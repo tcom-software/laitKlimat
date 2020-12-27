@@ -156,6 +156,18 @@ export const Container = styled.div`
       transform: translateX(-50%);
     }
 
+    .slick-slider {
+      .slick-track {
+        align-items: stretch !important;
+
+        > div {
+          > div {
+            height: 100%;
+          }
+        }
+      }
+    }
+
     .similiar-product {
       width: 100%;
       margin-top: 4em;

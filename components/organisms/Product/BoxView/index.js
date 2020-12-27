@@ -1,19 +1,21 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import { useSpring, animated } from "react-spring";
-import { useDispatch } from "react-redux";
 import cn from "classnames";
 
-import { Sale, BtnsGroup, Table, ProductLinkWrapper } from "../Components";
+import { Sale, Table } from "../Components";
 
-import { showModal } from "@redux/actions/modal";
 import { useOutsideClickClose } from "hooks";
-import { Image, Text, Button } from "@atoms";
+import { Image, Text, Button, ProductLinkWrapper } from "@atoms";
 import { Container } from "../styles";
 import eases from "utils/easing";
 import Link from "next/link";
 
-const ProductBoxView = ({ data, basketLoading, addToBasket, loading }) => {
-  const dispatch = useDispatch();
+// buttons
+import ButtonOrderOneClick from "@atoms/Button/ButtonOrderOneClick";
+import ButtonAddToBasket from "@atoms/Button/ButtonAddToBasket";
+import ButtonCredit from "@atoms/Button/ButtonCredit";
+
+const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
   const productRef = useRef(null);
   const [isOpen, setOpen] = useState(false);
   useOutsideClickClose(productRef, setOpen);
@@ -25,19 +27,6 @@ const ProductBoxView = ({ data, basketLoading, addToBasket, loading }) => {
     },
   });
 
-  const handleShowNumberBox = useCallback(style => {
-    dispatch(
-      showModal({
-        modalType: "numberBox",
-        modalProps: {
-          position: "relative",
-          transform: "translate(0, 0)",
-          animation: "none",
-        },
-      })
-    );
-  }, []);
-
   const {
     brand,
     brandLogo,
@@ -46,7 +35,7 @@ const ProductBoxView = ({ data, basketLoading, addToBasket, loading }) => {
     characteristics,
     articule,
     setupPrice,
-    // price,
+    price,
     formatedPrice,
     characteristic,
   } = data;
@@ -61,34 +50,26 @@ const ProductBoxView = ({ data, basketLoading, addToBasket, loading }) => {
           <span className="article">{`Артикул:\n${articule}`}</span>
           <img src="/images/product/market.png" alt="product market" />
         </div>
-        <ProductLinkWrapper articule={articule}>
-          <a>
-            <img
-              src={productImageX300}
-              className="product-image"
-              alt="product image"
-            />
-          </a>
+        <ProductLinkWrapper articule={articule} onClick={addToPreviousViews}>
+          <img
+            src={productImageX300}
+            className="product-image"
+            alt="product image"
+          />
         </ProductLinkWrapper>
         <div className="right-side">
           <Sale />
           <img src="/images/product/gift.png" className="gift" alt="gift" />
         </div>
       </section>
-      <ProductLinkWrapper articule={articule}>
-        <a>
-          <Text tag="span" sz="larg" clr="secondary" bold className="title">
-            {productName}
-          </Text>
-        </a>
+      <ProductLinkWrapper articule={articule} onClick={addToPreviousViews}>
+        <Text tag="span" sz="larg" clr="secondary" bold className="title">
+          {productName}
+        </Text>
       </ProductLinkWrapper>
       <section className="price row">
         <img src={brandLogo} alt="brand logo" />
-        <Button
-          variant="tercary"
-          title="Купить в 1 клик"
-          onClick={handleShowNumberBox}
-        />
+        <ButtonOrderOneClick />
         <Text tag="span" sz="larg" clr="tercary" bold className="price">
           {formatedPrice}
         </Text>
@@ -113,21 +94,15 @@ const ProductBoxView = ({ data, basketLoading, addToBasket, loading }) => {
               onClick={() => setOpen(false)}
               alt="arrow"
             />
-            <BtnsGroup
-              loading={basketLoading}
-              addToBasket={addToBasket}
-              showNumberBox={handleShowNumberBox}
-            />
+            <ButtonOrderOneClick />
+            <ButtonAddToBasket productId={{ id: articule, price }} />
+            <ButtonCredit />
           </animated.section>
         </>
       ) : (
         <section className="btn-group row">
-          <Button title="купить в кредит" variant="tercary" />
-          <Button
-            title="в корзину"
-            loading={basketLoading}
-            onClick={addToBasket}
-          />
+          <ButtonCredit />
+          <ButtonAddToBasket productId={{ id: articule, price }} />
         </section>
       )}
     </Container>

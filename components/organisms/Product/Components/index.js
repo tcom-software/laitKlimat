@@ -30,14 +30,6 @@ export const Sale = () => (
   </StyledSale>
 );
 
-export const BtnsGroup = ({ loading, addToBasket, showNumberBox }) => (
-  <>
-    <Button title="в корзину" loading={loading} onClick={addToBasket} />
-    <Button title="купить в кредит" variant="secondary" />
-    <Button title="Купить в 1 клик" variant="tercary" onClick={showNumberBox} />
-  </>
-);
-
 export const ProductLinkWrapper = ({ children, articule }) => {
   return (
     <Link href={`products/[product]`} as={`products/${articule}`}>

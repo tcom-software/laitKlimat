@@ -5,6 +5,9 @@ import { createSelector } from "reselect";
 export const getProductsCache = (state: AppState) =>
   get(state, ["products", "cache"]);
 
+export const getCachedProducts = () =>
+  createSelector(getProductsCache, (cache: any) => cache._cache);
+
 // example` useSelector(getProductsCacheByKey(someKey))
 export const getProductsCacheByKey = (key: any) =>
   createSelector(getProductsCache, (cache: any) => cache._cache[String(key)]);

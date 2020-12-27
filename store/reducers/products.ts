@@ -3,16 +3,6 @@ import { setCookie } from "utils/cookies";
 import { types } from "../actions/products";
 import { ActionCreatorType } from "../types";
 
-export const serialezeKey = (key: any) => {
-  if (typeof key === "string") {
-    return key;
-  }
-  return Object.entries(key).reduce(
-    (acc, entry) => `${acc}${entry.join(":")},`,
-    ""
-  );
-};
-
 const addToCashe = (cache: any, payload: any) => {
   const id = String(payload.key);
 
@@ -41,7 +31,7 @@ const removeCacheByKey = (cache: any, key: any) => {
 const initialState = {
   cache: {
     _cache: {},
-    _cacheSize: 4,
+    _cacheSize: 100,
     _cacheOrdering: [],
   },
 };

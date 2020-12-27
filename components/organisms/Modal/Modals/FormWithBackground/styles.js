@@ -2,8 +2,11 @@ import styled from "styled-components";
 import theme from "@styles/theme";
 
 export const StyledForm = styled.form`
+  display: grid;
+  max-height: 100vh;
+  grid-template-rows: max-content 1fr max-content;
+
   ${theme.breakpoints.down("xs")} {
-    display: grid;
     height: 100vh !important;
   }
 
@@ -53,6 +56,7 @@ export const StyledForm = styled.form`
     background-image: url(/images/bg-reviw.svg);
     background-size: cover;
     padding: 2em 6em 4em;
+    overflow-y: auto;
 
     ${theme.breakpoints.down("md")} {
       padding: 2em 3em 3em;

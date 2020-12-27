@@ -71,6 +71,20 @@ const Search = () => {
     return await response.json();
   };
 
+  const handleOnScroll = (e: any) => {
+    const {
+      scrollHeight,
+      scrollTop,
+      offsetHeight,
+    } = e.target as HTMLDivElement;
+
+    if (hasNextPage && !loading) {
+      if (scrollTop + offsetHeight >= scrollHeight - 5) {
+        setPage(page => page + 1);
+      }
+    }
+  };
+
   return (
     <div ref={containerRef} className="search-bar">
       <form>
@@ -88,19 +102,7 @@ const Search = () => {
             <div
               ref={scrollRef}
               className="search-result"
-              onScroll={e => {
-                const {
-                  scrollHeight,
-                  scrollTop,
-                  offsetHeight,
-                } = e.target as HTMLDivElement;
-
-                if (hasNextPage && !loading) {
-                  if (scrollTop + offsetHeight >= scrollHeight - 5) {
-                    setPage(page => page + 1);
-                  }
-                }
-              }}
+              onScroll={handleOnScroll}
             >
               <p>
                 по вашему запросу найдено <strong>{total}</strong> продуктов

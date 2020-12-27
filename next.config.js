@@ -8,7 +8,7 @@ module.exports = {
   },
   serverRuntimeConfig: {
     projectId: "59",
-    fetchUrl: "http://projects-backend.ru/",
+    fetchUrl: "http://projects-backend.ru/back/",
     categoryPath: "api/getCategories",
     productsPath: "api/getProducts/",
     productPath: "api/getProduct/",

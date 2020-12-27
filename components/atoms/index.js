@@ -9,6 +9,7 @@ export { default as Loading } from "./Loading";
 export { default as Checkbox } from "./Checkbox";
 export { default as NextLink } from "./NextLink";
 export { default as Textarea } from "./Textarea";
+export { default as ProductLinkWrapper } from "./ProductLinkWrapper";
 // export { default as Section } from "./Section";
 // export { default as Radio } from "./Radio";
 // export { default as TextArea } from "./TextArea";

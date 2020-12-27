@@ -1,18 +1,17 @@
 import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Hgroup } from "@molecules";
 import { Button, Image, Text, Input, Textarea, Select } from "@atoms";
-import { Sale, BtnsGroup, Table } from "../../organisms/Product/Components";
-import { Container } from "./styles";
-
+import { Sale, Table } from "../../organisms/Product/Components";
 import { makePriceView } from "utils/makePriceView";
+import { Container } from "./styles";
 import {
   basketClear,
   basketRemoveProduct,
   decrementProductCount,
   incrementProductCount,
 } from "@redux/actions/basket";
-import { useDispatch, useSelector } from "react-redux";
 import {
   getBasketCount,
   getBasketProducts,
@@ -20,16 +19,15 @@ import {
 } from "@redux/selectors/basket";
 import { showModal } from "@redux/actions/modal";
 
-export const productData = [
-  { title: "Обслуживаемая площадь до", value: "20 м2" },
-  { title: "Стоимость установки", value: "14 900 ₽" },
-  { title: "Доставка в пределах МКАД", value: "бесплатно" },
-  { title: "В кредит от", value: "645 р./месяц" },
-  { title: "Страна производителя", value: "Китай" },
-];
+// buttons
+import ButtonOrderOneClick from "@atoms/Button/ButtonOrderOneClick";
+import ButtonAddToBasket from "@atoms/Button/ButtonAddToBasket";
+import ButtonCredit from "@atoms/Button/ButtonCredit";
 
 const BasketView = () => {
   const [loading, setLoading] = useState(false);
+  // set by fetching to backend
+  const [products, setProducts] = useState(false);
 
   const nameRef = useRef(null);
   const telRef = useRef(null);
@@ -41,7 +39,7 @@ const BasketView = () => {
   const dispatch = useDispatch();
   const totalPrice = useSelector(getBasketTotalPrice);
   const productsCount = useSelector(getBasketCount);
-  const products = useSelector(getBasketProducts);
+  const basketProducts = useSelector(getBasketProducts);
 
   const clearBasket = () => dispatch(basketClear());
 
@@ -68,12 +66,14 @@ const BasketView = () => {
     );
   };
 
-  // order busket
+  /**
+   * order busket
+   */
   const handleOnSubmit = async e => {
     e.preventDefault();
     setLoading(true);
 
-    const _products = Object.entries(products).reduce(
+    const _products = Object.entries(basketProducts).reduce(
       (acc, [key, value]) => ({ ...acc, [key]: String(value.count) }),
       {}
     );
@@ -89,9 +89,13 @@ const BasketView = () => {
       products: _products,
     };
 
-    await fetch("/api/orderBasket", {
-      method: "POST",
-      body: JSON.stringify(orderData),
+    // await fetch("/api/orderBasket", {
+    //   method: "POST",
+    //   body: JSON.stringify(orderData),
+    // });
+
+    await new Promise(res => {
+      setTimeout(() => res(), 1000);
     });
 
     setLoading(false);
@@ -102,7 +106,7 @@ const BasketView = () => {
     <Container className="container">
       <Hgroup h1="КОРЗИНА" />
       <div className="basket">
-        {Object.values(products).map(props => (
+        {Object.values(basketProducts).map(props => (
           <Product {...props} />
         ))}
       </div>
@@ -113,7 +117,7 @@ const BasketView = () => {
               variant="tercary"
               title="Очистить КОРЗИНY"
               onClick={clearBasket}
-            ></Button>
+            />
             <div className="basket__footer__value">
               <Text tag="span" sz="normal" clr="primary">
                 стоимость заказа:
@@ -187,6 +191,9 @@ const Product = ({
 }) => {
   const dispatch = useDispatch();
 
+  const increment = () => dispatch(incrementProductCount(articule));
+  const decrement = () => dispatch(decrementProductCount(articule));
+
   return (
     <section className="product">
       <section className="image">
@@ -210,12 +217,8 @@ const Product = ({
           <Text tag="span" sz="normall" clr="secondary" bold>
             {count}
           </Text>
-          <button onClick={() => dispatch(decrementProductCount(articule))}>
-            -
-          </button>
-          <button onClick={() => dispatch(incrementProductCount(articule))}>
-            +
-          </button>
+          <button onClick={decrement}>-</button>
+          <button onClick={increment}>+</button>
         </div>
       </sections>
       <section className="btns">
@@ -228,7 +231,9 @@ const Product = ({
           </Text>
         </div>
         <div className="btn-group">
-          <BtnsGroup />
+          <ButtonOrderOneClick />
+          <ButtonAddToBasket product={{ id: articule, price }} />
+          <ButtonCredit />
         </div>
       </section>
       <img

@@ -1,13 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC, memo } from "react";
 import cn from "classnames";
 
 import { StyledButton } from "./styles";
+import { ButtonProps } from "./types";
 
-const variants = ["primary", "secondary", "tercary"];
-// const sizes = [];
-
-const Button = ({
+const Button: FC<ButtonProps> = ({
   title,
   type,
   variant,
@@ -33,7 +30,7 @@ const Button = ({
         </span>
       )}
       {children}
-      <span dangerouslySetInnerHTML={{ __html: title }} />
+      <span dangerouslySetInnerHTML={{ __html: title as string }} />
     </StyledButton>
   );
 };
@@ -43,12 +40,4 @@ Button.defaultProps = {
   variant: "primary",
 };
 
-Button.propTypes = {
-  type: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  variant: PropTypes.oneOf(variants),
-  refName: PropTypes.object,
-  className: PropTypes.string,
-};
-
-export default React.memo(Button);
+export default memo(Button);

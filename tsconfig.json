@@ -22,6 +22,7 @@
     "baseUrl": ".",
     "paths": {
       "@atoms": ["components/atoms"],
+      "@atoms/*": ["components/atoms/*"],
       "@molecules": ["components/molecules"],
       "@organisms": ["components/organisms"],
       "@screens": ["components/screens"],

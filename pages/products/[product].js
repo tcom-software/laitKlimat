@@ -23,7 +23,7 @@ const Product = ({ initialStore }) => {
     if (!hasCache) {
       dispatch(addProductsCache(productId, payload));
     }
-  }, [product]);
+  }, []);
 
   return <ProductView product={product} />;
 };

@@ -5,10 +5,10 @@ interface actionTypes {
   [name: string]: string;
 }
 
-export interface ActionCreatorType {
+export type ActionCreatorType = {
   type: string;
   payload?: any;
-}
+};
 
 // export type ActionCreatorType = Readonly<ActionInterface>;
 export type ActionType = Readonly<actionTypes>;

@@ -545,7 +545,10 @@ export const Container = styled(Product)`
 `;
 
 export const ContainerSimilarProduct = styled(Product)`
+  height: 100%;
+  display: grid !important;
   padding: 1.3em 1.7em;
+  grid-template-rows: max-content 1fr max-content max-content max-content;
 
   ${theme.breakpoints.down("xs")} {
     padding: 1em 0.7em;
@@ -554,7 +557,7 @@ export const ContainerSimilarProduct = styled(Product)`
   > .product {
     position: relative;
 
-    .product img {
+    .product {
       width: 100%;
     }
 

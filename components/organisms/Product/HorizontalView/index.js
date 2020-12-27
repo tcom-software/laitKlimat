@@ -1,14 +1,13 @@
-import { Sale, BtnsGroup, Table, ProductLinkWrapper } from "../Components";
+import { Sale, Table, ProductLinkWrapper } from "../Components";
 import { Image, Text } from "@atoms";
 import { Container } from "../styles";
 import cn from "classnames";
+// buttons
+import ButtonOrderOneClick from "@atoms/Button/ButtonOrderOneClick";
+import ButtonAddToBasket from "@atoms/Button/ButtonAddToBasket";
+import ButtonCredit from "@atoms/Button/ButtonCredit";
 
-const ProductHorizontalView = ({
-  data,
-  basketLoading,
-  addToBasket,
-  loading,
-}) => {
+const ProductHorizontalView = ({ data, loading }) => {
   const {
     brand,
     brandLogo,
@@ -17,7 +16,7 @@ const ProductHorizontalView = ({
     characteristics,
     articule,
     setupPrice,
-    // price,
+    price,
     formatedPrice,
     characteristic,
   } = data;
@@ -64,7 +63,9 @@ const ProductHorizontalView = ({
           </Text>
         </div>
         <div className="btn-group">
-          <BtnsGroup loading={basketLoading} addToBasket={addToBasket} />
+          <ButtonOrderOneClick />
+          <ButtonAddToBasket productId={{ id: articule, price }} />
+          <ButtonCredit />
         </div>
       </section>
     </Container>

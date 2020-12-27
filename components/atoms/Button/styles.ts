@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import theme from "@styles/theme";
+import { Variant } from "./types";
 
 const loopRotate = keyframes`
   0% {
@@ -28,7 +29,11 @@ const variants = {
   `,
 };
 
-export const StyledButton = styled.button`
+interface StyledButtonProps {
+  variant: Variant;
+}
+
+export const StyledButton = styled.button<StyledButtonProps>`
   padding: 0.75rem 2em;
   border-radius: 2em;
   text-transform: uppercase;
@@ -77,7 +82,8 @@ export const StyledButton = styled.button`
 
       &.light {
         img {
-          filter: invert(41%) sepia(100%) saturate(341%) hue-rotate(157deg) brightness(100%) contrast(107%);
+          filter: invert(41%) sepia(100%) saturate(341%) hue-rotate(157deg)
+            brightness(100%) contrast(107%);
         }
       }
 

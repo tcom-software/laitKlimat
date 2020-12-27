@@ -247,7 +247,9 @@ export const Container = styled.div`
         button:last-of-type {
           padding: 0;
           border: none;
+          transform: none !important;
           filter: none;
+          cursor: default;
         }
       }
     }
@@ -310,5 +312,21 @@ export const Container = styled.div`
       padding-top: 2em;
       line-height: 1.7em;
     }
+  }
+
+  .slick-slider {
+    .slick-track {
+      align-items: stretch !important;
+
+      > div {
+        > div {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .previous-views {
+    padding-bottom: 50px;
   }
 `;

@@ -12,14 +12,20 @@ export const types = {
 };
 
 // action creators
-export const basketAddProduct = (product: any) => ({
+
+export type ProductPayload = {
+  id: number;
+  price: number;
+};
+
+export const basketAddProduct = (product: ProductPayload) => ({
   type: types.ADD_PRODUCT,
   payload: product,
 });
 
-export const basketRemoveProduct = (id: number) => ({
+export const basketRemoveProduct = (productId: number) => ({
   type: types.REMOVE_PRODUCT,
-  payload: id,
+  payload: productId,
 });
 
 export const basketClear = () => ({

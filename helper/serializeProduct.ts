@@ -1,5 +1,5 @@
-import { makePriceView } from "utils/makePriceView";
 import getConfig from "next/config";
+import { makePriceView } from "utils/makePriceView";
 import { getProductImageX300 } from "./getProductImageX300";
 
 const {

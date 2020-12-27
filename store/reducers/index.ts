@@ -6,6 +6,7 @@ import productsReducer from "./products";
 import siteReducer from "./site";
 import loaderReducer from "./loader";
 import basketReducer from "./basket";
+import previousViewsReducer from "./previousViews";
 
 const combinedReducer = combineReducers({
   site: siteReducer,
@@ -15,6 +16,7 @@ const combinedReducer = combineReducers({
   filters: filterReducer,
   products: productsReducer,
   filtersData: filtersDataReducer,
+  previousViews: previousViewsReducer,
 });
 
 export default combinedReducer;

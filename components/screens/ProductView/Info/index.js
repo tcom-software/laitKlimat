@@ -1,21 +1,15 @@
-import { useDispatch } from "react-redux";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { showModal } from "@redux/actions/modal";
 import { Text, Image, Icon, Button } from "@atoms";
-import { basketAddProduct } from "@redux/actions/basket";
+// buttons
+import ButtonOrderOneClick from "@atoms/Button/ButtonOrderOneClick";
+import ButtonAddToBasket from "@atoms/Button/ButtonAddToBasket";
+import ButtonCredit from "@atoms/Button/ButtonCredit";
 
-const Info = ({ data: { table, creditFrom } }) => {
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-
-  const addToBasket = useCallback(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      // dispatch(basketAddProduct(serializedData));
-    }, 300);
-  });
-
+const Info = ({
+  data: { table, creditFrom },
+  product: { articule, price },
+}) => {
   const openCompare = () => {
     dispatch(
       showModal({
@@ -34,7 +28,7 @@ const Info = ({ data: { table, creditFrom } }) => {
   }, []);
 
   // name = "head" | "body" | "footer"
-  const renderTRs = name => {
+  const renderTableRows = name => {
     return (
       <>
         {table[name].map(({ key, value, className, notRender }, idx) =>
@@ -54,9 +48,9 @@ const Info = ({ data: { table, creditFrom } }) => {
   return (
     <section className="info">
       <table>
-        <thead>{renderTRs("head")}</thead>
-        <tbody>{renderTRs("body")}</tbody>
-        <tfoot>{renderTRs("footer")}</tfoot>
+        <thead>{renderTableRows("head")}</thead>
+        <tbody>{renderTableRows("body")}</tbody>
+        <tfoot>{renderTableRows("footer")}</tfoot>
       </table>
       <div className="row">
         <Icon name="compare" fill="tercary" onClick={openCompare} />
@@ -64,15 +58,15 @@ const Info = ({ data: { table, creditFrom } }) => {
           Сравнить
         </Text>
       </div>
-      <section className="btn-group">
-        <Button variant="primary" title="в корзину" loading={loading} onClick={addToBasket}/>
-        <Button variant="tercary" title="Купить в 1 клик" />
-        <Button variant="secondary" title="купить в кредит" />
+      <div className="btn-group">
+        <ButtonAddToBasket product={{ id: articule, price }} />
+        <ButtonOrderOneClick />
+        <ButtonCredit />
         <Button
           variant="tercary"
           title={`В кредит от <strong>${creditFrom}</strong>/месяц`}
         />
-      </section>
+      </div>
     </section>
   );
 };
