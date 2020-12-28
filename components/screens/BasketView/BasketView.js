@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Hgroup } from "@molecules";
 import { Button, Image, Text, Input, Textarea, Select } from "@atoms";
-import { Sale, Table } from "../../organisms/Product/Components";
+import { Sale, Table } from "@organisms/Product/Common";
 import { makePriceView } from "utils/makePriceView";
 import { Container } from "./styles";
 import {
@@ -42,6 +42,10 @@ const BasketView = () => {
   const basketProducts = useSelector(getBasketProducts);
 
   const clearBasket = () => dispatch(basketClear());
+
+  useEffect(() => {
+console.log(basketProducts)
+  }, [])
 
   // delete all basket info when close the alert modal
   const deleteBasket = () => {
@@ -105,11 +109,11 @@ const BasketView = () => {
   return (
     <Container className="container">
       <Hgroup h1="КОРЗИНА" />
-      <div className="basket">
+      {/* <div className="basket">
         {Object.values(basketProducts).map(props => (
           <Product {...props} />
         ))}
-      </div>
+      </div> */}
       <div className="basket__footer">
         {productsCount !== 0 ? (
           <>

@@ -1,4 +1,4 @@
-import { Sale, Table, ProductLinkWrapper } from "../Components";
+import { Sale, Table, ProductLinkWrapper } from "../Common";
 import { Image, Text } from "@atoms";
 import { Container } from "../styles";
 import cn from "classnames";
@@ -64,7 +64,7 @@ const ProductHorizontalView = ({ data, loading }) => {
         </div>
         <div className="btn-group">
           <ButtonOrderOneClick />
-          <ButtonAddToBasket productId={{ id: articule, price }} />
+          <ButtonAddToBasket product={{ id: articule, price }} />
           <ButtonCredit />
         </div>
       </section>

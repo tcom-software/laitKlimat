@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Text, Checkbox, Icon } from "@atoms";
-import { SimilarProduct } from "@organisms";
+import SimilarProduct from "@organisms/Product/SimilarView";
 import { Container } from "./styles";
 
 const filters = [

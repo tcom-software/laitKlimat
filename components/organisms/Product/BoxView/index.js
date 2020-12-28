@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useSpring, animated } from "react-spring";
 import cn from "classnames";
 
-import { Sale, Table } from "../Components";
+import { Sale, Table } from "../Common";
 
 import { useOutsideClickClose } from "hooks";
 import { Image, Text, Button, ProductLinkWrapper } from "@atoms";
@@ -95,14 +95,14 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
               alt="arrow"
             />
             <ButtonOrderOneClick />
-            <ButtonAddToBasket productId={{ id: articule, price }} />
+            <ButtonAddToBasket product={{ id: articule, price }} />
             <ButtonCredit />
           </animated.section>
         </>
       ) : (
         <section className="btn-group row">
           <ButtonCredit />
-          <ButtonAddToBasket productId={{ id: articule, price }} />
+          <ButtonAddToBasket product={{ id: articule, price }} />
         </section>
       )}
     </Container>

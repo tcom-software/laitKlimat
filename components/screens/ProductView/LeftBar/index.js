@@ -1,5 +1,5 @@
 import { Text, Image, Icon, Button } from "@atoms";
-import { Sale } from "components/organisms/Product/Components";
+import { Sale } from "@organisms/Product/Common";
 import { useRouter } from "next/router";
 
 const LeftBar = ({ data }) => {

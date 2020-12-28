@@ -1,4 +1,4 @@
-export { default as Product, SimilarProduct } from "./Product";
+export { default as Product } from "./Product";
 export { default as PreviousViews } from "./PreviousViews";
 export { default as ChosenFilters } from "./ChosenFilters";
 export { default as Pagination } from "./Pagination";

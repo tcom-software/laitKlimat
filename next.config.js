@@ -1,5 +1,4 @@
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-// const path = require("path");
 
 module.exports = {
   target: "serverless",
@@ -8,7 +7,7 @@ module.exports = {
   },
   serverRuntimeConfig: {
     projectId: "59",
-    fetchUrl: "http://projects-backend.ru/back/",
+    fetchUrl: "http://back.projects-backend.ru/",
     categoryPath: "api/getCategories",
     productsPath: "api/getProducts/",
     productPath: "api/getProduct/",
@@ -18,19 +17,12 @@ module.exports = {
     checkoutPath: "api/checkout",
     getReviewsPath: "api/getReviews",
     addReviewPath: "api/review",
-    getReviewPath: "api/getReviews"
+    getReviewPath: "api/getReviews",
   },
   publicRuntimeConfig: {
     staticFolder: "",
-    uploadsUrl: "http://projects-backend.ru/public/uploads/",
+    uploadsUrl: "http://back.projects-backend.ru/public/uploads/",
   },
-  // env: {
-  //   MYSQL_HOST: "127.0.0.1",
-  //   MYSQL_PORT: "3306",
-  //   MYSQL_DATABASE: "root_crm",
-  //   MYSQL_USER: "root",
-  //   // MYSQL_PASSWORD: { user_password },
-  // },
   webpack: (config, { isServer }) => {
     // Fixes npm packages that depend on `fs` module
     if (!isServer) {

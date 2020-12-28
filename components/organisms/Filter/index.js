@@ -157,6 +157,8 @@ const Filter = () => {
   const ventilationMode = data?.[FILTERS_ID.main.ventilationMode];
   const coolingHeating = data?.[FILTERS_ID.main.coolingHeating];
 
+  console.log(textFilters)
+
   return (
     <>
       <Container>

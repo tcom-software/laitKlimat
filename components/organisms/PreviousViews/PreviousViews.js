@@ -3,7 +3,7 @@ import Slider from "react-slick";
 
 import { Text, Icon } from "@atoms";
 import { Container } from "./styles";
-import { SimilarProduct } from "../Product";
+import SimilarProduct from "../Product/SimilarView";
 import { values as breakpoints } from "@styles/breakpoints";
 import { getCachedProducts } from "@redux/selectors/products";
 import { useDispatch, useSelector } from "react-redux";
