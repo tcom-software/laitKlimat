@@ -14,6 +14,12 @@ import { Container, OtherFilters, ShowOtherFilters } from "./styles";
 import { useRouter } from "next/router";
 import { Loading } from "@atoms";
 
+import getConfig from "next/config";
+
+const {
+  publicRuntimeConfig: { uploadsUrl },
+} = getConfig();
+
 const FILTERS_ID = {
   main: {
     servicedArea: 3,
@@ -142,7 +148,7 @@ const Filter = () => {
         count,
         value: id,
         label: logo.slice(0, -4),
-        image: `http://projects-backend.ru/public/uploads/brands/${logo}`,
+        image: `${uploadsUrl}brands/${logo}`,
       })
     );
     return serializedData;
