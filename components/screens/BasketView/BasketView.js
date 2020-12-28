@@ -2,11 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Hgroup } from "@molecules";
-import { Button, Image, Text, Input, Textarea, Select } from "@atoms";
+import { Button, Image, Text, Input, Textarea, Select, Loading } from "@atoms";
 import { Sale, Table } from "@organisms/Product/Common";
 import { makePriceView } from "utils/makePriceView";
+import { serializeProductCardDataFromFullProduct } from "helper/serializeProduct";
 import { Container } from "./styles";
 import {
+  basketAddProduct,
   basketClear,
   basketRemoveProduct,
   decrementProductCount,
@@ -25,10 +27,13 @@ import ButtonAddToBasket from "@atoms/Button/ButtonAddToBasket";
 import ButtonCredit from "@atoms/Button/ButtonCredit";
 
 const BasketView = () => {
+  // loading
   const [loading, setLoading] = useState(false);
-  // set by fetching to backend
-  const [products, setProducts] = useState(false);
+  const [productsLoading, setProductsLoading] = useState(false);
+  // set by fetching from backend
+  const [products, setProducts] = useState(null);
 
+  // refs
   const nameRef = useRef(null);
   const telRef = useRef(null);
   const emailRef = useRef(null);
@@ -37,15 +42,33 @@ const BasketView = () => {
   const delivaryTypeRef = useRef(null);
 
   const dispatch = useDispatch();
-  const totalPrice = useSelector(getBasketTotalPrice);
   const productsCount = useSelector(getBasketCount);
+  const totalPrice = useSelector(getBasketTotalPrice);
   const basketProducts = useSelector(getBasketProducts);
 
   const clearBasket = () => dispatch(basketClear());
 
   useEffect(() => {
-console.log(basketProducts)
-  }, [])
+    setProductsLoading(true);
+    fetch("/api/product", {
+      method: "POST",
+      body: JSON.stringify(Object.keys(basketProducts)),
+    })
+      .then(response => response.json())
+      .then(products => {
+        const serializedProducts = {};
+
+        for (const product of products) {
+          const serializedProduct = serializeProductCardDataFromFullProduct(
+            product
+          );
+          serializedProducts[serializedProduct.articule] = serializedProduct;
+        }
+
+        setProducts(serializedProducts);
+        setProductsLoading(false);
+      });
+  }, []);
 
   // delete all basket info when close the alert modal
   const deleteBasket = () => {
@@ -77,10 +100,11 @@ console.log(basketProducts)
     e.preventDefault();
     setLoading(true);
 
-    const _products = Object.entries(basketProducts).reduce(
+    const products = Object.entries(basketProducts).reduce(
       (acc, [key, value]) => ({ ...acc, [key]: String(value.count) }),
       {}
     );
+
     const orderData = {
       delivery_address: addressRef.current.value,
       delivery_type: delivaryTypeRef.current.value,
@@ -90,30 +114,42 @@ console.log(basketProducts)
       payment_type: paymentTypeRef.current.value,
       phone_number: telRef.current.value,
       comment: "",
-      products: _products,
+      products,
     };
 
-    // await fetch("/api/orderBasket", {
-    //   method: "POST",
-    //   body: JSON.stringify(orderData),
-    // });
-
-    await new Promise(res => {
-      setTimeout(() => res(), 1000);
-    });
+    if (process.env.NODE_ENV === "production") {
+      await fetch("/api/orderBasket", {
+        method: "POST",
+        body: JSON.stringify(orderData),
+      });
+    } else {
+      await new Promise(res => {
+        setTimeout(() => res(), 1000);
+      }).then(console.log(products));
+    }
 
     setLoading(false);
     setTimeout(showDone, 400);
   };
 
+  if (productsLoading) {
+    return (
+      <Container className="container">
+        <Loading mode="dark" className="loader" />
+      </Container>
+    );
+  }
+
   return (
     <Container className="container">
       <Hgroup h1="КОРЗИНА" />
-      {/* <div className="basket">
-        {Object.values(basketProducts).map(props => (
-          <Product {...props} />
-        ))}
-      </div> */}
+      {products && (
+        <div className="basket">
+          {Object.values(basketProducts).map(({ count, id }) => (
+            <Product {...products[id]} count={count} />
+          ))}
+        </div>
+      )}
       <div className="basket__footer">
         {productsCount !== 0 ? (
           <>
@@ -187,7 +223,7 @@ const Product = ({
   brand,
   brandLogo,
   productName,
-  productImageX300,
+  productImage,
   characteristic,
   articule,
   price,
@@ -202,7 +238,7 @@ const Product = ({
     <section className="product">
       <section className="image">
         <Sale />
-        <img src={productImageX300} alt={brand} />
+        <img src={productImage} alt={brand} />
       </section>
       <section className="info">
         <div className="info-title">

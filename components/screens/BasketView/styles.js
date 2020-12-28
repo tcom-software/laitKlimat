@@ -5,6 +5,13 @@ import { mmp } from "@styles/utils/mediaProperty";
 export const Container = styled.div`
   margin-bottom: 4em;
 
+  .loader {
+    img {
+      width: 150px;
+      padding: 50px;
+    }
+  }
+
   ${theme.breakpoints.down("xs")} {
     margin-bottom: 2em;
   }

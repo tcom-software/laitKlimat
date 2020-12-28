@@ -60,25 +60,6 @@ export const serializeProductCardData = (data: any) => {
 };
 
 export const serializeProductData = (data: any) => {
-  // const {
-  //   id,
-  //   price,
-  //   brand,
-  //   series_name,
-  //   model,
-  //   brand_logo,
-  //   product_picture_folder,
-  //   product_picture_file_name,
-  //   product_picture_format,
-
-  //   series_picture_folder,
-  //   series_picture_file_name,
-  //   series_picture_format,
-
-  //   setup_price,
-  //   characteristics: chtrs,
-  // } = data;
-
   // articule: 2626;
   // brand: "IGC";
   // certificate_file_format: "jpg";
@@ -299,6 +280,55 @@ export const serializeProductData = (data: any) => {
         ],
       },
     },
+  };
+
+  return serializedProductData;
+};
+
+export const serializeProductCardDataFromFullProduct = (data: any) => {
+  const {
+    product: {
+      articule,
+      brand,
+      manufacturer_logo,
+      model,
+      price,
+      series_name,
+      setup_price,
+    },
+    photos: [{ folder, file_name, file_format }],
+  } = data;
+
+  const productName = `${brand} ${series_name}-${model}`;
+  const productImage = `${uploadsUrl}${
+    folder === "product_series0" ? "product_series" : "products"
+  }/${folder}/size800/${file_name}.${file_format}`;
+  const brandLogo = `${uploadsUrl}brands/${manufacturer_logo}`;
+  const formatedPrice = makePriceView(price, { unit: "₽", split: " " });
+
+  const characteristic = [
+    {
+      key: "Стоимость установки",
+      value:
+        setup_price && makePriceView(setup_price, { unit: "₽", split: " " }),
+    },
+    { key: "Доставка в пределах МКАД", value: "бесплатно" },
+    {
+      key: "В кредит от",
+      value: makePriceView((price / 24) | 0, { unit: "₽", split: " " }),
+    },
+  ];
+
+  // serialized data
+  const serializedProductData = {
+    brand,
+    brandLogo,
+    productName,
+    productImage,
+    characteristic,
+    articule,
+    formatedPrice,
+    price,
   };
 
   return serializedProductData;
