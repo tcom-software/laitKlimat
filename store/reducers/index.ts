@@ -7,6 +7,7 @@ import siteReducer from "./site";
 import loaderReducer from "./loader";
 import basketReducer from "./basket";
 import previousViewsReducer from "./previousViews";
+import notificationReducer from "./notification";
 
 const combinedReducer = combineReducers({
   site: siteReducer,
@@ -17,6 +18,7 @@ const combinedReducer = combineReducers({
   products: productsReducer,
   filtersData: filtersDataReducer,
   previousViews: previousViewsReducer,
+  notification: notificationReducer,
 });
 
 export default combinedReducer;

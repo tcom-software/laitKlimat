@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import { Banner, Modal } from "@organisms";
 import { getLoader } from "@redux/selectors/loader";
 import { toggleLoader } from "@redux/actions/loader";
+import Notification from "@molecules/Notification";
 
 const Layout = ({ children, data }) => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const Layout = ({ children, data }) => {
       <main>{children}</main>
       <Footer />
       {modalIsOpen && <Modal />}
+      <Notification />
     </>
   );
 };

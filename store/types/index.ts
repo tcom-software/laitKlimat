@@ -1,5 +1,6 @@
 import { FilterState } from "@redux/reducers/filters";
 import { ModalState } from "@redux/reducers/modal";
+import { Notification } from "@redux/reducers/notification";
 
 interface actionTypes {
   [name: string]: string;
@@ -15,5 +16,6 @@ export type ActionType = Readonly<actionTypes>;
 export type AppState = {
   filters: FilterState;
   modal: ModalState;
+  notification: Notification;
   categories: any;
 };

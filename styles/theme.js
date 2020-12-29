@@ -60,6 +60,7 @@ export default {
     header: 99,
     searchBar: 100,
     modal: 101,
+    notification: 200,
     // nav: 100,
     // cart: 101,
     // pageLoadingBar: 103,

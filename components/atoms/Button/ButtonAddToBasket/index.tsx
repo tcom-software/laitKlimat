@@ -2,6 +2,7 @@
 /*               Add to Basket Button                  */
 /*******************************************************/
 import { basketAddProduct, ProductPayload } from "@redux/actions/basket";
+import { addNotification } from "@redux/actions/notification";
 import React, { FC, useState, useCallback, memo } from "react";
 import { useDispatch } from "react-redux";
 import Button from "..";
@@ -23,6 +24,12 @@ const ButtonAddToBasket: FC<ButtonAddToBasketProps> = ({
     setTimeout(() => {
       setLoading(false);
       dispatch(basketAddProduct(product));
+      dispatch(
+        addNotification({
+          description: "продукт добавлен в корзину",
+          state: "success",
+        })
+      );
     }, 300);
   }, [product]);
 
