@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "preserve",
+    "lib": ["dom", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@atoms": ["components/atoms"],
+      "@atoms/*": ["components/atoms/*"],
+      "@molecules": ["components/molecules"],
+      "@molecules/*": ["components/molecules/*"],
+      "@organisms": ["components/organisms"],
+      "@organisms/*": ["components/organisms/*"],
+      "@screens": ["components/screens"],
+      "@styles": ["styles"],
+      "@styles/*": ["styles/*"],
+      "@redux": ["store"],
+      "@redux/*": ["store/*"],
+      "@hooks": ["hooks"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
+  "exclude": ["node_modules"]
+}

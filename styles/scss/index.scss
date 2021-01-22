@@ -1,0 +1,5 @@
+@import "./loader/";
+
+.chat-loader {
+  @include loader11;
+}

@@ -1,0 +1,98 @@
+import styled from "styled-components";
+import theme from "@styles/theme";
+import { Text, Button } from "@atoms";
+import { makePriceView } from "utils/makePriceView";
+import Link from "next/link";
+
+import { useDispatch } from "react-redux";
+import { useCallback } from "react";
+import { showChat } from "@redux/actions/site";
+
+const StyledSale = styled.div`
+  border-radius: 50%;
+  background: linear-gradient(180deg, #67ce33 0%, #4c8c2b 100%);
+  box-shadow: ${theme.shadow.effect3};
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  :hover {
+    transform: scale(1.02);
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.25);
+  }
+
+  :active {
+    transform: scale(0.98);
+  }
+
+  span {
+    font-style: italic;
+    text-align: center;
+    user-select: none;
+    white-space: pre-wrap;
+    line-height: normal;
+  }
+`;
+
+export const Sale = ({ data: { priceWithSetup, priceWithoutSetup } }) => {
+  const dispatch = useDispatch();
+  const showChatHandler = useCallback(
+    () =>
+      dispatch(
+        showChat({
+          type: "productSale",
+          text: `<span>На эту модель есть дополнительная скидка
+          
+<b>Цена с установкой</b>
+<em style='display: inline-block; margin-bottom: 4px;'>${priceWithSetup} ₽</em>
+<b>Цена без установки</b>
+<em>${priceWithoutSetup} ₽</em></span>`,
+        })
+      ),
+    []
+  );
+
+  return (
+    <StyledSale className="sale" onClick={showChatHandler}>
+      <Text tag="span" sz="small" bold>
+        {"Получить\nскидку %"}
+      </Text>
+    </StyledSale>
+  );
+};
+
+export const ProductLinkWrapper = ({ children, articule }) => {
+  return (
+    <Link href={`products/[product]`} as={`products/${articule}`}>
+      {children}
+    </Link>
+  );
+};
+
+export const Table = ({ characteristic }) => {
+  return (
+    <table>
+      <tbody>
+        {characteristic
+          .filter(({ value }) => value)
+          .map(({ key, value }, idx) => (
+            <tr key={idx}>
+              <td>
+                <Text tag="span" sz="normall">
+                  {key}
+                </Text>
+              </td>
+              <td>
+                <Text tag="span" sz="normall">
+                  {value}
+                </Text>
+              </td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  );
+};
