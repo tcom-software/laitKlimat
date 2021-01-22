@@ -1,21 +1,24 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
+import Link from "next/link";
+import { Router, useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getCategories } from "@redux/selectors/site";
+import { showModal } from "@redux/actions/modal";
+import { getBasketCount } from "@redux/selectors/basket";
 
 import Nav from "./Nav";
 import Address from "./Address";
 import MobileMenu from "./MobileMenu";
 import { StyledHeader, GridRow } from "./styles";
 
-import { Search } from "@organisms";
-import { CallUs, Logo } from "@molecules";
-import { Icon, Text } from "@atoms";
+import Search from "@organisms/Search";
+import CallUs from "@molecules/CallUs";
+import Logo from "@molecules/Logo";
+import Icon from "@atoms/Icon";
+import Text from "@atoms/Text";
 
 import { tabs } from "data";
-import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "@redux/selectors/site";
-import { showModal } from "@redux/actions/modal";
-import { getBasketCount } from "@redux/selectors/basket";
-import Link from "next/link";
-import { Router, useRouter } from "next/router";
 
 const acardion = categories => {
   const closeCategories = id => {

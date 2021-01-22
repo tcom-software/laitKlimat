@@ -1,7 +1,7 @@
 import { initializeCategories } from "helper/initialReduxState";
 import { initializeStore } from "@redux/index";
 import { compose } from "utils/compose";
-import { ServiceCenter } from "@screens";
+import ServiceCenter from "@screens/ServiceCenter";
 
 export default ServiceCenter;
 

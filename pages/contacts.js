@@ -1,7 +1,7 @@
 import { initializeCategories } from "helper/initialReduxState";
 import { initializeStore } from "@redux/index";
 import { compose } from "utils/compose";
-import { Contacts } from "@screens";
+import Contacts from "@screens/Contacts";
 
 export default Contacts;
 

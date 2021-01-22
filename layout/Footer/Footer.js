@@ -1,5 +1,9 @@
-import { Icon, Text, NextLink, Image } from "@atoms";
-import { Payment, Location } from "@molecules";
+import Icon from "@atoms/Icon";
+import Text from "@atoms/Text";
+import NextLink from "@atoms/NextLink";
+import Image from "@atoms/Image";
+import Payment from "@molecules/Payment";
+import Location from "@molecules/Location";
 import { StyledFooter } from "./styles";
 
 const menu = [

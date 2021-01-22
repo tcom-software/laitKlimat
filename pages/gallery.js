@@ -1,7 +1,7 @@
 import { initializeCategories } from "helper/initialReduxState";
 import { initializeStore } from "@redux/index";
 import { compose } from "utils/compose";
-import { Gallery } from "@screens";
+import Gallery from "@screens/Gallery";
 
 export default Gallery;
 

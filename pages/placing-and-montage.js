@@ -1,4 +1,4 @@
-import { PlacingAndMontage as PlacingAndMontageView } from "@screens";
+import PlacingAndMontageView from "@screens/PlacingAndMontage";
 import { initializeCategories } from "helper/initialReduxState";
 import { initializeStore } from "@redux/index";
 import { compose } from "utils/compose";

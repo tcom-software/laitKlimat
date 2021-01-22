@@ -1,5 +1,5 @@
 import { initializeStore } from "@redux/index";
-import { ProductView } from "components/screens";
+import ProductView from "@screens/ProductView";
 import { compose } from "utils/compose";
 import { initializeCategories } from "helper/initialReduxState";
 

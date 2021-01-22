@@ -2,10 +2,12 @@ import { Fragment, useRef, useState, useEffect, memo } from "react";
 import { animated, useSpring } from "react-spring";
 import Head from "next/head";
 
-import { localKeys, useLocalState, useOutsideClickClose } from "@hooks";
+import { useOutsideClickClose } from "@hooks/useOutsideClickClose";
+import { useLocalState, localKeys } from "@hooks/useLocaleState";
 import { Container } from "@styles/pages/home";
 import { initializeStore } from "@redux/index";
-import { Text, Link } from "@atoms";
+import Text from "@atoms/Text";
+import Link from "@atoms/Link";
 import eases from "utils/easing";
 import { compose } from "utils/compose";
 
@@ -72,7 +74,12 @@ const Menu = memo(
     const { opacity, delta, overflowY } = useSpring({
       opacity: sub.isOpen && name === sub.type ? 0 : 1,
       delta: sub.isOpen && name === sub.type ? (subSub.isOpen ? 200 : 100) : 0,
-      overflowY: sub.isOpen && name === sub.type ? (subSub.isOpen ? 'unset' : 'auto') : 'unset',
+      overflowY:
+        sub.isOpen && name === sub.type
+          ? subSub.isOpen
+            ? "unset"
+            : "auto"
+          : "unset",
       config: {
         duration: 500,
         easing: eases.OutQuart,

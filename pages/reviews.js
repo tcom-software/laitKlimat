@@ -1,7 +1,7 @@
 import { initializeCategories } from "helper/initialReduxState";
 import { initializeStore } from "@redux/index";
 import { compose } from "utils/compose";
-import { Reviews } from "@screens";
+import Reviews from "@screens/Reviews";
 
 export default Reviews;
 

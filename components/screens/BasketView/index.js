@@ -227,6 +227,8 @@ const Product = ({
   articule,
   price,
   count,
+
+  hasSale
 }) => {
   const dispatch = useDispatch();
 
@@ -236,7 +238,7 @@ const Product = ({
   return (
     <section className="product">
       <section className="image">
-        <Sale />
+        {/* <Sale /> */}
         <img src={productImage} alt={brand} />
       </section>
       <section className="info">

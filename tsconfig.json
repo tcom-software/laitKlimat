@@ -28,11 +28,13 @@
       "@organisms": ["components/organisms"],
       "@organisms/*": ["components/organisms/*"],
       "@screens": ["components/screens"],
+      "@screens/*": ["components/screens/*"],
       "@styles": ["styles"],
       "@styles/*": ["styles/*"],
       "@redux": ["store"],
       "@redux/*": ["store/*"],
-      "@hooks": ["hooks"]
+      "@hooks": ["hooks"],
+      "@hooks/*": ["hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],

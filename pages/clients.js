@@ -1,7 +1,7 @@
 import { initializeCategories } from "helper/initialReduxState";
 import { initializeStore } from "@redux/index";
 import { compose } from "utils/compose";
-import { ClientsView } from "@screens";
+import  ClientsView from "@screens/ClientsView";
 
 export default ClientsView;
 

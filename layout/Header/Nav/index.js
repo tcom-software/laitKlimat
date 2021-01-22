@@ -1,8 +1,10 @@
 import cn from "classnames";
 import { useRouter } from "next/router";
 
-import { Logo } from "@molecules";
-import { Image, Link, NextLink } from "@atoms";
+import Logo from "@molecules/Logo";
+import Link from "@atoms/Link";
+import Image from "@atoms/Image";
+import NextLink from "@atoms/NextLink";
 import { StyledNav, Container } from "./styles";
 
 const Nav = ({ tabs }) => {

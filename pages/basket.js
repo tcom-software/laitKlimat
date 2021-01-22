@@ -1,7 +1,7 @@
 import { initializeCategories } from "helper/initialReduxState";
 import { initializeStore } from "@redux/index";
 import { compose } from "utils/compose";
-import { BasketView } from "@screens";
+import BasketView from "@screens/BasketView";
 
 export default BasketView;
 

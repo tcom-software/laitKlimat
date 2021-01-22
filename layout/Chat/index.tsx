@@ -2,8 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
 import { getChatOpen, getChatProps } from "@redux/selectors/site";
-import { useDispatch, useSelector } from "react-redux";
 import { hideChat, showChat } from "@redux/actions/site";
+import { useDispatch, useSelector } from "react-redux";
 
 import Icon from "@atoms/Icon";
 import Text from "@atoms/Text";
@@ -37,38 +37,38 @@ const Chat = () => {
       })
       .then((data) => setOperators(data));
 
-    setTimeout(
-      () =>
-        setMessages([
-          {
-            ...mainMesssage,
-            buttons: [
-              { title: "нет", onClick: hideChatHandler },
-              { title: "да", onClick: () => handleOnYesClick(mainChatStack) },
-            ],
-          },
-        ]),
-      2000
-    );
+    // setTimeout(
+    //   () =>
+    //     setMessages([
+    //       {
+    //         ...mainMesssage,
+    //         buttons: [
+    //           { title: "нет", onClick: hideChatHandler },
+    //           { title: "да", onClick: () => handleOnYesClick(mainChatStack) },
+    //         ],
+    //       },
+    //     ]),
+    //   2000
+    // );
 
-    if (
-      !getCookie("ne_pokazat_ne_v_kartchke") &&
-      !getCookie("ne_pokazat_chat")
-    ) {
-      setTimeout(() => {
-        if (isOpen === false) {
-          setCookie("pervi_raz_den", true, 1);
-          showChatHandler();
-        }
-      }, 2000);
-    }
+    // if (
+    //   !getCookie("ne_pokazat_ne_v_kartchke") &&
+    //   !getCookie("ne_pokazat_chat")
+    // ) {
+    //   setTimeout(() => {
+    //     if (isOpen === false) {
+    //       setCookie("pervi_raz_den", true, 1);
+    //       showChatHandler();
+    //     }
+    //   }, 2000);
+    // }
 
-    setTimeout(() => {
-      if (!getCookie("pokazat_malenki_v_kartchke") && isOpen === false) {
-        setCookie("pervi_raz_den", true, 1);
-        showChatHandler();
-      }
-    }, 2000);
+    // setTimeout(() => {
+    //   if (!getCookie("pokazat_malenki_v_kartchke") && isOpen === false) {
+    //     setCookie("pervi_raz_den", true, 1);
+    //     showChatHandler();
+    //   }
+    // }, 2000);
 
     // if user is first time set that user first time else set false
     const isUnique = getCookie("is_unique");
