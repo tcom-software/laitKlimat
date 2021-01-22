@@ -32,10 +32,10 @@ const Chat = () => {
 
   useEffect(() => {
     fetch("/api/getOnlineManagers")
-      .then((response) => {
+      .then(response => {
         return response.json();
       })
-      .then((data) => setOperators(data));
+      .then(data => setOperators(data));
 
     setTimeout(
       () =>
@@ -148,7 +148,7 @@ const Chat = () => {
 
     fieldRef.current?.blur();
 
-    setMessages((messages) => [...messages, newMessage]);
+    setMessages(messages => [...messages, newMessage]);
     setMessage("");
   };
 
@@ -160,7 +160,7 @@ const Chat = () => {
     for (let message of messagesStack.slice(1)) {
       time += lastMessage === message.inComing ? 1500 : 500;
       lastMessage = message.inComing;
-      setTimeout(() => setMessages((messages) => [...messages, message]), time);
+      setTimeout(() => setMessages(messages => [...messages, message]), time);
     }
   };
 
@@ -168,7 +168,7 @@ const Chat = () => {
     <StyledChat className={cn("container")}>
       <div className={cn("content", { "chat-open": isOpen })}>
         <div className="chat-icon" onClick={showChatHandler}>
-          <img src="/images/chat.png" />
+          <img src="/images/chat.png" alt="chat icon" />
         </div>
         <div className="chat">
           {/*///////////// HEADER ////////////////*/}
@@ -187,7 +187,7 @@ const Chat = () => {
           </div>
           {/*///////////// MAIN ////////////////*/}
           <div className="chat-main" ref={chatRef}>
-            {messages.map((props) => (
+            {messages.map(props => (
               <Message
                 key={props.id}
                 scrollHandler={() => scrollToChatBottom()}
@@ -216,11 +216,16 @@ const Chat = () => {
               </div>
             </div>
             <form onSubmit={handleOnSubmit}>
+              <label className="srOnly" htmlFor="new_message">
+                new message
+              </label>
               <input
+                readOnly
+                id="new_message"
                 ref={fieldRef}
                 value={message}
                 // readOnly
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={e => setMessage(e.target.value)}
                 className="message-field"
               />
             </form>

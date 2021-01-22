@@ -37,7 +37,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     if (categories) {
       store.dispatch(initializeCategories(categories));
     }
-    window.addEventListener("unload", () => {
+    window.addEventListener("pagehide", () => {
       setCookie(storage.FILTERS, "[]");
       setCookie(storage.PRODUCTS, "[]");
     });
@@ -54,6 +54,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
+        <title>ЛАЙТ КЛИМАТ</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <GlobalStyles />

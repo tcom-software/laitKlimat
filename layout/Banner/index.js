@@ -2,7 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Circle = props => (
-  <svg width={153} height={153} viewBox="0 0 153 153" fill="none" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={153}
+    height={153}
+    viewBox="0 0 153 153"
+    fill="none"
+    {...props}
+  >
     <circle
       cx="76.5"
       cy="76.5"
@@ -15,7 +22,14 @@ const Circle = props => (
 );
 
 const Group1 = props => (
-  <svg width={38} height={136} viewBox="0 0 38 136" fill="none" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={38}
+    height={136}
+    viewBox="0 0 38 136"
+    fill="none"
+    {...props}
+  >
     <circle cx="5" cy="47" r="5" />
     <circle cx="5" cy="61" r="5" />
     <circle cx="5" cy="33" r="5" />
@@ -44,7 +58,13 @@ const Group1 = props => (
 );
 
 const Group2 = props => (
-  <svg width={65} height={152} viewBox="0 0 65 152" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={65}
+    height={152}
+    viewBox="0 0 65 152"
+    {...props}
+  >
     <circle r="6.18421" transform="matrix(-1 0 0 1 40.8155 41.1316)" />
     <circle r="6.18421" transform="matrix(-1 0 0 1 40.8155 58.4474)" />
     <circle r="6.18421" transform="matrix(-1 0 0 1 40.8155 23.8158)" />
@@ -79,7 +99,13 @@ const Group2 = props => (
 );
 
 const Group3 = props => (
-  <svg width={51} height={131} viewBox="0 0 51 131" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={51}
+    height={131}
+    viewBox="0 0 51 131"
+    {...props}
+  >
     <circle cx="5" cy="28" r="5" />
     <circle cx="5" cy="42" r="5" />
     <circle cx="5" cy="56" r="5" />
@@ -288,8 +314,8 @@ import { Container, Section } from "./styles";
 //   { title: "Антибактериальный фильтр <strong>в подарок<strong>", sz: "normal" },
 // ];
 const texts = [
-  { title: "доставка по всей россии", sz: "normal" },
   { title: "Лучшая цена на рынке", sz: "larger" },
+  { title: "доставка по всей россии", sz: "normal" },
 ];
 
 const variants = ["primary", "secondary", "tercary"];

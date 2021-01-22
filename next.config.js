@@ -7,6 +7,7 @@ module.exports = {
   },
   serverRuntimeConfig: {
     projectId: "59",
+    // fetchUrl: "http://back.laitklimat.ru/",
     fetchUrl: "http://back.projects-backend.ru/",
     categoryPath: "api/getCategories",
     productsPath: "api/getProducts/",
@@ -20,7 +21,7 @@ module.exports = {
   },
   publicRuntimeConfig: {
     staticFolder: "",
-    uploadsUrl: "http://back.projects-backend.ru/uploads/",
+    uploadsUrl: "https://back.xolodnoeleto.ru/uploads/",
   },
   webpack: (config, { isServer }) => {
     // Fixes npm packages that depend on `fs` module

@@ -194,6 +194,9 @@ export const Section = styled.section`
 
     .texts {
       p {
+        /* jamanakavor */
+        margin-bottom: 10px;
+
         strong {
           color: white;
         }

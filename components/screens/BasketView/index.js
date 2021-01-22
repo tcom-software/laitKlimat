@@ -84,8 +84,8 @@ const BasketView = () => {
       showModal({
         modalType: "alert",
         modalProps: {
-          heading: "Order have been Success",
-          description: "Thanks sooo much",
+          heading: "Ваш заказ успешно принят",
+          // description: "Thanks sooo much",
           callBack: deleteBasket,
         },
       })
@@ -236,7 +236,7 @@ const Product = ({
   return (
     <section className="product">
       <section className="image">
-        <Sale />
+        {/* <Sale /> */}
         <img src={productImage} alt={brand} />
       </section>
       <section className="info">

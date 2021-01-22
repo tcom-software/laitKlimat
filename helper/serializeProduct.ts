@@ -159,7 +159,7 @@ export const serializeProductData = (data: any) => {
             key: {
               type: "text",
               value: {
-                tag: "h4",
+                tag: "h2",
                 sz: "normal",
                 clr: "secondary",
                 text: "Лучшая цена на рынке",

@@ -9,7 +9,7 @@ import { showModal } from "@redux/actions/modal";
 const AddReview = ({ modalRef, hideModal }) => {
   const dispatch = useDispatch();
   const fileRef = useRef(null);
-  const [stars, setStars] = useState(2);
+  const [stars, setStars] = useState(5);
   const [files, setFiles] = useState([]);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -47,7 +47,7 @@ const AddReview = ({ modalRef, hideModal }) => {
     }
 
     const projectId = "59";
-    const fetchUrl = "http://projects-backend.ru/";
+    const fetchUrl = "http://back.projects-backend.ru/";
     const addReviewPath = "api/review";
 
     const url = `${fetchUrl}${addReviewPath}`;
