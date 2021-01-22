@@ -2,8 +2,10 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import cn from "classnames";
 
-import { Link, Icon, Text } from "@atoms";
-import { CallUs } from "@molecules";
+import Link from "@atoms/Link";
+import Icon from "@atoms/Icon";
+import Text from "@atoms/Text";
+import CallUs from "@molecules/CallUs";
 import { Container, StyledAddress } from "./styles";
 
 const acardion = (categories, toggleOpen) => {

@@ -44,7 +44,7 @@ export const GridRow = styled.section`
     grid-template-columns: 1fr repeat(3, max-content);
     grid-template-areas:
       "logo basket filter humburger"
-      "s s s s";
+      "search-bar search-bar search-bar search-bar";
   }
 
   /******** logo ********/

@@ -1,4 +1,6 @@
-import { SocialIcons, Location, WorkHours } from "@molecules";
+import SocialIcons from "@molecules/SocialIcons";
+import Location from "@molecules/Location";
+import WorkHours from "@molecules/WorkHours";
 
 import { StyledAddress } from "./styles";
 

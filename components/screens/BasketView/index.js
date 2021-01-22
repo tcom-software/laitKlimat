@@ -227,6 +227,8 @@ const Product = ({
   articule,
   price,
   count,
+
+  hasSale
 }) => {
   const dispatch = useDispatch();
 

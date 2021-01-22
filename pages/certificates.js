@@ -1,6 +1,6 @@
 import { initializeCategories } from "helper/initialReduxState";
 import { initializeStore } from "@redux/index";
-import { CertificatesView } from "@screens";
+import CertificatesView from "@screens/CertificatesView";
 import { compose } from "utils/compose";
 
 export default CertificatesView;

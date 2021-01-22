@@ -1,18 +1,25 @@
 import { GetServerSidePropsContext } from "next";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useForceUpdate } from "hooks";
+import { useForceUpdate } from "hooks/useForceUpdate";
 import cn from "classnames";
 
-import {
-  Filter,
-  Product,
-  Pagination,
-  PreviousViews,
-  ChosenFilters,
-} from "@organisms";
+//atoms
+import Icon from "@atoms/Icon";
+import Text from "@atoms/Text";
+import Button from "@atoms/Button";
+
+//molecules
+import Hgroup from "@molecules/Hgroup";
+
+//organisms
+import ChosenFilters from "@organisms/ChosenFilters";
+import Pagination from "@organisms/Pagination";
+import PreviousViews from "@organisms/PreviousViews";
+import Product from "@organisms/Product";
+import Filter from "@organisms/Filter";
+
 import { Container } from "@styles/pages/product";
-import { Button, Text, Icon } from "@atoms";
 
 import {
   initializeFilters,
@@ -24,12 +31,13 @@ import { getCurrentCategoryTitle } from "@redux/selectors/site";
 import { getFiltersCacheByKey } from "@redux/selectors/filters";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeStore } from "@redux";
-import { compose } from "utils/compose";
-import { Hgroup } from "@molecules";
-import { isEmpty } from "lodash";
+
 import { serialezeKey } from "@redux/reducers/filters";
 import { toggleCategoryLoader } from "@redux/actions/loader";
 import { getCategoryLoader } from "@redux/selectors/loader";
+
+import { compose } from "utils/compose";
+import isEmpty from "lodash/isEmpty";
 
 const Category = () => {
   const router = useRouter();
