@@ -280,12 +280,16 @@ import Image from "@atoms/Image";
 
 import { Container, Section } from "./styles";
 
+// const texts = [
+//   { title: "доставка по всей россии", sz: "normal" },
+//   { title: "Hitachi RAK-18NH6AS", sz: "larger" },
+//   { title: "Лучшая цена на рынке", sz: "normal" },
+//   { title: "9 900 ₽", sz: "larger" },
+//   { title: "Антибактериальный фильтр <strong>в подарок<strong>", sz: "normal" },
+// ];
 const texts = [
   { title: "доставка по всей россии", sz: "normal" },
-  { title: "Hitachi RAK-18NH6AS", sz: "larger" },
-  { title: "Лучшая цена на рынке", sz: "normal" },
-  { title: "9 900 ₽", sz: "larger" },
-  { title: "Антибактериальный фильтр <strong>в подарок<strong>", sz: "normal" },
+  { title: "Лучшая цена на рынке", sz: "larger" },
 ];
 
 const variants = ["primary", "secondary", "tercary"];
@@ -311,10 +315,10 @@ const Banner = ({ variant }) => {
               </Text>
             ))}
           </div>
-          <div className="buttons">
+          {/* <div className="buttons">
             <Button title="узнать больше" variant="secondary" />
             <Button title="сделать заказ" variant="primary" />
-          </div>
+          </div> */}
         </div>
         <div className="image">
           <Image
