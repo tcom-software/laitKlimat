@@ -9,9 +9,7 @@ const InputCheckbox = ({ data, loading }) => {
   const { handleOnCheck, isChecked } = useCheckedFilters(inputName);
 
   useEffect(() => {
-    if (data) {
-      setInputName(data.id);
-    }
+    if (data) setInputName(data.id);
   }, [data?.id]);
 
   if (loading) {
