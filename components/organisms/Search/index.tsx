@@ -157,7 +157,7 @@ const Search: FC<SearchProps> = ({
             </div>
           )}
         </label>
-        <button type="button">
+        <button type="button" aria-label="поиск кнопка">
           <Text clr="white" sz="normal" tag="span">
             поиск
           </Text>

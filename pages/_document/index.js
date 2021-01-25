@@ -1,8 +1,8 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
-import GlobalStyles from "@styles/GlobalStyles";
 import theme from "@styles/theme";
-// import GTAG from "utils/gtag";
+import GTAG from "utils/gtag";
+import YM from "utils/yandex";
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -40,6 +40,33 @@ export default class MyDocument extends Document {
     }
   }
 
+  setGoogleTags() {
+    return {
+      __html: ` 
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${GTAG.GA_TRACKING_ID}');
+      `,
+    };
+  }
+
+  setGoogleTagManager() {
+    return {
+      __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-N9LSKZZ');`,
+    };
+  }
+
+  setYandexMetrika() {
+    return {
+      __html: `!function(e,t,a,n,c,m,r){e.ym=e.ym||function(){(e.ym.a=e.ym.a||[]).push(arguments)},e.ym.l=1*new Date,m=t.createElement(a),r=t.getElementsByTagName(a)[0],m.defer=1,m.src="https://mc.yandex.ru/metrika/tag.js",r.parentNode.insertBefore(m,r)}(window,document,"script"),ym(${YM.YM_ID},"init",{clickmap:!0,trackLinks:!0,accurateTrackBounce:!0,webvisor:!0});`,
+    };
+  }
+
   setYandexMap() {
     return {
       __html:
@@ -48,7 +75,7 @@ export default class MyDocument extends Document {
   }
 
   render() {
-    // const { isProduction } = this.props;
+    const { isProduction } = this.props;
 
     return (
       <Html lang="ru">
@@ -89,9 +116,50 @@ export default class MyDocument extends Document {
             type="text/javascript"
           />
           <script dangerouslySetInnerHTML={this.setYandexMap()} />
-          <GlobalStyles />
+          {isProduction && (
+            <>
+              {/* Global site tag (gtag.js) - Google Analytics */}
+              <script
+                async
+                src={`https://www.googletagmanager.com/gtag/js?id=${GTAG.GA_TRACKING_ID}`}
+              />
+              <script dangerouslySetInnerHTML={this.setGoogleTags()} />
+              {/* End Global site tag (gtag.js) - Google Analytics */}
+
+              {/* Google Tag Manager */}
+              <script dangerouslySetInnerHTML={this.setGoogleTagManager()} />
+              {/* End Google Tag Manager */}
+
+              {/* Yandex.Metrika counter */}   
+              <script dangerouslySetInnerHTML={this.setYandexMetrika()} />
+              <noscript>
+                <div>
+                  <img
+                    src={`https://mc.yandex.ru/watch/${YM.YM_ID}`}
+                    style={{ position: "absolute", left: "-9999px" }}
+                    alt="yandex"
+                  />
+                </div>
+              </noscript>
+              {/* End Yandex.Metrika counter */}
+            </>
+          )}
         </Head>
         <body>
+          {isProduction && (
+            <>
+              {/* Google Tag Manager (noscript) */}
+              <noscript>
+                <iframe
+                  src="https://www.googletagmanager.com/ns.html?id=GTM-N9LSKZZ"
+                  width={0}
+                  height={0}
+                  style={{ display: "none", visibility: "hidden" }}
+                />
+              </noscript>
+              {/* End Google Tag Manager (noscript) */}
+            </>
+          )}
           <Main />
           <div id="portal"></div>
           <NextScript />

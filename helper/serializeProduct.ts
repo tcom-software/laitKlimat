@@ -25,7 +25,7 @@ export const serializeProductCardData = (data: any) => {
   } = data;
 
   const productImageX300PathName = getProductImageX300(data);
-  const productName = `${brand} ${series_name}-${model}`;
+  const productName = `${brand} ${series_name || ""}-${model}`;
   const productImageX300 = `${uploadsUrl}${productImageX300PathName}`;
   const brandLogo = `${uploadsUrl}brands/${brand_logo}`;
 
@@ -59,7 +59,7 @@ export const serializeProductCardData = (data: any) => {
     articule: id,
     formatedPrice: makePriceView(price, { unit: "₽", split: " " }),
     price,
-    hasSale: Boolean(has_sale),
+    hasSale: Boolean(has_sale && priceWithSetup && priceWithoutSetup),
     hasChat: Boolean(has_chat),
     priceWithSetup,
     priceWithoutSetup,
@@ -318,7 +318,7 @@ export const serializeProductCardDataFromFullProduct = (data: any) => {
     photos: [{ folder, file_name, file_format }],
   } = data;
 
-  const productName = `${brand} ${series_name}-${model}`;
+  const productName = `${brand} ${series_name || ""}-${model}`;
   const productImage = `${uploadsUrl}${
     folder === "product_series0" ? "product_series" : "products"
   }/${folder}/size800/${file_name}.${file_format}`;

@@ -37,20 +37,6 @@ const Chat = () => {
       })
       .then(data => setOperators(data));
 
-    // setTimeout(
-    //   () =>
-    //     setMessages([
-    //       {
-    //         ...mainMesssage,
-    //         buttons: [
-    //           { title: "нет", onClick: hideChatHandler },
-    //           { title: "да", onClick: () => handleOnYesClick(mainChatStack) },
-    //         ],
-    //       },
-    //     ]),
-    //   2000
-    // );
-
     // if (
     //   !getCookie("ne_pokazat_ne_v_kartchke") &&
     //   !getCookie("ne_pokazat_chat")
@@ -78,6 +64,20 @@ const Chat = () => {
       setCookie("is_unique", false, 365);
     }
   }, []);
+
+  useEffect(() => {
+    if (isOpen && messages.length !== 0) {
+      setMessages([
+        {
+          ...mainMesssage,
+          buttons: [
+            { title: "нет", onClick: hideChatHandler },
+            { title: "да", onClick: () => handleOnYesClick(mainChatStack) },
+          ],
+        },
+      ]);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     chatProps &&
@@ -132,12 +132,10 @@ const Chat = () => {
 
   const handleOnSubmit = (e: any) => {
     e.preventDefault();
-
     if (!message.trim()) {
       setMessage("");
       return;
     }
-
     const newMessage = {
       message,
       inComing: false,
@@ -145,7 +143,6 @@ const Chat = () => {
         url: "",
       },
     };
-
     fieldRef.current?.blur();
 
     setMessages(messages => [...messages, newMessage]);
@@ -190,7 +187,7 @@ const Chat = () => {
             {messages.map(props => (
               <Message
                 key={props.id}
-                scrollHandler={() => scrollToChatBottom()}
+                scrollHandler={scrollToChatBottom}
                 {...props}
               />
             ))}

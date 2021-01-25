@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { Icon, Button, Text } from "@atoms";
 import { Container } from "./styles";
+import GTAG from "utils/gtag";
 
 const NumberBox = ({ modalRef, hideModal, modalProps: style }) => {
   const [loading, setLoading] = useState(false);
@@ -21,13 +22,14 @@ const NumberBox = ({ modalRef, hideModal, modalProps: style }) => {
         previouslyContactedUs: Boolean(Number(answer.value)),
       }),
     }).then(() => {
-      setLoading(false);
       hideModal();
+      setLoading(false);
+      GTAG.PokazatNomer()
     });
   };
 
   return (
-    <Container ref={modalRef} style={style}>
+    <Container ref={modalRef}>
       <div>
         <Icon name="close" width={20} height={20} onClick={hideModal} />
         <form onSubmit={handleSubmit}>

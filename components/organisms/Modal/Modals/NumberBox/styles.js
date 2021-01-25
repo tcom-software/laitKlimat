@@ -13,11 +13,11 @@ const backgroundAnim = keyframes`
 
 const animateInMount = keyframes`
   from {
-    transform: translate(50%, 50%) ;
+    transform: translate(-50%, 0%);
     opacity: 0;
   }
   to {
-    transform: translate(50%, 0);
+    transform: translate(-50%, -50%);
     opacity: 1;
   }
 `;
@@ -34,19 +34,19 @@ const animateInMobile = keyframes`
 `;
 
 export const Container = styled.div`
-  top: 0;
-  right: 0;
+  top: 50%;
+  left: 50%;
   position: absolute;
   padding: 4em 4em 3em;
+  transform: translate(-50%, -50%);
   background-color: ${theme.colors.secondary};
-  text-align: center;
   overflow: hidden;
+  text-align: center;
+  animation: ${animateInMount} 0.5s ease;
 
-  animation: ${animateInMobile} 0.5s ease;
-
-  ${theme.breakpoints.up("xs")} {
+  /* ${theme.breakpoints.up("xs")} {
     animation: ${animateInMount} 0.5s ease forwards;
-  }
+  } */
 
   ${theme.breakpoints.down("lg")} {
     padding: 4em 4em 3em;

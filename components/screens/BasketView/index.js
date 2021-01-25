@@ -24,6 +24,7 @@ import { showModal } from "@redux/actions/modal";
 // buttons
 import ButtonOrderOneClick from "@atoms/Button/ButtonOrderOneClick";
 import ButtonCredit from "@atoms/Button/ButtonCredit";
+import GTAG from "utils/gtag";
 
 const BasketView = () => {
   // loading
@@ -120,7 +121,7 @@ const BasketView = () => {
       await fetch("/api/orderBasket", {
         method: "POST",
         body: JSON.stringify(orderData),
-      });
+      }).then(() => GTAG.OformitZakaz());
     } else {
       await new Promise(res => {
         setTimeout(() => res(), 1000);
@@ -228,7 +229,7 @@ const Product = ({
   price,
   count,
 
-  hasSale
+  hasSale,
 }) => {
   const dispatch = useDispatch();
 
