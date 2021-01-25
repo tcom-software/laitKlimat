@@ -1,3 +1,4 @@
+import { rest } from "lodash";
 import getConfig from "next/config";
 import { makePriceView } from "utils/makePriceView";
 import { getProductImageX300 } from "./getProductImageX300";
@@ -22,6 +23,7 @@ export const serializeProductCardData = (data: any) => {
     has_chat,
     price_with_setup: priceWithSetup,
     price_without_setup: priceWithoutSetup,
+    available,
   } = data;
 
   const productImageX300PathName = getProductImageX300(data);
@@ -63,6 +65,7 @@ export const serializeProductCardData = (data: any) => {
     hasChat: Boolean(has_chat),
     priceWithSetup,
     priceWithoutSetup,
+    available,
   };
 
   return serializedProductData;
@@ -102,6 +105,7 @@ export const serializeProductData = (data: any) => {
       has_sale,
       price_with_setup: priceWithSetup,
       price_without_setup: priceWithoutSetup,
+      available,
     },
     characteristics,
     photos: [{ folder, file_name, file_format }],
@@ -211,7 +215,7 @@ export const serializeProductData = (data: any) => {
                 tag: "span",
                 sz: "normal",
                 clr: "primary",
-                text: "Товар выставлен на Маркете <br /> Есть в наличии",
+                text: `Товар${market ? "" : " не"} выставлен на Маркете <br /> ${available ? "Есть в наличии" : "ПОД ЗАКАЗ" }`,
               },
             },
             value: {
@@ -221,7 +225,7 @@ export const serializeProductData = (data: any) => {
                 type: "png",
               },
             },
-            className: `market ${market ? "active" : "noactive"}`,
+            className: `market ${available ? "active" : "noactive"}`,
           },
           {
             key: {
@@ -314,6 +318,7 @@ export const serializeProductCardDataFromFullProduct = (data: any) => {
       price,
       series_name,
       setup_price,
+      available,
     },
     photos: [{ folder, file_name, file_format }],
   } = data;
@@ -348,6 +353,7 @@ export const serializeProductCardDataFromFullProduct = (data: any) => {
     articule,
     formatedPrice,
     price,
+    available,
   };
 
   return serializedProductData;

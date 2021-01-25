@@ -87,6 +87,14 @@ const Product = styled.div`
 `;
 
 export const Container = styled(Product)`
+  &.inactive {
+    .articule {
+      img {
+        filter: drop-shadow(0 0.25em 0.425rem orange) !important;
+      }
+    }
+  }
+
   &.potoduct-box-view {
     display: grid;
     grid-row-gap: 20px;

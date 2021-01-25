@@ -41,6 +41,7 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
 
     hasSale,
     hasChat,
+    available,
     priceWithSetup,
     priceWithoutSetup,
   } = data;
@@ -48,10 +49,13 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
   return (
     <Container
       ref={productRef}
-      className={cn("potoduct-box-view", { "g-loading": loading })}
+      className={cn("potoduct-box-view", {
+        "g-loading": loading,
+        inactive: !available,
+      })}
     >
       <section className="product">
-        <div className="articule left-side">
+        <div className={"articule left-side"}>
           <span className="article">{`Артикул:\n${articule}`}</span>
           <img src="/images/product/market.png" alt="product market" />
         </div>
@@ -91,7 +95,7 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
           <animated.section
             className="btn-group-mobile-open row"
             style={{
-              transform: x.interpolate((x) => `translateX(${x}%)`),
+              transform: x.interpolate(x => `translateX(${x}%)`),
             }}
           >
             <img

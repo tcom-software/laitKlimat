@@ -179,6 +179,12 @@ export const Container = styled.div`
           }
 
           tr.market {
+            &.noactive {
+              img {
+                filter: drop-shadow(0 0.25em 0.425rem orange) !important;
+              }
+            }
+
             td {
               padding: 1.3em 0 2.5em;
 

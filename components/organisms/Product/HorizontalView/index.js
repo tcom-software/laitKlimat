@@ -24,10 +24,16 @@ const ProductHorizontalView = ({ data, loading }) => {
     hasChat,
     priceWithSetup,
     priceWithoutSetup,
+    available,
   } = data;
 
   return (
-    <Container className={cn("potoduct-line-view", { "g-loading": loading })}>
+    <Container
+      className={cn("potoduct-line-view", {
+        "g-loading": loading,
+        inactive: !available,
+      })}
+    >
       <section className="product">
         {hasSale && <Sale data={{ priceWithSetup, priceWithoutSetup }} />}
         <ProductLinkWrapper articule={articule}>
