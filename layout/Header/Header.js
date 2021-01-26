@@ -89,10 +89,10 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
         });
   }, [toggleMobileMenu]);
 
-  const handleShowNumberBox = useCallback(style => {
+  const handleShowNumberBox = useCallback(() => {
     showNumberBox({
       modalType: "numberBox",
-      modalProps: style,
+      modalProps: { type: "header" },
     });
   }, []);
 

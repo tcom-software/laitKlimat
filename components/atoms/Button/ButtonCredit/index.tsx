@@ -2,9 +2,9 @@
 /*                  Creit Button                       */
 /*******************************************************/
 import React, { FC, memo, useCallback } from "react";
-import Button from "..";
 import { useDispatch } from "react-redux";
 import { showModal } from "@redux/actions/modal";
+import Button from "..";
 
 type ButtonCreditProps = {
   [x: string]: any;

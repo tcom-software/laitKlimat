@@ -5,6 +5,7 @@ import { Icon, Button, Text } from "@atoms";
 import { Container } from "./styles";
 import GTAG from "utils/gtag";
 import YM from "utils/yandex";
+import { getCookie, setCookie } from "utils/cookies";
 
 import Input from "react-phone-number-input/input";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
@@ -24,6 +25,15 @@ const NumberBox = ({ modalRef, hideModal, modalProps: style }) => {
       return;
     }
 
+    let is_unique = getCookie("is_unique");
+    if (is_unique === null) {
+      setCookie("is_unique", true, 365);
+      is_unique = true;
+    } else if (is_unique) {
+      setCookie("is_unique", false, 365);
+      is_unique = false;
+    }
+
     setLoading(true);
     fetch("/api/callBack", {
       method: "POST",
@@ -31,12 +41,20 @@ const NumberBox = ({ modalRef, hideModal, modalProps: style }) => {
         phone: phone,
         name: name.value,
         previouslyContactedUs: Boolean(Number(answer.value)),
+        is_unique,
       }),
     }).then(() => {
       hideModal();
       setLoading(false);
-      GTAG.NeDozvonilis();
-      YM.NeDozvonilis();
+      if (modalProps.type === "product") {
+        GTAG.Kupit1Click();
+        YM.Kupit1Click();
+      } else if (modalProps.type === "header") {
+        GTAG.OstavitNomer();
+        YM.OstavitNomer();
+      }
+      GTAG.OstavitNomerAll();
+      YM.OstavitNomerAll();
     });
   };
 

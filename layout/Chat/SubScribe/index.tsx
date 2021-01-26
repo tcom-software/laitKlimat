@@ -33,8 +33,11 @@ const SubScribe = () => {
       is_unique,
     });
 
-    GTAG.NeDozvonilis();
-    YM.NeDozvonilis();
+    YM.OstavitNomerChat();
+    GTAG.OstavitNomerChat();
+
+    YM.OstavitNomerAll();
+    GTAG.OstavitNomerAll();
 
     setLoading(true);
     fetch("http://back.projects-backend.ru/api/chatFeedBack", {
