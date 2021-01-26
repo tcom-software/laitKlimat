@@ -70,7 +70,7 @@ export const Container = styled.div`
       white-space: nowrap;
     }
 
-    > input {
+    input {
       padding: 0.6em;
       font-size: 16px;
       line-height: 18px;
