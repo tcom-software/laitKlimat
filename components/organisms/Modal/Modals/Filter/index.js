@@ -4,8 +4,11 @@ import { Filter as FilterComponent } from "@organisms";
 import { Container } from "./styles";
 
 import FormWithBackground from "../FormWithBackground";
+import { useRouter } from "next/router";
 
 const Filter = ({ modalRef, hideModal }) => {
+  const router = useRouter();
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -29,7 +32,14 @@ const Filter = ({ modalRef, hideModal }) => {
         formData[inputs[i].name] = value;
       }
     }
-    console.log(formData);
+  };
+
+  const resetFilters = () => {
+    router.replace({
+      pathname: router.pathname,
+      query: { c: router.query.c, page: 1 },
+    });
+    hideModal();
   };
 
   return (
@@ -39,8 +49,13 @@ const Filter = ({ modalRef, hideModal }) => {
         handleSubmit={handleSubmit}
         footerRenderProps={() => (
           <div className="btns_group">
-            <Button variant="secondary" title="сброс" type="reset" />
-            <Button variant="primary" title="Отправить" type="submit" />
+            <Button
+              variant="secondary"
+              title="сброс"
+              type="button"
+              onClick={resetFilters}
+            />
+            {/* <Button variant="primary" title="Отправить" type="button" /> */}
           </div>
         )}
       >

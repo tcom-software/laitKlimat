@@ -143,7 +143,7 @@ export const Container = styled.div`
         }
       }
 
-      button[type="reset"] {
+      button {
         display: block;
         margin: 2em 0 0 auto;
       }
