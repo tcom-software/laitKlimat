@@ -73,10 +73,10 @@ export const Container = styled.div`
       > ul {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, 250px);
+        grid-template-rows: repeat(2, 350px);
 
         ${theme.breakpoints.down("lg")} {
-          grid-template-rows: repeat(2, 200px);
+          grid-template-rows: repeat(2, 350px);
         }
 
         ${theme.breakpoints.down("xs")} {
@@ -136,6 +136,10 @@ export const Container = styled.div`
             display: grid;
             place-content: center;
 
+            ${theme.breakpoints.down("lg")} {
+              padding: 0 1em
+            }
+
             div[data-go-back] {
               position: absolute;
               bottom: 1em;
@@ -169,17 +173,21 @@ export const Container = styled.div`
             li {
               padding: 0.3em 0;
 
+              ${theme.breakpoints.down("lg")} {
+                padding: 0.1em 0;
+              }
+
               &:not(:last-of-type) {
                 border-bottom: 1px solid ${Color(theme.colors.white).fade(0.8)};
               }
 
               span {
-                font-size: 16px;
-                line-height: 18px;
+                font-size: 13px;
+                line-height: 13px;
                 color: ${theme.colors.white};
 
                 :hover {
-                  font-weight: bold;
+                  text-decoration: underline;
                 }
               }
             }
@@ -189,6 +197,10 @@ export const Container = styled.div`
                 padding: 0 3em;
                 width: 100%;
                 height: 100%;
+
+                ${theme.breakpoints.down("lg")} {
+                  padding: 0 1em;
+                }
 
                 display: grid;
                 align-content: center;

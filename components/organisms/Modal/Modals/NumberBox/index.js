@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { Icon, Button, Text } from "@atoms";
 import { Container } from "./styles";
 import GTAG from "utils/gtag";
+import YM from "utils/yandex";
 
 const NumberBox = ({ modalRef, hideModal, modalProps: style }) => {
   const [loading, setLoading] = useState(false);
@@ -24,7 +25,8 @@ const NumberBox = ({ modalRef, hideModal, modalProps: style }) => {
     }).then(() => {
       hideModal();
       setLoading(false);
-      GTAG.PokazatNomer()
+      GTAG.NeDozvonilis();
+      YM.NeDozvonilis();
     });
   };
 

@@ -29,6 +29,12 @@ export const Container = styled.div`
       .phone-number {
         margin-left: 0.5em;
         color: ${theme.colors.secondary};
+        cursor: pointer;
+
+        .blur {
+          filter: blur(4px);
+          background: #2591d175;
+        }
       }
     }
   }
