@@ -85,6 +85,11 @@ export const StyledMessage = styled.div<MessageProps>`
         display: grid;
         grid-row-gap: 5px;
 
+        legend {
+          color: white;
+          font-weight: bold;
+        }
+
         label {
           display: flex;
           justify-content: space-between;
