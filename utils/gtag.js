@@ -11,16 +11,23 @@ export default class GTAG {
     }
   }
 
-  static OformitZakaz() {
+  static Kupit1Click() {
     gtag("event", "click", {
-      event_category: "OformitZakaz",
+      event_category: "Kupit1Click",
       event_action: "click",
     });
   }
 
-  static NeDozvonilis() {
+  static OstavitNomerChat() {
     gtag("event", "click", {
-      event_category: "NeDozvonilis",
+      event_category: "OstavitNomerChat",
+      event_action: "click",
+    });
+  }
+
+  static OformitZakaz() {
+    gtag("event", "click", {
+      event_category: "OformitZakaz",
       event_action: "click",
     });
   }
@@ -32,9 +39,9 @@ export default class GTAG {
     });
   }
 
-  static VsplivOkno() {
+  static OstavitNomerAll() {
     gtag("event", "click", {
-      event_category: "VsplivOkno",
+      event_category: "OstavitNomerAll",
       event_action: "click",
     });
   }

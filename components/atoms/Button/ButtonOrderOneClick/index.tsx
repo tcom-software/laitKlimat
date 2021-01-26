@@ -20,9 +20,7 @@ export const ButtonOrderOneClick: FC<ButtonOrderOneClickProps> = ({
       showModal({
         modalType: "numberBox",
         modalProps: {
-          position: "relative",
-          transform: "translate(0, 0)",
-          animation: "none",
+          type: "product",
         },
       })
     );
