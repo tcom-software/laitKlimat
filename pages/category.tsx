@@ -101,6 +101,12 @@ const Category = () => {
 
   const fetchCategoryProducts = async () => {
     const {
+      utm_campaign,
+      utm_source,
+      utm_medium,
+      utm_content,
+      utm_term,
+
       page,
       c: category,
       manufacturerCountries,
