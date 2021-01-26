@@ -49,6 +49,7 @@ const SubScribe = () => {
 
   return (
     <form className="fielads" onSubmit={handleOnSubmit}>
+      <legend>Заполните пожалуйста информацию</legend>
       <label>
         <span>Ваше имя: </span>
         <input autoComplete="off" name="name" />
