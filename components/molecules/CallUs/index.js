@@ -1,30 +1,62 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+
 import { Icon, Text } from "@atoms";
-
 import { Container } from "./styles";
+import GTAG from "utils/gtag";
+import YM from "utils/yandex";
+import { getCookie, setCookie } from "utils/cookies";
 
-const CallUs = ({ showNumberBox = () => null, ...props }) => {
+const CallUs = ({ showNumberBox, ...props }) => {
   const textRef = useRef(null);
-  const styles = useRef(null);
+  const [isClickedToNumber, setIsClickedToNumber] = useState(false);
 
   useEffect(() => {
-    const { top, left, width } = textRef.current.getBoundingClientRect();
-    styles.current = {
-      top: `${top}px`,
-      right: `${globalThis.innerWidth - left - width / 2}px`,
-    };
+    const cookie = getCookie("user_view_phone");
+
+    if (cookie === "visited") {
+      setIsClickedToNumber(true);
+    }
   }, []);
+
+  const handleShowNumber = () => {
+    if (isClickedToNumber) {
+      return;
+    }
+
+    setIsClickedToNumber(true);
+    setCookie("user_view_phone", "visited", {
+      expires: 1100 * 60 * 60 * 24,
+    });
+
+    GTAG.PokazatNomer();
+    YM.PokazatNomer();
+  };
 
   return (
     <Container className="call-us" {...props}>
-      <Icon name="phone" width={38} fill="secondary" aria-label="корзина" />
+      <Icon
+        width={38}
+        name="phone"
+        fill="secondary"
+        aria-label="корзина"
+        onClick={showNumberBox}
+      />
       <div className="call-us-inner">
         <p>
           <Text clr="primary" sz={"small"} tag="span">
             наш номер
           </Text>
-          <Text clr="primary" sz={"normal"} tag="span" className="phone-number">
-            +7[495] 668-65-11
+          <Text
+            tag="span"
+            clr="primary"
+            sz={"normal"}
+            className="phone-number"
+            onClick={handleShowNumber}
+          >
+            {"+7[495] 668-" +
+              (isClickedToNumber
+                ? "65-11"
+                : "<span class='blur'>------</span>")}
           </Text>
         </p>
         <Text
@@ -34,9 +66,7 @@ const CallUs = ({ showNumberBox = () => null, ...props }) => {
           textRef={textRef}
           title="Оставить мой номер"
           className="leave-my-number"
-          onClick={() =>
-            showNumberBox(globalThis.innerWidth > 768 ? styles.current : {})
-          }
+          onClick={showNumberBox}
         >
           Оставить мой номер
         </Text>
