@@ -169,6 +169,13 @@ const Category = () => {
     return products;
   };
 
+  const resetFilters = () => {
+    router.replace({
+      pathname: router.pathname,
+      query: { c: router.query.c, page: 1 },
+    });
+  };
+
   return (
     <Container>
       {/* ******************* Title ********************** */}
@@ -194,7 +201,12 @@ const Category = () => {
         {/* ******************* Filter ********************** */}
         <form className="filters">
           <Filter />
-          <Button variant="secondary" title="сброс" type="reset" />
+          <Button
+            title="сброс"
+            type="button"
+            variant="secondary"
+            onClick={resetFilters}
+          />
         </form>
         {/* ******************* Products ********************** */}
         {products ? (
