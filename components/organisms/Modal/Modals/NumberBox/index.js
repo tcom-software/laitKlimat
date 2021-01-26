@@ -6,19 +6,29 @@ import { Container } from "./styles";
 import GTAG from "utils/gtag";
 import YM from "utils/yandex";
 
+import Input from "react-phone-number-input/input";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+
 const NumberBox = ({ modalRef, hideModal, modalProps: style }) => {
   const [loading, setLoading] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [showError, setShowError] = useState("");
 
   // send data
   const handleSubmit = e => {
     e.preventDefault();
-    const { phone, name, answer } = e.target;
+    const { name, answer } = e.target;
+
+    if (!isValidPhoneNumber(phone)) {
+      setShowError(true);
+      return;
+    }
 
     setLoading(true);
     fetch("/api/callBack", {
       method: "POST",
       body: JSON.stringify({
-        phone: phone.value,
+        phone: phone,
         name: name.value,
         previouslyContactedUs: Boolean(Number(answer.value)),
       }),
@@ -39,24 +49,25 @@ const NumberBox = ({ modalRef, hideModal, modalProps: style }) => {
             номер
           </label>
           <input
+            id="name"
+            required
+            name="name"
             type="text"
             placeholder="ваше имя"
-            id="name"
-            name="name"
-            required
           />
-
-          <label htmlFor="phone" className="srOnly">
-            номер
-          </label>
-          <input
-            type="text"
+          <Input
+            required
+            international
+            className="hidden"
+            value={phone}
             placeholder="номер"
-            id="phone"
-            name="phone"
-            required
+            onChange={setPhone}
           />
-
+          {showError && !isValidPhoneNumber(phone) && (
+            <span style={{ color: "#ff9b9b", fontWeight: "bold" }}>
+              Неправильный номер телефона
+            </span>
+          )}
           <Text tag="legend" sz="normal" clr="white">
             Ранее обращались к нам ?
           </Text>
