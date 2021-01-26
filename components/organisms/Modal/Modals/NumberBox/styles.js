@@ -44,23 +44,8 @@ export const Container = styled.div`
   text-align: center;
   animation: ${animateInMount} 0.5s ease;
 
-  /* ${theme.breakpoints.up("xs")} {
-    animation: ${animateInMount} 0.5s ease forwards;
-  } */
-
   ${theme.breakpoints.down("lg")} {
     padding: 4em 4em 3em;
-  }
-
-  ${theme.breakpoints.down("xs")} {
-    top: auto !important;
-    right: auto !important;
-
-    margin: 0 var(--global-margin);
-    width: 100%;
-    width: -moz-available;
-    width: -webkit-fill-available;
-    width: fill-available;
   }
 
   > div > svg {
