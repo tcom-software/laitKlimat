@@ -2,6 +2,8 @@ import { useState } from "react";
 import Button from "@atoms/Button";
 import { useRouter } from "next/router";
 import { getCookie, setCookie } from "utils/cookies";
+import GTAG from "utils/gtag";
+import YM from "utils/yandex";
 
 const SubScribe = () => {
   const router = useRouter();
@@ -31,18 +33,15 @@ const SubScribe = () => {
       is_unique,
     });
 
-    console.log(data);
+    GTAG.NeDozvonilis();
+    YM.NeDozvonilis();
 
     setLoading(true);
-    setTimeout(() => setLoading(false), 2000);
-    // fetch("http://back.projects-backend.ru/api/chatFeedBack", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: data,
-    // })
-    //   .then(res => res.json())
-    //   .then(data => console.log(data))
-    //   .then(() => setLoading(false));
+    fetch("http://back.projects-backend.ru/api/chatFeedBack", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: data,
+    }).finally(() => setLoading(false));
   };
 
   return (
