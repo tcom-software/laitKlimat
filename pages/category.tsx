@@ -13,7 +13,7 @@ import Button from "@atoms/Button";
 import Hgroup from "@molecules/Hgroup";
 
 //organisms
-import ChosenFilters from "@organisms/ChosenFilters";
+// import ChosenFilters from "@organisms/ChosenFilters";
 import Pagination from "@organisms/Pagination";
 import PreviousViews from "@organisms/PreviousViews";
 import Product from "@organisms/Product";
@@ -68,6 +68,37 @@ const Category = () => {
     [router.query]
   );
 
+  // useEffect(() => {
+  //   const {
+  //     utm_campaign,
+  //     utm_source,
+  //     utm_medium,
+  //     utm_content,
+  //     utm_term,
+  //     yclid,
+  //     gclid,
+
+  //     ...restQuery
+  //   } = router.query as any;
+
+  //   if (
+  //     [
+  //       utm_campaign,
+  //       utm_source,
+  //       utm_medium,
+  //       utm_content,
+  //       utm_term,
+  //       yclid,
+  //       gclid,
+  //     ].some(v => v)
+  //   ) {
+  //     router.replace({
+  //       pathname: router.pathname,
+  //       query: { ...restQuery },
+  //     });
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (!cachedProducts) {
       fetchCategoryProducts().then(products => {
@@ -100,13 +131,13 @@ const Category = () => {
   }, []);
 
   const fetchCategoryProducts = async () => {
-    const {
-      utm_campaign,
-      utm_source,
-      utm_medium,
-      utm_content,
-      utm_term,
-      yclid,
+    let {
+      // utm_campaign,
+      // utm_source,
+      // utm_medium,
+      // utm_content,
+      // utm_term,
+      // yclid,
 
       page,
       c: category,
@@ -172,9 +203,7 @@ const Category = () => {
       method: "POST",
       body: JSON.stringify({ category, page: page || 1, body }),
     });
-    console.log({ response });
     const products = await response.json();
-    console.log({ products });
     return products;
   };
 
@@ -205,7 +234,7 @@ const Category = () => {
         <Hgroup h1={titles?.category || ""} h2={titles?.subSubCategory || ""} />
       </section>
       {/* ******************* Chosen Filters ********************** */}
-      <ChosenFilters />
+      {/* <ChosenFilters /> */}
       <section className="container main-content">
         {/* ******************* Filter ********************** */}
         <form className="filters">
@@ -247,26 +276,34 @@ const Category = () => {
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const store = initializeStore();
 
-  const {
-    utm_campaign,
-    utm_source,
-    utm_medium,
-    utm_content,
-    utm_term,
-    yclid,
-    // ...restQuery
-  } = ctx.query;
+  // const {
+  //   utm_campaign,
+  //   utm_source,
+  //   utm_medium,
+  //   utm_content,
+  //   utm_term,
+  //   yclid,
+  //   ...restQuery
+  // } = ctx.query;
 
-  if (
-    [utm_campaign, utm_source, utm_medium, utm_content, utm_term, yclid].some(
-      v => v
-    )
-  ) {
-    ctx.res.writeHead(302, {
-      Location: `/category?c=2&page=1`,
-    });
-    ctx.res.end();
-  }
+  // const searchParam = Object.entries(restQuery)
+  //   .reduce(
+  //     // @ts-ignore
+  //     (acc, [key, values]) => `${acc}&${key}=${values.split(" ").join("+")}`,
+  //     ""
+  //   )
+  //   .slice(1);
+
+  // if (
+  //   [utm_campaign, utm_source, utm_medium, utm_content, utm_term, yclid].some(
+  //     v => v
+  //   )
+  // ) {
+  //   ctx.res.writeHead(302, {
+  //     Location: `/category?${searchParam}`,
+  //   });
+  //   ctx.res.end();
+  // }
 
   const { initialStore } = await compose(
     initializeCategories,

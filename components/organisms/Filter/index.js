@@ -22,12 +22,13 @@ const {
 
 const FILTERS_ID = {
   main: {
+    inverter: 8,
     servicedArea: 3,
     classEnergy: 11,
-    manufacturerCountry: 14,
     brandCountry: 15,
     ventilationMode: 6,
     coolingHeating: 10,
+    manufacturerCountry: 14,
   },
   other: {
     dehumidificationMode: 7,
@@ -57,7 +58,6 @@ const FILTERS_ID = {
   group: {
     forHeatingUp: 12,
     forCoolingDown: 13,
-    inverter: 8,
   },
 };
 
@@ -152,24 +152,26 @@ const Filter = () => {
   const manufacturerCountry = data?.[FILTERS_ID.main.manufacturerCountry];
   const ventilationMode = data?.[FILTERS_ID.main.ventilationMode];
   const coolingHeating = data?.[FILTERS_ID.main.coolingHeating];
+  const inverter = data?.[FILTERS_ID.main.inverter];
 
   return (
     <>
       <Container>
         <div className="column column-one">
+          <InputFromTo title="цена" inputName="price" />
           <InputCheckboxImageSearch
             loading={loading}
             title="Производитель"
             inputName="manufacturerCountries"
             checkboxes={manufacturerCountries}
           />
-          <InputFromTo title="цена" inputName="price" />
         </div>
         <div className="column column-two">
+          <InputCheckbox data={servicedArea} loading={loading} />
+          <InputCheckbox data={inverter} loading={loading} />
           {/* 
             НА ОБОГРЕВ ДО -30 °С 
             НА ОХЛАЖДЕНИЯ ДО -40 °С  
-            ИНВЕРТОРНЫЙ
           */}
           {data && (
             <div>
@@ -188,11 +190,11 @@ const Filter = () => {
                 ))}
             </div>
           )}
-          <InputCheckbox data={servicedArea} loading={loading} />
-          <InputCheckbox data={classEnergy} loading={loading} />
+          <InputCheckbox data={coolingHeating} loading={loading} />
+          <InputCheckbox data={ventilationMode} loading={loading} />
         </div>
         <div className="column column-three">
-          <InputCheckbox data={coolingHeating} loading={loading} />
+          <InputCheckbox data={classEnergy} loading={loading} />
           {textFilters?.map(({ title, id }) => (
             <InputFromTo
               key={id}
@@ -201,7 +203,6 @@ const Filter = () => {
               inputName={`range${id}`}
             />
           ))}
-          <InputCheckbox data={ventilationMode} loading={loading} />
         </div>
         <div className="column column-four">
           <InputCheckboxImage data={manufacturerCountry} loading={loading} />

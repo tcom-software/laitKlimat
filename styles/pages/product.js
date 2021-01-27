@@ -121,8 +121,8 @@ export const Container = styled.div`
     .filters {
       float: left;
       width: min-content;
-      padding: 3.25em 2.5em;
       margin-right: 1.5em;
+      padding: 3.25em 2.5em;
       box-shadow: ${theme.shadow.effect1};
 
       ${theme.breakpoints.down("lg")} {
@@ -143,7 +143,7 @@ export const Container = styled.div`
         }
       }
 
-      button {
+      > button {
         display: block;
         margin: 2em 0 0 auto;
       }

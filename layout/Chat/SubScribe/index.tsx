@@ -5,12 +5,23 @@ import { getCookie, setCookie } from "utils/cookies";
 import GTAG from "utils/gtag";
 import YM from "utils/yandex";
 
+// @ts-ignore
+import Input from "react-phone-number-input/input";
+import { isValidPhoneNumber } from "react-phone-number-input";
+
 const SubScribe = () => {
   const router = useRouter();
+  const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const handleOnSubmit = (e: any) => {
     e.preventDefault();
+
+    if (!isValidPhoneNumber(phone)) {
+      setShowError(true);
+      return;
+    }
 
     const product_id = router.query.product;
 
@@ -23,14 +34,14 @@ const SubScribe = () => {
       is_unique = false;
     }
 
-    const data = JSON.stringify({
+    const body = JSON.stringify({
       name: e.target.name.value || "",
-      phone: e.target.phone.value,
       email: e.target.email.value || "",
       url: router.query.asPath,
       in_cart: Boolean(product_id),
       product_id,
       is_unique,
+      phone,
     });
 
     YM.OstavitNomerChat();
@@ -40,11 +51,12 @@ const SubScribe = () => {
     GTAG.OstavitNomerAll();
 
     setLoading(true);
-    fetch("http://back.projects-backend.ru/api/chatFeedBack", {
+    fetch("/api/chatFeedBack", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: data,
+      body: body,
     }).finally(() => setLoading(false));
+
+    console.log(body);
   };
 
   return (
@@ -57,12 +69,17 @@ const SubScribe = () => {
       <label>
         <span>Телефон: </span>
         <span className="required">*</span>
-        <input autoComplete="off" type="tel" name="phone" required />
+        <Input required international value={phone} onChange={setPhone} />
       </label>
       <label>
         <span>Эл. почта: </span>
         <input autoComplete="off" name="email" type="email" />
       </label>
+      {showError && !isValidPhoneNumber(phone) && (
+        <span style={{ color: "#ff9b9b", fontWeight: "bold" }}>
+          Неправильный номер телефона
+        </span>
+      )}
       <Button
         type="submit"
         variant="secondary"

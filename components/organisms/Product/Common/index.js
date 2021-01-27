@@ -58,7 +58,7 @@ export const Sale = ({ data: { priceWithSetup, priceWithoutSetup } }) => {
   return (
     <StyledSale className="sale" onClick={showChatHandler}>
       <Text tag="span" sz="small" bold>
-        {"Получить\nскидку %"}
+        {"Получить\nскидку"}
       </Text>
     </StyledSale>
   );

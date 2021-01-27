@@ -8,7 +8,7 @@ import YM from "utils/yandex";
 import { getCookie, setCookie } from "utils/cookies";
 
 import Input from "react-phone-number-input/input";
-import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import { isValidPhoneNumber } from "react-phone-number-input";
 
 const NumberBox = ({ modalRef, hideModal, modalProps: style }) => {
   const [loading, setLoading] = useState(false);
@@ -76,7 +76,6 @@ const NumberBox = ({ modalRef, hideModal, modalProps: style }) => {
           <Input
             required
             international
-            className="hidden"
             value={phone}
             placeholder="номер"
             onChange={setPhone}
