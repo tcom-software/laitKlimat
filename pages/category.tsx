@@ -106,6 +106,7 @@ const Category = () => {
       utm_medium,
       utm_content,
       utm_term,
+      yclid,
 
       page,
       c: category,
@@ -118,6 +119,7 @@ const Category = () => {
       range5,
       ...checkboxes
     } = router.query as any;
+
     const otherRanges: any = {
       range2,
       range1,
@@ -170,8 +172,9 @@ const Category = () => {
       method: "POST",
       body: JSON.stringify({ category, page: page || 1, body }),
     });
+    console.log({ response });
     const products = await response.json();
-
+    console.log({ products });
     return products;
   };
 
@@ -243,6 +246,27 @@ const Category = () => {
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const store = initializeStore();
+
+  const {
+    utm_campaign,
+    utm_source,
+    utm_medium,
+    utm_content,
+    utm_term,
+    yclid,
+    // ...restQuery
+  } = ctx.query;
+
+  if (
+    [utm_campaign, utm_source, utm_medium, utm_content, utm_term, yclid].some(
+      v => v
+    )
+  ) {
+    ctx.res.writeHead(302, {
+      Location: `/category?c=2&page=1`,
+    });
+    ctx.res.end();
+  }
 
   const { initialStore } = await compose(
     initializeCategories,
