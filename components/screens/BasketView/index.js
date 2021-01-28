@@ -21,6 +21,9 @@ import {
 } from "@redux/selectors/basket";
 import { showModal } from "@redux/actions/modal";
 
+import PhoneInput from "react-phone-number-input/input";
+import { isValidPhoneNumber } from "react-phone-number-input";
+
 // buttons
 import ButtonOrderOneClick from "@atoms/Button/ButtonOrderOneClick";
 import ButtonCredit from "@atoms/Button/ButtonCredit";
@@ -34,10 +37,11 @@ const BasketView = () => {
   const [productsLoading, setProductsLoading] = useState(false);
   // set by fetching from backend
   const [products, setProducts] = useState(null);
+  const [phone, setPhone] = useState("");
 
   // refs
   const nameRef = useRef(null);
-  const telRef = useRef(null);
+  const phoneRef = useRef(null);
   const emailRef = useRef(null);
   const addressRef = useRef(null);
   const paymentTypeRef = useRef(null);
@@ -56,8 +60,8 @@ const BasketView = () => {
       method: "POST",
       body: JSON.stringify(Object.keys(basketProducts)),
     })
-      .then(response => response.json())
-      .then(products => {
+      .then((response) => response.json())
+      .then((products) => {
         const serializedProducts = {};
 
         for (const product of products) {
@@ -72,13 +76,23 @@ const BasketView = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (phoneRef.current) {
+      if (!isValidPhoneNumber(phone)) {
+        phoneRef.current.setCustomValidity("Invalid phone format");
+      } else {
+        phoneRef.current.setCustomValidity("");
+      }
+    }
+  }, [phone]);
+
   // delete all basket info when close the alert modal
   const deleteBasket = () => {
     clearBasket();
     nameRef.current.value = "";
-    telRef.current.value = "";
     emailRef.current.value = "";
     addressRef.current.value = "";
+    setPhone("");
   };
 
   // show order busket success
@@ -98,7 +112,7 @@ const BasketView = () => {
   /**
    * order busket
    */
-  const handleOnSubmit = async e => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -107,14 +121,14 @@ const BasketView = () => {
       {}
     );
 
-    const orderData = {
+    const body = {
       delivery_address: addressRef.current.value,
       delivery_type: delivaryTypeRef.current.value,
       email: emailRef.current.value,
       name: nameRef.current.value,
       last_name: "not last name",
       payment_type: paymentTypeRef.current.value,
-      phone_number: telRef.current.value,
+      phone_number: phone,
       comment: "",
       products,
     };
@@ -122,13 +136,13 @@ const BasketView = () => {
     if (process.env.NODE_ENV === "production") {
       await fetch("/api/orderBasket", {
         method: "POST",
-        body: JSON.stringify(orderData),
+        body: JSON.stringify(body),
       }).finally(() => {
         YM.OformitZakaz();
         GTAG.OformitZakaz();
       });
     } else {
-      await new Promise(res => {
+      await new Promise((res) => {
         setTimeout(() => res(), 1000);
       }).then(console.log(products));
     }
@@ -182,12 +196,18 @@ const BasketView = () => {
         <form onSubmit={handleOnSubmit}>
           <div className="inputs">
             <Input type="text" inputRef={nameRef} label={"Имя"} required />
-            <Input
-              type="text"
-              inputRef={telRef}
-              label={"Номер телефона"}
-              required
-            />
+            <Input  
+              label={"НОМЕР ТЕЛЕФОНА"}>
+              <PhoneInput
+                required
+                international
+                value={phone}
+                ref={phoneRef}
+                onChange={setPhone}
+                placeholder="НОМЕР ТЕЛЕФОНА"
+                name="customerPhone"
+              />
+            </Input>
             <Input type="email" inputRef={emailRef} label={"E-MAIL"} required />
             <Input
               type="text"

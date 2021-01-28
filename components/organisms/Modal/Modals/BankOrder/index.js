@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
@@ -35,14 +35,25 @@ const BankOrder = ({
   hideModal,
   modalProps: { price, productName },
 }) => {
+  const phoneRef = useRef(null);
+
   const [bank, setBank] = useState("");
+  const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const categoryTitle = useSelector(getCurrentCategoryTitle);
 
-  // send data
-  const handleSubmit = e => {
-    e.preventDefault();
+  useEffect(() => {
+    if (phoneRef.current) {
+      if (!isValidPhoneNumber(phone)) {
+        phoneRef.current.setCustomValidity("Invalid phone format");
+      } else {
+        phoneRef.current.setCustomValidity("");
+      }
+    }
+  }, [phone]);
 
+  // send data
+  const handleOnSubmit = (e) => {
     YM.OstavitNomerAll();
     GTAG.OstavitNomerAll();
   };
@@ -50,8 +61,8 @@ const BankOrder = ({
   const hiddenData = {
     price,
     productName,
-    categoryTitle: categoryTitle?.subSubCategory,
     date: Date.now(),
+    categoryTitle: categoryTitle?.subSubCategory,
   };
 
   return (
@@ -71,9 +82,9 @@ const BankOrder = ({
             <div onClick={() => setBank(banks.tinkoff)}>
               <div className="banks">
                 <img
-                  src="/images/logo/tinkoff.jpg"
-                  alt="tinkoffbank"
                   height="100px"
+                  alt="tinkoffbank"
+                  src="/images/logo/tinkoff.jpg"
                 />
                 <Text tag="p" sz="normal" clr="tercary">
                   Тинькофф банк
@@ -102,7 +113,7 @@ const BankOrder = ({
               <form
                 method="post"
                 target="_blank"
-                onSubmit={handleSubmit}
+                onSubmit={handleOnSubmit}
                 action="https://loans.tinkoff.ru/api/partners/v1/lightweight/create"
               >
                 {data.hiddenInputs.map(({ name, value }) => (
@@ -132,22 +143,22 @@ const BankOrder = ({
                 />
                 <Input
                   required
-                  type="text"
+                  type="email"
                   autoComplete="off"
                   name="customerEmail"
                   placeholder="Адрес электронной почты:"
                 />
-                <PhoneInput
-                  // required
-                  // type="tel"
-                  // autoComplete="off"
-                  // name="customerPhone"
-                  // placeholder="Номер телефона:"
-                  required
-                  international
-                  placeholder="номер"
-                  name="customerPhone"
-                />
+                <Input>
+                  <PhoneInput
+                    required
+                    international
+                    value={phone}
+                    ref={phoneRef}
+                    onChange={setPhone}
+                    placeholder="номер"
+                    name="customerPhone"
+                  />
+                </Input>
 
                 <div className="btn-group">
                   <Button

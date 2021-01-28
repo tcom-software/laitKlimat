@@ -5,6 +5,7 @@ import { StyledLabel } from "../styles";
 const Input = ({
   label,
   type,
+  children,
   name = "",
   inputRef = null,
   placeholder = "",
@@ -15,13 +16,15 @@ const Input = ({
       <Text tag="p" clr="secondary" sz="normal">
         {label}
       </Text>
-      <input
-        {...rest}
-        type={type}
-        name={name}
-        ref={inputRef}
-        placeholder={placeholder ? placeholder : label}
-      />
+      {children || (
+        <input
+          type={type}
+          name={name}
+          ref={inputRef}
+          placeholder={placeholder ? placeholder : label}
+          {...rest}
+        />
+      )}
     </StyledLabel>
   );
 };
