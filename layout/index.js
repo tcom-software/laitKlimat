@@ -12,11 +12,12 @@ import Chat from "./Chat";
 
 import Modal from "@organisms/Modal";
 import Notification from "@molecules/Notification";
+import { ChatContextProvider } from "./Chat/context";
 
 const Layout = ({ children, data }) => {
   const dispatch = useDispatch();
   const isloading = useSelector(getLoader);
-  const modalIsOpen = useSelector(state => state.modal.modalIsOpen);
+  const modalIsOpen = useSelector((state) => state.modal.modalIsOpen);
   const { bannerVariant } = data;
 
   useEffect(() => {
@@ -34,7 +35,9 @@ const Layout = ({ children, data }) => {
       <Footer />
       {modalIsOpen && <Modal />}
       <Notification />
-      <Chat />
+      <ChatContextProvider>
+        <Chat />
+      </ChatContextProvider>
     </>
   );
 };

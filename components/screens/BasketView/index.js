@@ -144,7 +144,7 @@ const BasketView = () => {
     } else {
       await new Promise((res) => {
         setTimeout(() => res(), 1000);
-      }).then(console.log(products));
+      }).then(console.log({ products, body }));
     }
 
     setLoading(false);
@@ -196,8 +196,7 @@ const BasketView = () => {
         <form onSubmit={handleOnSubmit}>
           <div className="inputs">
             <Input type="text" inputRef={nameRef} label={"Имя"} required />
-            <Input  
-              label={"НОМЕР ТЕЛЕФОНА"}>
+            <Input label={"НОМЕР ТЕЛЕФОНА"}>
               <PhoneInput
                 required
                 international

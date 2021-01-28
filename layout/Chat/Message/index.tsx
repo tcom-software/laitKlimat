@@ -1,6 +1,7 @@
 import Button from "@atoms/Button";
 import Loader from "@atoms/Loader";
 import { FC, isValidElement, useEffect, useState } from "react";
+import { useChatContext } from "../context";
 import { StyledMessage } from "./styles";
 
 interface Props extends MessageContentProps {}
@@ -11,6 +12,9 @@ export const Message: FC<Props> = ({
   inComing,
   scrollHandler,
 }) => {
+  const {
+    state: { operator },
+  } = useChatContext();
   return (
     <StyledMessage
       className={inComing ? "operator" : "user"}
@@ -23,9 +27,10 @@ export const Message: FC<Props> = ({
         scrollHandler={scrollHandler}
       />
       <div className="avatar">
-        {inComing || (
-          <img src={inComing ? "" : "/images/chat_user.png"} alt="avatar" />
-        )}
+        <img
+          src={inComing ? operator.photo : "/images/chat_user.png"}
+          alt="avatar"
+        />
       </div>
     </StyledMessage>
   );
