@@ -2,9 +2,15 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
+import YM from "utils/yandex";
+import GTAG from "utils/gtag";
+
 import { Container } from "./styles";
 import { Icon, Button, Text, Input } from "@atoms";
 import { getCurrentCategoryTitle } from "@redux/selectors/site";
+
+import PhoneInput from "react-phone-number-input/input";
+import { isValidPhoneNumber } from "react-phone-number-input";
 
 const banks = {
   tinkoff: "Тинькофф банк",
@@ -36,9 +42,12 @@ const BankOrder = ({
   // send data
   const handleSubmit = e => {
     e.preventDefault();
+
+    YM.OstavitNomerAll();
+    GTAG.OstavitNomerAll();
   };
 
-  const hiddebData = {
+  const hiddenData = {
     price,
     productName,
     categoryTitle: categoryTitle?.subSubCategory,
@@ -93,6 +102,7 @@ const BankOrder = ({
               <form
                 method="post"
                 target="_blank"
+                onSubmit={handleSubmit}
                 action="https://loans.tinkoff.ru/api/partners/v1/lightweight/create"
               >
                 {data.hiddenInputs.map(({ name, value }) => (
@@ -100,7 +110,7 @@ const BankOrder = ({
                     name={name}
                     value={
                       value.startsWith("ref")
-                        ? hiddebData[value.split(":")[1]]
+                        ? hiddenData[value.split(":")[1]]
                         : value
                     }
                     type="hidden"
@@ -114,25 +124,29 @@ const BankOrder = ({
                 />
 
                 <Input
+                  required
+                  type="text"
                   placeholder="ФИО:"
-                  type="text"
+                  autoComplete="off"
                   name="customerName"
-                  autoComplete="off"
-                  required
                 />
                 <Input
-                  placeholder="Адрес электронной почты:"
+                  required
                   type="text"
+                  autoComplete="off"
                   name="customerEmail"
-                  autoComplete="off"
-                  required
+                  placeholder="Адрес электронной почты:"
                 />
-                <Input
-                  placeholder="Номер телефона:"
-                  type="tel"
-                  name="customerPhone"
-                  autoComplete="off"
+                <PhoneInput
+                  // required
+                  // type="tel"
+                  // autoComplete="off"
+                  // name="customerPhone"
+                  // placeholder="Номер телефона:"
                   required
+                  international
+                  placeholder="номер"
+                  name="customerPhone"
                 />
 
                 <div className="btn-group">

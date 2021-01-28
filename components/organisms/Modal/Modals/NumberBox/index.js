@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import { Icon, Button, Text } from "@atoms";
-import { Container } from "./styles";
 import GTAG from "utils/gtag";
 import YM from "utils/yandex";
+import { Container } from "./styles";
+import { Icon, Button, Text } from "@atoms";
 import { getCookie, setCookie } from "utils/cookies";
 
 import Input from "react-phone-number-input/input";
 import { isValidPhoneNumber } from "react-phone-number-input";
 
-const NumberBox = ({ modalRef, hideModal, modalProps: style }) => {
-  const [loading, setLoading] = useState(false);
+const NumberBox = ({ modalRef, hideModal, modalProps }) => {
   const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(false);
   const [showError, setShowError] = useState("");
 
-  // send data
+  // send "ostavit nomer" data
   const handleSubmit = e => {
     e.preventDefault();
     const { name, answer } = e.target;
