@@ -11,9 +11,9 @@ import { Message } from "./Message";
 import { StyledChat } from "./styles";
 import { getCookie, setCookie } from "utils/cookies";
 
-import { Operator } from "./types";
 import { mainChatStack, mainMesssage } from "./data";
 import { useRouter } from "next/router";
+import { useChatContext } from "./context";
 
 const Chat = () => {
   const router = useRouter();
@@ -24,18 +24,26 @@ const Chat = () => {
   const fieldRef = useRef<HTMLInputElement>(null);
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<any[]>([]);
-
-  const [operators, setOperators] = useState<Operator[]>([]);
+  const {
+    state: { operator },
+    setChatState,
+  } = useChatContext();
 
   const showChatHandler = useCallback(() => dispatch(showChat()), []);
   const hideChatHandler = useCallback(() => dispatch(hideChat()), []);
 
   useEffect(() => {
     fetch("/api/getOnlineManagers")
-      .then(response => {
+      .then((response) => {
         return response.json();
       })
-      .then(data => setOperators(data));
+      .then((data: any[]) => {
+        setChatState({ type: "SET_OPERATORS", payload: data });
+        setChatState({
+          type: "CHANGE_OPERATOR",
+          payload: data[Date.now() % data.length],
+        });
+      });
 
     // if (
     //   !getCookie("ne_pokazat_ne_v_kartchke") &&
@@ -77,6 +85,13 @@ const Chat = () => {
         },
       ]);
     }
+
+    // if (isOpen) {
+    //   setChatState({
+    //     type: "CHANGE_OPERATOR",
+    //     payload: operators[Date.now() % operators.length],
+    //   });
+    // }
   }, [isOpen]);
 
   useEffect(() => {
@@ -145,7 +160,7 @@ const Chat = () => {
     };
     fieldRef.current?.blur();
 
-    setMessages(messages => [...messages, newMessage]);
+    setMessages((messages) => [...messages, newMessage]);
     setMessage("");
   };
 
@@ -157,7 +172,7 @@ const Chat = () => {
     for (let message of messagesStack.slice(1)) {
       time += lastMessage === message.inComing ? 1500 : 500;
       lastMessage = message.inComing;
-      setTimeout(() => setMessages(messages => [...messages, message]), time);
+      setTimeout(() => setMessages((messages) => [...messages, message]), time);
     }
   };
 
@@ -178,13 +193,13 @@ const Chat = () => {
               onClick={hideChatHandler}
             />
             <Text tag="p" className="title">
-              {"оператор " + operators[0]?.username || ""}
+              {"оператор " + operator?.username || ""}
             </Text>
             <div className="background-image" />
           </div>
           {/*///////////// MAIN ////////////////*/}
           <div className="chat-main" ref={chatRef}>
-            {messages.map(props => (
+            {messages.map((props) => (
               <Message
                 key={props.id}
                 scrollHandler={scrollToChatBottom}
@@ -222,7 +237,7 @@ const Chat = () => {
                 ref={fieldRef}
                 value={message}
                 // readOnly
-                onChange={e => setMessage(e.target.value)}
+                onChange={(e) => setMessage(e.target.value)}
                 className="message-field"
               />
             </form>

@@ -48,7 +48,7 @@ export default class GTAG {
 
   static KupitVKredit() {
     gtag("event", "click", {
-      event_category: "OstavitNomerAll",
+      event_category: "KupitVKredit",
       event_action: "click",
     });
   }

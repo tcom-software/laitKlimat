@@ -4,11 +4,11 @@ export default class YM {
   static Kupit1Click() {
     ym(this.YM_ID, "reachGoal", "Kupit1Click");
   }
-  
+
   static OstavitNomerChat() {
     ym(this.YM_ID, "reachGoal", "OstavitNomerChat");
   }
-  
+
   static OformitZakaz() {
     ym(this.YM_ID, "reachGoal", "OformitZakaz");
   }
@@ -22,6 +22,6 @@ export default class YM {
   }
 
   static KupitVKredit() {
-    ym(this.YM_ID,'reachGoal','KupitVKredit')
+    ym(this.YM_ID, "reachGoal", "KupitVKredit");
   }
 }
