@@ -56,6 +56,9 @@ const BankOrder = ({
   const handleOnSubmit = (e) => {
     YM.OstavitNomerAll();
     GTAG.OstavitNomerAll();
+
+    YM.KupitVKredit();
+    GTAG.KupitVKredit();
   };
 
   const hiddenData = {

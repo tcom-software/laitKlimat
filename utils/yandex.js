@@ -20,4 +20,8 @@ export default class YM {
   static OstavitNomerAll() {
     ym(this.YM_ID, "reachGoal", "OstavitNomerAll");
   }
+
+  static KupitVKredit() {
+    ym(this.YM_ID, "reachGoal", "KupitVKredit");
+  }
 }
