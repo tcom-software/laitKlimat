@@ -39,6 +39,9 @@ const BasketView = () => {
   const [products, setProducts] = useState(null);
   const [phone, setPhone] = useState("");
 
+  const [paymentType, setPaymentType] = useState("");
+  const [orderButtonText, setOrderButtonText] = useState("Оформить заказ");
+
   // refs
   const nameRef = useRef(null);
   const phoneRef = useRef(null);
@@ -85,6 +88,14 @@ const BasketView = () => {
       }
     }
   }, [phone]);
+
+  useEffect(() => {
+    setOrderButtonText(() => {
+      return paymentType === "Взять в кредит"
+        ? "Оформить кредит"
+        : "Оформить заказ";
+    });
+  }, [paymentType]);
 
   // delete all basket info when close the alert modal
   const deleteBasket = () => {
@@ -224,6 +235,7 @@ const BasketView = () => {
               type="text"
               label={"Тип оплаты"}
               inputRef={paymentTypeRef}
+              onChange={value => setPaymentType(value)}
               options={[
                 { title: "Наличными курьеру" },
                 { title: "Банковской картой курьеру" },
@@ -234,7 +246,7 @@ const BasketView = () => {
           <Button
             type="submit"
             variant="primary"
-            title="Оформить заказ"
+            title={orderButtonText}
             loading={loading}
           />
         </form>

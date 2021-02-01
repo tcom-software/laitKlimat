@@ -5,12 +5,23 @@ import cn from "classnames";
 
 import { useOutsideClickClose } from "@hooks";
 
-const Select = ({ label, type, inputRef, options = [] }) => {
+const Select = ({
+  type,
+  label,
+  inputRef,
+  options = [],
+  onChange: parentOnChange,
+}) => {
   const ref = useRef(null);
   const [selected, setSelectd] = useState(options[0]?.title || "");
   const [isOpen, setOpen] = useState(false);
 
   useOutsideClickClose(ref, () => setOpen(false));
+
+  const handleOnchange = title => {
+    setSelectd(title);
+    parentOnChange && parentOnChange(title);
+  };
 
   return (
     <StyledLabel className="select" ref={ref}>
@@ -28,7 +39,7 @@ const Select = ({ label, type, inputRef, options = [] }) => {
         {options.map(({ title }, idx) => (
           <li
             id={idx}
-            onClick={() => setSelectd(title)}
+            onClick={() => handleOnchange(title)}
             className={cn({ selected: selected === title })}
           >
             {title}
