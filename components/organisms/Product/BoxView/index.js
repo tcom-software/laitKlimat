@@ -40,7 +40,6 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
     productImageX300,
 
     hasSale,
-    hasChat,
     available,
     priceWithSetup,
     priceWithoutSetup,

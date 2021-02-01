@@ -33,7 +33,7 @@ const LeftBar = ({ data }) => {
         <div className="product--wrapper">
           <img alt="product" src={productImage} />
           {Boolean(hasSale) && (
-            <Sale data={{ priceWithSetup, priceWithoutSetup, price }} />
+            <Sale data={{ priceWithSetup, priceWithoutSetup, hasSale, price }} />
           )}
         </div>
         <div className="certificate">

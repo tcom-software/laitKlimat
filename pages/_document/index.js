@@ -127,7 +127,7 @@ export default class MyDocument extends Document {
               {/* End Global site tag (gtag.js) - Google Analytics */}
 
               {/* Google Tag Manager */}
-              <script dangerouslySetInnerHTML={this.setGoogleTagManager()} />
+              {/* <script dangerouslySetInnerHTML={this.setGoogleTagManager()} /> */}
               {/* End Google Tag Manager */}
 
               {/* Yandex.Metrika counter */}   
@@ -149,14 +149,14 @@ export default class MyDocument extends Document {
           {isProduction && (
             <>
               {/* Google Tag Manager (noscript) */}
-              <noscript>
+              {/* <noscript>
                 <iframe
                   src="https://www.googletagmanager.com/ns.html?id=GTM-N9LSKZZ"
                   width={0}
                   height={0}
                   style={{ display: "none", visibility: "hidden" }}
                 />
-              </noscript>
+              </noscript> */}
               {/* End Google Tag Manager (noscript) */}
             </>
           )}

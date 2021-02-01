@@ -46,7 +46,7 @@ export const Sale = ({
       dispatch(
         showChat({
           type: "productSale",
-          text: `<span>На эту модель есть дополнительная скидка\n\n${
+          text: `<span>На эту модель есть дополнительная скидка${
             messageText ? messageText + "\n\n" : ""
           }<span>Хотите узнать больше ?</span>`,
         })
@@ -57,14 +57,14 @@ export const Sale = ({
   let messageText;
   switch (hasSale) {
     case 1:
-      messageText = `<b>Цена с установкой</b>
+      messageText = `\n\n<b>Цена с установкой</b>
 <em style='display: inline-block; margin-bottom: 4px;'>${priceWithSetup} ₽</em>
 <b>Цена без установки</b>
 <em>${priceWithoutSetup} ₽</em></span>`;
       break;
     case 2:
       let sale = ((price - priceWithoutSetup) * 100) / price;
-      messageText = `до ${sale | 0} %`;
+      messageText = `\nдо ${sale | 0} %`;
       break;
     case 3:
       messageText = ``;
