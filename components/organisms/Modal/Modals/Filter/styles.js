@@ -5,8 +5,8 @@ import { mmp } from "styles/utils/mediaProperty";
 
 export const Container = styled.div`
   form {
-    display: grid;
     height: 80vh;
+    display: grid;
     grid-template-rows: max-content 1fr max-content;
 
     ${theme.breakpoints.between("xs", "md")} {
@@ -15,10 +15,11 @@ export const Container = styled.div`
 
     main {
       overflow-y: auto;
-      position: relative;
+      -webkit-overflow-scrolling: touch;
       display: flex;
-      flex-direction: column;
+      position: relative;
       align-items: center;
+      flex-direction: column;
 
       ${theme.breakpoints.between("xs", "lg")} {
         padding: 1.5em 4em 2em;

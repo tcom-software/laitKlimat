@@ -13,6 +13,7 @@ export const StyledFieldSet = styled.fieldset`
   .wrapper {
     max-height: 400px;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 
     .no-search {
       text-transform: unset;

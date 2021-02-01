@@ -11,14 +11,14 @@ export const Container = styled.div`
 
 export const OtherFilters = styled.div`
   display: grid;
-  grid-row-gap: 1em;
   margin-top: 1em;
+  grid-row-gap: 1em;
 `;
 
 export const ShowOtherFilters = styled.button`
+  width: 100%;
+  color: #2591d1;
   margin-top: 1.5em;
   text-align: center;
   text-transform: uppercase;
-  width: 100%;
-  color: #2591d1;
 `;

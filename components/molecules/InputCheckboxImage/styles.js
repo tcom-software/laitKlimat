@@ -12,6 +12,7 @@ export const StyledFieldSet = styled.fieldset`
   div {
     height: 200px;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 
     label {
       display: grid;
