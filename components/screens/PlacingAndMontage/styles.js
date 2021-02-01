@@ -45,7 +45,7 @@ export const Container = styled.div`
 
     td,
     th {
-      ${mmp("white-space", "nowrap", { xs: "normal" })};
+      ${mmp("white-space", "normal", { xs: "normal" })};
       ${mmp("letter-spacing", "0.1em", { xs: "0.06em" })};
     }
 
@@ -76,9 +76,9 @@ export const Container = styled.div`
     }
 
     .title {
-      background-color: ${theme.colors.secondary};
-      color: ${theme.colors.white};
       font-weight: bold;
+      color: ${theme.colors.white};
+      background-color: ${theme.colors.secondary};
 
       td {
         box-sizing: content-box;

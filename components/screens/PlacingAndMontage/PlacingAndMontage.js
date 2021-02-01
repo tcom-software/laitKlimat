@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Text } from "@atoms";
 import { Hgroup } from "@molecules";
 
@@ -89,6 +89,14 @@ const table = [
 ];
 
 const PlacingAndMontage = () => {
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/getServices")
+      .then(response => response.json())
+      .then(data => setServices(data));
+  }, []);
+
   return (
     <Container>
       <div className="container">
@@ -131,18 +139,23 @@ const PlacingAndMontage = () => {
           </tr>
         </thead>
         <tbody>
-          {table.map(({ title, list }, idx) => (
+          {services.map(({ service_category, services }, idx) => (
             <Fragment key={idx}>
               <tr className="title">
-                <td colSpan="3">{title}</td>
+                <td colSpan="3">{service_category}</td>
               </tr>
-              {list.map((list, idx) => (
-                <tr key={idx}>
-                  {list.map((text, idx) => (
-                    <td key={idx}>{text}</td>
-                  ))}
-                </tr>
-              ))}
+              {JSON.parse(services).map(
+                (
+                  { service_name, service_price_our, service_price_other },
+                  idx
+                ) => (
+                  <tr key={idx}>
+                    <td>{service_name}</td>
+                    <td>{service_price_our}</td>
+                    <td>{service_price_other}</td>
+                  </tr>
+                )
+              )}
             </Fragment>
           ))}
         </tbody>
