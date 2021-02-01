@@ -48,7 +48,7 @@ const Characteristics = ({ data: { description, characteristics } }) => {
         <Fragment key={idx}>
           <div className="line">
             <Text tag="p" sz="larg" className="container">
-              {title}
+              {title || ""}
             </Text>
           </div>
           <table className="container">
