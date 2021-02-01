@@ -29,6 +29,7 @@ const FILTERS_ID = {
     ventilationMode: 6,
     coolingHeating: 10,
     manufacturerCountry: 14,
+    numberOfPluginUnits: 63,
   },
   other: {
     dehumidificationMode: 7,
@@ -37,7 +38,7 @@ const FILTERS_ID = {
     remoteControl: 20,
     onOffTimer: 21,
     wiFi: 22,
-    phaza: 26,
+    phase: 26,
     powerSupply: 27,
     fineAirFilters: 28,
     deodorizingFilter: 30,
@@ -53,6 +54,7 @@ const FILTERS_ID = {
     warmStart: 42,
     motionSensor: 43,
     pipeDiameterGas: 46,
+    jidkost: 45,
   },
   compressor: 44, //images
   group: {
@@ -146,19 +148,23 @@ const Filter = () => {
 
   // filter`s parts
   const { data, manufacturerCountries, textFilters } = filtersData || {};
+  const inverter = data?.[FILTERS_ID.main.inverter];
   const classEnergy = data?.[FILTERS_ID.main.classEnergy];
   const servicedArea = data?.[FILTERS_ID.main.servicedArea];
   const brandCountry = data?.[FILTERS_ID.main.brandCountry];
-  const manufacturerCountry = data?.[FILTERS_ID.main.manufacturerCountry];
-  const ventilationMode = data?.[FILTERS_ID.main.ventilationMode];
   const coolingHeating = data?.[FILTERS_ID.main.coolingHeating];
-  const inverter = data?.[FILTERS_ID.main.inverter];
+  const ventilationMode = data?.[FILTERS_ID.main.ventilationMode];
+  const manufacturerCountry = data?.[FILTERS_ID.main.manufacturerCountry];
+  const numberOfPluginUnits = data?.[FILTERS_ID.main.numberOfPluginUnits];
 
   return (
     <>
       <Container>
         <div className="column column-one">
           <InputFromTo title="цена" inputName="price" />
+          {numberOfPluginUnits && (
+            <InputCheckbox data={numberOfPluginUnits} loading={loading} />
+          )}
           <InputCheckboxImageSearch
             loading={loading}
             title="Производитель"
@@ -190,7 +196,6 @@ const Filter = () => {
                 ))}
             </div>
           )}
-          <InputCheckbox data={coolingHeating} loading={loading} />
           <InputCheckbox data={ventilationMode} loading={loading} />
         </div>
         <div className="column column-three">
