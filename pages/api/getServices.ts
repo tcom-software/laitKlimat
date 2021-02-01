@@ -5,7 +5,7 @@ const {
   serverRuntimeConfig: { fetchUrl, projectId, getServicesPath },
 } = getConfig();
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (_req: NextApiRequest, res: NextApiResponse) => {
   const url = `${fetchUrl}${getServicesPath}`;
   const response = await fetch(url, {
     method: "GET",
