@@ -161,7 +161,7 @@ export const serializeProductData = (data: any) => {
       productImage,
       brandLogo,
       certificateImage,
-
+      price,
       hasSale,
       priceWithSetup,
       priceWithoutSetup,

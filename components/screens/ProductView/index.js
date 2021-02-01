@@ -8,7 +8,7 @@ import Characteristics from "./Characteristics";
 import { serializeProductData } from "helper/serializeProduct";
 import { Hgroup } from "@molecules";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsCacheByKey } from "@redux/selectors/products";
 import { initializeStore } from "@redux/index";
@@ -38,6 +38,11 @@ const ProductView = () => {
     dispatch(addProductsCache(productId, product));
   };
 
+  const serializedProduct = useMemo(
+    () => product && serializeProductData(product),
+    [product]
+  );
+
   if (loading || !product) {
     return (
       <Container>
@@ -60,7 +65,7 @@ const ProductView = () => {
     infoTable,
     productName,
     characteristics,
-  } = serializeProductData(product);
+  } = serializedProduct;
 
   return (
     <Container>
