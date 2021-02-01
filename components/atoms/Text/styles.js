@@ -16,7 +16,7 @@ export const sizes = {
     }
   `,
   normal: css`
-    font-size: 1.25em;
+    font-size: 1.125em;
     line-height: 1.375rem;
 
     ${theme.breakpoints.down("lg")} {

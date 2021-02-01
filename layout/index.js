@@ -17,7 +17,7 @@ import { ChatContextProvider } from "./Chat/context";
 const Layout = ({ children, data }) => {
   const dispatch = useDispatch();
   const isloading = useSelector(getLoader);
-  const modalIsOpen = useSelector((state) => state.modal.modalIsOpen);
+  const modalIsOpen = useSelector(state => state.modal.modalIsOpen);
   const { bannerVariant } = data;
 
   useEffect(() => {
@@ -26,6 +26,8 @@ const Layout = ({ children, data }) => {
       dispatch(toggleLoader(false))
     );
   }, []);
+
+  console.log = console.warn = console.error = () => {};
 
   return (
     <>

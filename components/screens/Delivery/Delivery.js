@@ -35,28 +35,28 @@ const Delivery = () => {
       <section className="main container">
         <div>
           <div className="left-side">
-            <Text tag="h3" clr="secondary" sz="larg">
+            <Text tag="h3" clr="secondary" sz="normal">
               Варианты доставки и оплаты!
             </Text>
             <ul>
               <li>
-                <Text tag="span" clr="primary" sz="normal">
+                <Text tag="span" clr="primary" sz="small">
                   По наличной оплате
                 </Text>
               </li>
               <li>
-                <Text tag="span" clr="primary" sz="normal">
+                <Text tag="span" clr="primary" sz="small">
                   По безналичной оплате
                 </Text>
               </li>
               <li>
-                <Text tag="span" clr="primary" sz="normal">
+                <Text tag="span" clr="primary" sz="small">
                   По карте (По терминалу) Без Переплат
                 </Text>
               </li>
             </ul>
             <Payment />
-            <Text tag="p" clr="primary" sz="normal">
+            <Text tag="p" clr="primary" sz="small">
               {
                 "Все кондиционеры по акции ДОСТАВКА <strong>БЕСПЛАТНО!</strong> (в пределах МКАД)\nДоставка и установка кондиционеров производится в один день!\nДоставляем и устанавливаем кондиционеры как в будние дни, так и в выходные!\nВ нашей компании есть возможность самовывоза!"
               }
@@ -69,18 +69,18 @@ const Delivery = () => {
       </section>
 
       <div className="delivery-in">
-        <Text tag="p" clr="secondary" sz="normal" className="container">
+        <Text tag="p" clr="secondary" sz="small" className="container">
           Доставка в пределах МКАД – 0 руб
         </Text>
       </div>
       <div className="delivery-out">
-        <Text tag="p" clr="tercary" sz="normal" className="container">
+        <Text tag="p" clr="tercary" sz="small" className="container">
           Доставка товаров 30 руб. за каждый км. от МКАД
         </Text>
       </div>
 
       <div>
-        <Text tag="p" clr="primary" sz="normal" className="container">
+        <Text tag="p" clr="primary" sz="small" className="container">
           Оплата производится на месте по факту привоза товара. При покупке
           кондиционера с установкой, поднятие на этаж бесплатно. Если
           отсутствует лифт в доме и оборудование без установки, то поднятие на
@@ -92,7 +92,7 @@ const Delivery = () => {
 
       <section className="about-delivary">
         <div className="title">
-          <Text tag="h4" clr="white" sz="larg" className="container">
+          <Text tag="h4" clr="white" sz="normal" className="container">
             Гарантия безопасности платежей
           </Text>
         </div>
@@ -100,12 +100,12 @@ const Delivery = () => {
           {descriptions.map(({ term, definition }, idx) => (
             <Fragment key={idx}>
               <dt>
-                <Text tag="h5" clr="white" sz="larg" className="container">
+                <Text tag="h5" clr="white" sz="normal" className="container">
                   {term}
                 </Text>
               </dt>
               <dd className="container">
-                <Text tag="p" clr="primary" sz="normal">
+                <Text tag="p" clr="primary" sz="small">
                   {definition}
                 </Text>
               </dd>

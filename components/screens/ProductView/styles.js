@@ -138,6 +138,7 @@ export const Container = styled.div`
 
       table {
         width: 100%;
+        border-spacing: 0 4px;
 
         ${theme.breakpoints.down("xs")} {
           font-size: 1.15em;

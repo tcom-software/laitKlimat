@@ -71,14 +71,14 @@ const Footer = () => {
           <ul>
             {menu.map(({ id, title, list, paths, imageType }, idx) => (
               <li key={id}>
-                <Text tag="span" clr="white" sz="larg">
+                <Text tag="span" clr="white" sz="normal">
                   {title}
                 </Text>
                 {list ? (
                   <ul className="list">
                     {list.map((text, idx) => (
                       <li key={idx}>
-                        <Text tag="span" clr="white" sz="normal">
+                        <Text tag="span" clr="white" sz="small">
                           {text}
                         </Text>
                       </li>
@@ -99,14 +99,14 @@ const Footer = () => {
           </ul>
         </section>
         <address>
-          <Location size="larg" />
-          <Text tag="p" clr="white" sz="larg" className="copyright">
+          <Location size="normal" />
+          <Text tag="p" clr="white" sz="normal" className="copyright">
             © 2012—2020 Компания Лайт климат
           </Text>
         </address>
       </div>
       <article>
-        <Text tag="p" sz="small" clr="white">
+        <Text tag="p" sz="smaller" clr="white">
           {
             "Администрация сайта не несет ответственности за размещаемые пользователями материалы (информацию,\n изображения), их содержание и качество."
           }

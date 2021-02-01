@@ -9,8 +9,6 @@ export const Container = styled.div`
       font-weight: bold;
       color: ${theme.colors.secondary};
       margin-bottom: 0.3em;
-
-      ${mmp("font-size", "24px", { lg: "14px" })};
     }
   }
 
@@ -83,7 +81,7 @@ export const Container = styled.div`
       td {
         box-sizing: content-box;
         border-bottom: 1em solid white;
-        
+
         padding-top: 0.7rem;
         padding-bottom: 0.7rem;
       }

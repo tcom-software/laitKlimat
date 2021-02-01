@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { ReactSVGComponents as CircleSVG } from "./assets/icons/circle.svg";
+
 const Circle = props => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -324,7 +326,8 @@ const Banner = ({ variant }) => {
   return (
     <Container variant={variant}>
       <div className="background">
-        <Circle data-circle1 />
+        {/* <Circle data-circle1 /> */}
+        <CircleSVG />
         <Group1 data-group1 fill="white" fillOpacity={0.15} />
         <Group2 data-group2 fill="white" fillOpacity={0.15} />
         <Circle data-circle2 />

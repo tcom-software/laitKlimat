@@ -7,7 +7,7 @@ export const StyledHgroup = styled.hgroup`
   h1 {
     text-align: center;
     font-weight: normal;
-    margin-bottom: 0.6em;
+    margin-bottom: 1em;
 
     ${theme.breakpoints.down("xs")} {
       font-weight: revert;
@@ -17,7 +17,7 @@ export const StyledHgroup = styled.hgroup`
 
   h2 {
     font-weight: normal;
-    margin-bottom: 1.5em;
+    margin-bottom: 1.75em;
     letter-spacing: 0.1em;
 
     ${theme.breakpoints.down("xs")} {

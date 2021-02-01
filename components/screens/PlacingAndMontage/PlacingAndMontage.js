@@ -104,13 +104,13 @@ const PlacingAndMontage = () => {
           h1="Установка и монтаж"
           h2="Стандартная установка кондиционеров"
         />
-        <Text tag="h4" clr="primary" sz="normal">
+        <Text tag="h4" clr="primary" sz="small">
           {descriptions[0]}
         </Text>
         <ol>
           {descriptions.slice(1).map((text, idx) => (
             <li key={idx}>
-              <Text tag="span" clr="primary" sz="normal">
+              <Text tag="span" clr="primary" sz="small">
                 {text}
               </Text>
             </li>
