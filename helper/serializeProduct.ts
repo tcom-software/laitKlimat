@@ -20,9 +20,11 @@ export const serializeProductCardData = (data: any) => {
 
     has_sale,
     has_chat,
+    available,
+    chat_with_percent,
+    chat_without_percent,
     price_with_setup: priceWithSetup,
     price_without_setup: priceWithoutSetup,
-    available,
   } = data;
 
   const productImageX300PathName = getProductImageX300(data);
@@ -50,6 +52,20 @@ export const serializeProductCardData = (data: any) => {
     });
   }
 
+  let hasSale = 0;
+
+  if (has_sale) {
+    if (has_chat) {
+      if (priceWithSetup && priceWithoutSetup) {
+        hasSale = 1;
+      }
+    } else if (chat_with_percent) {
+      hasSale = 2;
+    } else if (chat_without_percent) {
+      hasSale = 3;
+    }
+  }
+
   // serialized data
   const serializedProductData = {
     brand,
@@ -60,8 +76,7 @@ export const serializeProductCardData = (data: any) => {
     articule: id,
     formatedPrice: makePriceView(price, { unit: "₽", split: " " }),
     price,
-    hasSale: Boolean(has_sale && priceWithSetup && priceWithoutSetup),
-    hasChat: Boolean(has_chat),
+    hasSale,
     priceWithSetup,
     priceWithoutSetup,
     available,
@@ -71,20 +86,6 @@ export const serializeProductCardData = (data: any) => {
 };
 
 export const serializeProductData = (data: any) => {
-  // articule: 2626;
-  // brand: "IGC";
-  // certificate_file_format: "jpg";
-  // certificate_file_name: "6ebb4e03744c954e231493a4b697ce47";
-  // certificate_folder: "manufacturer_certificate0";
-  // description: null;
-  // manufacturer_logo: "IGC.png";
-  // market: 1;
-  // model: "IWF-1200T22S";
-  // price: 70920;
-  // series_id: 646;
-  // series_name: "IWF-STANDART";
-  // setup_price: 0;
-
   const {
     product: {
       articule,
@@ -102,9 +103,11 @@ export const serializeProductData = (data: any) => {
 
       has_chat,
       has_sale,
+      available,
+      chat_with_percent,
+      chat_without_percent,
       price_with_setup: priceWithSetup,
       price_without_setup: priceWithoutSetup,
-      available,
     },
     characteristics,
     photos: [{ folder, file_name, file_format }],
@@ -137,6 +140,20 @@ export const serializeProductData = (data: any) => {
       el.characteristic_value || el.characteristic_attribute_name;
   }
 
+  let hasSale = 0;
+
+  if (has_sale) {
+    if (has_chat) {
+      if (priceWithSetup && priceWithoutSetup) {
+        hasSale = 1;
+      }
+    } else if (chat_with_percent) {
+      hasSale = 2;
+    } else if (chat_without_percent) {
+      hasSale = 3;
+    }
+  }
+
   // serialized data
   const serializedProductData = {
     productName,
@@ -145,8 +162,7 @@ export const serializeProductData = (data: any) => {
       brandLogo,
       certificateImage,
 
-      hasSale: Boolean(has_sale),
-      hasChat: Boolean(has_chat),
+      hasSale,
       priceWithSetup,
       priceWithoutSetup,
     },
@@ -214,7 +230,11 @@ export const serializeProductData = (data: any) => {
                 tag: "span",
                 sz: "normal",
                 clr: "primary",
-                text: `Товар${market ? "" : " не"} выставлен на Маркете <br /> ${available ? "Есть в наличии" : "ПОД ЗАКАЗ" }`,
+                text: `Товар${
+                  market ? "" : " не"
+                } выставлен на Маркете <br /> ${
+                  available ? "Есть в наличии" : "ПОД ЗАКАЗ"
+                }`,
               },
             },
             value: {

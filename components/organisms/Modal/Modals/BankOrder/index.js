@@ -53,7 +53,7 @@ const BankOrder = ({
   }, [phone]);
 
   // send data
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = e => {
     YM.OstavitNomerAll();
     GTAG.OstavitNomerAll();
 
@@ -70,12 +70,8 @@ const BankOrder = ({
 
   return (
     <Container ref={modalRef} role="dialog">
-      {/* <div>
-        <Icon name="close" width={20} height={20} onClick={hideModal} />
-      </div> */}
       <div className="modal-content">
         <div className="modal-header">
-          {/* <Icon name="close" className="close" width={20} height={20} onClick={hideModal} /> */}
           <Text tag="p" sz="normal" clr="primary">
             {bank || "Выберите банк"}
           </Text>

@@ -428,10 +428,9 @@ export const Container = styled(Product)`
       }
 
       img {
-        max-width: 180px;
         height: auto;
-        aspect-ratio: 2 / 3;
         cursor: pointer;
+        max-width: 180px;
 
         ${theme.breakpoints.down("lg")} {
           width: 13vw;

@@ -39,6 +39,13 @@ export default class GTAG {
     });
   }
 
+  static OstavitNomer() {
+    gtag("event", "click", {
+      event_category: "OstavitNomer",
+      event_action: "click",
+    });
+  }
+
   static OstavitNomerAll() {
     gtag("event", "click", {
       event_category: "OstavitNomerAll",

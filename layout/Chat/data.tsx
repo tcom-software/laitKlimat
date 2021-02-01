@@ -23,11 +23,12 @@ export const mainChatStack = [
       url: "",
     },
   },
-  {
-    inComing: true,
-    message:
-      'Спасибо , за интерес к нашей компании.\nЯ перезвоню Вам в течении 30 минут.\nС уважением,\nкоманда "Лайт Климат"',
-    id: "45124",
-    avatar: { url: "" },
-  },
 ];
+
+export const successEmailMessage = {
+  inComing: true,
+  message:
+    'Спасибо , за интерес к нашей компании.\nЯ перезвоню Вам в течении 30 минут.\nС уважением,\nкоманда "Лайт Климат"',
+  id: "45124",
+  avatar: { url: "" },
+};

@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 const LeftBar = ({ data }) => {
   const router = useRouter();
   const {
-    productImage,
+    price,
     brandLogo,
+    productImage,
     certificateImage,
 
     hasSale,
-    hasChat,
     priceWithSetup,
     priceWithoutSetup,
   } = data;
@@ -32,7 +32,9 @@ const LeftBar = ({ data }) => {
       <div className="images">
         <div className="product--wrapper">
           <img alt="product" src={productImage} />
-          {hasSale && <Sale data={{ priceWithSetup, priceWithoutSetup }} />}
+          {Boolean(hasSale) && (
+            <Sale data={{ priceWithSetup, priceWithoutSetup, price }} />
+          )}
         </div>
         <div className="certificate">
           <img src={brandLogo} alt="gdf" />

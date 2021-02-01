@@ -11,9 +11,9 @@ import { Message } from "./Message";
 import { StyledChat } from "./styles";
 import { getCookie, setCookie } from "utils/cookies";
 
-import { mainChatStack, mainMesssage } from "./data";
 import { useRouter } from "next/router";
 import { useChatContext } from "./context";
+import { mainChatStack, mainMesssage, successEmailMessage } from "./data";
 
 const Chat = () => {
   const router = useRouter();
@@ -25,7 +25,7 @@ const Chat = () => {
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<any[]>([]);
   const {
-    state: { operator },
+    state: { operator, userSendMail },
     setChatState,
   } = useChatContext();
 
@@ -34,7 +34,7 @@ const Chat = () => {
 
   useEffect(() => {
     fetch("/api/getOnlineManagers")
-      .then((response) => {
+      .then(response => {
         return response.json();
       })
       .then((data: any[]) => {
@@ -44,25 +44,6 @@ const Chat = () => {
           payload: data[Date.now() % data.length],
         });
       });
-
-    // if (
-    //   !getCookie("ne_pokazat_ne_v_kartchke") &&
-    //   !getCookie("ne_pokazat_chat")
-    // ) {
-    //   setTimeout(() => {
-    //     if (isOpen === false) {
-    //       setCookie("pervi_raz_den", true, 1);
-    //       showChatHandler();
-    //     }
-    //   }, 2000);
-    // }
-
-    // setTimeout(() => {
-    //   if (!getCookie("pokazat_malenki_v_kartchke") && isOpen === false) {
-    //     setCookie("pervi_raz_den", true, 1);
-    //     showChatHandler();
-    //   }
-    // }, 2000);
 
     // if user is first time set that user first time else set false
     const isUnique = getCookie("is_unique");
@@ -129,17 +110,25 @@ const Chat = () => {
       ) &&
       messages[0]?.id !== "first main"
     ) {
+      setChatState({ type: "USER_SEND_MAIL", payload: false });
       setMessages([
         {
           ...mainMesssage,
           buttons: [
             { title: "нет", onClick: hideChatHandler },
-            { title: "да", onClick: () => handleOnYesClick(mainChatStack) },
+            {
+              title: "да",
+              onClick: () => handleOnYesClick(mainChatStack),
+            },
           ],
         },
       ]);
     }
   }, [router.pathname]);
+
+  useEffect(() => {
+    userSendMail && setMessages(messages => [...messages, successEmailMessage]);
+  }, [userSendMail]);
 
   const scrollToChatBottom = useCallback(() => {
     chatRef.current?.scrollTo(0, chatRef.current.scrollHeight);
@@ -160,7 +149,7 @@ const Chat = () => {
     };
     fieldRef.current?.blur();
 
-    setMessages((messages) => [...messages, newMessage]);
+    setMessages(messages => [...messages, newMessage]);
     setMessage("");
   };
 
@@ -172,7 +161,7 @@ const Chat = () => {
     for (let message of messagesStack.slice(1)) {
       time += lastMessage === message.inComing ? 1500 : 500;
       lastMessage = message.inComing;
-      setTimeout(() => setMessages((messages) => [...messages, message]), time);
+      setTimeout(() => setMessages(messages => [...messages, message]), time);
     }
   };
 
@@ -193,13 +182,13 @@ const Chat = () => {
               onClick={hideChatHandler}
             />
             <Text tag="p" className="title">
-              {"оператор " + operator?.username || ""}
+              {"оператор " + (operator?.username || "")}
             </Text>
             <div className="background-image" />
           </div>
           {/*///////////// MAIN ////////////////*/}
           <div className="chat-main" ref={chatRef}>
-            {messages.map((props) => (
+            {messages.map(props => (
               <Message
                 key={props.id}
                 scrollHandler={scrollToChatBottom}
@@ -237,7 +226,7 @@ const Chat = () => {
                 ref={fieldRef}
                 value={message}
                 // readOnly
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={e => setMessage(e.target.value)}
                 className="message-field"
               />
             </form>

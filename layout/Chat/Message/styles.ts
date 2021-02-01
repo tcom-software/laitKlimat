@@ -17,12 +17,12 @@ type MessageProps = {
 export const StyledMessage = styled.div<MessageProps>`
   display: grid;
   grid-column-gap: 8px;
-  grid-template-columns: ${(p) =>
+  grid-template-columns: ${p =>
     p.inComing ? `max-content 1fr` : `1fr max-content`};
   grid-template-areas: "first two";
   padding-bottom: 30px;
 
-  animation: ${(p) => messageAnim(p.inComing)} 0.2s ease;
+  animation: ${p => messageAnim(p.inComing)} 0.2s ease;
 
   &.operator + .operator {
     margin-top: -20px;
@@ -41,11 +41,11 @@ export const StyledMessage = styled.div<MessageProps>`
   }
 
   .avatar {
-    grid-area: ${(p) => (p.inComing ? "first" : "two")};
+    grid-area: ${p => (p.inComing ? "first" : "two")};
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: ${(p) => (p.inComing ? "gray" : "none")};
+    background-color: ${p => (p.inComing ? "gray" : "none")};
     overflow: hidden;
 
     img {
@@ -56,16 +56,16 @@ export const StyledMessage = styled.div<MessageProps>`
   }
 
   .message-container {
-    grid-area: ${(p) => (p.inComing ? "two" : "first")};
+    grid-area: ${p => (p.inComing ? "two" : "first")};
 
     .message {
       border-radius: 10px;
-      background-color: ${(p) =>
+      background-color: ${p =>
         p.inComing ? theme.colors.secondary : theme.colors.gray100};
       padding: 10px 16px;
 
       width: fit-content;
-      ${(p) => (p.inComing ? "margin-right: auto;" : "margin-left: auto;")}
+      ${p => (p.inComing ? "margin-right: auto;" : "margin-left: auto;")}
 
       .loader {
         svg {
@@ -75,9 +75,10 @@ export const StyledMessage = styled.div<MessageProps>`
       }
 
       p {
-        color: ${(p) => (p.inComing ? "white" : "black")};
-        white-space: pre-wrap;
         display: flex;
+        white-space: pre-wrap;
+        flex-direction: column;
+        color: ${p => (p.inComing ? "white" : "black")};
       }
     }
 

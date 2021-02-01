@@ -9,22 +9,22 @@ import ButtonCredit from "@atoms/Button/ButtonCredit";
 
 const ProductHorizontalView = ({ data, loading }) => {
   const {
-    brand,
-    brandLogo,
-    productName,
-    productImageX300,
-    characteristics,
-    articule,
-    setupPrice,
     price,
+    brand,
+    articule,
+    brandLogo,
+    setupPrice,
+    productName,
     formatedPrice,
     characteristic,
+    characteristics,
+    productImageX300,
 
     hasSale,
     hasChat,
+    available,
     priceWithSetup,
     priceWithoutSetup,
-    available,
   } = data;
 
   return (
@@ -35,7 +35,9 @@ const ProductHorizontalView = ({ data, loading }) => {
       })}
     >
       <section className="product">
-        {hasSale && <Sale data={{ priceWithSetup, priceWithoutSetup }} />}
+        {Boolean(hasSale) && (
+          <Sale data={{ priceWithSetup, priceWithoutSetup, hasSale, price }} />
+        )}
         <ProductLinkWrapper articule={articule}>
           <a>
             <img src={productImageX300} alt={brand} width="180" height="140" />

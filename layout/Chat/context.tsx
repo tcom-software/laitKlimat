@@ -8,6 +8,7 @@ const initialState = {
     id: "",
   } as Operator,
   operators: [] as Operator[],
+  userSendMail: false,
 };
 
 type StateType = typeof initialState;
@@ -23,6 +24,11 @@ const reducer = (state: StateType, action: any) => {
       return {
         ...state,
         operators: action.payload,
+      };
+    case "USER_SEND_MAIL":
+      return {
+        ...state,
+        userSendMail: action.payload,
       };
   }
 

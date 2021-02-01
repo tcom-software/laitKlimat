@@ -37,23 +37,41 @@ const StyledSale = styled.div`
   }
 `;
 
-export const Sale = ({ data: { priceWithSetup, priceWithoutSetup } }) => {
+export const Sale = ({
+  data: { priceWithSetup, priceWithoutSetup, hasSale, price },
+}) => {
   const dispatch = useDispatch();
   const showChatHandler = useCallback(
     () =>
       dispatch(
         showChat({
           type: "productSale",
-          text: `<span>На эту модель есть дополнительная скидка
-          
-<b>Цена с установкой</b>
-<em style='display: inline-block; margin-bottom: 4px;'>${priceWithSetup} ₽</em>
-<b>Цена без установки</b>
-<em>${priceWithoutSetup} ₽</em></span>`,
+          text: `<span>На эту модель есть дополнительная скидка\n\n${
+            messageText ? messageText + "\n\n" : ""
+          }<span>Хотите узнать больше ?</span>`,
         })
       ),
     []
   );
+
+  let messageText;
+  switch (hasSale) {
+    case 1:
+      messageText = `<b>Цена с установкой</b>
+<em style='display: inline-block; margin-bottom: 4px;'>${priceWithSetup} ₽</em>
+<b>Цена без установки</b>
+<em>${priceWithoutSetup} ₽</em></span>`;
+      break;
+    case 2:
+      let sale = ((price - priceWithoutSetup) * 100) / price;
+      messageText = `до ${sale | 0} %`;
+      break;
+    case 3:
+      messageText = ``;
+      break;
+    default:
+      messageText = ``;
+  }
 
   return (
     <StyledSale className="sale" onClick={showChatHandler}>

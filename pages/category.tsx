@@ -249,8 +249,8 @@ const Category = () => {
         {/* ******************* Products ********************** */}
         {products ? (
           <div className={cn("products", `${viewState}-view`)}>
-            {products.map((product: any, i: number) => (
-              <Product key={i} view={viewState} data={product} />
+            {products.map((product: any) => (
+              <Product key={product.id} view={viewState} data={product} />
             ))}
           </div>
         ) : null}

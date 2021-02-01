@@ -28,16 +28,16 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
   });
 
   const {
-    brand,
-    brandLogo,
-    productName,
-    productImageX300,
-    characteristics,
-    articule,
-    setupPrice,
     price,
+    brand,
+    articule,
+    brandLogo,
+    setupPrice,
+    productName,
     formatedPrice,
     characteristic,
+    characteristics,
+    productImageX300,
 
     hasSale,
     hasChat,
@@ -67,7 +67,11 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
           />
         </ProductLinkWrapper>
         <div className="right-side">
-          {hasSale && <Sale data={{ priceWithSetup, priceWithoutSetup }} />}
+          {Boolean(hasSale) && (
+            <Sale
+              data={{ priceWithSetup, priceWithoutSetup, hasSale, price }}
+            />
+          )}
           <img src="/images/product/gift.png" className="gift" alt="gift" />
         </div>
       </section>

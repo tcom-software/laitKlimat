@@ -8,12 +8,14 @@ import YM from "utils/yandex";
 // @ts-ignore
 import Input from "react-phone-number-input/input";
 import { isValidPhoneNumber } from "react-phone-number-input";
+import { useChatContext } from "../context";
 
 const SubScribe = () => {
   const router = useRouter();
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [showError, setShowError] = useState(false);
+  const { setChatState } = useChatContext();
 
   const handleOnSubmit = (e: any) => {
     e.preventDefault();
@@ -54,9 +56,9 @@ const SubScribe = () => {
     fetch("/api/chatFeedBack", {
       method: "POST",
       body: body,
-    }).finally(() => setLoading(false));
-
-    console.log(body);
+    })
+      .finally(() => setLoading(false))
+      .finally(() => setChatState({ type: "USER_SEND_MAIL", payload: true }));
   };
 
   return (

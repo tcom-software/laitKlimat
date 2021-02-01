@@ -60,8 +60,8 @@ const BasketView = () => {
       method: "POST",
       body: JSON.stringify(Object.keys(basketProducts)),
     })
-      .then((response) => response.json())
-      .then((products) => {
+      .then(response => response.json())
+      .then(products => {
         const serializedProducts = {};
 
         for (const product of products) {
@@ -112,7 +112,7 @@ const BasketView = () => {
   /**
    * order busket
    */
-  const handleOnSubmit = async (e) => {
+  const handleOnSubmit = async e => {
     e.preventDefault();
     setLoading(true);
 
@@ -142,7 +142,7 @@ const BasketView = () => {
         GTAG.OformitZakaz();
       });
     } else {
-      await new Promise((res) => {
+      await new Promise(res => {
         setTimeout(() => res(), 1000);
       }).then(console.log({ products, body }));
     }
@@ -244,16 +244,17 @@ const BasketView = () => {
 };
 
 const Product = ({
+  count,
   brand,
+  price,
+  articule,
   brandLogo,
   productName,
   productImage,
   characteristic,
-  articule,
-  price,
-  count,
 
-  hasSale,
+  // TODO: add hasSale if you want display sale button
+  // hasSale,
 }) => {
   const dispatch = useDispatch();
 
@@ -263,7 +264,6 @@ const Product = ({
   return (
     <section className="product">
       <section className="image">
-        {/* <Sale /> */}
         <img src={productImage} alt={brand} />
       </section>
       <section className="info">

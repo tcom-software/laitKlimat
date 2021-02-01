@@ -1,8 +1,9 @@
+import { FC, isValidElement, useEffect, useState } from "react";
+
 import Button from "@atoms/Button";
 import Loader from "@atoms/Loader";
-import { FC, isValidElement, useEffect, useState } from "react";
-import { useChatContext } from "../context";
 import { StyledMessage } from "./styles";
+import { useChatContext } from "../context";
 
 interface Props extends MessageContentProps {}
 
@@ -28,7 +29,11 @@ export const Message: FC<Props> = ({
       />
       <div className="avatar">
         <img
-          src={inComing ? operator.photo : "/images/chat_user.png"}
+          src={
+            inComing
+              ? operator?.photo || " /images/chat_user.png"
+              : "/images/chat_user.png"
+          }
           alt="avatar"
         />
       </div>
