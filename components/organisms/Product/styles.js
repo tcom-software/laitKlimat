@@ -52,7 +52,7 @@ const Product = styled.div`
   }
 
   .info {
-    font-size: 15px;
+    font-size: 13px;
 
     ${theme.breakpoints.down(1681)} {
       font-size: 0.85vw;
@@ -68,7 +68,8 @@ const Product = styled.div`
 
     table {
       width: 100%;
-
+      border-spacing: 0 4px;
+      
       tr {
         td:first-of-type {
           span {
@@ -98,8 +99,8 @@ export const Container = styled(Product)`
   &.potoduct-box-view {
     display: grid;
     grid-row-gap: 20px;
-    grid-template-rows: min-content min-content min-content 1fr;
     padding: 30px 35px;
+    grid-template-rows: min-content min-content min-content 1fr;
 
     ${theme.breakpoints.down(1681)} {
       padding: 20px 25px;

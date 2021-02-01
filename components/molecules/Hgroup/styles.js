@@ -7,7 +7,7 @@ export const StyledHgroup = styled.hgroup`
   h1 {
     text-align: center;
     font-weight: normal;
-    margin-bottom: 1em;
+    margin-bottom: 0.6em;
 
     ${theme.breakpoints.down("xs")} {
       font-weight: revert;
