@@ -68,9 +68,8 @@ const Filter = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [showOther, toggleShowOther] = useState(false);
-  // const isloading = useSelector(getLoader);
-  const serialedKey = serialezeFiltersDataKey(router.query.c);
-  const filtersData = useSelector(getFiltersDataCacheByKey(serialedKey));
+  const serializedKey = serialezeFiltersDataKey(router.query.c);
+  const filtersData = useSelector(getFiltersDataCacheByKey(serializedKey));
 
   useEffect(() => {
     setLoading(true);
@@ -215,9 +214,6 @@ const Filter = () => {
         </div>
       </Container>
 
-      {/*
-        other filters 
-       */}
       {showOther && data && (
         <OtherFilters>
           {Object.values(FILTERS_ID.other)
