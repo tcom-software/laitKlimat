@@ -17,6 +17,14 @@ const {
   publicRuntimeConfig: { uploadsUrl },
 } = getConfig();
 
+const getProductPhoto = (uploadsUrl, photo) => {
+  return typeof photo === "object"
+    ? `${uploadsUrl}${
+        photo.folder === "product_series0" ? "product_series" : "products"
+      }/${photo.folder}/size800/${photo.file_name}.${photo.file_format}`
+    : "";
+};
+
 const Product = ({ view, data }) => {
   const dispatch = useDispatch();
   const loading = useSelector(getCategoryLoader);
@@ -52,15 +60,14 @@ export const SimilarProduct = ({ data, ...rest }) => {
           manufacturer_logo,
           articule,
         },
-        photos: [{ folder, file_name, file_format }],
+        photos,
       } = data;
+
       product.current.brandLogo = `${uploadsUrl}brands/${manufacturer_logo}`;
       product.current.name = `${brand} ${series_name}-${model}`;
       product.current.articule = articule;
       product.current.price = price;
-      product.current.image = `${uploadsUrl}${
-        folder === "product_series0" ? "product_series" : "products"
-      }/${folder}/size800/${file_name}.${file_format}`;
+      product.current.image = getProductPhoto(uploadsUrl, photos[0]);
     }
   }, []);
 

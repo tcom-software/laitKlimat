@@ -87,7 +87,7 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
         </Text>
       </section>
       <section className="info">
-        <Table characteristic={characteristic} />
+        <Table characteristic={characteristic} productName={productName} />
       </section>
       {globalThis.innerWidth <= 768 ? (
         <>

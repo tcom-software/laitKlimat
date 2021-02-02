@@ -6,6 +6,14 @@ const {
   publicRuntimeConfig: { uploadsUrl },
 } = getConfig();
 
+const getProductPhoto = (photo: any) => {
+  return photo
+    ? `${uploadsUrl}${
+        photo.folder === "product_series0" ? "product_series" : "products"
+      }/${photo.folder}/size800/${photo.file_name}.${photo.file_format}`
+    : "";
+};
+
 export const serializeProductCardData = (data: any) => {
   const {
     id,
@@ -69,17 +77,17 @@ export const serializeProductCardData = (data: any) => {
   // serialized data
   const serializedProductData = {
     brand,
-    brandLogo,
-    productName,
-    productImageX300,
-    characteristic,
-    articule: id,
-    formatedPrice: makePriceView(price, { unit: "₽", split: " " }),
     price,
     hasSale,
-    priceWithSetup,
-    priceWithoutSetup,
+    brandLogo,
     available,
+    productName,
+    articule: id,
+    characteristic,
+    priceWithSetup,
+    productImageX300,
+    priceWithoutSetup,
+    formatedPrice: makePriceView(price, { unit: "₽", split: " " }),
   };
 
   return serializedProductData;
@@ -90,16 +98,16 @@ export const serializeProductData = (data: any) => {
     product: {
       articule,
       brand,
-      certificate_file_format,
-      certificate_file_name,
-      certificate_folder,
       description,
-      manufacturer_logo,
       market,
       model,
       price,
       series_name,
       setup_price,
+      manufacturer_logo,
+      certificate_file_format,
+      certificate_file_name,
+      certificate_folder,
 
       has_chat,
       has_sale,
@@ -110,13 +118,11 @@ export const serializeProductData = (data: any) => {
       price_without_setup: priceWithoutSetup,
     },
     characteristics,
-    photos: [{ folder, file_name, file_format }],
+    photos,
   } = data;
 
   const productName = `${brand} ${series_name || ""}-${model}`;
-  const productImage = `${uploadsUrl}${
-    folder === "product_series0" ? "product_series" : "products"
-  }/${folder}/size800/${file_name}.${file_format}`;
+  const productImage = getProductPhoto(photos[0]);
   const certificateImage = `${uploadsUrl}manufacturer_certificate/${certificate_folder}/${certificate_file_name}.${certificate_file_format}`;
   const brandLogo = `${uploadsUrl}brands/${manufacturer_logo}`;
   const formatedPrice = makePriceView(price, { unit: "₽", split: " " });
@@ -283,7 +289,11 @@ export const serializeProductData = (data: any) => {
                 tag: "span",
                 sz: "normal",
                 clr: "tercary",
-                text: "бесплатно",
+                text: productName
+                  .toLowerCase()
+                  .includes("MITSUBISHI HEAVY".toLowerCase())
+                  ? "1000 ₽"
+                  : "бесплатно",
               },
             },
           },
@@ -339,13 +349,11 @@ export const serializeProductCardDataFromFullProduct = (data: any) => {
       setup_price,
       available,
     },
-    photos: [{ folder, file_name, file_format }],
+    photos,
   } = data;
 
+  const productImage = getProductPhoto(photos[0]);
   const productName = `${brand} ${series_name || ""}-${model}`;
-  const productImage = `${uploadsUrl}${
-    folder === "product_series0" ? "product_series" : "products"
-  }/${folder}/size800/${file_name}.${file_format}`;
   const brandLogo = `${uploadsUrl}brands/${manufacturer_logo}`;
   const formatedPrice = makePriceView(price, { unit: "₽", split: " " });
 

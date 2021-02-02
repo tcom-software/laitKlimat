@@ -285,7 +285,7 @@ const Product = ({
           </Text>
           <img src={brandLogo} alt={brand} />
         </div>
-        <Table characteristic={characteristic} />
+        <Table characteristic={characteristic} productName={productName} />
       </section>
       <sections className="count">
         <Text tag="span" sz="normall" clr="primary">

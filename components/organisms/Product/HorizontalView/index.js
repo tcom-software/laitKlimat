@@ -57,7 +57,7 @@ const ProductHorizontalView = ({ data, loading }) => {
             <img src={brandLogo} alt={brand} />
           </picture>
         </div>
-        <Table characteristic={characteristic} />
+        <Table characteristic={characteristic} productName={productName}/>
       </section>
       <section className="gift">
         <div className="articule">
