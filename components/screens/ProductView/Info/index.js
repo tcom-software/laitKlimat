@@ -23,8 +23,7 @@ const TableComponent = ({ data }) => {
 };
 
 const Info = ({
-  data: { table, creditFrom },
-  product: { articule, price },
+  data: { table, creditFrom, productName, price, articule },
 }) => {
   const dispatch = useDispatch();
 
@@ -57,6 +56,8 @@ const Info = ({
     );
   };
 
+  console.log({ price, productName });
+
   return (
     <section className="info">
       <table>
@@ -73,7 +74,7 @@ const Info = ({
       <div className="btn-group">
         <ButtonAddToBasket product={{ id: articule, price }} />
         <ButtonOrderOneClick />
-        <ButtonCredit />
+        <ButtonCredit creditData={{ price, productName }} />
         <Button
           variant="tercary"
           title={`В кредит от <strong>${creditFrom}</strong>/месяц`}

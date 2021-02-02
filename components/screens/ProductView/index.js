@@ -67,6 +67,8 @@ const ProductView = () => {
     characteristics,
   } = serializedProduct;
 
+  console.log(leftSide);
+
   return (
     <Container>
       <Text tag="h2" clr="secondary" sz="larg" id="title">
@@ -74,7 +76,9 @@ const ProductView = () => {
       </Text>
       <div className="product-info container">
         <LeftBar data={leftSide} />
-        <Info data={infoTable} product={product.product} />
+        <Info
+          data={{ productName, ...infoTable, ...(product.product || {}) }}
+        />
       </div>
       <Characteristics data={characteristics} />
       <PreviousViews className="container" title="Похожие товары" />

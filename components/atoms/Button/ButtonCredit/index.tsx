@@ -18,12 +18,24 @@ const ButtonCredit: FC<ButtonCreditProps> = ({
   const dispatch = useDispatch();
 
   const handleShowBankOrder = useCallback(() => {
+    const { products, totalPrice, ...singleProduct } = creditData;
+    let validateCreditData = {
+      products,
+      totalPrice,
+    };
+
+    if (!products) {
+      validateCreditData.products = [{ ...singleProduct }];
+      validateCreditData.totalPrice =
+        singleProduct.price * (singleProduct.count ?? 1);
+    }
+
+    console.log(validateCreditData)
+
     dispatch(
       showModal({
         modalType: "bankOrder",
-        modalProps: {
-          ...creditData,
-        },
+        modalProps: validateCreditData,
       })
     );
   }, []);

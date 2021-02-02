@@ -16,31 +16,16 @@ const banks = {
   tinkoff: "Тинькофф банк",
 };
 
-const data = {
-  hiddenInputs: [
-    { name: "shopId", value: "xolodnoeleto" },
-    { name: "showcaseId", value: "02134756-d7d0-4e9a-a389-3495bf3baacd" },
-    { name: "promoCode", value: "default" },
-    { name: "sum", value: "ref:price" },
-    { name: "itemName_0", value: "ref:productName" },
-    { name: "itemQuantity_0", value: "1" },
-    { name: "itemPrice_0", value: "ref:price" },
-    { name: "itemCategory_0", value: "ref:categoryTitle" },
-    { name: "orderNumber", value: "ref:date" },
-  ],
-};
-
 const BankOrder = ({
   modalRef,
   hideModal,
-  modalProps: { price, productName },
+  modalProps: { products, totalPrice, callBack },
 }) => {
   const phoneRef = useRef(null);
 
   const [bank, setBank] = useState("");
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
-  const categoryTitle = useSelector(getCurrentCategoryTitle);
 
   useEffect(() => {
     if (phoneRef.current) {
@@ -52,20 +37,51 @@ const BankOrder = ({
     }
   }, [phone]);
 
-  // send data
+  // do order
   const handleOnSubmit = e => {
-    YM.OstavitNomerAll();
-    GTAG.OstavitNomerAll();
+    e.preventDefault();
 
-    YM.KupitVKredit();
-    GTAG.KupitVKredit();
-  };
+    const details = {
+      sum: totalPrice,
+      shopId: "xolodnoeleto",
+      orderNumber: Date.now(),
+      showcaseId: "02134756-d7d0-4e9a-a389-3495bf3baacd",
+      customerName: e.target.customerName.value,
+      customerEmail: e.target.customerEmail.value,
+      customerPhone: e.target.customerPhone.value,
+      ...products.reduce(
+        (acc, { price, productName, count }, index) => ({
+          ...acc,
+          [`itemPrice_${index}`]: price,
+          [`itemName_${index}`]: productName,
+          [`itemQuantity_${index}`]: count ?? 1,
+        }),
+        {}
+      ),
+    };
 
-  const hiddenData = {
-    price,
-    productName,
-    date: Date.now(),
-    categoryTitle: categoryTitle?.subSubCategory,
+    const formBody = new URLSearchParams(details).toString();
+
+    fetch("/api/tinkoffOrder", {
+      method: "POST",
+      body: formBody,
+    })
+      .then(res => res.json())
+      .then(data => {
+        window.open(data.redirectUrl, "__blank");
+      })
+      .finally(() => {
+        hideModal();
+        callBack && callBack();
+      });
+
+    if (process.env.NODE_ENV === "production") {
+      e.preventDefault();
+      YM.OstavitNomerAll();
+      GTAG.OstavitNomerAll();
+      YM.KupitVKredit();
+      GTAG.KupitVKredit();
+    }
   };
 
   return (
@@ -109,30 +125,7 @@ const BankOrder = ({
               <Text tag="p" clr="primary" sz="small">
                 4. Одобрение от 2х минут после получения заявки банком
               </Text>
-              <form
-                method="post"
-                target="_blank"
-                onSubmit={handleOnSubmit}
-                action="https://loans.tinkoff.ru/api/partners/v1/lightweight/create"
-              >
-                {data.hiddenInputs.map(({ name, value }) => (
-                  <input
-                    name={name}
-                    value={
-                      value.startsWith("ref")
-                        ? hiddenData[value.split(":")[1]]
-                        : value
-                    }
-                    type="hidden"
-                  />
-                ))}
-
-                <input
-                  type="submit"
-                  value="Купи в кредит"
-                  style={{ display: "none" }}
-                />
-
+              <form onSubmit={handleOnSubmit}>
                 <Input
                   required
                   type="text"

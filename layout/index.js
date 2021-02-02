@@ -27,7 +27,9 @@ const Layout = ({ children, data }) => {
     );
   }, []);
 
-  // console.log = console.warn = console.error = () => {};
+  if (process.env.NODE_ENV === "production") {
+    console.log = console.warn = console.error = () => {};
+  }
 
   return (
     <>

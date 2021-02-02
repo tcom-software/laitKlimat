@@ -108,6 +108,7 @@ const BasketView = () => {
 
   // show order busket success
   const showDone = () => {
+    console.log("ee");
     dispatch(
       showModal({
         modalType: "alert",
@@ -162,6 +163,30 @@ const BasketView = () => {
     setTimeout(showDone, 400);
   };
 
+  const handleShowBankOrder = e => {
+    e.preventDefault();
+
+    const mergedProducts = Object.values(products).reduce(
+      (acc, { articule: id, productName, price }) => [
+        ...acc,
+        { price, productName, count: basketProducts[id].count },
+      ],
+      []
+    );
+
+    const creditData = {
+      totalPrice,
+      products: mergedProducts,
+    };
+
+    dispatch(
+      showModal({
+        modalType: "bankOrder",
+        modalProps: { ...creditData, callBack: showDone },
+      })
+    );
+  };
+
   if (productsLoading) {
     return (
       <Container className="container">
@@ -204,7 +229,13 @@ const BasketView = () => {
         )}
       </div>
       {productsCount !== 0 && (
-        <form onSubmit={handleOnSubmit}>
+        <form
+          onSubmit={
+            orderButtonText === "Оформить кредит"
+              ? handleShowBankOrder
+              : handleOnSubmit
+          }
+        >
           <div className="inputs">
             <Input type="text" inputRef={nameRef} label={"Имя"} required />
             <Input label={"НОМЕР ТЕЛЕФОНА"}>
@@ -310,7 +341,7 @@ const Product = ({
         </div>
         <div className="btn-group">
           <ButtonOrderOneClick />
-          <ButtonCredit />
+          <ButtonCredit creditData={{ productName, count, price }} />
         </div>
       </section>
       <img
