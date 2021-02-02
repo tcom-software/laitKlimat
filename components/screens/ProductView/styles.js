@@ -156,6 +156,9 @@ export const Container = styled.div`
         }
 
         thead {
+          h2 {
+            margin: 0;
+          }
         }
 
         tbody {

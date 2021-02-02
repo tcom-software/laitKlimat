@@ -4,15 +4,15 @@ import {
   InputCheckboxImage,
   InputCheckboxImageSearch,
 } from "@molecules";
-import { serialezeFiltersDataKey } from "@redux/reducers/filtersData";
-import { getFiltersDataCacheByKey } from "@redux/selectors/filtersData";
+import { Loading } from "@atoms";
+import { useRouter } from "next/router";
+import { getLoader } from "@redux/selectors/loader";
+import { useDispatch, useSelector } from "react-redux";
 import { addFiltersDataCache } from "@redux/actions/filtersData";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getLoader } from "@redux/selectors/loader";
 import { Container, OtherFilters, ShowOtherFilters } from "./styles";
-import { useRouter } from "next/router";
-import { Loading } from "@atoms";
+import { serialezeFiltersDataKey } from "@redux/reducers/filtersData";
+import { getFiltersDataCacheByKey } from "@redux/selectors/filtersData";
 
 import getConfig from "next/config";
 
@@ -84,9 +84,12 @@ const Filter = () => {
         const serializedFiltersData = serializeFiltersData(
           characteristicAttributes
         );
+
         const serializedManufacturerCountries = serializeManufacturerCountries(
           manufacturerCountries
-        );
+          );
+          
+          console.log({manufacturerCountries, serializedManufacturerCountries})
         dispatch(
           addFiltersDataCache(categoryId, {
             textFilters,
@@ -136,10 +139,10 @@ const Filter = () => {
    * serialize Manufacturer Countries
    */
   const serializeManufacturerCountries = useCallback(manufacturerCountries => {
-    const serializedData = manufacturerCountries.map(({ logo, count, id }) => ({
+    const serializedData = manufacturerCountries.map(({ logo, count, brand, id }) => ({
       count,
       value: id,
-      label: logo?.slice(0, -4),
+      label: brand,
       image: `${uploadsUrl}brands/${logo}`,
     }));
     return serializedData;

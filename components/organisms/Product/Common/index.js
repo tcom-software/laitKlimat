@@ -90,26 +90,45 @@ export const ProductLinkWrapper = ({ children, articule }) => {
   );
 };
 
-export const Table = ({ characteristic }) => {
+export const Table = ({ characteristic, productName }) => {
+  let isMitsubishi = false;
+  if (
+    productName
+      .toLocaleLowerCase()
+      .includes("MITSUBISHI HEAVY".toLocaleLowerCase())
+  ) {
+    isMitsubishi = true;
+  }
+
   return (
     <table>
       <tbody>
         {characteristic
           .filter(({ value }) => value)
-          .map(({ key, value }, idx) => (
-            <tr key={idx}>
-              <td>
-                <Text tag="span" sz="normall">
-                  {key}
-                </Text>
-              </td>
-              <td>
-                <Text tag="span" sz="normall">
-                  {value}
-                </Text>
-              </td>
-            </tr>
-          ))}
+          .map(({ key, value }, idx) => {
+            let value1 =
+              key
+                .toLocaleLowerCase()
+                .includes("ДОСТАВКА В ПРЕДЕЛАХ МКАД".toLocaleLowerCase()) &&
+              isMitsubishi
+                ? "1000 ₽"
+                : value;
+
+            return (
+              <tr key={idx}>
+                <td>
+                  <Text tag="span" sz="normall">
+                    {key}
+                  </Text>
+                </td>
+                <td>
+                  <Text tag="span" sz="normall">
+                    {value1}
+                  </Text>
+                </td>
+              </tr>
+            );
+          })}
       </tbody>
     </table>
   );
