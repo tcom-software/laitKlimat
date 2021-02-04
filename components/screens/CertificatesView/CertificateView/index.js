@@ -4,29 +4,31 @@ import { showModal } from "@redux/actions/modal";
 
 import { Text } from "@atoms";
 
-const CertificateView = ({ brandName, certificate }) => {
+const CertificateView = ({
+  file_name,
+  logo: brandLogo,
+  name: certificateName,
+}) => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = React.useState({
     certificate: false,
     brand: false,
   });
 
-  const certificatePath = useMemo(() => `/images/certificates/${certificate}`, [
-    certificate,
-  ]);
+  const certificatePath = (size = "size300") =>
+    `${process.env.NEXT_PUBLIC_API_UPLOADS_URL}manufacturer_certificate/${size}/${file_name}`;
 
-  const brandLogoPath = useMemo(() => `/images/brands-logo/${brandName}`, [
-    brandName,
-  ]);
+  const brandLogoPath = (size = "size150") =>
+    `${process.env.NEXT_PUBLIC_API_UPLOADS_URL}manufacturer_logo/${size}/${brandLogo}`;
 
   const handleShowImage = useCallback(() => {
     dispatch(
       showModal({
         modalType: "imageView",
         modalProps: {
-          alt: brandName,
-          type: "jpg",
-          url: `${certificatePath}_max`,
+          responsive: false,
+          alt: certificateName,
+          url: certificatePath("size800"),
         },
       })
     );
@@ -42,28 +44,23 @@ const CertificateView = ({ brandName, certificate }) => {
       <div
         className="certificate--wrapper"
         style={styles("certificate")}
-        onClick={() => handleShowImage()}
+        onClick={handleShowImage}
       >
         <picture>
-          <source
-            data-srcset={`${certificatePath}_min.webp`}
-            type="image/webp"
-          />
-          <source data-srcset={`${certificatePath}_min.jpg`} type="image/jpg" />
           <img
-            alt={brandName}
-            data-src={`${certificatePath}_min.jpg`}
+            alt={certificateName}
+            data-src={certificatePath()}
             onLoad={() => setLoaded(state => ({ ...state, certificate: true }))}
           />
         </picture>
       </div>
       <Text tag="p" sz="normal" clr="primary">
-        {brandName}
+        {certificateName}
       </Text>
       <picture style={styles("brand")}>
         <img
-          alt={brandName}
-          data-src={`${brandLogoPath}.png`}
+          alt={certificateName}
+          data-src={brandLogoPath()}
           onLoad={() => setLoaded(state => ({ ...state, brand: true }))}
         />
       </picture>

@@ -9,6 +9,15 @@ export const Container = styled.div`
     padding-right: calc(var(--global-margin) + 2vw);
   }
 
+  .info {
+    white-space: pre-wrap;
+    margin-top: 40px;
+    
+    p {
+      text-transform: initial;
+    }
+  }
+
   .product-info {
     display: flex;
 
@@ -16,7 +25,7 @@ export const Container = styled.div`
       flex-direction: column;
     }
 
-    .leftBar {
+    .left-side {
       flex: 1;
       display: flex;
       align-items: flex-start;
@@ -118,7 +127,7 @@ export const Container = styled.div`
       }
     }
 
-    .info {
+    .right-side {
       box-shadow: ${theme.shadow.effect1};
       padding: 2.5em;
       height: max-content;
@@ -266,9 +275,9 @@ export const Container = styled.div`
   }
 
   h2 {
-    margin: var(--heading-margin) 0;
     text-align: center;
     font-weight: normal;
+    margin: var(--heading-margin) 0;
   }
 
   .characteristics {

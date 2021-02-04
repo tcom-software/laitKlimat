@@ -1,6 +1,6 @@
 // import PropTypes from "prop-types";
 
-import { values as breakoints } from "@styles/breakpoints";
+import { values as breakpoints } from "@styles/breakpoints";
 import { StyledPicture } from "./styles";
 
 interface ImageInterface {
@@ -31,12 +31,12 @@ const Image = ({
         <>
           <source
             srcSet={`${path}_mobile.webp`}
-            media={`(max-width: ${breakoints.xs}px)`}
+            media={`(max-width: ${breakpoints.xs}px)`}
             type="image/webp"
           />
           <source
             srcSet={`${path}_mobile.${type}`}
-            media={`(max-width: ${breakoints.xs}px)`}
+            media={`(max-width: ${breakpoints.xs}px)`}
             type={`image/${type}`}
           />
           <source srcSet={`${path}_desktop.webp`} type="image/webp" />

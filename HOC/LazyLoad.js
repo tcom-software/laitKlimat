@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const lazyLoadImages = (
   selector = "picture img, picture source",
@@ -45,10 +45,23 @@ const lazyLoadImages = (
 };
 
 const LazyLoadHOC = Page => {
+  let time = 0;
   return function LazyLoadWrappedPage(props) {
+    const [len, setLen] = useState();
+
     useEffect(() => {
-      lazyLoadImages();
-    }, []);
+      const id = setInterval(() => {
+        console.log("ddd");
+        time += 500;
+        if (time === 2000) {
+          clearInterval(id);
+          return;
+        }
+        lazyLoadImages();
+      }, 500);
+
+      return () => clearInterval(id);
+    }, [len]);
 
     return <Page {...props} />;
   };

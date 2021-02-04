@@ -16,7 +16,7 @@ const ImageView = ({
   /**
    * Change slide when using in gallery page
    */
-  const changeSlide = (to) => {
+  const changeSlide = to => {
     const changeTo =
       to === "prev"
         ? photoNumber === 1
@@ -26,7 +26,7 @@ const ImageView = ({
         ? 0
         : 1;
     setCurrentUrl(`${url}${photoNumber + changeTo}_max`);
-    setPhotoNumber((number) => number + changeTo);
+    setPhotoNumber(number => number + changeTo);
   };
 
   return (
@@ -50,7 +50,7 @@ const ImageView = ({
         )}
         <img
           alt={alt}
-          src={`${currentUrl}.${type}`}
+          src={`${currentUrl}${type ? `.${type}` : ""}`}
           onLoad={() => setLoading(false)}
         />
       </picture>

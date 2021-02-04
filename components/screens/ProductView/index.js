@@ -1,23 +1,24 @@
-import { Text } from "@atoms";
-import { PreviousViews } from "@organisms";
-
-import Info from "./Info";
-import LeftBar from "./LeftBar";
-import { Container } from "./styles";
-import Characteristics from "./Characteristics";
-import { serializeProductData } from "helper/serializeProduct";
-import { Hgroup } from "@molecules";
-import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductsCacheByKey } from "@redux/selectors/products";
+import { useRouter } from "next/router";
+
+import { Text } from "@atoms";
+import { Hgroup } from "@molecules";
+import { PreviousViews } from "@organisms";
+
+import LeftSide from "./LeftSide";
+import RightSide from "./RightSide";
+import { Container } from "./styles";
 import { initializeStore } from "@redux/index";
+import Characteristics from "./Characteristics";
 import { addProductsCache } from "@redux/actions/products";
+import { serializeProductData } from "helper/serializeProduct";
+import { getProductsCacheByKey } from "@redux/selectors/products";
 
 const ProductView = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const product = useSelector(getProductsCacheByKey(router.query.product));
 
   useEffect(() => {
@@ -46,14 +47,6 @@ const ProductView = () => {
   if (loading || !product) {
     return (
       <Container>
-        {/* <Text tag="h2" clr="secondary" sz="larg" id="title">
-        {productName}
-      </Text> */}
-        {/* <div className="product-info container">
-        <LeftBar data={leftSide} />
-        <Info data={infoTable} product={product.product} />
-      </div> */}
-        {/* <Characteristics data={characteristics} /> */}
         <PreviousViews className="container" title="Похожие товары" />
         <PreviousViews className="container previous-views" />
       </Container>
@@ -73,11 +66,18 @@ const ProductView = () => {
         {productName}
       </Text>
       <div className="product-info container">
-        <LeftBar data={leftSide} />
-        <Info
+        <LeftSide data={leftSide} />
+        <RightSide
           data={{ productName, ...infoTable, ...(product.product || {}) }}
         />
       </div>
+      <section className="container info">
+        <Text tag='p' sz='smaller' clr='primary'>
+          {
+            "* Производитель оставляет за собой право без уведомления менять характеристики, внешний вид, комплектацию товара и место его производства.\nУказанная информация не является публичной офертой"
+          }
+        </Text>
+      </section>
       <Characteristics data={characteristics} />
       <PreviousViews className="container" title="Похожие товары" />
       <PreviousViews className="container previous-views" />

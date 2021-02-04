@@ -36,11 +36,9 @@ const useCheckedFilters = inputName => {
     ({ target }) => {
       const isChecked = target.checked;
       const query = { ...router.query, page: 1 };
-      console.log(query, 39);
 
       if (isChecked) {
         query[inputName] = [...checkedInputs, target.value].join(" ");
-        console.log(query, 40);
       } else {
         const newSearchParams = checkedInputs
           .filter(val => val !== target.value)
@@ -52,7 +50,6 @@ const useCheckedFilters = inputName => {
           query[inputName] = newSearchParams;
         }
       }
-      console.log(query, 55);
       router.push({
         pathname: router.pathname,
         query,
