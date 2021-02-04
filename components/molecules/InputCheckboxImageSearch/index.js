@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import useCheckedFilters from "hooks/useCheckedFilters";
 import { Icon, Text, Input, Checkbox, Loading } from "@atoms";
 import { StyledFieldSet } from "./styles";
 import Skeleton from "./skeleton";
+
+let lastY;
 
 const InputCheckboxImageSearch = ({
   title,
@@ -10,6 +12,7 @@ const InputCheckboxImageSearch = ({
   inputName,
   checkboxes,
 }) => {
+  const scrollRef = useRef(null);
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const { handleOnCheck, isChecked } = useCheckedFilters(inputName);
@@ -42,7 +45,19 @@ const InputCheckboxImageSearch = ({
       </legend>
       {!loading && (
         <>
-          <div className="wrapper">
+          <div
+            className="wrapper"
+            onTouchMove={function (e) {
+              e.stopPropagation();
+              lastY ?? (lastY = e.touches[0].clientY);
+              if (e.touches[0].clientY < lastY) {
+                e.currentTarget.scrollBy(0, 3);
+              } else {
+                e.currentTarget.scrollBy(0, -3);
+              }
+              lastY = e.touches[0].clientY;
+            }}
+          >
             {(searchResult || checkboxes).map(
               ({ label, image, value, count }, idx) => (
                 <label key={idx} title={label}>
@@ -51,7 +66,7 @@ const InputCheckboxImageSearch = ({
                     {label}
                   </Text>
                   <Text tag="span" sz="smaller" clr="primary">
-                    {count  + ""}
+                    {count + ""}
                   </Text>
                   <Checkbox
                     value={value}
