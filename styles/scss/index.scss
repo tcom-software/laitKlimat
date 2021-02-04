@@ -3,3 +3,7 @@
 .chat-loader {
   @include loader11;
 }
+
+@import "./variables/";
+
+@import "../../components/organisms/Modal/styles.scss";

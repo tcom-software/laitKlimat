@@ -33,14 +33,18 @@ export const initializeCategories = async ({
   const { site } = store.getState();
   let categories: any;
 
-  if (site.categories?.length === 0) {
-    const response = await fetch(`${fetchUrl}${categoryPath}`, {
-      method: "GET",
-      headers: {
-        projectId: "56",
-      },
-    });
-    categories = await response.json();
+  try {
+    if (site.categories?.length === 0) {
+      const response = await fetch(`${fetchUrl}${categoryPath}`, {
+        method: "GET",
+        headers: {
+          projectId: "56",
+        },
+      });
+      categories = await response.json();
+    }
+  } catch (error) {
+    console.log(error);
   }
 
   return {
@@ -142,7 +146,7 @@ export const initializeProducts = async ({
   if (manufacturerCountries) {
     body.manufacturerCountries = manufacturerCountries.split(" ");
   }
-  
+
   if (!isEmpty(checkboxes)) {
     body.checkboxes = checkboxes;
   }

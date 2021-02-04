@@ -1,0 +1,38 @@
+:root {
+  // --- colors
+  --primary: #000000;
+  --secondary: #2591d1; // colors.blue700
+  --tercary: #59b52a;
+  --fourth: #626262;
+  --gray: #9e9e9e;
+  --gray000: #f2f2f2;
+  --gray100: #e8e8e8;
+  --gray300: #a2a2a2;
+  --white: #fff;
+  --black: #000;
+  --placeholder: #9e9e9e; // colors.gray
+  --footer: #282828;
+  --footerDark: #111111;
+  --blueFon: #65b3db;
+  --blue100: #86c9f1;
+  --blue300: #5c9cc2;
+  --blue500: #4aa9e2;
+  --blue700: #2591d1;
+  --blue900: #3079a5;
+
+  // z indexes
+  // Keep all zIndexes here in one place so it’s easy to see what order things are in
+  --z-header: 99;
+  --z-searchBar: 100;
+  --z-modal: 101;
+  --z-notification: 200;
+}
+
+// --- media breakpoints
+$bp-fab: 480px;
+$bp-xs: 768px;
+$bp-sm: 960px;
+$bp-md: 1024px;
+$bp-lg: 1440px;
+$bp-xl: 1760px;
+$bp-xxl: 1920px;

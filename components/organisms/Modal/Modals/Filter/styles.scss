@@ -1,0 +1,76 @@
+.filter-modal-container {
+  form {
+    height: 80vh;
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+
+    @media only screen and (min-width: $bp-xs) and (max-width: $bp-md) {
+      width: 100vw;
+    }
+
+    main {
+      display: flex;
+      overflow-y: auto;
+      position: relative;
+      align-items: center;
+      flex-direction: column;
+      -webkit-overflow-scrolling: touch;
+
+      @media only screen and (min-width: $bp-xs) and (max-width: $bp-lg) {
+        padding: 1.5em 4em 2em;
+      }
+
+      ::-webkit-scrollbar {
+        width: 12px;
+      }
+
+      > div {
+        grid-column-gap: 3em;
+        grid-template-rows: repeat(7, max-content);
+        grid-template-columns: repeat(4, min-content);
+
+        @media only screen and (max-width: $bp-lg) {
+          grid-column-gap: 2em;
+        }
+
+        @media only screen and (max-width: $bp-md) {
+          grid-column-gap: 1em;
+        }
+
+        .column {
+          display: grid;
+          grid-row-gap: 1em;
+          grid-auto-rows: max-content;
+        }
+
+        @media only screen and (max-width: $bp-xs) {
+          margin: 0 auto;
+          width: fit-content;
+          grid-template-columns: unset;
+
+          fieldset {
+            width: 100%;
+            grid-area: unset !important;
+
+            legend {
+              span {
+                font-size: 1em;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    footer {
+      .btns_group {
+        display: grid;
+        margin-left: auto;
+        width: fit-content;
+        grid-column-gap: 1em;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+      }
+    }
+  }
+}

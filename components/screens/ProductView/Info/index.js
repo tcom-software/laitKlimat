@@ -56,8 +56,6 @@ const Info = ({
     );
   };
 
-  console.log({ price, productName });
-
   return (
     <section className="info">
       <table>

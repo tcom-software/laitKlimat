@@ -199,11 +199,26 @@ const Category = () => {
     }
 
     // fetch products from api
-    const response = await fetch("/api/getCategoryProducts", {
+    const filters = `${category}?page=${page || 1}`;
+
+    const url = `https://back.laitklimat.ru/api/getProducts/${filters}`;
+    const response = await fetch(url, {
       method: "POST",
-      body: JSON.stringify({ category, page: page || 1, body }),
+      headers: { projectId: "59", "Content-Type": "application/json" },
+      body: JSON.stringify(body),
     });
-    const products = await response.json();
+    const {
+      products: _products,
+      products_info: { characteristics, ...restInfo },
+    } = await response.json();
+
+    for (const characteristic of characteristics) {
+      const product = _products.find(({ id }: any) => id === characteristic.id);
+      product.characteristics = characteristic;
+    }
+
+    const products = { products: _products, products_info: restInfo };
+
     return products;
   };
 

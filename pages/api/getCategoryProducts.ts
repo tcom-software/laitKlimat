@@ -8,6 +8,8 @@ const {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { category, page, body } = JSON.parse(req.body);
 
+  // console.log('post', JSON.stringify(body), body)
+
   const filters = `${category}?page=${page || 1}`;
   const url = `${fetchUrl}${productsPath}${filters}`;
   const response = await fetch(url, {

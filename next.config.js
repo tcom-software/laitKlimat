@@ -9,7 +9,7 @@ module.exports = {
   },
   serverRuntimeConfig: {
     projectId: "59",
-    // fetchUrl: "http://back.laitklimat.ru/",
+    // fetchUrl: "https://back.laitklimat.ru/",
     fetchUrl: "http://back.projects-backend.ru/",
     categoryPath: "api/getCategories",
     productsPath: "api/getProducts/",

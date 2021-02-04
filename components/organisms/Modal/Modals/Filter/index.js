@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { Button, Text, Icon, Input, Textarea } from "@atoms";
 import { Filter as FilterComponent } from "@organisms";
-import { Container } from "./styles";
 
 import FormWithBackground from "../FormWithBackground";
 import { useRouter } from "next/router";
@@ -43,7 +42,7 @@ const Filter = ({ modalRef, hideModal }) => {
   };
 
   return (
-    <Container ref={modalRef}>
+    <div ref={modalRef} className="filter-modal-container">
       <FormWithBackground
         hideModal={hideModal}
         handleSubmit={handleSubmit}
@@ -61,7 +60,7 @@ const Filter = ({ modalRef, hideModal }) => {
       >
         <FilterComponent />
       </FormWithBackground>
-    </Container>
+    </div>
   );
 };
 

@@ -38,7 +38,7 @@ export const serializeProductCardData = (data: any) => {
   const productImageX300PathName = getProductImageX300(data);
   const productName = `${brand} ${series_name || ""}-${model}`;
   const productImageX300 = `${uploadsUrl}${productImageX300PathName}`;
-  const brandLogo = `${uploadsUrl}brands/${brand_logo}`;
+  const brandLogo = `${uploadsUrl}manufacturer_logo/size150/${brand_logo}`;
 
   const characteristic = [
     {
@@ -105,9 +105,6 @@ export const serializeProductData = (data: any) => {
       series_name,
       setup_price,
       manufacturer_logo,
-      certificate_file_format,
-      certificate_file_name,
-      certificate_folder,
 
       has_chat,
       has_sale,
@@ -118,13 +115,14 @@ export const serializeProductData = (data: any) => {
       price_without_setup: priceWithoutSetup,
     },
     characteristics,
+    certificate,
     photos,
   } = data;
 
   const productName = `${brand} ${series_name || ""}-${model}`;
   const productImage = getProductPhoto(photos[0]);
-  const certificateImage = `${uploadsUrl}manufacturer_certificate/${certificate_folder}/${certificate_file_name}.${certificate_file_format}`;
-  const brandLogo = `${uploadsUrl}brands/${manufacturer_logo}`;
+  const certificateImage = `${uploadsUrl}manufacturer_certificate/size300/${certificate?.certificate_file_name}`;
+  const brandLogo = `${uploadsUrl}manufacturer_logo/size150/${manufacturer_logo}`;
   const formatedPrice = makePriceView(price, { unit: "₽", split: " " });
   const creditFrom = makePriceView((price / 24) | 0, { unit: "₽", split: " " });
   const formatedSetupPrice = makePriceView(setup_price, {
@@ -354,7 +352,7 @@ export const serializeProductCardDataFromFullProduct = (data: any) => {
 
   const productImage = getProductPhoto(photos[0]);
   const productName = `${brand} ${series_name || ""}-${model}`;
-  const brandLogo = `${uploadsUrl}brands/${manufacturer_logo}`;
+  const brandLogo = `${uploadsUrl}manufacturer_logo/size150/${manufacturer_logo}`;
   const formatedPrice = makePriceView(price, { unit: "₽", split: " " });
 
   const characteristic = [

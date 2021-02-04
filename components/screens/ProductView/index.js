@@ -67,8 +67,6 @@ const ProductView = () => {
     characteristics,
   } = serializedProduct;
 
-  console.log(leftSide);
-
   return (
     <Container>
       <Text tag="h2" clr="secondary" sz="larg" id="title">

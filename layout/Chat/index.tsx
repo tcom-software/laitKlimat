@@ -41,7 +41,7 @@ const Chat = () => {
         setChatState({ type: "SET_OPERATORS", payload: data });
         setChatState({
           type: "CHANGE_OPERATOR",
-          payload: data[Date.now() % data.length],
+          payload: data[Math.floor(Date.now() % data.length)],
         });
       });
 
@@ -225,7 +225,6 @@ const Chat = () => {
                 id="new_message"
                 ref={fieldRef}
                 value={message}
-                // readOnly
                 onChange={e => setMessage(e.target.value)}
                 className="message-field"
               />

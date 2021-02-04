@@ -33,7 +33,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   // dispatch initial store
   useEffect(() => {
-    const { categories } = initialStore;
+    const { categories } = initialStore ?? {};
     if (categories) {
       store.dispatch(initializeCategories(categories));
     }

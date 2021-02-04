@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "body-scroll-lock": "^3.1.5",
+    "caniuse-lite": "^1.0.30001183",
     "classnames": "^2.2.6",
     "color": "^3.1.2",
     "deepmerge": "^4.2.2",

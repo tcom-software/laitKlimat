@@ -139,7 +139,7 @@ export const StyledSearch = styled.div`
     }
 
     > button {
-      height: 100%;
+      height: initial;
       padding: 0 1.7em;
       background-color: ${theme.colors.secondary};
       display: flex;

@@ -143,7 +143,7 @@ const Filter = () => {
       count,
       value: id,
       label: brand,
-      image: `${uploadsUrl}brands/${logo}`,
+      image: `${uploadsUrl}manufacturer_logo/size150/${logo}`,
     }));
     return serializedData;
   }, []);

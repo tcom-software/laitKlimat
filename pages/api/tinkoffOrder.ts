@@ -3,8 +3,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const formBody = req.body;
 
-  console.log(formBody);
-
   const response = await fetch(
     "https://loans.tinkoff.ru/api/partners/v1/lightweight/create",
     {
@@ -15,8 +13,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       body: formBody,
     }
   );
-
-  //   console.log({ response, url: response.url });
 
   res.send({ redirectUrl: response.url });
 };
