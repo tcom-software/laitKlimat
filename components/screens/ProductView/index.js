@@ -19,14 +19,21 @@ const ProductView = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const product = useSelector(getProductsCacheByKey(router.query.product));
+  const [product, setProduct] = useState(null);
+  const cachedProduct = useSelector(
+    getProductsCacheByKey(router.query.product)
+  );
 
   useEffect(() => {
     const productId = router.query.product;
-    if (!product) {
+    if (!cachedProduct) {
       fetchProduct(productId);
     }
   }, [router.query.product]);
+
+  useEffect(() => {
+    setProduct(product => cachedProduct ?? product);
+  }, [cachedProduct]);
 
   const fetchProduct = async productId => {
     setLoading(true);
@@ -44,7 +51,7 @@ const ProductView = () => {
     [product]
   );
 
-  if (loading || !product) {
+  if (!product) {
     return (
       <Container>
         <PreviousViews className="container" title="Похожие товары" />
@@ -72,7 +79,7 @@ const ProductView = () => {
         />
       </div>
       <section className="container info">
-        <Text tag='p' sz='smaller' clr='primary'>
+        <Text tag="p" sz="smaller" clr="primary">
           {
             "* Производитель оставляет за собой право без уведомления менять характеристики, внешний вид, комплектацию товара и место его производства.\nУказанная информация не является публичной офертой"
           }

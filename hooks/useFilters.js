@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const useFilters = (from) => {
+export const useFilters = from => {
   const [filters, setFilters] = useState(() => {
     if (typeof window !== "undefined") {
       const filters = window.localStorage.getItem("site::filters");
@@ -18,10 +18,8 @@ export const useFilters = (from) => {
   }, [filters]);
 
   const addFilters = (_filters = {}) => {
-    console.log("first")
     const newFilters = { ...filters, ..._filters };
     setFilters(newFilters);
   };
-console.log("usefilter",{from}, filters, )
   return [filters, addFilters];
 };

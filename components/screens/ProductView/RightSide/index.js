@@ -1,4 +1,6 @@
 import { useCallback } from "react";
+import Link from "next/link";
+
 import { showModal } from "@redux/actions/modal";
 
 // atoms
@@ -12,6 +14,7 @@ import ButtonOrderOneClick from "@atoms/Button/ButtonOrderOneClick";
 import ButtonAddToBasket from "@atoms/Button/ButtonAddToBasket";
 import ButtonCredit from "@atoms/Button/ButtonCredit";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 const TableComponent = ({ data }) => {
   const types = {
@@ -23,8 +26,9 @@ const TableComponent = ({ data }) => {
 };
 
 const Info = ({
-  data: { table, creditFrom, productName, price, articule },
+  data: { filter, table, creditFrom, productName, price, articule },
 }) => {
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const openCompare = () => {
@@ -63,6 +67,36 @@ const Info = ({
         <tbody>{renderTableRows("body")}</tbody>
         <tfoot>{renderTableRows("footer")}</tfoot>
       </table>
+      <div className="filters">
+        <Text tag="p" sz="smaller">
+          обслуживаемая площадь
+        </Text>
+        <ul className="row">
+          {filter.map(
+            (
+              { product_id, characteristic_id, attribute_id, name_ru },
+              index
+            ) => (
+              <li key={index}>
+                <Link
+                  href={`/products/[product]`}
+                  as={`/products/${product_id}`}
+                >
+                  <button
+                    className={
+                      product_id === Number(router.query.product)
+                        ? "active"
+                        : ""
+                    }
+                  >
+                    {name_ru}
+                  </button>
+                </Link>
+              </li>
+            )
+          )}
+        </ul>
+      </div>
       <div className="row">
         <Icon name="compare" fill="tercary" onClick={openCompare} />
         <Text tag="span" sz="normal" clr="tercary">

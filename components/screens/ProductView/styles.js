@@ -12,7 +12,7 @@ export const Container = styled.div`
   .info {
     white-space: pre-wrap;
     margin-top: 40px;
-    
+
     p {
       text-transform: initial;
     }
@@ -243,6 +243,70 @@ export const Container = styled.div`
       .row {
         display: flex;
         align-items: center;
+      }
+
+      .filters {
+        margin: 0 0 10px 0;
+
+        p {
+          color: #2591d1;
+          font-size: 14px;
+          font-style: italic;
+          margin-bottom: 10px;
+          text-transform: lowercase;
+        }
+
+        ul {
+          flex-wrap: wrap;
+
+          > *:not(:last-of-type) {
+            margin-right: 5px;
+          }
+
+          li {
+            margin-bottom: 10px;
+
+            button {
+              height: 50px;
+              color: #2591d1;
+              padding: 0 7px;
+              min-width: 80px;
+              font-weight: bold;
+              will-change: filter;
+              border-radius: 999px;
+              background-color: white;
+              border: 1px solid #2591d1;
+              transition: filter 0.1s ease;
+
+              :hover:not(.active) {
+                filter: drop-shadow(3px 3px 0px #2591d1);
+              }
+
+              &.active {
+                color: white;
+                background-color: #2591d1;
+              }
+
+              ${theme.breakpoints.between("md", "lg")} {
+                height: 40px;
+                min-width: 65px;
+                font-size: 11px;
+              }
+
+              ${theme.breakpoints.between("xs", "md")} {
+                height: 45px;
+                min-width: 80px;
+                font-size: 13px;
+              }
+
+              ${theme.breakpoints.down("xs")} {
+                height: 40px;
+                min-width: 65px;
+                font-size: 11px;
+              }
+            }
+          }
+        }
       }
 
       svg {

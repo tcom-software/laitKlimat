@@ -9,6 +9,7 @@ const LeftSide = ({ data }) => {
     brandLogo,
     productImage,
     certificateImage,
+    categoryId,
 
     hasSale,
     priceWithSetup,
@@ -16,7 +17,10 @@ const LeftSide = ({ data }) => {
   } = data;
 
   const historyBack = () => {
-    router.back();
+    router.push({
+      pathname: "/category",
+      query: { c: categoryId, page: 1 },
+    });
   };
 
   return (
@@ -33,7 +37,9 @@ const LeftSide = ({ data }) => {
         <div className="product--wrapper">
           <img alt="product" src={productImage} />
           {Boolean(hasSale) && (
-            <Sale data={{ priceWithSetup, priceWithoutSetup, hasSale, price }} />
+            <Sale
+              data={{ priceWithSetup, priceWithoutSetup, hasSale, price }}
+            />
           )}
         </div>
         <div className="certificate">

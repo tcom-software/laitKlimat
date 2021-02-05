@@ -97,6 +97,7 @@ export const serializeProductData = (data: any) => {
   const {
     product: {
       articule,
+      category_id,
       brand,
       description,
       market,
@@ -117,6 +118,7 @@ export const serializeProductData = (data: any) => {
     characteristics,
     certificate,
     photos,
+    filter,
   } = data;
 
   const productName = `${brand} ${series_name || ""}-${model}`;
@@ -162,19 +164,21 @@ export const serializeProductData = (data: any) => {
   const serializedProductData = {
     productName,
     leftSide: {
-      productImage,
       brandLogo,
+      productImage,
       certificateImage,
       price,
       hasSale,
       priceWithSetup,
       priceWithoutSetup,
+      categoryId: category_id,
     },
     characteristics: {
       description,
       characteristics: serializedCharacteristics,
     },
     infoTable: {
+      filter,
       creditFrom,
       table: {
         head: [
