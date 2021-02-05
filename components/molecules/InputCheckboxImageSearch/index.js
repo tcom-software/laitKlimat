@@ -51,9 +51,9 @@ const InputCheckboxImageSearch = ({
               e.stopPropagation();
               lastY ?? (lastY = e.touches[0].clientY);
               if (e.touches[0].clientY < lastY) {
-                e.currentTarget.scrollBy(0, 3);
+                e.currentTarget.scrollBy(0, 15);
               } else {
-                e.currentTarget.scrollBy(0, -3);
+                e.currentTarget.scrollBy(0, -15);
               }
               lastY = e.touches[0].clientY;
             }}

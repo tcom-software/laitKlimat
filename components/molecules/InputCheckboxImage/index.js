@@ -4,6 +4,8 @@ import useCheckedFilters from "hooks/useCheckedFilters";
 import { StyledFieldSet } from "./styles";
 import Skeleton from "./skeleton";
 
+let lastY;
+
 const InputCheckboxImage = ({ data, loading }) => {
   const [inputName, setInputName] = useState("");
   const { handleOnCheck, isChecked } = useCheckedFilters(inputName);
@@ -31,7 +33,18 @@ const InputCheckboxImage = ({ data, loading }) => {
           {title}
         </Text>
       </legend>
-      <div>
+      <div
+        onTouchMove={function (e) {
+          e.stopPropagation();
+          lastY ?? (lastY = e.touches[0].clientY);
+          if (e.touches[0].clientY < lastY) {
+            e.currentTarget.scrollBy(0, 15);
+          } else {
+            e.currentTarget.scrollBy(0, -15);
+          }
+          lastY = e.touches[0].clientY;
+        }}
+      >
         {checkboxes
           .filter(({ label }) => label !== "не выбрано")
           .map(({ label, value }, index) => (
