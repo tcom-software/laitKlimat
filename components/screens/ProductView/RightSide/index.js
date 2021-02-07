@@ -67,36 +67,38 @@ const Info = ({
         <tbody>{renderTableRows("body")}</tbody>
         <tfoot>{renderTableRows("footer")}</tfoot>
       </table>
-      <div className="filters">
-        <Text tag="p" sz="smaller">
-          обслуживаемая площадь
-        </Text>
-        <ul className="row">
-          {filter.map(
-            (
-              { product_id, characteristic_id, attribute_id, name_ru },
-              index
-            ) => (
-              <li key={index}>
-                <Link
-                  href={`/products/[product]`}
-                  as={`/products/${product_id}`}
-                >
-                  <button
-                    className={
-                      product_id === Number(router.query.product)
-                        ? "active"
-                        : ""
-                    }
+      {Boolean(filter.length) && (
+        <div className="filters">
+          <Text tag="p" sz="smaller">
+            обслуживаемая площадь
+          </Text>
+          <ul className="row">
+            {filter.map(
+              (
+                { product_id, characteristic_id, attribute_id, name_ru },
+                index
+              ) => (
+                <li key={index}>
+                  <Link
+                    href={`/products/[product]`}
+                    as={`/products/${product_id}`}
                   >
-                    {name_ru}
-                  </button>
-                </Link>
-              </li>
-            )
-          )}
-        </ul>
-      </div>
+                    <button
+                      className={
+                        product_id === Number(router.query.product)
+                          ? "active"
+                          : ""
+                      }
+                    >
+                      {name_ru}
+                    </button>
+                  </Link>
+                </li>
+              )
+            )}
+          </ul>
+        </div>
+      )}
       <div className="row">
         <Icon name="compare" fill="tercary" onClick={openCompare} />
         <Text tag="span" sz="normal" clr="tercary">

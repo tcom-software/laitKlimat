@@ -393,7 +393,9 @@ export const Container = styled.div`
 
     > p {
       padding-top: 2em;
-      line-height: 1.7em;
+      white-space: pre-wrap;
+      text-transform: unset;
+      line-height: unset;
     }
   }
 
