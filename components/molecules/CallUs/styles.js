@@ -22,6 +22,7 @@ export const Container = styled.div`
       font-weight: bold;
       color: ${theme.colors.secondary};
       cursor: pointer;
+      margin-left: 10px;
     }
 
     p {
