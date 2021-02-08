@@ -26,7 +26,7 @@ export const GridRow = styled.section`
       3,
       max-content
     );
-  grid-template-areas: "categories search-bar phone basket filter humburger";
+  grid-template-areas: "categories search-bar phone basket filter hamburger";
   z-index: ${theme.zIndex.searchBar};
 
   ${theme.breakpoints.down("md")} {
@@ -34,7 +34,7 @@ export const GridRow = styled.section`
         3,
         max-content
       );
-    grid-template-areas: "categories search-bar basket filter humburger";
+    grid-template-areas: "categories search-bar basket filter hamburger";
   }
 
   ${theme.breakpoints.down("xs")} {
@@ -43,7 +43,7 @@ export const GridRow = styled.section`
     align-content: center;
     grid-template-columns: 1fr repeat(3, max-content);
     grid-template-areas:
-      "logo basket filter humburger"
+      "logo basket filter hamburger"
       "search-bar search-bar search-bar search-bar";
   }
 
@@ -154,7 +154,7 @@ export const GridRow = styled.section`
         position: relative;
         padding: 0.7em 3.1em 0.7em 1.4em;
 
-        /* categories leavs without arrow (subcategories) */
+        /* categories leaves without arrow (subcategories) */
         &[data-arrow="false"] {
           padding: 0.7em 1.4em 0.7em 1.4em;
         }
@@ -200,7 +200,7 @@ export const GridRow = styled.section`
   .call-us,
   .basket,
   .filter,
-  .humburger,
+  .hamburger,
   .search-mobile {
     display: flex;
     cursor: pointer;
@@ -336,73 +336,51 @@ export const GridRow = styled.section`
     }
   }
 
-  /******** humburger ********/
+  /******** hamburger ********/
 
-  .humburger {
-    grid-area: humburger;
+  .hamburger {
+    grid-area: hamburger;
 
     button {
       display: flex;
+      width: 2.35rem;
+      height: 2.35rem;
+      font-size: 15px;
       align-items: flex-end;
       flex-direction: column;
       justify-content: space-between;
-      font-size: 15px;
-      width: 2.35em;
-      height: 1.35em;
 
-      ${theme.breakpoints.up("xs")} {
+      svg {
+        width: 100%;
+
+        line {
+          transition: all 0.2s ease;
+        }
+
+        line:nth-of-type(2) {
+          transform: translateX(30%);
+        }
+
         :hover {
-          span {
-            :nth-of-type(2) {
-              width: 100%;
-            }
-
-            :nth-of-type(3) {
-              width: 100%;
-            }
+          line:nth-of-type(2) {
+            transform: translateX(0);
           }
-        }
-      }
-
-      span {
-        height: 2px;
-        border-radius: 1em;
-        background-color: ${theme.colors.primary};
-        transition: all 0.2s ease;
-
-        :nth-of-type(1) {
-          width: 100%;
-        }
-
-        :nth-of-type(2) {
-          width: 50%;
-        }
-
-        :nth-of-type(3) {
-          width: 90%;
         }
       }
     }
 
-    button[data-open="true"] {
-      span {
-        height: 2px;
-        border-radius: 1em;
-        background-color: ${theme.colors.primary};
-        transition: all 0.2s ease;
-
-        :nth-of-type(1) {
-          width: 100%;
-          transform: rotate(-45deg) translateY(0.85em);
+    button.open-mobile-menu {
+      svg {
+        line:nth-of-type(1) {
+          transform: rotate(-45deg) translate(-45%, 45%);
         }
 
-        :nth-of-type(2) {
-          width: 0%;
+        line:nth-of-type(2) {
+          transform: translateX(100%);
         }
 
-        :nth-of-type(3) {
-          width: 100%;
-          transform: rotate(45deg) translateY(-0.85em);
+        line:nth-of-type(3) {
+          transform: rotate(45deg) translate(20%, -80%);
         }
       }
     }

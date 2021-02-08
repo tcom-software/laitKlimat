@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import getConfig from "next/config";
 
 const {
-  serverRuntimeConfig: { fetchUrl, /*projectId*/ filterPath },
+  serverRuntimeConfig: { /*fetchUrl, projectId*/ filterPath },
 } = getConfig();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     payload: {},
   };
 
-  const url = `${fetchUrl}${filterPath}${categoryId}`;
+  const url = `"https://back.laitklimat.ru/"${filterPath}${categoryId}`;
   const response = await fetch(url, {
     method: "GET",
     headers: { projectId: "59" },

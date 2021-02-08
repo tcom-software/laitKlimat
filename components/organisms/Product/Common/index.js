@@ -109,7 +109,7 @@ export const Table = ({ characteristic, productName }) => {
             let value1 =
               key
                 .toLocaleLowerCase()
-                .includes("ДОСТАВКА В ПРЕДЕЛАХ МКАД".toLocaleLowerCase()) &&
+                .includes("ДОСТАВКА В ПРЕДЕЛАХ МКАД".toLowerCase()) &&
               isMitsubishi
                 ? "1000 ₽"
                 : value;
@@ -117,12 +117,12 @@ export const Table = ({ characteristic, productName }) => {
             return (
               <tr key={idx}>
                 <td>
-                  <Text tag="span" sz="normall">
+                  <Text tag="span" sz="small">
                     {key}
                   </Text>
                 </td>
                 <td>
-                  <Text tag="span" sz="normall">
+                  <Text tag="span" sz="small">
                     {value1}
                   </Text>
                 </td>

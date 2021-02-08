@@ -2,6 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import cn from 'classnames'
 
 import { getCategories } from "@redux/selectors/site";
 import { showModal } from "@redux/actions/modal";
@@ -20,11 +21,11 @@ import Text from "@atoms/Text";
 
 import { tabs } from "data";
 
-const acardion = categories => {
+const accordion = categories => {
   const closeCategories = id => {
-    const cateegories = document.getElementById("categories");
-    cateegories.style.pointerEvents = "none";
-    setTimeout(() => (cateegories.style.pointerEvents = ""), 100);
+    const categories = document.getElementById("categories");
+    categories.style.pointerEvents = "none";
+    setTimeout(() => (categories.style.pointerEvents = ""), 100);
   };
 
   return (
@@ -49,7 +50,7 @@ const acardion = categories => {
             ) : (
               <>
                 <span>{name}</span>
-                {acardion(subCategories)}
+                {accordion(subCategories)}
               </>
             )}
           </li>
@@ -122,7 +123,7 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
                 категории
               </Text>
             </button>
-            {acardion(categories)}
+            {accordion(categories)}
           </div>
           <Search />
           <CallUs showNumberBox={handleShowNumberBox} />
@@ -143,11 +144,19 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
               </button>
             </div>
           )}
-          <div className="humburger" onClick={handleShowMenu}>
-            <button title="меню" aria-label="меню" data-open={isOpenMobileMenu}>
-              <span />
-              <span />
-              <span />
+          <div className="hamburger" onClick={handleShowMenu}>
+            <button title="меню" aria-label="меню" className={cn({ 'open-mobile-menu': isOpenMobileMenu})}>
+              <svg
+                width="70"
+                height="70"
+                fill="none"
+                viewBox="0 0 70 70"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line x1="0" y1="17" x2="70" y2="17" stroke="black" strokeWidth='3' />
+                <line x1="0" y1="35" x2="70" y2="35" stroke="black" strokeWidth='3' />
+                <line x1="0" y1="53" x2="70" y2="53" stroke="black" strokeWidth='3' />
+              </svg>
             </button>
           </div>
         </GridRow>

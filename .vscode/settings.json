@@ -4,6 +4,10 @@
         "Kupit",
         "Nomer",
         "Ostavit",
-        "tinkoff"
-    ]
+        "articule",
+        "tercary",
+        "tinkoff",
+        "ЛАЙТ"
+    ],
+    "cSpell.language": "en, ru",
 }
