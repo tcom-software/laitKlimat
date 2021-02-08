@@ -63,6 +63,14 @@ export const StyledFooter = styled.footer`
             li {
               padding: 0.3em 0;
 
+              a {
+                span {
+                  :hover {
+                    text-decoration: underline;
+                  }
+                }
+              }
+
               span {
               }
             }

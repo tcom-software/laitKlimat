@@ -17,7 +17,6 @@ export const StyledLabel = styled.label`
     ${sizes.small}
 
     ::placeholder {
-      text-transform: uppercase;
       color: ${theme.colors.placeholder};
     }
 

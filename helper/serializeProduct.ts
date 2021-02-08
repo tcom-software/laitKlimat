@@ -204,7 +204,7 @@ export const serializeProductData = (data: any) => {
                 tag: "span",
                 sz: "normal",
                 clr: "primary",
-                text: "цена",
+                text: "Цена",
               },
             },
             value: {
@@ -241,7 +241,7 @@ export const serializeProductData = (data: any) => {
                 text: `Товар${
                   market ? "" : " не"
                 } выставлен на Маркете <br /> ${
-                  available ? "Есть в наличии" : "ПОД ЗАКАЗ"
+                  available ? "Есть в наличии" : "Под заказ"
                 }`,
               },
             },

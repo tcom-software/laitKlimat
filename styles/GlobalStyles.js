@@ -1,9 +1,9 @@
 import { createGlobalStyle } from "styled-components";
-import { fonts, fontfaces } from "./fonts";
+import { fonts, fontFaces } from "./fonts";
 import theme from "./theme";
 
 const GlobalStyles = createGlobalStyle`
-  ${fontfaces()};
+  ${fontFaces()};
 
   *,
   *::before,
@@ -19,10 +19,6 @@ const GlobalStyles = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     font-size: 16px;
-    
-    /* @media (min-width: 1440px) {
-		  font-size: 1.18vw;
-	  } */
 
     ::-webkit-scrollbar {
       width: 12px;
@@ -54,7 +50,6 @@ const GlobalStyles = createGlobalStyle`
 
   #nprogress { 
     .bar {
-      /* z-index: 100000; */
       background:  ${theme.colors.secondary};
       height: 4px;
 
@@ -149,10 +144,6 @@ const GlobalStyles = createGlobalStyle`
       background-color: ${theme.colors.secondary};
       border-radius: 1000em;
     }
-
-    /* &-thumb:hover {
-      background: #555;
-    } */
   }
 
   .g-loading {
@@ -169,7 +160,7 @@ const GlobalStyles = createGlobalStyle`
       z-index: 10;
       opacity: 0;
       pointer-events: none;
-      transition: opasity 0.3s ease;
+      transition: opacity 0.3s ease;
       animation: loader 1.5s infinite linear;
     }
   }

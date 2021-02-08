@@ -34,9 +34,8 @@ interface StyledButtonProps {
 }
 
 export const StyledButton = styled.button<StyledButtonProps>`
-  padding: 0.75rem 2em;
   border-radius: 2em;
-  text-transform: uppercase;
+  padding: 0.75rem 2em;
   font-family: ${theme.fonts.primary};
   transition: transform 150ms ease;
 

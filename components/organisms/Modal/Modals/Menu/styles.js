@@ -168,7 +168,6 @@ export const Container = styled.div`
 
       span {
         white-space: pre-wrap;
-        text-transform: uppercase;
       }
     }
   }

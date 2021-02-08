@@ -182,7 +182,7 @@ const Chat = () => {
               onClick={hideChatHandler}
             />
             <Text tag="p" className="title">
-              {"оператор " + (operator?.username || "")}
+              {"Оператор " + (operator?.username || "")}
             </Text>
             <div className="background-image" />
           </div>

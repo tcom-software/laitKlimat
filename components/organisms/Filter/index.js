@@ -176,7 +176,7 @@ const Filter = () => {
     <>
       <Container>
         <div className="column column-one">
-          <InputFromTo title="цена" inputName="price" />
+          <InputFromTo title="Цена" inputName="price" />
           {numberOfPluginUnits && (
             <InputCheckbox data={numberOfPluginUnits} loading={loading} />
           )}

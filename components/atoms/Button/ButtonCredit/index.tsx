@@ -44,7 +44,7 @@ const ButtonCredit: FC<ButtonCreditProps> = ({
     <Button
       type="button"
       variant="secondary"
-      title="купить в кредит"
+      title="Купить в кредит"
       onClick={handleShowBankOrder}
       {...props}
     />

@@ -15,7 +15,6 @@ export const Container = styled.div`
     margin-left: 0.5em;
 
     span {
-      text-transform: capitalize;
       white-space: nowrap;
     }
 

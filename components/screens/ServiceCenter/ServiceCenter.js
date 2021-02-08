@@ -37,7 +37,7 @@ const ServiceCenter = () => {
   return (
     <Container className="container">
       <Hgroup
-        h1="СЕРВИС ЦЕНТР"
+        h1="Сервис центр"
         h2="Мы установили более 50 000 кондиционеров."
       />
       <div className="form--wrapper">

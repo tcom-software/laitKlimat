@@ -120,7 +120,7 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
           <div className="categories" id="categories">
             <button className="root">
               <Text clr="fourth" sz="normal" tag="span">
-                категории
+                Каталог
               </Text>
             </button>
             {accordion(categories)}

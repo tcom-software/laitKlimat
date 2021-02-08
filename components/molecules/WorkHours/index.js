@@ -6,10 +6,12 @@ const WorkHours = ({ className = "work-hours", size = "small" }) => {
       <Icon name="clock" fillRule="evenodd" />
       <span>
         <Text tag="span" sz={size} clr="white">
-          ПН–ПТ: 09:00 – 21:00
+          {/* ПН–ПТ: 09:00 – 21:00 */}
+          пн–пт: 09:00 – 21:00
         </Text>
         <Text tag="span" sz={size} clr="white">
-          СБ-ВС: 10:00 – 20:00
+          {/* СБ-ВС: 10:00 – 20:00 */}
+          сб-вс: 10:00 – 20:00
         </Text>
       </span>
     </div>

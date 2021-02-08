@@ -122,7 +122,7 @@ const BasketView = () => {
   };
 
   /**
-   * order busket
+   * order basket
    */
   const handleOnSubmit = async e => {
     e.preventDefault();
@@ -197,7 +197,7 @@ const BasketView = () => {
 
   return (
     <Container className="container">
-      <Hgroup h1="КОРЗИНА" />
+      <Hgroup h1="Корзина" />
       {products && (
         <div className="basket">
           {Object.values(basketProducts).map(({ count, id }) => (
@@ -210,7 +210,7 @@ const BasketView = () => {
           <>
             <Button
               variant="tercary"
-              title="Очистить КОРЗИНY"
+              title="Очистить корзину"
               onClick={clearBasket}
             />
             <div className="basket__footer__value">
@@ -224,7 +224,7 @@ const BasketView = () => {
           </>
         ) : (
           <Text tag="p" clr="tercary" sz="normal" className="basket-empty">
-            КОРЗИНА пуста
+            Корзина пуста
           </Text>
         )}
       </div>
@@ -238,18 +238,18 @@ const BasketView = () => {
         >
           <div className="inputs">
             <Input type="text" inputRef={nameRef} label={"Имя"} required />
-            <Input label={"НОМЕР ТЕЛЕФОНА"}>
+            <Input label={"Номер телефона"}>
               <PhoneInput
                 required
                 international
                 value={phone}
                 ref={phoneRef}
                 onChange={setPhone}
-                placeholder="НОМЕР ТЕЛЕФОНА"
+                placeholder="Номер телефона"
                 name="customerPhone"
               />
             </Input>
-            <Input type="email" inputRef={emailRef} label={"E-MAIL"} required />
+            <Input type="email" inputRef={emailRef} label={"E-mail"} required />
             <Input
               type="text"
               inputRef={addressRef}

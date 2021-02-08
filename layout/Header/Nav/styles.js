@@ -21,18 +21,15 @@ export const Container = styled.section`
 `;
 
 export const StyledNav = styled.nav`
-  float: right;
-  flex: 1;
+  margin-left: 60px;
 
   .menu-list {
     display: flex;
-    float: right;
     flex-flow: wrap;
 
     &_item {
       margin: 0 1em;
       padding: 0.2em 0;
-      text-transform: uppercase;
       color: ${theme.colors.primary};
 
       &:hover {

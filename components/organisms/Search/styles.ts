@@ -14,10 +14,10 @@ export const StyledSearch = styled.div`
     display: contents;
 
     label {
+      flex: 1;
+      width: 100%;
       display: flex;
       position: relative;
-      width: 100%;
-      flex: 1;
 
       ${theme.breakpoints.down("xs")} {
         position: static;
@@ -39,7 +39,6 @@ export const StyledSearch = styled.div`
         ::placeholder {
           font-size: 16px;
           line-height: 120%;
-          text-transform: capitalize;
           color: ${theme.colors.gray300};
 
           ${theme.breakpoints.down("xs")} {

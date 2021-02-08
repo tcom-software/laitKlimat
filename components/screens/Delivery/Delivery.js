@@ -31,7 +31,7 @@ const descriptions = [
 const Delivery = () => {
   return (
     <Container>
-      <Hgroup h1="ДОСТАВКА И ОПЛАТА" className="container" />
+      <Hgroup h1="Доставка и оплата" className="container" />
       <section className="main container">
         <div>
           <div className="left-side">

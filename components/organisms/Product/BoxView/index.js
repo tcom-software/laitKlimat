@@ -93,7 +93,7 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
         <>
           <section className="btn-group-mobile" onClick={() => setOpen(true)}>
             <span className="article">{`Артикул:\n${articule}`}</span>
-            <Button title="сделать заказ" />
+            <Button title="Сделать заказ" />
           </section>
           <animated.section
             className="btn-group-mobile-open row"

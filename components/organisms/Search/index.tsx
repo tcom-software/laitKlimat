@@ -107,7 +107,7 @@ const Search: FC<SearchProps> = ({
             type="text"
             name="search"
             autoComplete="off"
-            placeholder="написать для поиска"
+            placeholder="Написать для поиска"
             onChange={e => setSearch(e.target.value)}
             onFocus={() => setShowResults(true)}
           />
@@ -159,7 +159,7 @@ const Search: FC<SearchProps> = ({
         </label>
         <button type="button" aria-label="поиск кнопка">
           <Text clr="white" sz="normal" tag="span">
-            поиск
+            Поиск
           </Text>
           <Icon name="search" width={24} />
         </button>

@@ -76,7 +76,6 @@ export const StyledAddress = styled.address`
     .work-hours {
       span {
         white-space: nowrap;
-        text-transform: uppercase;
       }
     }
   }

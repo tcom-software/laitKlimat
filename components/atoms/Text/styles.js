@@ -51,7 +51,7 @@ export const sizes = {
 };
 
 export const Tag = styled.div`
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   color: ${({ clr }) => theme.colors[clr]};
 
   strong {

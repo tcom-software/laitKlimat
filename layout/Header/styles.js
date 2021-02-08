@@ -101,7 +101,6 @@ export const GridRow = styled.section`
       text-align: left;
       font-weight: normal;
       color: ${theme.colors.fourth};
-      text-transform: uppercase;
     }
 
     .root,

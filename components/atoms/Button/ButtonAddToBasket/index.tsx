@@ -26,7 +26,7 @@ const ButtonAddToBasket: FC<ButtonAddToBasketProps> = ({
       dispatch(basketAddProduct(product));
       dispatch(
         addNotification({
-          description: "продукт добавлен в корзину",
+          description: "Продукт добавлен в корзину",
           state: "success",
         })
       );
@@ -37,7 +37,7 @@ const ButtonAddToBasket: FC<ButtonAddToBasketProps> = ({
     <Button
       type="button"
       variant="primary"
-      title="в корзину"
+      title="В корзину"
       loading={loading}
       onClick={addToBasket}
       {...props}

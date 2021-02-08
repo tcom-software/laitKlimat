@@ -111,7 +111,7 @@ const Footer = () => {
         <address>
           <Location size="normal" />
           <Text tag="p" clr="white" sz="normal" className="copyright">
-            © 2012—2020 Компания Лайт климат
+            © 2012—2020 Компания Лайт Климат
           </Text>
         </address>
       </div>
