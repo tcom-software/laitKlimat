@@ -43,9 +43,6 @@ const CallUs = ({ showNumberBox, ...props }) => {
       />
       <div className="call-us-inner">
         <p>
-          <Text clr="primary" sz={"small"} tag="span">
-            наш номер
-          </Text>
           <Text
             tag="span"
             clr="primary"
@@ -68,7 +65,7 @@ const CallUs = ({ showNumberBox, ...props }) => {
           className="leave-my-number"
           onClick={showNumberBox}
         >
-          Оставить мой номер
+          Заказать звонок
         </Text>
       </div>
     </Container>
