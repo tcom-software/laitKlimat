@@ -303,7 +303,6 @@ export const Container = styled(Product)`
         span {
           display: block;
           text-align: left;
-          text-transform: uppercase;
           white-space: pre-wrap;
 
           ${theme.breakpoints.down("xs")} {
