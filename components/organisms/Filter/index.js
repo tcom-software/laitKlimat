@@ -87,9 +87,9 @@ const Filter = () => {
 
         const serializedManufacturerCountries = serializeManufacturerCountries(
           manufacturerCountries
-          );
-          
-          console.log({manufacturerCountries, serializedManufacturerCountries})
+        );
+
+        console.log({ manufacturerCountries, serializedManufacturerCountries });
         dispatch(
           addFiltersDataCache(categoryId, {
             textFilters,
@@ -106,11 +106,22 @@ const Filter = () => {
    * fetch filters data by category id
    */
   const fetchFiltersData = useCallback(async categoryId => {
-    const response = await fetch("/api/getFilterData", {
-      method: "POST",
-      body: JSON.stringify({ categoryId }),
-    });
-    return await response.json();
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/getFilterData/${categoryId}`,
+      {
+        headers: {
+          projectId: "59",
+        },
+      }
+    );
+
+    const filtersData = {
+      categoryId,
+      payload: {},
+    };
+    filtersData.payload = await response.json();
+
+    return filtersData;
   }, []);
 
   /**
@@ -139,12 +150,14 @@ const Filter = () => {
    * serialize Manufacturer Countries
    */
   const serializeManufacturerCountries = useCallback(manufacturerCountries => {
-    const serializedData = manufacturerCountries.map(({ logo, count, brand, id }) => ({
-      count,
-      value: id,
-      label: brand,
-      image: `${uploadsUrl}manufacturer_logo/size150/${logo}`,
-    }));
+    const serializedData = manufacturerCountries.map(
+      ({ logo, count, brand, id }) => ({
+        count,
+        value: id,
+        label: brand,
+        image: `${uploadsUrl}manufacturer_logo/size150/${logo}`,
+      })
+    );
     return serializedData;
   }, []);
 
