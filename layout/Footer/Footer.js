@@ -11,42 +11,42 @@ const menu = [
     id: 1,
     title: "O компании",
     list: [
-      "Наши сертификаты",
-      "Наши клиенты",
-      "Фото наших монтажей",
-      "Отзывы наших клиентов",
+        { href: "/certificates", text: "Наши сертификаты" },
+        { href: "/clients", text: "Наши клиенты" },
+        { href: "/gallery", text: "Фото наших монтажей" },
+        { href: "/reviews", text: "Отзывы наших клиентов" },
     ],
   },
   {
     id: 2,
     title: "Сервисы",
     list: [
-      "Установка и монтаж",
-      "Доставка и оплата",
-      "Сервис центр",
-      "Контакты",
+      { href: "/placing-and-montage", text: "Установка и монтаж" },
+      { href: "/delivery", text: "Доставка и оплата" },
+      { href: "/service-center", text: "Сервис центр" },
+      { href: "/contacts", text: "Контакты" },
     ],
   },
   {
     id: 3,
     title: "Категории",
     list: [
-      "Кондиционеры и увлажнители",
-      "Системы вентиляции",
-      "Отопление и водоснабжение",
-      "Обогреватели и камины",
-      "Холодильное оборудование",
+      { href: null, text: "Кондиционеры и увлажнители" },
+      { href: null, text: "Системы вентиляции" },
+      { href: null, text: "Отопление и водоснабжение" },
+      { href: null, text: "Обогреватели и камины" },
+      { href: null, text: "Холодильное оборудование" },
     ],
   },
   {
     id: 4,
     title: "Свяжитесь с нами",
     list: [
-      "+7[495] 668-65-11",
-      "Оставить мой номер",
-      "zakup@laitklimat.ru",
-      "info@laitklimat.ru",
-      "support@laitklimat.ru",
+      { href: null, text: "+7[495] 668-65-11" },
+      { href: null, text: "Оставить мой номер" },
+      { href: null, text: "zakup@laitklimat.ru" },
+      { href: null, text: "info@laitklimat.ru" },
+      { href: null, text: "support@laitklimat.ru" },
     ],
   },
   {
@@ -76,11 +76,21 @@ const Footer = () => {
                 </Text>
                 {list ? (
                   <ul className="list">
-                    {list.map((text, idx) => (
+                    {list.map(({ href, text }, idx) => (
                       <li key={idx}>
-                        <Text tag="span" clr="white" sz="small">
-                          {text}
-                        </Text>
+                        {
+                          !!href ? (
+                              <NextLink href={href}>
+                                <Text tag="span" clr="white" sz="small">
+                                  {text}
+                                </Text>
+                              </NextLink>
+                          ) : (
+                              <Text tag="span" clr="white" sz="small">
+                                {text}
+                              </Text>
+                          )
+                        }
                       </li>
                     ))}
                   </ul>
