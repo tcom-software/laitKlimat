@@ -138,9 +138,20 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
           {router.pathname.startsWith("/category") && (
             <div className="filter" onClick={handleShowFilter}>
               <button title="фильтры продуктов" aria-label="фильтры продуктов">
-                <span />
-                <span />
-                <span />
+                <svg
+                  width="70"
+                  height="70"
+                  fill="none"
+                  viewBox="0 0 70 70"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line x1="0" y1="17" x2="70" y2="17" strokeWidth='4' />
+                  <circle cx="53" cy="17" r="6" />
+                  <line x1="0" y1="35" x2="70" y2="35" strokeWidth='4' />
+                  <circle cx="17" cy="35" r="6" />
+                  <line x1="0" y1="53" x2="70" y2="53" strokeWidth='4' />
+                  <circle cx="53" cy="53" r="6" />
+                </svg>
               </button>
             </div>
           )}

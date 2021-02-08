@@ -273,63 +273,28 @@ export const GridRow = styled.section`
       justify-content: space-between;
       font-size: 15px;
       width: 2.35em;
-      height: 1.35em;
+      height: 2.35em;
 
-      ${theme.breakpoints.down("xs")} {
-        font-size: 15px;
-      }
-
-      :hover {
-        span {
-          :nth-of-type(1) {
-            ::before {
-              transform: translate(80%, -30%);
-            }
-          }
-
-          :nth-of-type(2) {
-            ::before {
-              transform: translate(400%, -30%);
-            }
-          }
-
-          :nth-of-type(3) {
-            ::before {
-              transform: translate(80%, -30%);
-            }
-          }
-        }
-      }
-
-      span {
-        height: 0.135em;
-        border-radius: 2em;
-        position: relative;
-        background-color: ${theme.colors.secondary};
-        transition: all 0.2s ease;
+      svg {
         width: 100%;
+        fill: ${theme.colors.secondary};
+        stroke: ${theme.colors.secondary};
 
-        ::before {
-          content: "";
-          width: 0.4em;
-          height: 0.4em;
-          display: block;
-          border-radius: 50%;
-          transform: translate(400%, -30%);
-          background-color: inherit;
+        circle {
           transition: all 0.2s ease;
         }
 
-        :nth-of-type(1) {
-        }
-
-        :nth-of-type(2) {
-          ::before {
-            transform: translate(80%, -30%);
+        :hover {
+          circle:nth-of-type(1) {
+            transform: translateX(-50%);
           }
-        }
-
-        :nth-of-type(3) {
+          circle:nth-of-type(2) {
+            transform: translateX(50%);
+          }
+          circle:nth-of-type(3) {
+            transform: translateX(-50%);
+          }
+         
         }
       }
     }
