@@ -81,7 +81,7 @@ const Filter = () => {
           manufacturerCountries,
           characteristicAttributes,
         } = payload;
-        
+
         const serializedFiltersData = serializeFiltersData(
           characteristicAttributes
         );

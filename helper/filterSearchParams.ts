@@ -39,6 +39,11 @@ export const filterSearchParams = (router: any) => {
   }
 
   for (let key in checkboxes) {
+    if (!Number(key)) {
+      delete checkboxes[key]
+      continue;
+    }
+
     checkboxes[key] = checkboxes[key]
       .split(" ")
       .map((val: string) => Number(val));
