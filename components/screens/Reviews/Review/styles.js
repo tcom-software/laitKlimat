@@ -109,6 +109,7 @@ export const Container = styled.div`
       img {
         width: 140px;
         height: 140px;
+        cursor: pointer;
         object-fit: cover;
       }
 
