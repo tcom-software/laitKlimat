@@ -76,11 +76,26 @@ const Search: FC<SearchProps> = ({
   }, [page]);
 
   const fetchSearchData = async () => {
-    const response = await fetch("/api/searchProduct", {
-      method: "POST",
-      body: JSON.stringify({ search, page }),
-    });
-    return await response.json();
+    const searchData = {
+      payload: {} as any,
+    };
+
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/searchProduct?page=${
+      page || 1
+    }`;
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { projectId: "59", "Content-Type": "application/json" },
+        body: JSON.stringify({ search }),
+      });
+      searchData.payload = await response.json();
+    } catch (error) {
+      console.log(error);
+    }
+
+    return searchData;
   };
 
   const handleOnScroll = (e: any) => {
