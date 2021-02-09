@@ -46,7 +46,7 @@ const AddReview = ({ modalRef, hideModal }) => {
       formData.append("file[]", file);
     }
 
-    const url = `${process.env.NEXT_PUBLIC_API_URL}api/review`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/review`;
     const response = await fetch(url, {
       method: "POST",
       headers: {
