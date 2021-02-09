@@ -46,15 +46,11 @@ const AddReview = ({ modalRef, hideModal }) => {
       formData.append("file[]", file);
     }
 
-    const projectId = "59";
-    const fetchUrl = "http://back.projects-backend.ru/";
-    const addReviewPath = "api/review";
-
-    const url = `${fetchUrl}${addReviewPath}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}api/review`;
     const response = await fetch(url, {
       method: "POST",
       headers: {
-        projectId,
+        projectId: "59",
       },
       body: formData,
     });
