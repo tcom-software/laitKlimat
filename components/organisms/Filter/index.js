@@ -215,14 +215,33 @@ const Filter = () => {
         </div>
         <div className="column column-three">
           <InputCheckbox data={classEnergy} loading={loading} />
-          {textFilters?.map(({ title, id }) => (
-            <InputFromTo
-              key={id}
-              title={title}
-              loading={loading}
-              inputName={`range${id}`}
-            />
-          ))}
+          {textFilters &&
+            Object.values(textFilters).reduce((acc, filter) => {
+              const { filters, type, title, id } = filter;
+              if (type === "group") {
+                return [
+                  ...acc,
+                  ...filters.map(({ title, id }) => (
+                    <InputFromTo
+                      key={id}
+                      title={title}
+                      loading={loading}
+                      inputName={`range${id}`}
+                    />
+                  )),
+                ];
+              }
+
+              return [
+                ...acc,
+                <InputFromTo
+                  key={id}
+                  title={title}
+                  loading={loading}
+                  inputName={`range${id}`}
+                />,
+              ];
+            }, [])}
         </div>
         <div className="column column-four">
           <InputCheckboxImage data={manufacturerCountry} loading={loading} />

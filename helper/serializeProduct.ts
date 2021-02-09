@@ -123,11 +123,13 @@ export const serializeProductData = (data: any) => {
 
   const productName = `${brand} ${series_name || ""}-${model}`;
   const productImage = getProductPhoto(photos[0]);
-  const certificateImage = `${uploadsUrl}manufacturer_certificate/size300/${certificate?.certificate_file_name}`;
+  const certificateImage =
+    certificate?.certificate_file_name &&
+    `${uploadsUrl}manufacturer_certificate/size300/${certificate?.certificate_file_name}`;
   const brandLogo = `${uploadsUrl}manufacturer_logo/size150/${manufacturer_logo}`;
-  const formatedPrice = makePriceView(price, { unit: "₽", split: " " });
+  const formattedPrice = makePriceView(price, { unit: "₽", split: " " });
   const creditFrom = makePriceView((price / 24) | 0, { unit: "₽", split: " " });
-  const formatedSetupPrice = makePriceView(setup_price, {
+  const formattedSetupPrice = makePriceView(setup_price, {
     unit: "₽",
     split: " ",
   });
@@ -135,14 +137,14 @@ export const serializeProductData = (data: any) => {
   const serializedCharacteristics = [] as any[];
 
   for (const el of characteristics) {
-    let finded = serializedCharacteristics.find(
+    let found = serializedCharacteristics.find(
       ({ title }: any) => title === el.title
     );
-    if (!finded) {
-      finded = { title: el.title, table: {} };
-      serializedCharacteristics.push(finded);
+    if (!found) {
+      found = { title: el.title, table: {} };
+      serializedCharacteristics.push(found);
     }
-    finded.table[el.characteristic_name] =
+    found.table[el.characteristic_name] =
       el.characteristic_value || el.characteristic_attribute_name;
   }
 
@@ -213,7 +215,7 @@ export const serializeProductData = (data: any) => {
                 tag: "span",
                 sz: "larg",
                 clr: "tercary",
-                text: formatedPrice,
+                text: formattedPrice,
               },
             },
             className: "price",
@@ -270,7 +272,7 @@ export const serializeProductData = (data: any) => {
                 tag: "span",
                 sz: "normal",
                 clr: "tercary",
-                text: formatedSetupPrice,
+                text: formattedSetupPrice,
               },
             },
             notRender: !setup_price,

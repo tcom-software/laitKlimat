@@ -24,7 +24,7 @@ const CertificatesView = ({ showModal }) => {
     <Container className="container">
       <Hgroup
         h1="Наши сертификаты"
-        h2="Подтверждение официального статуса авторизованного дилера <strong>58 брендов.</strong>"
+        h2={`Подтверждение официального статуса авторизованного дилера <strong>${certificates.length} брендов.</strong>`}
       />
       <div className="gallery">
         {certificates.map((props, idx) => (

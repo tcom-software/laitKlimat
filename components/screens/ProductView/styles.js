@@ -64,6 +64,10 @@ export const Container = styled.div`
           margin-right: 6vw;
           position: relative;
 
+          ${theme.breakpoints.up("xxl")} {
+            margin-right: 115px;
+          }
+
           .sale {
             position: absolute;
             top: -2em;
@@ -79,6 +83,7 @@ export const Container = styled.div`
 
           img {
             width: 100%;
+            max-width: 650px;
             object-fit: cover;
           }
         }
@@ -107,11 +112,11 @@ export const Container = styled.div`
           }
 
           .certificate--wrapper {
+            width: 100%;
             display: block;
             border: 1em solid #eeeeee;
             box-shadow: 7px 7px 11px 0px rgb(0 0 0 / 0.25),
               inset 0px 0px 8px 3px rgb(0 0 0 / 0.2);
-            width: 100%;
 
             ${theme.breakpoints.between("md", 1200)} {
               width: 70%;
@@ -119,8 +124,8 @@ export const Container = styled.div`
             }
 
             img {
-              padding: 0.1em;
               width: 100%;
+              padding: 0.1em;
             }
           }
         }

@@ -42,12 +42,14 @@ const LeftSide = ({ data }) => {
             />
           )}
         </div>
-        <div className="certificate">
-          <img src={brandLogo} alt="gdf" />
-          <div className="certificate--wrapper">
-            <img alt="certificate" src={certificateImage} />
+        {certificateImage && (
+          <div className="certificate">
+            <img src={brandLogo} alt="gdf" />
+            <div className="certificate--wrapper">
+              <img alt="certificate" src={certificateImage} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div></div>
     </section>
