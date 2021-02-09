@@ -54,6 +54,7 @@ const ProductView = () => {
   if (!product) {
     return (
       <Container>
+        <div id="title" />
         <PreviousViews className="container" title="Похожие товары" />
         <PreviousViews className="container previous-views" />
       </Container>
@@ -69,7 +70,8 @@ const ProductView = () => {
 
   return (
     <Container>
-      <Text tag="h2" clr="secondary" sz="larg" id="title">
+      <div id="title" />
+      <Text tag="h2" clr="secondary" sz="larg">
         {productName}
       </Text>
       <div className="product-info container">
