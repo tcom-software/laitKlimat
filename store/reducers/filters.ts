@@ -12,10 +12,10 @@ export const serialezeKey = (key: any) => {
   );
 };
 
-const addToCashe = (cache: any, payload: any) => {
-  const serialezedKey = serialezeKey(payload.key);
-  cache._cache[serialezedKey] = payload.value;
-  cache._cacheOrdering.push(serialezedKey);
+const addToCache = (cache: any, payload: any) => {
+  const serializedKey = serialezeKey(payload.key);
+  cache._cache[serializedKey] = payload.value;
+  cache._cacheOrdering.push(serializedKey);
   if (cache._cacheOrdering.length > cache._cacheSize) {
     const earliest = cache._cacheOrdering[0];
     removeCacheByKey(cache, earliest);
@@ -24,12 +24,12 @@ const addToCashe = (cache: any, payload: any) => {
 };
 
 const removeCacheByKey = (cache: any, key: any) => {
-  const serialezedKey = serialezeKey(key);
-  const index = cache._cacheOrdering.indexOf(serialezedKey);
+  const serializedKey = serialezeKey(key);
+  const index = cache._cacheOrdering.indexOf(serializedKey);
   if (index > -1) {
     cache._cacheOrdering.splice(index, 1);
   }
-  delete cache._cache[serialezedKey];
+  delete cache._cache[serializedKey];
   return cache;
 };
 
@@ -64,7 +64,7 @@ const filterReducer = (
     case types.ADD_NEW_CACHE:
       return {
         ...state,
-        cache: { ...addToCashe(state.cache, action.payload) },
+        cache: { ...addToCache(state.cache, action.payload) },
       };
     case types.REMOVE_CACHE_BY_KEY:
       return {

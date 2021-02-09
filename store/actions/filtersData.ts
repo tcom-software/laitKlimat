@@ -13,7 +13,7 @@ export const types = {
 
 // action creators
 
-/// cahche
+/// cache
 export const addFiltersDataCache = (key: any, value: any) => ({
   type: types.ADD_NEW_CACHE,
   payload: { key, value },

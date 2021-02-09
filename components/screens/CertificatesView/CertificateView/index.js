@@ -16,10 +16,10 @@ const CertificateView = ({
   });
 
   const certificatePath = (size = "size300") =>
-    `${process.env.NEXT_PUBLIC_API_UPLOADS_URL}manufacturer_certificate/${size}/${file_name}`;
+    `${process.env.NEXT_PUBLIC_API_UPLOADS_URL}/manufacturer_certificate/${size}/${file_name}`;
 
   const brandLogoPath = (size = "size150") =>
-    `${process.env.NEXT_PUBLIC_API_UPLOADS_URL}manufacturer_logo/${size}/${brandLogo}`;
+    `${process.env.NEXT_PUBLIC_API_UPLOADS_URL}/manufacturer_logo/${size}/${brandLogo}`;
 
   const handleShowImage = useCallback(() => {
     dispatch(

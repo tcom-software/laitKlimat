@@ -20,8 +20,7 @@ const AddReview = ({ modalRef, hideModal }) => {
       showModal({
         modalType: "alert",
         modalProps: {
-          heading: "Thank you",
-          description: "Thanks sooo much",
+          heading: "Благодарим вас за оставленный отзыв",
         },
       })
     );

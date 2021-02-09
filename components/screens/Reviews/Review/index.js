@@ -23,16 +23,16 @@ const Review = ({ data, loading }) => {
   }, []);
 
   const {
-    admin_comment,
+    date,
+    name,
+    images,
+    rating,
+    comment,
+    last_name,
     advantages,
     limitations,
-    comment,
-    date,
+    admin_comment,
     installed_conditioner,
-    last_name,
-    name,
-    rating,
-    images,
   } = data;
 
   return (
@@ -61,7 +61,7 @@ const Review = ({ data, loading }) => {
         {advantages && (
           <div className="review">
             <Text tag="span" clr="tercary" sz="normal" bold>
-              {"ПРЕИМУЩЕСТВА"}
+              Преимущества
             </Text>
             <Text tag="p" clr="primary" sz="normal">
               {advantages}
@@ -71,7 +71,7 @@ const Review = ({ data, loading }) => {
         {limitations && (
           <div className="review">
             <Text tag="span" clr="tercary" sz="normal" bold>
-              {"НЕДОСТАТКИ"}
+              Недостатки
             </Text>
             <Text tag="p" clr="primary" sz="normal">
               {limitations}
@@ -81,7 +81,7 @@ const Review = ({ data, loading }) => {
         {comment && (
           <div className="review">
             <Text tag="span" clr="tercary" sz="normal" bold>
-              {"ОПИСАНИЕ"}
+              Описание
             </Text>
             <Text tag="p" clr="primary" sz="normal">
               {comment}
@@ -92,19 +92,19 @@ const Review = ({ data, loading }) => {
         <ul className="conditioner">
           {installed_conditioner && (
             <li>
-              <Text tag="span" clr="primary" sz="normal">
+              <Text tag="span" clr="tercary" sz="normal" bold>
                 Установленный кондиционер:
               </Text>
-              <Text tag="span" clr="tercary" sz="normal" bold>
+              <Text tag="span" clr="primary" sz="normal">
                 {installed_conditioner}
               </Text>
             </li>
           )}
           <li>
-            <Text tag="span" clr="primary" sz="normal">
-              дата установки:
-            </Text>
             <Text tag="span" clr="tercary" sz="normal" bold>
+              Дата установки:
+            </Text>
+            <Text tag="span" clr="primary" sz="normal">
               {date}
             </Text>
           </li>
@@ -119,11 +119,11 @@ const Review = ({ data, loading }) => {
         </div>
         {images && (
           <div className="images">
-            {images.map(({ path, format }, idx) => (
+            {images.map(({ path }, idx) => (
               <img
                 key={idx}
                 alt="photo"
-                src={path + "." + format}
+                src={path}
                 onClick={() => handleShowImage(path, format)}
               />
             ))}

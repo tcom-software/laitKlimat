@@ -81,6 +81,7 @@ const Filter = () => {
           manufacturerCountries,
           characteristicAttributes,
         } = payload;
+        
         const serializedFiltersData = serializeFiltersData(
           characteristicAttributes
         );
@@ -89,7 +90,6 @@ const Filter = () => {
           manufacturerCountries
         );
 
-        console.log({ manufacturerCountries, serializedManufacturerCountries });
         dispatch(
           addFiltersDataCache(categoryId, {
             textFilters,
