@@ -8,13 +8,12 @@ import cn from "classnames";
 const Review = ({ data, loading }) => {
   const dispatch = useDispatch();
 
-  const handleShowImage = useCallback((url, type) => {
+  const handleShowImage = useCallback(url => {
     dispatch(
       showModal({
         modalType: "imageView",
         modalProps: {
           url,
-          type,
           alt: "review photo",
           responsive: false,
         },
@@ -124,7 +123,7 @@ const Review = ({ data, loading }) => {
                 key={idx}
                 alt="photo"
                 src={path}
-                onClick={() => handleShowImage(path, format)}
+                onClick={() => handleShowImage(path)}
               />
             ))}
           </div>
