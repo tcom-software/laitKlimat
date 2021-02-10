@@ -14,6 +14,14 @@ const InputCheckboxImage = ({ data, f_data, loading }) => {
     if (data) setInputName(data.id);
   }, [data?.id]);
 
+  const { values: checkboxes, title } = data ?? {};
+  const { values: f_checkboxes } = f_data ?? {};
+
+  const memoizedCheckboxes = useMemo(
+    () => checkboxes?.filter(({ label }) => label !== "не выбрано"),
+    [checkboxes]
+  );
+
   if (loading) {
     return <Skeleton />;
   }
@@ -21,8 +29,6 @@ const InputCheckboxImage = ({ data, f_data, loading }) => {
   if (!loading && !data) {
     return null;
   }
-
-  const { title, values: checkboxes } = data;
 
   return (
     <StyledFieldSet>
@@ -43,26 +49,32 @@ const InputCheckboxImage = ({ data, f_data, loading }) => {
           lastY = e.touches[0].clientY;
         }}
       >
-        {checkboxes
-          .filter(({ label }) => label !== "не выбрано")
-          .map(({ label, value }, index) => (
-            <label title={label} key={index}>
-              <img
-                src={`images/country-flags/${countryAbbr[label]}.svg`}
-                alt={label}
-                title={label}
-              />
-              <Text tag="span" sz="small" clr="primary">
-                {label}
-              </Text>
-              <Checkbox
-                value={value}
-                name={inputName}
-                onChange={handleOnCheck}
-                checked={isChecked(value)}
-              />
-            </label>
-          ))}
+        {memoizedCheckboxes.map(({ label, value }, index) => (
+          <label
+            title={label}
+            key={index}
+            className={
+              f_checkboxes?.some(({ value: v }) => v === value)
+                ? ""
+                : "disabled"
+            }
+          >
+            <img
+              src={`images/country-flags/${countryAbbr[label]}.svg`}
+              alt={label}
+              title={label}
+            />
+            <Text tag="span" sz="small" clr="primary">
+              {label}
+            </Text>
+            <Checkbox
+              value={value}
+              name={inputName}
+              onChange={handleOnCheck}
+              checked={isChecked(value)}
+            />
+          </label>
+        ))}
       </div>
     </StyledFieldSet>
   );
