@@ -2,7 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import cn from 'classnames'
+import cn from "classnames";
 
 import { getCategories } from "@redux/selectors/site";
 import { showModal } from "@redux/actions/modal";
@@ -103,13 +103,6 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
     });
   }, []);
 
-  // const goToProductPage = productId => {
-  //   router.push({
-  //     as: `/products/${productId}`,
-  //     href: `/products/[product]`,
-  //   });
-  // };
-
   return (
     <>
       <StyledHeader>
@@ -145,18 +138,22 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
                   viewBox="0 0 70 70"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <line x1="0" y1="17" x2="70" y2="17" strokeWidth='4' />
+                  <line x1="0" y1="17" x2="70" y2="17" strokeWidth="4" />
                   <circle cx="53" cy="17" r="6" />
-                  <line x1="0" y1="35" x2="70" y2="35" strokeWidth='4' />
+                  <line x1="0" y1="35" x2="70" y2="35" strokeWidth="4" />
                   <circle cx="17" cy="35" r="6" />
-                  <line x1="0" y1="53" x2="70" y2="53" strokeWidth='4' />
+                  <line x1="0" y1="53" x2="70" y2="53" strokeWidth="4" />
                   <circle cx="53" cy="53" r="6" />
                 </svg>
               </button>
             </div>
           )}
           <div className="hamburger" onClick={handleShowMenu}>
-            <button title="меню" aria-label="меню" className={cn({ 'open-mobile-menu': isOpenMobileMenu})}>
+            <button
+              title="меню"
+              aria-label="меню"
+              className={cn({ "open-mobile-menu": isOpenMobileMenu })}
+            >
               <svg
                 width="70"
                 height="70"
@@ -164,9 +161,30 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
                 viewBox="0 0 70 70"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line x1="0" y1="17" x2="70" y2="17" stroke="black" strokeWidth='3' />
-                <line x1="0" y1="35" x2="70" y2="35" stroke="black" strokeWidth='3' />
-                <line x1="0" y1="53" x2="70" y2="53" stroke="black" strokeWidth='3' />
+                <line
+                  x1="0"
+                  y1="17"
+                  x2="70"
+                  y2="17"
+                  stroke="black"
+                  strokeWidth="3"
+                />
+                <line
+                  x1="0"
+                  y1="35"
+                  x2="70"
+                  y2="35"
+                  stroke="black"
+                  strokeWidth="3"
+                />
+                <line
+                  x1="0"
+                  y1="53"
+                  x2="70"
+                  y2="53"
+                  stroke="black"
+                  strokeWidth="3"
+                />
               </svg>
             </button>
           </div>

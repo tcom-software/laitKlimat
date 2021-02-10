@@ -6,14 +6,12 @@ import Skeleton from "./skeleton";
 
 let lastY;
 
-const InputCheckboxImage = ({ data, loading }) => {
+const InputCheckboxImage = ({ data, f_data, loading }) => {
   const [inputName, setInputName] = useState("");
   const { handleOnCheck, isChecked } = useCheckedFilters(inputName);
 
   useEffect(() => {
-    if (data) {
-      setInputName(data.id);
-    }
+    if (data) setInputName(data.id);
   }, [data?.id]);
 
   if (loading) {

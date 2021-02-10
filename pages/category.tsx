@@ -37,7 +37,6 @@ import { toggleCategoryLoader } from "@redux/actions/loader";
 import { getCategoryLoader } from "@redux/selectors/loader";
 
 import { compose } from "utils/compose";
-import isEmpty from "lodash/isEmpty";
 import { filterSearchParams } from "helper/filterSearchParams";
 
 const Category = () => {

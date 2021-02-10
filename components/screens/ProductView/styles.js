@@ -136,6 +136,7 @@ export const Container = styled.div`
       box-shadow: ${theme.shadow.effect1};
       padding: 2.5em;
       height: max-content;
+      width: min-content;
 
       ${theme.breakpoints.down("lg")} {
         padding: 1.5em;

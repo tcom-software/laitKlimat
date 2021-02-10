@@ -58,7 +58,7 @@ const InputFromTo = ({
   }
 
   return (
-    <StyledFieldSet className={isActive ? "" : "disabled"}>
+    <StyledFieldSet className={(isActive ?? true) ? "" : "disabled"}>
       <legend>
         <Text tag="span" clr="secondary" sz="normal" bold>
           {title}

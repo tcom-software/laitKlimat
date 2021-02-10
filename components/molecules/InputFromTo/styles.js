@@ -50,6 +50,8 @@ export const StyledFieldSet = styled.fieldset`
   }
 
   &.disabled {
+    pointer-events: none;
+    
     legend {
       span {
         color: #00000036;

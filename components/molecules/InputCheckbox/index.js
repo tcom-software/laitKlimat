@@ -24,15 +24,6 @@ const InputCheckbox = ({ data, f_data, loading }) => {
     [checkboxes]
   );
 
-  const f_memoizedCheckboxes = useMemo(
-    () =>
-      f_checkboxes
-        ?.filter(({ label }) => label !== "не выбрано")
-        .sort((a, b) => a.value - b.value),
-
-    [f_checkboxes]
-  );
-
   if (loading) {
     return <Skeleton />;
   }
@@ -54,9 +45,7 @@ const InputCheckbox = ({ data, f_data, loading }) => {
         <label
           key={idx}
           className={
-            f_memoizedCheckboxes?.some(({ value: v }) => v === value)
-              ? ""
-              : "disabled"
+            f_checkboxes?.some(({ value: v }) => v === value) ? "" : "disabled"
           }
         >
           <Checkbox

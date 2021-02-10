@@ -102,7 +102,7 @@ const Filter = () => {
       const data = await FilterService.getFiltersByFilter(router);
       setFiltersByFilters(data);
     })();
-  }, [router]);
+  }, [router.query]);
 
   // filter`s parts
   const { data, manufacturerCountries, textFilters } = filtersData || {};
@@ -234,8 +234,16 @@ const Filter = () => {
             }, [])}
         </div>
         <div className="column column-four">
-          <InputCheckboxImage data={manufacturerCountry} loading={loading} />
-          <InputCheckboxImage data={brandCountry} loading={loading} />
+          <InputCheckboxImage
+            loading={loading}
+            data={manufacturerCountry}
+            f_data={f_manufacturerCountry}
+          />
+          <InputCheckboxImage
+            loading={loading}
+            data={brandCountry}
+            f_data={f_brandCountry}
+          />
         </div>
       </Container>
 

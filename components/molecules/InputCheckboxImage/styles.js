@@ -36,6 +36,20 @@ export const StyledFieldSet = styled.fieldset`
       input {
         margin-left: auto;
       }
+
+      &.disabled {
+        img {
+          filter: grayscale(1);
+        }
+
+        input {
+          background-color: #e8e8e894;
+        }
+
+        span {
+          color: #00000036;
+        }
+      }
     }
   }
 `;
