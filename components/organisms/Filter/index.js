@@ -14,11 +14,11 @@ import { Container, OtherFilters, ShowOtherFilters } from "./styles";
 import { serialezeFiltersDataKey } from "@redux/reducers/filtersData";
 import { getFiltersDataCacheByKey } from "@redux/selectors/filtersData";
 
-import getConfig from "next/config";
-
-const {
-  publicRuntimeConfig: { uploadsUrl },
-} = getConfig();
+import { FilterService } from "./FilterService";
+import {
+  serializeFiltersData,
+  serializeManufacturerCountries,
+} from "./functions";
 
 const FILTERS_ID = {
   main: {
@@ -66,8 +66,11 @@ const FILTERS_ID = {
 const Filter = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(true);
+
   const [showOther, toggleShowOther] = useState(false);
+  const [filtersByFilters, setFiltersByFilters] = useState(null);
   const serializedKey = serialezeFiltersDataKey(router.query.c);
   const filtersData = useSelector(getFiltersDataCacheByKey(serializedKey));
 
@@ -75,26 +78,18 @@ const Filter = () => {
     setLoading(true);
     (async () => {
       if (!filtersData) {
-        const { categoryId, payload } = await fetchFiltersData(router.query.c);
         const {
+          categoryId,
           textFilters,
           manufacturerCountries,
           characteristicAttributes,
-        } = payload;
-
-        const serializedFiltersData = serializeFiltersData(
-          characteristicAttributes
-        );
-
-        const serializedManufacturerCountries = serializeManufacturerCountries(
-          manufacturerCountries
-        );
+        } = await FilterService.getFilters(router.query.c);
 
         dispatch(
           addFiltersDataCache(categoryId, {
             textFilters,
-            data: serializedFiltersData, // other filters
-            manufacturerCountries: serializedManufacturerCountries,
+            manufacturerCountries,
+            data: characteristicAttributes, // other filters
           })
         );
       }
@@ -102,64 +97,12 @@ const Filter = () => {
     })();
   }, [router.query.c /* category */]);
 
-  /**
-   * fetch filters data by category id
-   */
-  const fetchFiltersData = useCallback(async categoryId => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/getFilterData/${categoryId}`,
-      {
-        headers: {
-          projectId: "59",
-        },
-      }
-    );
-
-    const filtersData = {
-      categoryId,
-      payload: {},
-    };
-    filtersData.payload = await response.json();
-
-    return filtersData;
-  }, []);
-
-  /**
-   * serialize Filters Data, split by parts
-   */
-  const serializeFiltersData = useCallback(data => {
-    const serializedData = {};
-    for (let i = 0; i < data.length; i++) {
-      const {
-        title,
-        id: sortId,
-        name: type,
-        name_ru: label,
-        characteristic_id: id,
-      } = data[i];
-      if (!id) continue;
-      if (!serializedData[id]) {
-        serializedData[id] = { id, title, type, values: [] };
-      }
-      serializedData[id].values.push({ label, value: sortId });
-    }
-    return serializedData;
-  }, []);
-
-  /**
-   * serialize Manufacturer Countries
-   */
-  const serializeManufacturerCountries = useCallback(manufacturerCountries => {
-    const serializedData = manufacturerCountries.map(
-      ({ logo, count, brand, id }) => ({
-        count,
-        value: id,
-        label: brand,
-        image: `${uploadsUrl}manufacturer_logo/size150/${logo}`,
-      })
-    );
-    return serializedData;
-  }, []);
+  useEffect(() => {
+    (async () => {
+      const data = await FilterService.getFiltersByFilter(router);
+      setFiltersByFilters(data);
+    })();
+  }, [router]);
 
   // filter`s parts
   const { data, manufacturerCountries, textFilters } = filtersData || {};
@@ -172,13 +115,28 @@ const Filter = () => {
   const manufacturerCountry = data?.[FILTERS_ID.main.manufacturerCountry];
   const numberOfPluginUnits = data?.[FILTERS_ID.main.numberOfPluginUnits];
 
+  // filters after filter
+  const { data: f_data, textFilters: f_textFilters } = filtersByFilters || {};
+  const f_inverter = f_data?.[FILTERS_ID.main.inverter];
+  const f_classEnergy = f_data?.[FILTERS_ID.main.classEnergy];
+  const f_servicedArea = f_data?.[FILTERS_ID.main.servicedArea];
+  const f_brandCountry = f_data?.[FILTERS_ID.main.brandCountry];
+  const f_coolingHeating = f_data?.[FILTERS_ID.main.coolingHeating];
+  const f_ventilationMode = f_data?.[FILTERS_ID.main.ventilationMode];
+  const f_manufacturerCountry = f_data?.[FILTERS_ID.main.manufacturerCountry];
+  const f_numberOfPluginUnits = f_data?.[FILTERS_ID.main.numberOfPluginUnits];
+
   return (
     <>
       <Container>
         <div className="column column-one">
           <InputFromTo title="Цена" inputName="price" />
           {numberOfPluginUnits && (
-            <InputCheckbox data={numberOfPluginUnits} loading={loading} />
+            <InputCheckbox
+              loading={loading}
+              data={numberOfPluginUnits}
+              f_data={f_numberOfPluginUnits}
+            />
           )}
           <InputCheckboxImageSearch
             loading={loading}
@@ -188,8 +146,16 @@ const Filter = () => {
           />
         </div>
         <div className="column column-two">
-          <InputCheckbox data={servicedArea} loading={loading} />
-          <InputCheckbox data={inverter} loading={loading} />
+          <InputCheckbox
+            loading={loading}
+            data={servicedArea}
+            f_data={f_servicedArea}
+          />
+          <InputCheckbox
+            data={inverter}
+            loading={loading}
+            f_data={f_inverter}
+          />
           {/* 
             НА ОБОГРЕВ ДО -30 °С 
             НА ОХЛАЖДЕНИЯ ДО -40 °С  
@@ -207,26 +173,47 @@ const Filter = () => {
                         { ...data[id].values[0], label: data[id].title },
                       ],
                     }}
+                    f_data={{
+                      id: f_data?.[id]?.id,
+                      values: [
+                        {
+                          ...(f_data?.[id]?.values[0] ?? {}),
+                          label: f_data?.[id]?.title,
+                        },
+                      ],
+                    }}
                   />
                 ))}
             </div>
           )}
-          <InputCheckbox data={ventilationMode} loading={loading} />
+          <InputCheckbox
+            loading={loading}
+            data={ventilationMode}
+            f_data={f_ventilationMode}
+          />
         </div>
         <div className="column column-three">
-          <InputCheckbox data={classEnergy} loading={loading} />
+          <InputCheckbox
+            loading={loading}
+            data={classEnergy}
+            f_data={f_classEnergy}
+          />
           {textFilters &&
+            !(textFilters instanceof Array) &&
             Object.values(textFilters).reduce((acc, filter) => {
               const { filters, type, title, id } = filter;
               if (type === "group") {
                 return [
                   ...acc,
-                  ...filters.map(({ title, id }) => (
+                  ...filters.map(({ title: childTitle, id: childId }) => (
                     <InputFromTo
                       key={id}
-                      title={title}
+                      title={childTitle}
                       loading={loading}
-                      inputName={`range${id}`}
+                      inputName={`range${childId}`}
+                      isActive={Object.values(f_textFilters ?? {})
+                        ?.find(({ title: _t }) => _t === title)
+                        ?.filters.some(({ id: _id }) => _id === childId)}
                     />
                   )),
                 ];
@@ -239,6 +226,9 @@ const Filter = () => {
                   title={title}
                   loading={loading}
                   inputName={`range${id}`}
+                  isActive={Object.values(f_textFilters ?? {}).some(
+                    ({ id: _id }) => _id === id
+                  )}
                 />,
               ];
             }, [])}
@@ -255,7 +245,12 @@ const Filter = () => {
             // leave only the necessary ones
             .filter(id => data[id])
             .map(id => (
-              <InputCheckbox key={id} data={data[id]} loading={loading} />
+              <InputCheckbox
+                key={id}
+                data={data[id]}
+                loading={loading}
+                f_data={f_data[id]}
+              />
             ))}
         </OtherFilters>
       )}

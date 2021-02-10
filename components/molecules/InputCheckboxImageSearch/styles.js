@@ -26,7 +26,8 @@ export const StyledFieldSet = styled.fieldset`
       align-items: center;
       grid-template-columns: 70px min-content 1fr min-content;
       margin-bottom: 0.4em;
-
+      cursor: pointer;
+      
       img {
       }
 

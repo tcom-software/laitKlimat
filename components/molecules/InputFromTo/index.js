@@ -9,11 +9,12 @@ import Skeleton from "./skeleton";
 let timeId;
 
 const InputFromTo = ({
-  fromText = "От",
-  toText = "до",
-  inputName,
-  loading,
   title,
+  loading,
+  isActive,
+  inputName,
+  toText = "до",
+  fromText = "От",
 }) => {
   const router = useRouter();
   const [to, setTo] = useState("");
@@ -57,7 +58,7 @@ const InputFromTo = ({
   }
 
   return (
-    <StyledFieldSet>
+    <StyledFieldSet className={isActive ? "" : "disabled"}>
       <legend>
         <Text tag="span" clr="secondary" sz="normal" bold>
           {title}

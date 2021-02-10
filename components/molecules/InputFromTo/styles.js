@@ -44,7 +44,15 @@ export const StyledFieldSet = styled.fieldset`
       }
 
       ${theme.breakpoints.down("xs")} {
-        width:100%;
+        width: 100%;
+      }
+    }
+  }
+
+  &.disabled {
+    legend {
+      span {
+        color: #00000036;
       }
     }
   }
