@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import Slider from "react-slick";
 
 const Circle = props => (
   <svg
@@ -304,22 +305,100 @@ import Button from "@atoms/Button";
 import Image from "@atoms/Image";
 
 import { Container, Section } from "./styles";
+import { useRouter } from "next/router";
 
-// const texts = [
-//   { title: "доставка по всей россии", sz: "normal" },
-//   { title: "Hitachi RAK-18NH6AS", sz: "larger" },
-//   { title: "Лучшая цена на рынке", sz: "normal" },
-//   { title: "9 900 ₽", sz: "larger" },
-//   { title: "Антибактериальный фильтр <strong>в подарок<strong>", sz: "normal" },
-// ];
 const texts = [
-  { title: "Лучшая цена на рынке", sz: "larger" },
   { title: "доставка по всей россии", sz: "normal" },
+  { title: "Hitachi RAK-18NH6AS", sz: "larger" },
+  { title: "Лучшая цена на рынке", sz: "normal" },
+  { title: "9 900 ₽", sz: "larger" },
+  { title: "Антибактериальный фильтр <strong>в подарок<strong>", sz: "normal" },
 ];
 
 const variants = ["primary", "secondary", "tercary"];
 
 const Banner = ({ variant }) => {
+  const router = useRouter();
+  const [photos, setPhotos] = useState([
+    {
+      id: 1206,
+      price: "",
+      name: " ",
+      img: "./images/banner/1206.png",
+    },
+    {
+      id: 5542,
+      price: "",
+      name: " ",
+      img: "./images/banner/5542.png",
+    },
+    {
+      id: 926,
+      price: 45,
+      name: " ",
+      img: "./images/banner/926.png",
+    },
+  ]);
+
+  useEffect(() => {
+    (async () => {
+      const products1 = [];
+
+      for (let photo of photos) {
+        products1.push(
+          fetch("/api/getProduct", {
+            method: "POST",
+            body: JSON.stringify({ productId: photo.id }),
+          })
+        );
+      }
+
+      const products = [];
+
+      Promise.all(products1).then(responses => {
+        responses.forEach(el => products.push(el.json()));
+        Promise.all(products).then(products => {
+          setPhotos([
+            {
+              id: 1206,
+              price: products[0].product.price,
+              name: `${products[0].product.brand} ${
+                products[0].product.series_name || ""
+              }-${products[0].product.model}`,
+              img: "./images/banner/1206.png",
+            },
+            {
+              id: 5542,
+              price: products[1].product.price,
+              name: `${products[1].product.brand} ${
+                products[1].product.series_name || ""
+              }-${products[1].product.model}`,
+              img: "./images/banner/5542.png",
+            },
+            {
+              id: 926,
+              price: products[2].product.price,
+              name: `${products[2].product.brand} ${
+                products[2].product.series_name || ""
+              }-${products[2].product.model}`,
+              img: "./images/banner/926.png",
+            },
+          ]);
+        });
+      });
+    })();
+  }, []);
+
+  const settings = {
+    speed: 1000,
+    arrows: false,
+    infinite: true,
+    infinite: true,
+    autoplay: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <Container variant={variant}>
       <div className="background">
@@ -332,27 +411,60 @@ const Banner = ({ variant }) => {
         <Circle data-circle3 />
       </div>
       <Section>
-        <div className="info">
-          <div className="texts">
-            {texts.map(({ title, sz }, idx) => (
-              <Text sz={sz} clr="white" key={idx}>
-                {title}
-              </Text>
-            ))}
-          </div>
-          {/* <div className="buttons">
-            <Button title="узнать больше" variant="secondary" />
-            <Button title="сделать заказ" variant="primary" />
-          </div> */}
-        </div>
-        <div className="image">
-          <Image
-            path="/images/banner/banner"
-            alt="product"
-            type="png"
-            responsive
-          />
-        </div>
+        <Slider {...settings}>
+          {photos.map(({ id, name, img, price }) => (
+            <div key={id} className="wrapper">
+              <div className="info">
+                <div className="texts">
+                  {[
+                    { title: "доставка по всей россии", sz: "normal" },
+                    { title: name, sz: "larger" },
+                    { title: "Лучшая цена на рынке", sz: "normal" },
+                    { title: price + " ₽", sz: "larger" },
+                    {
+                      title:
+                        "Антибактериальный фильтр <strong>в подарок<strong>",
+                      sz: "normal",
+                    },
+                  ].map(({ title, sz }, idx) => (
+                    <Text sz={sz} clr="white" key={idx}>
+                      {title}
+                    </Text>
+                  ))}
+                </div>
+                <div className="buttons">
+                  <Button
+                    title="Узнать больше"
+                    variant="secondary"
+                    onClick={() =>
+                      router.push(
+                        {
+                          pathname: "/products/[product]",
+                        },
+                        "/products/" + id
+                      )
+                    }
+                  />
+                  <Button
+                    title="Сделать заказ"
+                    variant="primary"
+                    onClick={() =>
+                      router.push(
+                        {
+                          pathname: "/products/[product]",
+                        },
+                        "/products/" + id
+                      )
+                    }
+                  />
+                </div>
+              </div>
+              <div className="image">
+                <img src={img} />
+              </div>
+            </div>
+          ))}
+        </Slider>
       </Section>
     </Container>
   );
