@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Text, Checkbox, Loading } from "@atoms";
 import useCheckedFilters from "hooks/useCheckedFilters";
 import { StyledFieldSet } from "./styles";
@@ -49,7 +49,7 @@ const InputCheckboxImage = ({ data, f_data, loading }) => {
           lastY = e.touches[0].clientY;
         }}
       >
-        {memoizedCheckboxes.map(({ label, value }, index) => (
+        {memoizedCheckboxes?.map(({ label, value }, index) => (
           <label
             title={label}
             key={index}

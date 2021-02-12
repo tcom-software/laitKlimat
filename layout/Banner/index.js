@@ -306,6 +306,7 @@ import Image from "@atoms/Image";
 
 import { Container, Section } from "./styles";
 import { useRouter } from "next/router";
+import { ButtonOrderOneClick } from "@atoms/Button/ButtonOrderOneClick";
 
 const texts = [
   { title: "доставка по всей россии", sz: "normal" },
@@ -445,7 +446,11 @@ const Banner = ({ variant }) => {
                       )
                     }
                   />
-                  <Button
+                  <ButtonOrderOneClick
+                    variant="primary"
+                    title="Сделать заказ"
+                  />
+                  {/* <Button
                     title="Сделать заказ"
                     variant="primary"
                     onClick={() =>
@@ -456,7 +461,7 @@ const Banner = ({ variant }) => {
                         "/products/" + id
                       )
                     }
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="image">

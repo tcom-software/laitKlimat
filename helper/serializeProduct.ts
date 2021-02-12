@@ -1,14 +1,19 @@
-import getConfig from "next/config";
+import { UPLOADS_URL } from "constants/api";
 import { makePriceView } from "utils/makePriceView";
 import { getProductImageX300 } from "./getProductImageX300";
 
-const {
-  publicRuntimeConfig: { uploadsUrl },
-} = getConfig();
+export const makeProductName = (data: any = {}) =>
+  `${data.brand} ${data.series_name || ""}-${data.model}`;
 
-const getProductPhoto = (photo: any) => {
-  return photo
-    ? `${uploadsUrl}${
+export const makeBrandLogo = (
+  baseUrl: string,
+  logoNAme: string,
+  size?: string
+) => `${baseUrl}/manufacturer_logo/${size ?? "size150"}/${logoNAme}`;
+
+export const makeProductPhoto = (uploadsUrl: string, photo: any) => {
+  return typeof photo === "object"
+    ? `${uploadsUrl}/${
         photo.folder === "product_series0" ? "product_series" : "products"
       }/${photo.folder}/size800/${photo.file_name}.${photo.file_format}`
     : "";
@@ -19,26 +24,22 @@ export const serializeProductCardData = (data: any) => {
     id,
     price,
     brand,
-    series_name,
-    model,
-    brand_logo,
-
-    setup_price,
-    characteristics: chtrs,
-
     has_sale,
     has_chat,
     available,
+    brand_logo,
+    setup_price,
     chat_with_percent,
     chat_without_percent,
+    characteristics: charts,
     price_with_setup: priceWithSetup,
     price_without_setup: priceWithoutSetup,
   } = data;
 
+  const productName = makeProductName(data);
+  const brandLogo = makeBrandLogo(UPLOADS_URL as string, brand_logo);
   const productImageX300PathName = getProductImageX300(data);
-  const productName = `${brand} ${series_name || ""}-${model}`;
-  const productImageX300 = `${uploadsUrl}${productImageX300PathName}`;
-  const brandLogo = `${uploadsUrl}manufacturer_logo/size150/${brand_logo}`;
+  const productImageX300 = `${UPLOADS_URL}/${productImageX300PathName}`;
 
   const characteristic = [
     {
@@ -53,10 +54,10 @@ export const serializeProductCardData = (data: any) => {
     },
   ];
 
-  if (chtrs) {
+  if (charts) {
     characteristic.unshift({
-      key: chtrs.characteristic_name_ru,
-      value: chtrs.characteristic_attribute_name,
+      key: charts.characteristic_name_ru,
+      value: charts.characteristic_attribute_name,
     });
   }
 
@@ -96,15 +97,12 @@ export const serializeProductCardData = (data: any) => {
 export const serializeProductData = (data: any) => {
   const {
     product: {
-      articule,
-      category_id,
-      brand,
-      description,
-      market,
-      model,
       price,
-      series_name,
+      market,
+      articule,
       setup_price,
+      category_id,
+      description,
       manufacturer_logo,
 
       has_chat,
@@ -121,12 +119,12 @@ export const serializeProductData = (data: any) => {
     filter,
   } = data;
 
-  const productName = `${brand} ${series_name || ""}-${model}`;
-  const productImage = getProductPhoto(photos[0]);
+  const productName = makeProductName(data.product);
+  const productImage = makeProductPhoto(UPLOADS_URL as string, photos[0]);
   const certificateImage =
     certificate?.certificate_file_name &&
-    `${uploadsUrl}manufacturer_certificate/size300/${certificate?.certificate_file_name}`;
-  const brandLogo = `${uploadsUrl}manufacturer_logo/size150/${manufacturer_logo}`;
+    `${UPLOADS_URL}/manufacturer_certificate/size300/${certificate?.certificate_file_name}`;
+  const brandLogo = makeBrandLogo(UPLOADS_URL as string, manufacturer_logo);
   const formattedPrice = makePriceView(price, { unit: "₽", split: " " });
   const creditFrom = makePriceView((price / 24) | 0, { unit: "₽", split: " " });
   const formattedSetupPrice = makePriceView(setup_price, {
@@ -344,21 +342,19 @@ export const serializeProductData = (data: any) => {
 export const serializeProductCardDataFromFullProduct = (data: any) => {
   const {
     product: {
-      articule,
       brand,
-      manufacturer_logo,
-      model,
       price,
-      series_name,
-      setup_price,
+      articule,
       available,
+      setup_price,
+      manufacturer_logo,
     },
     photos,
   } = data;
 
-  const productImage = getProductPhoto(photos[0]);
-  const productName = `${brand} ${series_name || ""}-${model}`;
-  const brandLogo = `${uploadsUrl}manufacturer_logo/size150/${manufacturer_logo}`;
+  const productImage = makeProductPhoto(UPLOADS_URL as string, photos[0]);
+  const productName = makeProductName(data.product);
+  const brandLogo = makeBrandLogo(UPLOADS_URL as string, manufacturer_logo);
   const formatedPrice = makePriceView(price, { unit: "₽", split: " " });
 
   const characteristic = [
