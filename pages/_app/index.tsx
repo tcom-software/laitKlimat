@@ -26,6 +26,7 @@ Router.events.on("routeChangeComplete", () => {
 });
 
 import "@styles/scss/index.scss";
+import "slick-carousel/slick/slick.css";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { bannerVariant, initialStore } = pageProps;

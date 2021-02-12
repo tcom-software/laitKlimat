@@ -18,8 +18,8 @@ export const Container = styled.div`
   overflow: hidden;
   position: relative;
 
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
 
   ${theme.breakpoints.down("xs")} {
     height: 290px;
@@ -189,45 +189,83 @@ export const Section = styled.section`
     flex-direction: column-reverse;
   }
 
-  .info {
+  .slick-slider {
     width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
 
-    .texts {
-      p {
-        /* jamanakavor */
-        margin-bottom: 10px;
+    .slick-list {
+      height: 100%;
 
-        strong {
-          color: white;
+      .slick-track {
+        height: inherit;
+
+        .slick-slide {
+          height: inherit;
+          outline: none;
+
+          :focus {
+            outline: none;
+          }
+
+          > div {
+            height: inherit;
+
+            .wrapper {
+              outline: none;
+              height: inherit;
+              display: flex !important;
+              justify-content: space-between;
+
+              .info {
+                width: max-content;
+                align-self: center;
+
+                .texts {
+                  p {
+                    /* jamanakavor */
+                    margin-bottom: 10px;
+
+                    strong {
+                      color: white;
+                    }
+                  }
+                }
+
+                .buttons {
+                  width: 500px;
+                  display: grid;
+                  grid-auto-flow: column;
+                  grid-column-gap: 1em;
+                  margin-top: 2em;
+
+                  ${theme.breakpoints.down("xs")} {
+                    margin-top: 1em;
+                    width: 100%;
+                  }
+                }
+              }
+
+              .image {
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: contain;
+                  filter: ${theme.dropShadow.banner};
+
+                  ${theme.breakpoints.down("xs")} {
+                    display: none;
+                    /* width: 80%;
+                    height: auto;
+                    object-fit: contain;
+                    flex-direction: column-reverse; */
+                  }
+                }
+              }
+            }
+          }
         }
-      }
-    }
-
-    .buttons {
-      width: 500px;
-      display: grid;
-      grid-auto-flow: column;
-      grid-column-gap: 1em;
-      margin-top: 2em;
-
-      ${theme.breakpoints.down("xs")} {
-        margin-top: 1em;
-        width: 100%;
-      }
-    }
-  }
-
-  .image {
-    display: contents;
-
-    img {
-      filter: ${theme.dropShadow.banner};
-
-      ${theme.breakpoints.down("xs")} {
-        width: 80%;
-        height: auto;
-        object-fit: contain;
-        flex-direction: column-reverse;
       }
     }
   }
