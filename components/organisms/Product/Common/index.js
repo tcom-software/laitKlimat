@@ -47,7 +47,7 @@ export const Sale = ({
         showChat({
           type: "productSale",
           text: `<span>На эту модель есть дополнительная скидка${
-            messageText ? messageText + "\n\n" : ""
+            messageText ? messageText + "\n\n" : "\n"
           }<span>Хотите узнать больше ?</span>`,
         })
       ),

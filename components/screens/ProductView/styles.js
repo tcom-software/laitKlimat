@@ -148,6 +148,7 @@ export const Container = styled.div`
 
       ${theme.breakpoints.down("xs")} {
         box-shadow: none;
+        width: 100%;
         padding: 0;
       }
 

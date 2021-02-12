@@ -5,15 +5,22 @@ import { basketAddProduct, ProductPayload } from "@redux/actions/basket";
 import { addNotification } from "@redux/actions/notification";
 import React, { FC, useState, useCallback, memo } from "react";
 import { useDispatch } from "react-redux";
+import { Variant } from "../types";
 import Button from "..";
 
 type ButtonAddToBasketProps = {
+  title?: string;
+  variant?: Variant;
+  callBack?: Function;
   product: ProductPayload;
   [x: string]: any;
 };
 
 const ButtonAddToBasket: FC<ButtonAddToBasketProps> = ({
   product,
+  callBack,
+  title = "В корзину",
+  variant = "primary",
   ...props
 }) => {
   const dispatch = useDispatch();
@@ -30,14 +37,17 @@ const ButtonAddToBasket: FC<ButtonAddToBasketProps> = ({
           state: "success",
         })
       );
+      if (typeof callBack === "function") {
+        callBack();
+      }
     }, 300);
   }, [product]);
 
   return (
     <Button
       type="button"
-      variant="primary"
-      title="В корзину"
+      title={title}
+      variant={variant}
       loading={loading}
       onClick={addToBasket}
       {...props}
