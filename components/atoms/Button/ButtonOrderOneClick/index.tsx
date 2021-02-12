@@ -1,16 +1,21 @@
 /*******************************************************/
-/*             Oreder one click Button                 */
+/*             Order one click Button                 */
 /*******************************************************/
 import React, { FC, memo, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { showModal } from "@redux/actions/modal";
+import { Variant } from "../types";
 import Button from "..";
 
 type ButtonOrderOneClickProps = {
+  title?: string;
+  variant?: Variant;
   [x: string]: any;
 };
 
 export const ButtonOrderOneClick: FC<ButtonOrderOneClickProps> = ({
+  variant = "tercary",
+  title = "Купить в 1 клик",
   ...props
 }) => {
   const dispatch = useDispatch();
@@ -29,8 +34,8 @@ export const ButtonOrderOneClick: FC<ButtonOrderOneClickProps> = ({
   return (
     <Button
       type="button"
-      variant="tercary"
-      title="Купить в 1 клик"
+      title={title}
+      variant={variant}
       onClick={handleShowNumberBox}
       {...props}
     />
