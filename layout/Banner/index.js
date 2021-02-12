@@ -306,7 +306,7 @@ import Image from "@atoms/Image";
 
 import { Container, Section } from "./styles";
 import { useRouter } from "next/router";
-import { ButtonOrderOneClick } from "@atoms/Button/ButtonOrderOneClick";
+import ButtonAddToBasket from "@atoms/Button/ButtonAddToBasket";
 
 const texts = [
   { title: "доставка по всей россии", sz: "normal" },
@@ -446,22 +446,16 @@ const Banner = ({ variant }) => {
                       )
                     }
                   />
-                  <ButtonOrderOneClick
+                  <ButtonAddToBasket
                     variant="primary"
                     title="Сделать заказ"
-                  />
-                  {/* <Button
-                    title="Сделать заказ"
-                    variant="primary"
-                    onClick={() =>
-                      router.push(
-                        {
-                          pathname: "/products/[product]",
-                        },
-                        "/products/" + id
-                      )
+                    product={{ id, price }}
+                    callBack={() =>
+                      router.push({
+                        pathname: "/basket",
+                      })
                     }
-                  /> */}
+                  />
                 </div>
               </div>
               <div className="image">

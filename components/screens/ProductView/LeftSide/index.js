@@ -25,14 +25,16 @@ const LeftSide = ({ data }) => {
 
   return (
     <section className="left-side">
-      <Image
-        responsive
-        type="png"
-        className="arrow-back"
-        path="/images/product/arrow"
-        onClick={historyBack}
-        aria-label="back to filters"
-      />
+      {categoryId && (
+        <Image
+          responsive
+          type="png"
+          className="arrow-back"
+          path="/images/product/arrow"
+          onClick={historyBack}
+          aria-label="back to filters"
+        />
+      )}
       <div className="images">
         <div className="product--wrapper">
           <img alt="product" src={productImage} />

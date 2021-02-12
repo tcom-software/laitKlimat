@@ -25,6 +25,7 @@ export const serializeProductCardData = (data: any) => {
     price,
     brand,
     has_sale,
+    warranty,
     has_chat,
     available,
     brand_logo,
@@ -43,6 +44,10 @@ export const serializeProductCardData = (data: any) => {
 
   const characteristic = [
     {
+      key: "Гарантия на кондиционер (при заказе с установкой)",
+      value: warranty + " лет",
+    },
+    {
       key: "Стоимость установки",
       value:
         setup_price && makePriceView(setup_price, { unit: "₽", split: " " }),
@@ -55,7 +60,7 @@ export const serializeProductCardData = (data: any) => {
   ];
 
   if (charts) {
-    characteristic.unshift({
+    characteristic.splice(1, 0, {
       key: charts.characteristic_name_ru,
       value: charts.characteristic_attribute_name,
     });
@@ -112,6 +117,7 @@ export const serializeProductData = (data: any) => {
       chat_without_percent,
       price_with_setup: priceWithSetup,
       price_without_setup: priceWithoutSetup,
+      warranty,
     },
     characteristics,
     certificate,
@@ -307,6 +313,19 @@ export const serializeProductData = (data: any) => {
                 sz: "normal",
                 clr: "primary",
                 text: "Заказ от 40 000 руб. 3% предоплата",
+              },
+            },
+            value: null,
+          },
+          {
+            key: {
+              type: "text",
+              colSpan: 2,
+              value: {
+                tag: "span",
+                sz: "larg",
+                clr: "secondary",
+                text: `При заказе с установкой, ${warranty} лет гарантии на кондиционер`,
               },
             },
             value: null,

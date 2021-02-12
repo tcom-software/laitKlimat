@@ -92,7 +92,11 @@ export default class MyDocument extends Document {
             name="description"
             content="Стандартная установка кондиционеров"
           />
-          <meta nema="keywords" content="" />
+          <meta name="keywords" content="" />
+          <meta
+            http-equiv="Content-Security-Policy"
+            components="upgrade-insecure-requests"
+          />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
