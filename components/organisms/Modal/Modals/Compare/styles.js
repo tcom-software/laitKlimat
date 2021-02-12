@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import theme from "@styles/theme";
+import styled from "styled-components";
 import { mmp } from "styles/utils/mediaProperty";
 
 export const Container = styled.div`
@@ -197,7 +197,7 @@ export const Container = styled.div`
       }
     }
 
-    .charasteristics {
+    .characteristics {
       .table-row {
         display: grid;
         grid-auto-flow: column;

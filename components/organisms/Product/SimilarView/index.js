@@ -1,24 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import getConfig from "next/config";
+import { UPLOADS_URL } from "constants/api";
 
-import ButtonAddToBasket from "@atoms/Button/ButtonAddToBasket";
 import { Text, ProductLinkWrapper } from "@atoms";
 import { ContainerSimilarProduct } from "../styles";
 import { makePriceView } from "utils/makePriceView";
+import ButtonAddToBasket from "@atoms/Button/ButtonAddToBasket";
+import {
+  makeBrandLogo,
+  makeProductName,
+  makeProductPhoto,
+} from "helper/serializeProduct";
 
-const {
-  publicRuntimeConfig: { uploadsUrl },
-} = getConfig();
-
-const getProductPhoto = (uploadsUrl, photo) => {
-  return typeof photo === "object"
-    ? `${uploadsUrl}${
-        photo.folder === "product_series0" ? "product_series" : "products"
-      }/${photo.folder}/size800/${photo.file_name}.${photo.file_format}`
-    : "";
-};
-
-const SimilarProduct = ({ data, ...rest }) => {
+const SimilarProduct = ({ data, ...props }) => {
   const [hasData, setHasData] = useState(false);
   const product = useRef({});
 
@@ -36,16 +29,16 @@ const SimilarProduct = ({ data, ...rest }) => {
         },
         photos,
       } = data;
-      product.current.brandLogo = `${uploadsUrl}brands/${manufacturer_logo}`;
-      product.current.name = `${brand} ${series_name}-${model}`;
-      product.current.articule = articule;
       product.current.price = price;
-      product.current.image = getProductPhoto(uploadsUrl, photos[0]);
+      product.current.articule = articule;
+      product.current.name = makeProductName(data.product);
+      product.current.image = makeProductPhoto(UPLOADS_URL, photos[0]);
+      product.current.brandLogo = makeBrandLogo(UPLOADS_URL, manufacturer_logo);
     }
   }, []);
 
   return (
-    <ContainerSimilarProduct {...rest}>
+    <ContainerSimilarProduct {...props}>
       <section className="product">
         <ProductLinkWrapper articule={product.current.articule}>
           <img

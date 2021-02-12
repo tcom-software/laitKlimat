@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { AppProps } from "next/app";
 import { Router } from "next/router";
 
-import { PersistGate } from "redux-persist/integration/react";
-import { initializeCategories } from "@redux/actions/site";
-import { Provider as ReduxProvider } from "react-redux";
 import { useStore } from "@redux/index";
+import { Provider as ReduxProvider } from "react-redux";
+import { initializeCategories } from "@redux/actions/site";
+import { PersistGate } from "redux-persist/integration/react";
 
 import GlobalStyles from "@styles/GlobalStyles";
 import Layout from "layout";
@@ -14,12 +14,12 @@ import Layout from "layout";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { setCookie } from "utils/cookies";
-import { storage } from "constants/storageKeys";
 import smoothScroll from "utils/smoothScroll";
+import { storage } from "constants/storageKeys";
 
+Router.events.on("routeChangeError", () => NProgress.done());
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
-Router.events.on("routeChangeError", () => NProgress.done());
 
 Router.events.on("routeChangeComplete", () => {
   if (window.innerWidth > 768) smoothScroll("title");

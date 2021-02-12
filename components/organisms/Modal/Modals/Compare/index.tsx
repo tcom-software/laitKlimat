@@ -61,7 +61,7 @@ const Compare: FC<CompareProps> = ({ modalRef, hideModal, modalProps }) => {
     const chars = [];
     for (let product of selectedProducts) {
       let { characteristics } = product;
-      // serialize charasteristics
+      // serialize characteristics
       characteristics = characteristics.map(({ title, table }: any) => ({
         title,
         characteristics: new Set(Object.keys(table)),
@@ -143,10 +143,10 @@ const Compare: FC<CompareProps> = ({ modalRef, hideModal, modalProps }) => {
                 }
               />
               <SimilarProduct
+                data={data}
                 key={data.product.articule}
                 withHandleClose={() => {}}
                 className="product selected"
-                data={data}
               />
             </div>
           ))}
@@ -160,14 +160,14 @@ const Compare: FC<CompareProps> = ({ modalRef, hideModal, modalProps }) => {
           )}
         </section>
 
-        {/* ***************** bottom => product charasteristics ***************** */}
+        {/* ***************** bottom => product characteristics ***************** */}
         <section className="bottom">
           <div className="row">
             <Text tag="h3" clr="white" sz="larg">
               характеристики
             </Text>
           </div>
-          <div className="charasteristics">
+          <div className="characteristics">
             {serializeCharacteristics.map(({ title, characteristics }) => (
               <div className="s" key={title}>
                 <div className="table-row title">
@@ -214,79 +214,3 @@ const Compare: FC<CompareProps> = ({ modalRef, hideModal, modalProps }) => {
 };
 
 export default Compare;
-
-// const CreateCompareInformation = (compareProducts: any[]) => {
-//   let result = Object.values(compareProducts).map((e: any, index) => {
-//     const { characteristics } = e;
-//     if (characteristics.length !== 0) {
-//       return characteristics.reduce(
-//         (
-//           acc: any,
-//           {
-//             title,
-//             characteristic_name,
-//             characteristic_value,
-//             characteristic_attribute_name,
-//           },
-//           i: number
-//         ) => {
-//           const value =
-//             characteristic_value !== null
-//               ? characteristic_value
-//               : characteristic_attribute_name;
-//           if (acc[title]) {
-//             return {
-//               ...acc,
-//               [title]: {
-//                 ...acc[title],
-//                 [characteristic_name]: [value],
-//               },
-//             };
-//           } else {
-//             if (title === null) return { ...acc };
-//             else if (i === 1)
-//               return {
-//                 [title]: {
-//                   [characteristic_name]: [value],
-//                 },
-//               };
-//             else
-//               return {
-//                 ...acc,
-//                 [title]: {
-//                   ...acc[title],
-//                   [characteristic_name]: [value],
-//                 },
-//               };
-//           }
-//         }
-//       );
-//     }
-//   }, {});
-
-//   result = result.filter(e => e != undefined);
-//   const first = result[0];
-//   for (let i = 1; i < result.length; i++) {
-//     const keys = Object.keys(result[i]);
-//     for (let j = 0; j < keys.length; j++) {
-//       if (first[keys[j]]) {
-//         const keyObject = Object.keys(result[i][keys[j]]);
-//         for (let k = 0; k < keyObject.length; k++) {
-//           const itemLoop = result[i][keys[j]][keyObject[k]];
-//           if (first[keys[j]][keyObject[k]]) {
-//             const existingValue = first[keys[j]][keyObject[k]];
-//             first[keys[j]][keyObject[k]] = [...existingValue, ...itemLoop];
-//           } else {
-//             first[keys[j]][keyObject[k]] = [null, ...itemLoop];
-//           }
-//         }
-//       } else {
-//         first[keys[j]] = {
-//           ...result[keys[j]],
-//         };
-//       }
-//     }
-//   }
-//   return first;
-// };
-// export default CreateCompareInformation;
