@@ -202,8 +202,10 @@ export const Section = styled.section`
         height: inherit;
 
         .slick-slide {
-          height: inherit;
           outline: none;
+          height: inherit;
+          overflow: hidden;
+          padding: 0 5px;
 
           :focus {
             outline: none;

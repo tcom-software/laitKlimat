@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Slider from "react-slick";
 
@@ -301,94 +301,56 @@ const Group4 = props => (
 );
 
 import Text from "@atoms/Text";
-import Button from "@atoms/Button";
 import Image from "@atoms/Image";
+import Button from "@atoms/Button";
 
-import { Container, Section } from "./styles";
+import { useFetch } from "@hooks";
 import { useRouter } from "next/router";
+import { Container, Section } from "./styles";
+import { getProductImage } from "helper/getProductImage";
+import { makeProductName } from "helper/serializeProduct";
+import { GET_TOP_PRODUCTS, UPLOADS_URL } from "constants/api";
 import ButtonAddToBasket from "@atoms/Button/ButtonAddToBasket";
-
-const texts = [
-  { title: "доставка по всей россии", sz: "normal" },
-  { title: "Hitachi RAK-18NH6AS", sz: "larger" },
-  { title: "Лучшая цена на рынке", sz: "normal" },
-  { title: "9 900 ₽", sz: "larger" },
-  { title: "Антибактериальный фильтр <strong>в подарок<strong>", sz: "normal" },
-];
 
 const variants = ["primary", "secondary", "tercary"];
 
+const defaultPhotos = [
+  {
+    id: 1206,
+    price: "",
+    name: " ",
+    img: "./images/banner/1206.png",
+  },
+  {
+    id: 5542,
+    price: "",
+    name: " ",
+    img: "./images/banner/5542.png",
+  },
+  {
+    id: 926,
+    price: 45,
+    name: " ",
+    img: "./images/banner/926.png",
+  },
+];
+
 const Banner = ({ variant }) => {
   const router = useRouter();
-  const [photos, setPhotos] = useState([
-    {
-      id: 1206,
-      price: "",
-      name: " ",
-      img: "./images/banner/1206.png",
-    },
-    {
-      id: 5542,
-      price: "",
-      name: " ",
-      img: "./images/banner/5542.png",
-    },
-    {
-      id: 926,
-      price: 45,
-      name: " ",
-      img: "./images/banner/926.png",
-    },
-  ]);
+  const [photos, setPhotos] = useState(defaultPhotos);
+  const { data, loading } = useFetch(GET_TOP_PRODUCTS);
 
   useEffect(() => {
-    (async () => {
-      const products1 = [];
-
-      for (let photo of photos) {
-        products1.push(
-          fetch("/api/getProduct", {
-            method: "POST",
-            body: JSON.stringify({ productId: photo.id }),
-          })
-        );
-      }
-
-      const products = [];
-
-      Promise.all(products1).then(responses => {
-        responses.forEach(el => products.push(el.json()));
-        Promise.all(products).then(products => {
-          setPhotos([
-            {
-              id: 1206,
-              price: products[0].product.price,
-              name: `${products[0].product.brand} ${
-                products[0].product.series_name || ""
-              }-${products[0].product.model}`,
-              img: "./images/banner/1206.png",
-            },
-            {
-              id: 5542,
-              price: products[1].product.price,
-              name: `${products[1].product.brand} ${
-                products[1].product.series_name || ""
-              }-${products[1].product.model}`,
-              img: "./images/banner/5542.png",
-            },
-            {
-              id: 926,
-              price: products[2].product.price,
-              name: `${products[2].product.brand} ${
-                products[2].product.series_name || ""
-              }-${products[2].product.model}`,
-              img: "./images/banner/926.png",
-            },
-          ]);
-        });
-      });
-    })();
-  }, []);
+    data &&
+      setPhotos(() =>
+        data.map(({ id, price, ...rest }) => ({
+          id,
+          price,
+          name: makeProductName(rest),
+          img: `${UPLOADS_URL}/${getProductImage(rest)}`,
+        }))
+      );
+  }, [data]);
 
   const settings = {
     speed: 1000,
@@ -399,6 +361,25 @@ const Banner = ({ variant }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
+  const addBasketCallBack = useCallback(
+    () =>
+      router.push({
+        pathname: "/basket",
+      }),
+    []
+  );
+
+  const knowMore = useCallback(
+    id =>
+      router.push(
+        {
+          pathname: "/products/[product]",
+        },
+        "/products/" + id
+      ),
+    []
+  );
 
   return (
     <Container variant={variant}>
@@ -413,7 +394,7 @@ const Banner = ({ variant }) => {
       </div>
       <Section>
         <Slider {...settings}>
-          {photos.map(({ id, name, img, price }) => (
+          {photos.map(({ id, price, name, img }) => (
             <div key={id} className="wrapper">
               <div className="info">
                 <div className="texts">
@@ -437,24 +418,13 @@ const Banner = ({ variant }) => {
                   <Button
                     title="Узнать больше"
                     variant="secondary"
-                    onClick={() =>
-                      router.push(
-                        {
-                          pathname: "/products/[product]",
-                        },
-                        "/products/" + id
-                      )
-                    }
+                    onClick={() => knowMore(id)}
                   />
                   <ButtonAddToBasket
                     variant="primary"
                     title="Сделать заказ"
                     product={{ id, price }}
-                    callBack={() =>
-                      router.push({
-                        pathname: "/basket",
-                      })
-                    }
+                    callBack={addBasketCallBack}
                   />
                 </div>
               </div>

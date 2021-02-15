@@ -15,10 +15,9 @@ import { serialezeFiltersDataKey } from "@redux/reducers/filtersData";
 import { getFiltersDataCacheByKey } from "@redux/selectors/filtersData";
 
 import { FilterService } from "./FilterService";
-import {
-  serializeFiltersData,
-  serializeManufacturerCountries,
-} from "./functions";
+import { filterSearchParams } from "helper/filterSearchParams";
+// import { getFiltersCacheByKey } from "@redux/selectors/filters";
+// import { serialezeKey } from "@redux/reducers/filters";
 
 const FILTERS_ID = {
   main: {
@@ -73,20 +72,25 @@ const Filter = () => {
   const [filtersByFilters, setFiltersByFilters] = useState(null);
   const serializedKey = serialezeFiltersDataKey(router.query.c);
   const filtersData = useSelector(getFiltersDataCacheByKey(serializedKey));
+  // const { filters } =
+  //   useSelector(getFiltersCacheByKey(serialezeKey(router.query) || "")) || {};
 
   useEffect(() => {
     setLoading(true);
     (async () => {
       if (!filtersData) {
         const {
-          categoryId,
           textFilters,
           manufacturerCountries,
           characteristicAttributes,
-        } = await FilterService.getFilters(router.query.c);
+        } = await FilterService.getFilters({
+          body: {},
+          page: router.query.page,
+          category: router.query.c,
+        });
 
         dispatch(
-          addFiltersDataCache(categoryId, {
+          addFiltersDataCache(router.query.c, {
             textFilters,
             manufacturerCountries,
             data: characteristicAttributes, // other filters
@@ -99,7 +103,8 @@ const Filter = () => {
 
   useEffect(() => {
     (async () => {
-      const data = await FilterService.getFiltersByFilter(router);
+      const searchParams = filterSearchParams(router);
+      const data = await FilterService.getFilters(searchParams);
       setFiltersByFilters(data);
     })();
   }, [router.query]);
@@ -116,7 +121,8 @@ const Filter = () => {
   const numberOfPluginUnits = data?.[FILTERS_ID.main.numberOfPluginUnits];
 
   // filters after filter
-  const { data: f_data, textFilters: f_textFilters } = filtersByFilters || {};
+  const { characteristicAttributes: f_data, textFilters: f_textFilters } =
+    filtersByFilters || {};
   const f_inverter = f_data?.[FILTERS_ID.main.inverter];
   const f_classEnergy = f_data?.[FILTERS_ID.main.classEnergy];
   const f_servicedArea = f_data?.[FILTERS_ID.main.servicedArea];
@@ -207,7 +213,7 @@ const Filter = () => {
                   ...acc,
                   ...filters.map(({ title: childTitle, id: childId }) => (
                     <InputFromTo
-                      key={id}
+                      key={childId}
                       title={childTitle}
                       loading={loading}
                       inputName={`range${childId}`}
