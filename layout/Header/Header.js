@@ -22,13 +22,7 @@ import Text from "@atoms/Text";
 import { tabs } from "data";
 import { useOutsideClickClose } from "@hooks";
 
-const accordion = categories => {
-  const closeCategories = id => {
-    const categories = document.getElementById("categories");
-    categories.style.pointerEvents = "none";
-    setTimeout(() => (categories.style.pointerEvents = ""), 100);
-  };
-
+const accordion = (categories, toggleCatalog) => {
   return (
     <ul className="category-list">
       {categories.map(({ id, name, subCategories }) => {
@@ -42,7 +36,7 @@ const accordion = categories => {
           >
             {isTreeLeaf ? (
               <Link href={`/category?c=${id}&page=1`}>
-                <a onClick={closeCategories}>
+                <a onClick={toggleCatalog}>
                   <Text sz="normal" clr="primary" tag="span">
                     {name}
                   </Text>
@@ -51,7 +45,7 @@ const accordion = categories => {
             ) : (
               <>
                 <span>{name}</span>
-                {accordion(subCategories)}
+                {accordion(subCategories, toggleCatalog)}
               </>
             )}
           </li>
@@ -119,7 +113,6 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
         <GridRow className="container">
           <Logo className="logo" onClick={hideMobileMenu} />
           <div
-            id="categories"
             ref={catalogRef}
             className={cn("categories", { open: openCatalog })}
           >
@@ -142,7 +135,7 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
                 <line x1="0" y1="53" x2="70" y2="53" strokeWidth="5" />
               </svg>
             </button>
-            {accordion(categories)}
+            {accordion(categories, toggleCatalog)}
           </div>
           <Search />
           <CallUs showNumberBox={handleShowNumberBox} />

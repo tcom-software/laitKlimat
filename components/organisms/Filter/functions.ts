@@ -36,3 +36,23 @@ export const serializeManufacturerCountries = (manufacturerCountries: any) => {
   );
   return serializedData;
 };
+
+export const serializeAll = (filters: any) => {
+  const {
+    textFilters,
+    manufacturerCountries,
+    characteristicAttributes,
+  } = filters;
+
+  const serializedFiltersData = serializeFiltersData(characteristicAttributes);
+
+  const serializedManufacturerCountries = serializeManufacturerCountries(
+    manufacturerCountries
+  );
+
+  return {
+    textFilters,
+    characteristicAttributes: serializedFiltersData,
+    manufacturerCountries: serializedManufacturerCountries,
+  };
+};

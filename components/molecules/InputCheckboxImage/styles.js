@@ -20,6 +20,7 @@ export const StyledFieldSet = styled.fieldset`
       grid-auto-flow: column;
       grid-template-columns: min-content;
       margin-bottom: 0.4em;
+      cursor: pointer;
 
       img {
         width: 30px;
@@ -35,9 +36,12 @@ export const StyledFieldSet = styled.fieldset`
 
       input {
         margin-left: auto;
+        cursor: pointer;
       }
 
       &.disabled {
+        pointer-events: none;
+        
         img {
           filter: grayscale(1);
         }
