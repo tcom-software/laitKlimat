@@ -1,13 +1,11 @@
 import { GET_PRODUCTS, PROJECT_ID } from "constants/api";
-import { filterSearchParams } from "helper/filterSearchParams";
 import {
   serializeFiltersData,
   serializeManufacturerCountries,
 } from "./functions";
 
 export class FilterService {
-  static async getFilters(router: any) {
-    const { category, body, page } = filterSearchParams(router);
+  static async getFilters({ category, body, page }: any) {
     const searchParams = `${category}?page=${page || 1}`;
     const response = await fetch(`${GET_PRODUCTS}/${searchParams}`, {
       method: "POST",

@@ -15,6 +15,7 @@ import { serialezeFiltersDataKey } from "@redux/reducers/filtersData";
 import { getFiltersDataCacheByKey } from "@redux/selectors/filtersData";
 
 import { FilterService } from "./FilterService";
+import { filterSearchParams } from "helper/filterSearchParams";
 // import { getFiltersCacheByKey } from "@redux/selectors/filters";
 // import { serialezeKey } from "@redux/reducers/filters";
 
@@ -82,7 +83,11 @@ const Filter = () => {
           textFilters,
           manufacturerCountries,
           characteristicAttributes,
-        } = await FilterService.getFilters(router);
+        } = await FilterService.getFilters({
+          body: {},
+          page: router.query.page,
+          category: router.query.c,
+        });
 
         dispatch(
           addFiltersDataCache(router.query.c, {
@@ -98,8 +103,8 @@ const Filter = () => {
 
   useEffect(() => {
     (async () => {
-      const data = await FilterService.getFilters(router);
-      console.log('second')
+      const searchParams = filterSearchParams(router);
+      const data = await FilterService.getFilters(searchParams);
       setFiltersByFilters(data);
     })();
   }, [router.query]);
@@ -208,7 +213,7 @@ const Filter = () => {
                   ...acc,
                   ...filters.map(({ title: childTitle, id: childId }) => (
                     <InputFromTo
-                      key={id}
+                      key={childId}
                       title={childTitle}
                       loading={loading}
                       inputName={`range${childId}`}
