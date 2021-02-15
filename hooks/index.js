@@ -7,3 +7,4 @@ export * from "./useLocaleState";
 export * from "./useForceUpdate";
 export * from "./useDidUpdate";
 export * from "./useFilters";
+export * from "./useFetch";

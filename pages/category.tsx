@@ -102,8 +102,8 @@ const Category = () => {
   const fetchCategoryProducts = async () => {
     const { category, body, page } = filterSearchParams(router);
 
-    const filters = `${category}?page=${page || 1}`;
-    const url = `https://back.laitklimat.ru/api/getProducts/${filters}`;
+    const searchParams = `${category}?page=${page || 1}`;
+    const url = `https://back.laitklimat.ru/api/getProducts/${searchParams}`;
     const response = await fetch(url, {
       method: "POST",
       headers: { projectId: "59", "Content-Type": "application/json" },
@@ -111,6 +111,7 @@ const Category = () => {
     });
 
     const {
+      filters,
       products: _products,
       products_info: { characteristics, ...restInfo },
     } = await response.json();
@@ -120,7 +121,7 @@ const Category = () => {
       product.characteristics = characteristic;
     }
 
-    return { products: _products, products_info: restInfo };
+    return { products: _products, products_info: restInfo, filters };
   };
 
   const resetFilters = () => {

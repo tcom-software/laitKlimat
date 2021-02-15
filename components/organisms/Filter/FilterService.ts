@@ -1,49 +1,16 @@
-import { filterSearchParams } from "helper/filterSearchParams";
+import { GET_PRODUCTS, PROJECT_ID } from "constants/api";
 import {
   serializeFiltersData,
   serializeManufacturerCountries,
 } from "./functions";
 
 export class FilterService {
-  static FETCH_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/getFilterData`;
-
-  static async getFilters(categoryId: any) {
-    const response = await fetch(`${this.FETCH_URL}/${categoryId}`, {
-      headers: {
-        projectId: "59",
-      },
-    });
-
-    const data = await response.json();
-
-    const {
-      textFilters,
-      manufacturerCountries,
-      characteristicAttributes,
-    } = data;
-
-    const serializedFiltersData = serializeFiltersData(
-      characteristicAttributes
-    );
-
-    const serializedManufacturerCountries = serializeManufacturerCountries(
-      manufacturerCountries
-    );
-
-    return {
-      categoryId,
-      textFilters,
-      characteristicAttributes: serializedFiltersData,
-      manufacturerCountries: serializedManufacturerCountries,
-    };
-  }
-
-  static async getFiltersByFilter(router: any) {
-    const { category, body } = filterSearchParams(router);
-    const response = await fetch(`${this.FETCH_URL}/${category}`, {
+  static async getFilters({ category, body, page }: any) {
+    const searchParams = `${category}?page=${page || 1}`;
+    const response = await fetch(`${GET_PRODUCTS}/${searchParams}`, {
       method: "POST",
       headers: {
-        projectId: "59",
+        projectId: PROJECT_ID,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
@@ -52,9 +19,7 @@ export class FilterService {
     const data = await response.json();
 
     const {
-      textFilters,
-      manufacturerCountries,
-      characteristicAttributes,
+      filters: { textFilters, manufacturerCountries, characteristicAttributes },
     } = data;
 
     const serializedFiltersData = serializeFiltersData(
@@ -67,8 +32,42 @@ export class FilterService {
 
     return {
       textFilters,
-      data: serializedFiltersData,
+      characteristicAttributes: serializedFiltersData,
       manufacturerCountries: serializedManufacturerCountries,
     };
   }
+
+  // static async getFiltersByFilter(router: any) {
+  //   const { category, body } = filterSearchParams(router);
+  //   const response = await fetch(`${GET_FILTERS}/${category}`, {
+  //     method: "POST",
+  //     headers: {
+  //       projectId: "59",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(body),
+  //   });
+
+  //   const data = await response.json();
+
+  //   const {
+  //     textFilters,
+  //     manufacturerCountries,
+  //     characteristicAttributes,
+  //   } = data;
+
+  //   const serializedFiltersData = serializeFiltersData(
+  //     characteristicAttributes
+  //   );
+
+  //   const serializedManufacturerCountries = serializeManufacturerCountries(
+  //     manufacturerCountries
+  //   );
+
+  //   return {
+  //     textFilters,
+  //     data: serializedFiltersData,
+  //     manufacturerCountries: serializedManufacturerCountries,
+  //   };
+  // }
 }
