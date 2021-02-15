@@ -130,6 +130,8 @@ const Category = () => {
     });
   };
 
+  console.log(cachedProducts);
+
   return (
     <Container>
       {/* ******************* Title ********************** */}

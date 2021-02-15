@@ -7,7 +7,7 @@ export const StyledAddress = styled.address`
   font-style: normal;
 
   .inner {
-    height: 55px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -18,19 +18,19 @@ export const StyledAddress = styled.address`
       align-items: center;
 
       svg {
-        width: 1.9em;
-        height: 1.9em;
+        width: 1.5em;
+        height: 1.5em;
         margin-right: 0.4em;
       }
 
       svg:nth-of-type(2) {
-        width: 2.4em;
-        height: 2.4em;
+        width: 2em;
+        height: 2em;
       }
 
       svg:nth-of-type(3) {
-        width: 1.8em;
-        height: 1.8em;
+        width: 1.4em;
+        height: 1.4em;
       }
     }
 
@@ -41,8 +41,8 @@ export const StyledAddress = styled.address`
       align-items: center;
 
       svg {
-        width: 1.7em;
-        height: 1.7em;
+        width: 1.2em;
+        height: 1.2em;
         margin-right: 0.4em;
       }
 
@@ -57,8 +57,8 @@ export const StyledAddress = styled.address`
       align-items: center;
 
       svg {
-        width: 1.7em;
-        height: 1.7em;
+        width: 1.2em;
+        height: 1.2em;
         margin-right: 1em;
       }
 
@@ -75,6 +75,7 @@ export const StyledAddress = styled.address`
     .location,
     .work-hours {
       span {
+        font-size: 0.85em;
         white-space: nowrap;
       }
     }

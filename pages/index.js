@@ -155,12 +155,14 @@ const Home = () => {
 
   return (
     <>
+      {/* SEO */}
       <Head>
         <title>Кондиционеры и увлажнители</title>
       </Head>
+
       <Container className="container">
         <Text tag="h1" sz="larg" clr="primary">
-          климатические техники
+          Климатические техники
         </Text>
         <section className="categories">
           <nav className="sidebox">

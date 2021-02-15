@@ -1,3 +1,4 @@
+import { GET_FILTERS } from "constants/api";
 import { filterSearchParams } from "helper/filterSearchParams";
 import {
   serializeFiltersData,
@@ -5,10 +6,8 @@ import {
 } from "./functions";
 
 export class FilterService {
-  static FETCH_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/getFilterData`;
-
   static async getFilters(categoryId: any) {
-    const response = await fetch(`${this.FETCH_URL}/${categoryId}`, {
+    const response = await fetch(`${GET_FILTERS}/${categoryId}`, {
       headers: {
         projectId: "59",
       },
@@ -40,7 +39,7 @@ export class FilterService {
 
   static async getFiltersByFilter(router: any) {
     const { category, body } = filterSearchParams(router);
-    const response = await fetch(`${this.FETCH_URL}/${category}`, {
+    const response = await fetch(`${GET_FILTERS}/${category}`, {
       method: "POST",
       headers: {
         projectId: "59",

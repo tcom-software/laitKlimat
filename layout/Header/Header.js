@@ -20,6 +20,7 @@ import Icon from "@atoms/Icon";
 import Text from "@atoms/Text";
 
 import { tabs } from "data";
+import { useOutsideClickClose } from "@hooks";
 
 const accordion = categories => {
   const closeCategories = id => {
@@ -66,10 +67,13 @@ const accordion = categories => {
 const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const catalogRef = useRef(null);
   const [isOpenMenu, setOpenMenu] = useState(false);
+  const [openCatalog, setOpenCatalog] = useState(false);
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
   const categories = useSelector(getCategories);
   const basketCount = useSelector(getBasketCount);
+  useOutsideClickClose(catalogRef, () => setOpenCatalog(false));
 
   const toggleMobileMenu = useCallback(() => {
     document.body.classList.toggle("scroll-hidden");
@@ -79,6 +83,10 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
   const hideMobileMenu = () => {
     document.body.classList.remove("scroll-hidden");
     setOpenMenu(false);
+  };
+
+  const toggleCatalog = () => {
+    setOpenCatalog(o => !o);
   };
 
   const handleShowMenu = useCallback(() => {
@@ -110,11 +118,29 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
         <Nav tabs={tabs} />
         <GridRow className="container">
           <Logo className="logo" onClick={hideMobileMenu} />
-          <div className="categories" id="categories">
-            <button className="root">
+          <div
+            id="categories"
+            ref={catalogRef}
+            className={cn("categories", { open: openCatalog })}
+          >
+            <button
+              className={cn("root", { open: openCatalog })}
+              onClick={toggleCatalog}
+            >
               <Text clr="fourth" sz="normal" tag="span">
                 Каталог
               </Text>
+              <svg
+                width="70"
+                height="70"
+                fill="none"
+                viewBox="0 0 70 70"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line x1="0" y1="17" x2="70" y2="17" strokeWidth="5" />
+                <line x1="0" y1="35" x2="70" y2="35" strokeWidth="5" />
+                <line x1="0" y1="53" x2="70" y2="53" strokeWidth="5" />
+              </svg>
             </button>
             {accordion(categories)}
           </div>

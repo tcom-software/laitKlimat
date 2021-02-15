@@ -22,18 +22,12 @@ export const GridRow = styled.section`
   margin-bottom: 2em;
   height: 46px;
   display: grid;
-  grid-template-columns: minmax(170px, 270px) minmax(360px, 560px) 1fr repeat(
-      3,
-      max-content
-    );
+  grid-template-columns: 150px minmax(360px, 560px) 1fr repeat(3, max-content);
   grid-template-areas: "categories search-bar phone basket filter hamburger";
   z-index: ${theme.zIndex.searchBar};
 
   ${theme.breakpoints.down("md")} {
-    grid-template-columns: minmax(170px, 270px) minmax(360px, 560px) repeat(
-        3,
-        max-content
-      );
+    grid-template-columns: 150px minmax(360px, 560px) repeat(3, max-content);
     grid-template-areas: "categories search-bar basket filter hamburger";
   }
 
@@ -74,9 +68,56 @@ export const GridRow = styled.section`
   /******** categories ********/
 
   .categories {
-    grid-area: categories;
     display: flex;
     position: relative;
+    grid-area: categories;
+
+    ${theme.breakpoints.up("xs")} {
+      margin-right: 10px;
+
+      button {
+        will-change: transform;
+        transition: transform 0.3s ease;
+        background-color: ${theme.colors.secondary};
+
+        span {
+          font-weight: bold;
+          letter-spacing: 0.06em;
+          color: ${theme.colors.white};
+        }
+
+        svg {
+          width: 22px;
+          height: 100%;
+
+          line {
+            stroke: white;
+            transition: all 0.3s ease;
+          }
+        }
+
+        :active {
+          transform: scale(0.97); 
+        }
+
+        &.open {
+          svg {
+            line:nth-of-type(1) {
+              transform: rotate(-45deg) translate(-45%, 45%);
+            }
+
+            line:nth-of-type(2) {
+              transform: translateX(100%);
+              opacity: 0;
+            }
+
+            line:nth-of-type(3) {
+              transform: rotate(45deg) translate(20%, -80%);
+            }
+          }
+        }
+      }
+    }
 
     ${theme.breakpoints.down("xs")} {
       display: none;
@@ -103,7 +144,6 @@ export const GridRow = styled.section`
       color: ${theme.colors.fourth};
     }
 
-    .root,
     .category-item[data-arrow="true"] {
       ::after {
         content: "";
@@ -131,7 +171,7 @@ export const GridRow = styled.section`
       border-color: ${theme.colors.primary};
     }
 
-    :hover,
+    &.open,
     .category-item:hover {
       > .category-list {
         display: block;
@@ -194,11 +234,28 @@ export const GridRow = styled.section`
 
   .search-bar {
     grid-area: search-bar;
+
+    ${theme.breakpoints.up("xs")} {
+      form {
+        label {
+          input {
+            border-width: 1px;
+            border-color: ${theme.colors.secondary};
+          }
+        }
+
+        button {
+          svg {
+            display: none;
+          }
+        }
+      }
+    }
   }
 
-  .call-us,
   .basket,
   .filter,
+  .call-us,
   .hamburger,
   .search-mobile {
     display: flex;
@@ -294,7 +351,6 @@ export const GridRow = styled.section`
           circle:nth-of-type(3) {
             transform: translateX(-50%);
           }
-         
         }
       }
     }
