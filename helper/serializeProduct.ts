@@ -1,6 +1,6 @@
 import { UPLOADS_URL } from "constants/api";
 import { makePriceView } from "utils/makePriceView";
-import { getProductImageX300 } from "./getProductImageX300";
+import { getProductImage } from "./getProductImage";
 
 export const makeProductName = (data: any = {}) =>
   `${data.brand} ${data.series_name || ""}-${data.model}`;
@@ -39,7 +39,7 @@ export const serializeProductCardData = (data: any) => {
 
   const productName = makeProductName(data);
   const brandLogo = makeBrandLogo(UPLOADS_URL as string, brand_logo);
-  const productImageX300PathName = getProductImageX300(data);
+  const productImageX300PathName = getProductImage(data);
   const productImageX300 = `${UPLOADS_URL}/${productImageX300PathName}`;
 
   const characteristic = [

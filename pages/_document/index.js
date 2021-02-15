@@ -9,13 +9,6 @@ export default class MyDocument extends Document {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
-    // const styleTags = sheet.getStyleElement();
-    // styleTags[0].props.dangerouslySetInnerHTML.__html = styleTags[0].props.dangerouslySetInnerHTML.__html
-    //   .replace(/\/\*.*\*\//g, " ")
-    //   .replace(/\s+/g, " ");
-
-    // console.log(styleTags[0].props.dangerouslySetInnerHTML.__html);
-
     try {
       ctx.renderPage = () =>
         originalRenderPage({
@@ -31,7 +24,7 @@ export default class MyDocument extends Document {
         styles: (
           <>
             {initialProps.styles}
-            {/* {sheet.getStyleElement()} */}
+            {sheet.getStyleElement()}
           </>
         ),
       };
@@ -134,7 +127,7 @@ export default class MyDocument extends Document {
               {/* <script dangerouslySetInnerHTML={this.setGoogleTagManager()} /> */}
               {/* End Google Tag Manager */}
 
-              {/* Yandex.Metrika counter */}   
+              {/* Yandex.Metrika counter */}
               <script dangerouslySetInnerHTML={this.setYandexMetrika()} />
               <noscript>
                 <div>
