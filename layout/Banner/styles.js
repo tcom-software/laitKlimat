@@ -189,6 +189,21 @@ export const Section = styled.section`
     flex-direction: column-reverse;
   }
 
+  &.team-section {
+    max-width: unset;
+
+    .slick-list {
+      width: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+      }
+    }
+  }
+
   .slick-slider {
     width: 100%;
     height: 100%;
@@ -213,6 +228,15 @@ export const Section = styled.section`
 
           > div {
             height: inherit;
+
+            .team,
+            .wrapper {
+              outline: none;
+              height: inherit;
+            }
+
+            .team {
+            }
 
             .wrapper {
               outline: none;

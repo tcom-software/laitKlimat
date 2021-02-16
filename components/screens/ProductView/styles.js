@@ -15,6 +15,10 @@ export const Container = styled.div`
 
     p {
       text-transform: initial;
+
+      &:last-of-type {
+        margin-top: 15px;
+      }
     }
   }
 

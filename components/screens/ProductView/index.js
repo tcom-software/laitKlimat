@@ -86,6 +86,9 @@ const ProductView = () => {
             "* Производитель оставляет за собой право без уведомления менять характеристики, внешний вид, комплектацию товара и место его производства.\nУказанная информация не является публичной офертой"
           }
         </Text>
+        <Text tag="p" sz="smaller" clr="primary">
+          {"Б/Н c НДС +10%"}
+        </Text>
       </section>
       <Characteristics data={characteristics} />
       <PreviousViews className="container" title="Похожие товары" />
