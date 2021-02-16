@@ -2,6 +2,10 @@ import styled, { css } from "styled-components";
 import theme from "@styles/theme";
 
 export const sizes = {
+  xs: css`
+    font-size: 0.675em;
+    line-height: 1.05rem;
+  `,
   smaller: css`
     font-size: 0.875em;
     line-height: 1.05rem;

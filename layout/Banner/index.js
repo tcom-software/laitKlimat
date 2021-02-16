@@ -335,6 +335,15 @@ const defaultPhotos = [
   },
 ];
 
+const defaultSettings = {
+  speed: 1500,
+  arrows: false,
+  infinite: true,
+  autoplay: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+};
+
 const Banner = ({ variant }) => {
   const router = useRouter();
   const [photos, setPhotos] = useState(defaultPhotos);
@@ -351,16 +360,6 @@ const Banner = ({ variant }) => {
         }))
       );
   }, [data]);
-
-  const settings = {
-    speed: 1000,
-    arrows: false,
-    infinite: true,
-    infinite: true,
-    autoplay: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
 
   const addBasketCallBack = useCallback(
     () =>
@@ -392,49 +391,74 @@ const Banner = ({ variant }) => {
         <Group4 data-group4 fill="white" fillOpacity={0.15} />
         <Circle data-circle3 />
       </div>
-      <Section>
-        <Slider {...settings}>
-          {photos.map(({ id, price, name, img }) => (
-            <div key={id} className="wrapper">
-              <div className="info">
-                <div className="texts">
-                  {[
-                    { title: "доставка по всей россии", sz: "normal" },
-                    { title: name, sz: "larger" },
-                    { title: "Лучшая цена на рынке", sz: "normal" },
-                    { title: price + " ₽", sz: "larger" },
-                    {
-                      title:
-                        "Антибактериальный фильтр <strong>в подарок<strong>",
-                      sz: "normal",
-                    },
-                  ].map(({ title, sz }, idx) => (
-                    <Text sz={sz} clr="white" key={idx}>
-                      {title}
-                    </Text>
+      {(() => {
+        switch (router.pathname) {
+          // case "/certificates":
+          //   return null;
+          case "/service-center":
+          case "/gallery":
+          case "/delivery":
+            return (
+              <Section className="team-section">
+                <Slider {...defaultSettings}>
+                  {[{ img: "team.jpg" }].map(({ img }) => (
+                    <img
+                      key={img}
+                      className="team"
+                      src={`/images/banner/team/${img}`}
+                    />
                   ))}
-                </div>
-                <div className="buttons">
-                  <Button
-                    title="Узнать больше"
-                    variant="secondary"
-                    onClick={() => knowMore(id)}
-                  />
-                  <ButtonAddToBasket
-                    variant="primary"
-                    title="Сделать заказ"
-                    product={{ id, price }}
-                    callBack={addBasketCallBack}
-                  />
-                </div>
-              </div>
-              <div className="image">
-                <img src={img} />
-              </div>
-            </div>
-          ))}
-        </Slider>
-      </Section>
+                </Slider>
+              </Section>
+            );
+          default:
+            return (
+              <Section>
+                <Slider {...defaultSettings}>
+                  {photos.map(({ id, price, name, img }) => (
+                    <div key={id} className="wrapper">
+                      <div className="info">
+                        <div className="texts">
+                          {[
+                            { title: "доставка по всей россии", sz: "normal" },
+                            { title: name, sz: "larger" },
+                            { title: "Лучшая цена на рынке", sz: "normal" },
+                            { title: price + " ₽", sz: "larger" },
+                            {
+                              title:
+                                "Антибактериальный фильтр <strong>в подарок<strong>",
+                              sz: "normal",
+                            },
+                          ].map(({ title, sz }, idx) => (
+                            <Text sz={sz} clr="white" key={idx}>
+                              {title}
+                            </Text>
+                          ))}
+                        </div>
+                        <div className="buttons">
+                          <Button
+                            title="Узнать больше"
+                            variant="secondary"
+                            onClick={() => knowMore(id)}
+                          />
+                          <ButtonAddToBasket
+                            variant="primary"
+                            title="Сделать заказ"
+                            product={{ id, price }}
+                            callBack={addBasketCallBack}
+                          />
+                        </div>
+                      </div>
+                      <div className="image">
+                        <img src={img} />
+                      </div>
+                    </div>
+                  ))}
+                </Slider>
+              </Section>
+            );
+        }
+      })()}
     </Container>
   );
 };

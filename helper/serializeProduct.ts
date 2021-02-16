@@ -50,7 +50,10 @@ export const serializeProductCardData = (data: any) => {
     {
       key: "Стоимость установки",
       value:
-        setup_price && makePriceView(setup_price, { unit: "₽", split: " " }),
+        setup_price === 0
+          ? "В подарок"
+          : setup_price &&
+            makePriceView(setup_price, { unit: "₽", split: " " }),
     },
     { key: "Доставка в пределах МКАД", value: "бесплатно" },
     {
@@ -119,10 +122,12 @@ export const serializeProductData = (data: any) => {
       price_without_setup: priceWithoutSetup,
       warranty,
     },
-    characteristics,
-    certificate,
-    photos,
     filter,
+    photos,
+    prepayment,
+    certificate,
+    default_setup,
+    characteristics,
   } = data;
 
   const productName = makeProductName(data.product);
@@ -306,13 +311,45 @@ export const serializeProductData = (data: any) => {
             },
           },
           {
+            notRender: !prepayment,
             key: {
               type: "text",
+              colSpan: 2,
               value: {
                 tag: "span",
                 sz: "normal",
                 clr: "primary",
-                text: "Заказ от 40 000 руб. 3% предоплата",
+                text: prepayment,
+              },
+            },
+            value: null,
+          },
+          {
+            key: {
+              type: "text",
+              colSpan: 2,
+              value: {
+                tag: "span",
+                sz: "normal",
+                clr: "primary",
+                text: `Сертификат на тех. обслуживание${
+                  market && default_setup > 0
+                    ? ` стоимостью ${default_setup}`
+                    : ""
+                } в подарок`,
+              },
+            },
+            value: null,
+          },
+          {
+            key: {
+              type: "text",
+              colSpan: 2,
+              value: {
+                tag: "span",
+                sz: "xs",
+                clr: "primary",
+                text: `Подарок на выбор: сертификат на ТО или монтаж по акции`,
               },
             },
             value: null,
