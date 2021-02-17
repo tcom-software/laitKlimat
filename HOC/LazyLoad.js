@@ -45,13 +45,12 @@ const lazyLoadImages = (
 };
 
 const LazyLoadHOC = Page => {
-  let time = 0;
   return function LazyLoadWrappedPage(props) {
     const [len, setLen] = useState();
 
     useEffect(() => {
+      let time = 0;
       const id = setInterval(() => {
-        console.log("ddd");
         time += 500;
         if (time === 2000) {
           clearInterval(id);

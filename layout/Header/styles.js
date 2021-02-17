@@ -195,17 +195,22 @@ export const GridRow = styled.section`
     left: 0;
     right: 0;
     top: 100%;
-    display: none;
+    opacity: 0;
+    display: flex;
     min-height: 100vh;
     position: absolute;
     padding-top: 15px;
+    visibility: hidden;
     padding-bottom: 15px;
     background-color: #1c1c1cc2;
-    background-image: linear-gradient(180deg, #f9f9f9 6%, white 10%);
     box-shadow: 0px 20px 18px 0px #0000002e;
+    transition: visibility 0s 0.3s ease, opacity 0.3s ease;
+    background-image: linear-gradient(180deg, #f9f9f9 6%, white 10%);
 
     &.open {
-      display: flex;
+      opacity: 1;
+      visibility: visible;
+      transition: visibility 0s 0s ease, opacity 0.3s ease;
     }
 
     .root-category-list {

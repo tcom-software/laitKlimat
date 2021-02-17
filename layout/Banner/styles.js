@@ -175,8 +175,8 @@ export const Container = styled.div`
 export const Section = styled.section`
   z-index: 1;
   width: 100%;
-  max-width: 1400px;
   margin: auto;
+  max-width: 1400px;
   padding: 0 var(--global-margin);
 
   height: 100%;
@@ -191,6 +191,7 @@ export const Section = styled.section`
 
   &.team-section {
     max-width: unset;
+    background: white;
 
     ${theme.breakpoints.down("xs")} {
       padding: 0;
@@ -235,6 +236,11 @@ export const Section = styled.section`
           height: inherit;
           overflow: hidden;
           padding: 0 5px;
+          cursor: grab;
+
+          :active {
+            cursor: grabbing;
+          }
 
           :focus {
             outline: none;

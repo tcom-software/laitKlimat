@@ -393,8 +393,6 @@ const Banner = ({ variant }) => {
       </div>
       {(() => {
         switch (router.pathname) {
-          // case "/certificates":
-          //   return null;
           case "/service-center":
           case "/gallery":
           case "/delivery":
@@ -453,6 +451,43 @@ const Banner = ({ variant }) => {
                         <img src={img} />
                       </div>
                     </div>
+                  ))}
+                </Slider>
+              </Section>
+            );
+          case "/certificates":
+            return (
+              <Section className="team-section">
+                <Slider
+                  {...defaultSettings}
+                  slidesToShow={3}
+                  responsive={[
+                    {
+                      breakpoint: 768,
+                      settings: {
+                        slidesToShow: 2,
+                      },
+                    },
+                    {
+                      breakpoint: 450,
+                      settings: {
+                        slidesToShow: 1,
+                      },
+                    },
+                  ]}
+                >
+                  {[
+                    { img: "1.jpg" },
+                    { img: "2.jpg" },
+                    { img: "3.jpg" },
+                    { img: "4.jpg" },
+                    { img: "5.jpg" },
+                  ].map(({ img }) => (
+                    <img
+                      key={img}
+                      className="team"
+                      src={`/images/banner/certificate/${img}`}
+                    />
                   ))}
                 </Slider>
               </Section>
