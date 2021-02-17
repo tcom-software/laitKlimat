@@ -69,8 +69,11 @@ export const GridRow = styled.section`
 
   .categories {
     display: flex;
-    position: relative;
     grid-area: categories;
+
+    ${theme.breakpoints.down("xs")} {
+      display: none;
+    }
 
     ${theme.breakpoints.up("xs")} {
       margin-right: 10px;
@@ -97,7 +100,7 @@ export const GridRow = styled.section`
         }
 
         :active {
-          transform: scale(0.97); 
+          transform: scale(0.97);
         }
 
         &.open {
@@ -119,67 +122,24 @@ export const GridRow = styled.section`
       }
     }
 
-    ${theme.breakpoints.down("xs")} {
-      display: none;
-    }
-
     .root {
       width: 100%;
       padding: 0 1em;
-      border: 1px solid ${theme.colors.gray100};
-    }
-
-    span {
-      font-size: 16px;
-      line-height: 20px;
-    }
-
-    .root,
-    span {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      text-align: left;
-      font-weight: normal;
-      color: ${theme.colors.fourth};
+      justify-content: space-between;
     }
+  }
 
-    .category-item[data-arrow="true"] {
-      ::after {
-        content: "";
-        padding: 3px;
-        right: 1.3em;
-        top: 50%;
-        position: absolute;
-        display: inline-block;
-        border-style: solid;
-        border-width: 0 2px 2px 0;
-        border-color: ${theme.colors.gray300};
-        transform: rotate(45deg) translateY(-50%);
-        transition: all 0.2s ease;
-        transform-origin: 50% 0%;
-      }
-    }
-
-    .root,
-    .category-item {
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-
-    :hover .root::after {
-      border-color: ${theme.colors.primary};
-    }
-
-    &.open,
-    .category-item:hover {
-      > .category-list {
+  /* --------------------------- */
+  .catalog-wrapper {
+    &.open {
+      .category-list {
         display: block;
         z-index: 1;
       }
     }
 
-    /* categories will be opened to right */
     .category-list {
       display: none;
       left: 100%;
@@ -222,13 +182,106 @@ export const GridRow = styled.section`
       }
     }
 
-    /* first category will be opened to down */
     > .category-list {
-      position: absolute;
-      top: 100%;
       left: 0;
+      height: 100%;
+      top: 0 !important;
+      position: relative;
+      width: max-content;
     }
   }
+
+  .catalog-wrapper {
+    left: 0;
+    right: 0;
+    top: 100%;
+    display: none;
+    min-height: 100vh;
+    position: absolute;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #1c1c1cc2;
+    background-image: linear-gradient(180deg, #f9f9f9 6%, white 10%);
+    box-shadow: 0px 20px 18px 0px #0000002e;
+
+    &.open {
+      display: flex;
+    }
+
+    .root-category-list {
+      padding: 5px 10px;
+      max-width: max-content;
+      border-right: 1px solid #dddddd;
+
+      .root-category-list-item {
+        position: relative;
+        padding: 0.7em 3.1em 0.7em 1.4em;
+        cursor: pointer;
+
+        ::after {
+          content: "";
+          padding: 3px;
+          right: 1.3em;
+          top: 50%;
+          position: absolute;
+          display: inline-block;
+          border-style: solid;
+          border-width: 2px 2px 0 0;
+          border-color: ${theme.colors.gray300};
+          transform: rotate(45deg) translateY(-50%);
+          transition: all 0.2s ease;
+          transform-origin: 50% 0%;
+        }
+
+        &.selected {
+          background-color: #ededed;
+        }
+      }
+    }
+
+    .catalog-content {
+      padding: 20px 40px;
+
+      &-title {
+        margin-bottom: 30px;
+      }
+
+      > .sub-catalog-container {
+        display: grid;
+        grid-column-gap: 40px;
+        grid-template-columns: 1fr 1fr;
+
+        .sub-catalog-column {
+          .sub-catalog-item {
+            margin-bottom: 20px;
+
+            &-title {
+              font-weight: bold;
+            }
+
+            &-list {
+              margin-left: 30px;
+              margin-top: 10px;
+              margin-bottom: 10px;
+
+              li {
+                padding: 2px 0;
+
+                :hover {
+                  span {
+                    text-decoration: underline;
+                    color: ${theme.colors.secondary};
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* categories will be opened to right */
 
   /******** search ********/
 

@@ -347,7 +347,7 @@ export const serializeProductData = (data: any) => {
               colSpan: 2,
               value: {
                 tag: "span",
-                sz: "xs",
+                sz: "smaller",
                 clr: "primary",
                 text: `Подарок на выбор: сертификат на ТО или монтаж по акции`,
               },
