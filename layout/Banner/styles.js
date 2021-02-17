@@ -18,11 +18,12 @@ export const Container = styled.div`
   overflow: hidden;
   position: relative;
 
-  /* display: flex;
-  align-items: center; */
+  ${theme.breakpoints.down("lg")} {
+    height: 330px;
+  }
 
   ${theme.breakpoints.down("xs")} {
-    height: 290px;
+    height: 250px;
   }
 
   .background {
@@ -172,34 +173,47 @@ export const Container = styled.div`
 `;
 
 export const Section = styled.section`
+  z-index: 1;
   width: 100%;
   max-width: 1400px;
-  padding: 0 var(--global-margin);
   margin: auto;
-  z-index: 1;
+  padding: 0 var(--global-margin);
 
+  height: 100%;
   display: flex;
   align-items: center;
-  height: 100%;
   justify-content: space-between;
 
   ${theme.breakpoints.down("xs")} {
     max-width: 600px;
-    padding: 0.6em 8vw 1.6em;
     flex-direction: column-reverse;
   }
 
   &.team-section {
     max-width: unset;
 
+    ${theme.breakpoints.down("xs")} {
+      padding: 0;
+
+      .slick-list {
+        width: 100%;
+
+        .slick-slide {
+          padding: 0 !important;
+        }
+      }
+    }
+
     .slick-list {
       width: 100%;
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center center;
+      .slick-slide {
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center center;
+        }
       }
     }
   }
@@ -244,9 +258,17 @@ export const Section = styled.section`
               display: flex !important;
               justify-content: space-between;
 
+              ${theme.breakpoints.up("xs")} {
+                padding: 40px;
+              }
+
               .info {
                 width: max-content;
                 align-self: center;
+
+                ${theme.breakpoints.up("xs")} {
+                  align-self: flex-end;
+                }
 
                 .texts {
                   p {
