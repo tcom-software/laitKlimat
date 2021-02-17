@@ -393,6 +393,15 @@ export const Container = styled.div`
           justify-content: space-between;
           padding: 2px 0;
 
+          :hover {
+            margin: 0 -1000px;
+            padding: 2px 1000px;
+            background-color: rgba(37, 145, 209, 0.1);
+            span {
+              color: ${theme.colors.secondary};
+            }
+          }
+
           td:last-of-type {
             span {
               text-transform: lowercase;

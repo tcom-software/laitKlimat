@@ -17,10 +17,14 @@ const LeftSide = ({ data }) => {
   } = data;
 
   const historyBack = () => {
-    router.push({
-      pathname: "/category",
-      query: { c: categoryId, page: 1 },
-    });
+    if (window.history.length !== 1) {
+      router.back();
+    } else {
+      router.push({
+        pathname: "/category",
+        query: { c: categoryId, page: 1 },
+      });
+    }
   };
 
   return (
@@ -29,9 +33,9 @@ const LeftSide = ({ data }) => {
         <Image
           responsive
           type="png"
+          onClick={historyBack}
           className="arrow-back"
           path="/images/product/arrow"
-          onClick={historyBack}
           aria-label="back to filters"
         />
       )}
