@@ -9,6 +9,7 @@ import { getCookie, setCookie } from "utils/cookies";
 
 import Input from "react-phone-number-input/input";
 import { isValidPhoneNumber } from "react-phone-number-input";
+import { GlobalServices } from "api/GlobalServices";
 
 const NumberBox = ({ modalRef, hideModal, modalProps }) => {
   const [phone, setPhone] = useState("");
@@ -35,23 +36,26 @@ const NumberBox = ({ modalRef, hideModal, modalProps }) => {
     }
 
     setLoading(true);
-    fetch("/api/callBack", {
-      method: "POST",
-      body: JSON.stringify({
-        phone: phone,
-        name: name.value,
-        previouslyContactedUs: Boolean(Number(answer.value)),
-        is_unique,
-      }),
-    }).then(() => {
+
+    const body = {
+      phone,
+      is_unique,
+      name: name.value,
+      previouslyContactedUs: Boolean(Number(answer.value)),
+    };
+
+    GlobalServices.callBack(body).then(() => {
       hideModal();
       setLoading(false);
-      if (modalProps.type === "product") {
-        GTAG.Kupit1Click();
-        YM.Kupit1Click();
-      } else if (modalProps.type === "header") {
-        GTAG.OstavitNomer();
-        YM.OstavitNomer();
+      switch (modalProps.type) {
+        case "product":
+          GTAG.Kupit1Click();
+          YM.Kupit1Click();
+          break;
+        case "header":
+          GTAG.OstavitNomer();
+          YM.OstavitNomer();
+          break;
       }
       GTAG.OstavitNomerAll();
       YM.OstavitNomerAll();

@@ -36,38 +36,4 @@ export class FilterService {
       manufacturerCountries: serializedManufacturerCountries,
     };
   }
-
-  // static async getFiltersByFilter(router: any) {
-  //   const { category, body } = filterSearchParams(router);
-  //   const response = await fetch(`${GET_FILTERS}/${category}`, {
-  //     method: "POST",
-  //     headers: {
-  //       projectId: "59",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(body),
-  //   });
-
-  //   const data = await response.json();
-
-  //   const {
-  //     textFilters,
-  //     manufacturerCountries,
-  //     characteristicAttributes,
-  //   } = data;
-
-  //   const serializedFiltersData = serializeFiltersData(
-  //     characteristicAttributes
-  //   );
-
-  //   const serializedManufacturerCountries = serializeManufacturerCountries(
-  //     manufacturerCountries
-  //   );
-
-  //   return {
-  //     textFilters,
-  //     data: serializedFiltersData,
-  //     manufacturerCountries: serializedManufacturerCountries,
-  //   };
-  // }
 }

@@ -1,26 +1,11 @@
-import { initializeStore } from "@redux/index";
-import ProductView from "@screens/ProductView";
-import { compose } from "utils/compose";
-import { initializeCategories } from "helper/initialReduxState";
+import Product from "@screens/ProductView";
 
-const Product = ({ initialStore }) => {
-  return <ProductView />;
-};
+export default Product;
 
-export const getServerSideProps = async ctx => {
-  const store = initializeStore();
-  const { initialStore } = await compose(initializeCategories)({
-    store,
-    ctx,
-    initialStore: {},
-  });
-
+export const getServerSideProps = async () => {
   return {
     props: {
-      initialStore,
       bannerVariant: "secondary",
     },
   };
 };
-
-export default Product;

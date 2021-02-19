@@ -1,20 +1,14 @@
-import { Fragment, useRef, useState, useEffect, memo } from "react";
+import { useState, memo } from "react";
 import { animated, useSpring } from "react-spring";
 import Head from "next/head";
 
-import { useOutsideClickClose } from "@hooks/useOutsideClickClose";
-import { useLocalState, localKeys } from "@hooks/useLocaleState";
 import { Container } from "@styles/pages/home";
-import { initializeStore } from "@redux/index";
 import Text from "@atoms/Text";
 import Link from "@atoms/Link";
 import eases from "utils/easing";
-import { compose } from "utils/compose";
 
 import { tabs } from "data";
 import { useDispatch, useSelector } from "react-redux";
-import { addFilters } from "@redux/actions/filters";
-import { initializeCategories } from "helper/initialReduxState";
 import { getCategories } from "@redux/selectors/site";
 
 /**
@@ -178,17 +172,17 @@ const Home = () => {
           </nav>
           <section className="boxes">
             <ul>
-              {categories.map(({ id, name, icon, subCategories }) => (
+              {categories?.map(({ id, name, icon, subCategories }) => (
                 <li className="menu-list_item" key={id}>
                   <Menu
                     id={id}
+                    sub={sub}
                     name={name}
                     icon={icon}
-                    subCategories={subCategories}
-                    sub={sub}
                     setSub={setSub}
                     subSub={subSub}
                     setSubSub={setSubSub}
+                    subCategories={subCategories}
                   />
                 </li>
               ))}
@@ -200,18 +194,9 @@ const Home = () => {
   );
 };
 
-export const getServerSideProps = async ctx => {
-  const store = initializeStore();
-
-  const { initialStore } = await compose(initializeCategories)({
-    store,
-    ctx,
-    initialStore: {},
-  });
-
+export const getServerSideProps = async () => {
   return {
     props: {
-      initialStore,
       bannerVariant: "primary",
     },
   };

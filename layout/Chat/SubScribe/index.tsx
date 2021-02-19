@@ -9,13 +9,14 @@ import YM from "utils/yandex";
 import Input from "react-phone-number-input/input";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { useChatContext } from "../context";
+import { ChatService } from "api/ChatService";
 
 const SubScribe = () => {
   const router = useRouter();
   const [phone, setPhone] = useState("");
+  const { setChatState } = useChatContext();
   const [loading, setLoading] = useState(false);
   const [showError, setShowError] = useState(false);
-  const { setChatState } = useChatContext();
 
   const handleOnSubmit = (e: any) => {
     e.preventDefault();
@@ -36,29 +37,28 @@ const SubScribe = () => {
       is_unique = false;
     }
 
-    const body = JSON.stringify({
+    const body = {
+      phone,
+      is_unique,
+      product_id,
+      url: router.pathname,
+      in_cart: Boolean(product_id),
       name: e.target.name.value || "",
       email: e.target.email.value || "",
-      url: router.query.asPath,
-      in_cart: Boolean(product_id),
-      product_id,
-      is_unique,
-      phone,
-    });
-
-    YM.OstavitNomerChat();
-    GTAG.OstavitNomerChat();
-
-    YM.OstavitNomerAll();
-    GTAG.OstavitNomerAll();
+    };
 
     setLoading(true);
-    fetch("/api/chatFeedBack", {
-      method: "POST",
-      body: body,
-    })
-      .finally(() => setLoading(false))
-      .finally(() => setChatState({ type: "USER_SEND_MAIL", payload: true }));
+    ChatService.chatFeedBack(body).finally(() => {
+      setLoading(false);
+      setChatState({ type: "USER_SEND_MAIL", payload: true });
+      if (process.env.NODE_ENV === "production") {
+        YM.OstavitNomerChat();
+        GTAG.OstavitNomerChat();
+
+        YM.OstavitNomerAll();
+        GTAG.OstavitNomerAll();
+      }
+    });
   };
 
   return (

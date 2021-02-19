@@ -9,6 +9,7 @@ import { Text, Button } from "@atoms";
 import Review from "./Review";
 import { Container } from "./styles";
 import { serializeReview } from "./serializeReview";
+import { ReviewsService } from "api/ReviewsService";
 
 const Reviews = () => {
   const dispatch = useDispatch();
@@ -19,16 +20,11 @@ const Reviews = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("api/getReviews", {
-      method: "POST",
-      body: JSON.stringify({ page }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        setReviews(serializeReview(data));
-        setTotal(data.total);
-        setLoading(false);
-      });
+    ReviewsService.getReviews(page).then(data => {
+      setReviews(serializeReview(data));
+      setTotal(data.total);
+      setLoading(false);
+    });
   }, [page]);
 
   const addReview = useCallback(() => {

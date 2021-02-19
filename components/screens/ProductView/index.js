@@ -9,11 +9,11 @@ import { PreviousViews } from "@organisms";
 import LeftSide from "./LeftSide";
 import RightSide from "./RightSide";
 import { Container } from "./styles";
-import { initializeStore } from "@redux/index";
 import Characteristics from "./Characteristics";
 import { addProductsCache } from "@redux/actions/products";
 import { serializeProductData } from "helper/serializeProduct";
 import { getProductsCacheByKey } from "@redux/selectors/products";
+import { ProductService } from "api/ProductService";
 
 const ProductView = () => {
   const router = useRouter();
@@ -27,24 +27,17 @@ const ProductView = () => {
   useEffect(() => {
     const productId = router.query.product;
     if (!cachedProduct) {
-      fetchProduct(productId);
+      setLoading(true);
+      ProductService.getProduct(productId).then(product => {
+        dispatch(addProductsCache(productId, product));
+        setLoading(false);
+      });
     }
   }, [router.query.product]);
 
   useEffect(() => {
     setProduct(product => cachedProduct ?? product);
   }, [cachedProduct]);
-
-  const fetchProduct = async productId => {
-    setLoading(true);
-    const response = await fetch("/api/getProduct", {
-      method: "POST",
-      body: JSON.stringify({ productId }),
-    });
-    const product = await response.json();
-    setLoading(false);
-    dispatch(addProductsCache(productId, product));
-  };
 
   const serializedProduct = useMemo(
     () => product && serializeProductData(product),

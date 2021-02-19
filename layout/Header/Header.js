@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
-import Link from "next/link";
-import { Router, useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import { Router, useRouter } from "next/router";
+import Link from "next/link";
 import cn from "classnames";
 
-import { getCategories } from "@redux/selectors/site";
 import { showModal } from "@redux/actions/modal";
+import { getCategories } from "@redux/selectors/site";
 import { getBasketCount } from "@redux/selectors/basket";
 
 import Nav from "./Nav";
@@ -13,11 +13,11 @@ import Address from "./Address";
 import MobileMenu from "./MobileMenu";
 import { StyledHeader, GridRow } from "./styles";
 
-import Search from "@organisms/Search";
-import CallUs from "@molecules/CallUs";
-import Logo from "@molecules/Logo";
 import Icon from "@atoms/Icon";
 import Text from "@atoms/Text";
+import Logo from "@molecules/Logo";
+import Search from "@organisms/Search";
+import CallUs from "@molecules/CallUs";
 
 import { tabs } from "data";
 import { useOutsideClickClose } from "@hooks";
@@ -46,23 +46,23 @@ const Catalog = ({ categories, selectCatalog, selectedId }) => {
   );
 };
 
-const SubCatalog = ({ catalog, toggleCatalog }) => {
+const SubCatalog = ({ catalog, toggleCatalog, currentCategory }) => {
   const halfLen = catalog ? Math.ceil(catalog.subCategories.length / 2) : 0;
 
-  const createList = el => {
+  const createList = list => {
     return (
-      <li key={el.id} className="sub-catalog-item">
+      <li key={list.id} className="sub-catalog-item">
         <Text
           sz="smaller"
           tag="span"
           clr="primary"
           className="sub-catalog-item-title"
         >
-          {el.name}
+          {list.name}
         </Text>
         <ul className="sub-catalog-item-list">
-          {el.subCategories.map(({ name, id }) => (
-            <li key={id}>
+          {list.subCategories.map(({ name, id }) => (
+            <li key={id} className={cn({ active: currentCategory == id })}>
               <Link href={`/category?c=${id}&page=1`}>
                 <a onClick={toggleCatalog}>
                   <Text sz="small" clr="primary" tag="span">
@@ -120,11 +120,13 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
   );
 
   useEffect(() => {
-    const { name, subCategories } = categories?.[0] || {};
-    setSelectedCatalog({
-      name,
-      subCategories,
-    });
+    if (categories) {
+      const { name, subCategories } = categories?.[0] || {};
+      setSelectedCatalog({
+        name,
+        subCategories,
+      });
+    }
   }, [categories]);
 
   /**
@@ -282,33 +284,38 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
               </svg>
             </button>
           </div>
-          <section
-            ref={catalogRef}
-            className={cn("container", "catalog-wrapper", {
-              open: openCatalog,
-            })}
-          >
-            <Catalog
-              categories={categories}
-              toggleCatalog={toggleCatalog}
-              selectCatalog={catalog => setSelectedCatalog(catalog)}
-              selectedId={selectedCatalog?.id}
-            />
-            <div className="catalog-content">
-              <Text
-                tag="h3"
-                sz="larg"
-                clr="secondary"
-                className="catalog-content-title"
-              >
-                {selectedCatalog?.name}
-              </Text>
-              <SubCatalog
-                catalog={selectedCatalog}
+          {categories && (
+            <section
+              ref={catalogRef}
+              className={cn("container", "catalog-wrapper", {
+                open: openCatalog,
+              })}
+            >
+              <Catalog
+                categories={categories}
                 toggleCatalog={toggleCatalog}
+                selectCatalog={catalog => setSelectedCatalog(catalog)}
+                selectedId={selectedCatalog?.id}
               />
-            </div>
-          </section>
+              <div className="catalog-content">
+                <Text
+                  tag="h3"
+                  sz="larg"
+                  clr="secondary"
+                  className="catalog-content-title"
+                >
+                  {selectedCatalog?.name}
+                </Text>
+                {selectedCatalog && (
+                  <SubCatalog
+                    catalog={selectedCatalog}
+                    toggleCatalog={toggleCatalog}
+                    currentCategory={router.query.c}
+                  />
+                )}
+              </div>
+            </section>
+          )}
         </GridRow>
       </StyledHeader>
       {isOpenMobileMenu && (

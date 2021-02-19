@@ -5,10 +5,11 @@ import cn from "classnames";
 import { Icon, Loading, Text } from "@atoms";
 import { useOutsideClickClose } from "@hooks";
 import {
-  serializeSearchResult,
   SearchData,
+  serializeSearchResult,
 } from "helper/serializeSearchResult";
 import { StyledSearch } from "./styles";
+import { ProductService } from "api/ProductService";
 
 let timeId: number;
 
@@ -20,9 +21,9 @@ interface SearchProps {
 }
 
 const Search: FC<SearchProps> = ({
-  handleOnProductClick,
-  className,
   inputRef,
+  className,
+  handleOnProductClick,
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -47,7 +48,7 @@ const Search: FC<SearchProps> = ({
 
       const {
         payload: { total, searchResponse },
-      } = await fetchSearchData();
+      } = await ProductService.searchProducts(search, page);
       const result = searchResponse && serializeSearchResult(searchResponse);
 
       setTotal(total);
@@ -63,7 +64,7 @@ const Search: FC<SearchProps> = ({
       (async () => {
         const {
           payload: { searchResponse },
-        } = await fetchSearchData();
+        } = await ProductService.searchProducts(search, page);
         const result = searchResponse && serializeSearchResult(searchResponse);
         setLoading(false);
         if (!result || result.length === 0) return;
@@ -75,33 +76,10 @@ const Search: FC<SearchProps> = ({
     }
   }, [page]);
 
-  const fetchSearchData = async () => {
-    const searchData = {
-      payload: {} as any,
-    };
-
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/searchProduct?page=${
-      page || 1
-    }`;
-
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { projectId: "59", "Content-Type": "application/json" },
-        body: JSON.stringify({ search }),
-      });
-      searchData.payload = await response.json();
-    } catch (error) {
-      console.log(error);
-    }
-
-    return searchData;
-  };
-
   const handleOnScroll = (e: any) => {
     const {
-      scrollHeight,
       scrollTop,
+      scrollHeight,
       offsetHeight,
     } = e.target as HTMLDivElement;
 

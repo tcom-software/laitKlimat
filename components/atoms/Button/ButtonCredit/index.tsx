@@ -1,5 +1,5 @@
 /*******************************************************/
-/*                  Creit Button                       */
+/*                  Credit Button                       */
 /*******************************************************/
 import React, { FC, memo, useCallback } from "react";
 import { useDispatch } from "react-redux";
@@ -29,8 +29,6 @@ const ButtonCredit: FC<ButtonCreditProps> = ({
       validateCreditData.totalPrice =
         singleProduct.price * (singleProduct.count ?? 1);
     }
-
-    console.log(validateCreditData)
 
     dispatch(
       showModal({

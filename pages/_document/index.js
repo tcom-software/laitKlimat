@@ -87,7 +87,7 @@ export default class MyDocument extends Document {
           />
           <meta name="keywords" content="" />
           <meta
-            http-equiv="Content-Security-Policy"
+            httpEquiv="Content-Security-Policy"
             components="upgrade-insecure-requests"
           />
           <link

@@ -1,27 +1,10 @@
 import PlacingAndMontageView from "@screens/PlacingAndMontage";
-import { initializeCategories } from "helper/initialReduxState";
-import { initializeStore } from "@redux/index";
-import { compose } from "utils/compose";
 
-// export default PlacingAndMontage;
+export default PlacingAndMontageView;
 
-const PlacingAndMontage = () => {
-  return <PlacingAndMontageView />;
-};
-
-export default PlacingAndMontage;
-
-export const getServerSideProps = async ctx => {
-  const store = initializeStore();
-  const { initialStore } = await compose(initializeCategories)({
-    store,
-    ctx,
-    initialStore: {},
-  });
-
+export const getServerSideProps = async () => {
   return {
     props: {
-      initialStore,
       bannerVariant: "tercary",
     },
   };

@@ -10,8 +10,8 @@ export const StyledFieldSet = styled.fieldset`
   }
 
   div {
-    height: 200px;
     overflow-y: auto;
+    max-height: 200px;
     -webkit-overflow-scrolling: touch;
 
     label {
@@ -41,7 +41,7 @@ export const StyledFieldSet = styled.fieldset`
 
       &.disabled {
         pointer-events: none;
-        
+
         img {
           filter: grayscale(1);
         }

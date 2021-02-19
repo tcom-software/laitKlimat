@@ -5,6 +5,7 @@ import { Container } from "./styles";
 
 import FormWithBackground from "../FormWithBackground";
 import { showModal } from "@redux/actions/modal";
+import { ReviewsService } from "api/ReviewsService";
 
 const AddReview = ({ modalRef, hideModal }) => {
   const dispatch = useDispatch();
@@ -32,29 +33,21 @@ const AddReview = ({ modalRef, hideModal }) => {
     setLoading(true);
 
     const tgt = e.target;
-    const formData = new FormData();
-    formData.append("name", tgt.name.value);
-    formData.append("last_name", tgt.last_name.value);
-    formData.append("installed_conditioner", tgt.installed_conditioner.value);
-    formData.append("limitations", tgt.limitations.value);
-    formData.append("advantages", tgt.advantages.value);
-    formData.append("comment", tgt.comment.value);
-    formData.append("date", tgt.date.value);
-    formData.append("rating", stars);
+    const review = new FormData();
+    review.append("name", tgt.name.value);
+    review.append("last_name", tgt.last_name.value);
+    review.append("installed_conditioner", tgt.installed_conditioner.value);
+    review.append("limitations", tgt.limitations.value);
+    review.append("advantages", tgt.advantages.value);
+    review.append("comment", tgt.comment.value);
+    review.append("date", tgt.date.value);
+    review.append("rating", stars);
     for (const file of files) {
-      formData.append("file[]", file);
+      review.append("file[]", file);
     }
 
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/review`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        projectId: "59",
-      },
-      body: formData,
-    });
+    ReviewsService.addReview(review);
 
-    const data = await response.json();
     setLoading(false);
     hideModal();
     setTimeout(showDone, 400);
