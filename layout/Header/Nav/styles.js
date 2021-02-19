@@ -32,21 +32,27 @@ export const StyledNav = styled.nav`
       padding: 0.2em 0;
       color: ${theme.colors.primary};
 
-      &:hover {
-        a {
-          span {
-            color: #2591d1;
-            text-decoration: underline;
-          }
-        }
-      }
-
       a {
         color: inherit;
 
         span {
           font-size: 16px;
           line-height: 20px;
+        }
+
+        &.active {
+          pointer-events: none;
+
+          span {
+            color: ${theme.colors.secondary};
+          }
+        }
+
+        :hover:not(.active) {
+          span {
+            text-decoration: underline;
+            color: ${theme.colors.secondary};
+          }
         }
       }
     }

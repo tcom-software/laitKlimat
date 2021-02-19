@@ -1,7 +1,7 @@
-import { GetServerSidePropsContext } from "next";
 import { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 import { useForceUpdate } from "hooks/useForceUpdate";
+import { useRouter } from "next/router";
 import cn from "classnames";
 
 //atoms
@@ -13,31 +13,22 @@ import Button from "@atoms/Button";
 import Hgroup from "@molecules/Hgroup";
 
 //organisms
-// import ChosenFilters from "@organisms/ChosenFilters";
+// TODO::: import ChosenFilters from "@organisms/ChosenFilters";
+import Filter from "@organisms/Filter";
+import Product from "@organisms/Product";
 import Pagination from "@organisms/Pagination";
 import PreviousViews from "@organisms/PreviousViews";
-import Product from "@organisms/Product";
-import Filter from "@organisms/Filter";
 
 import { Container } from "@styles/pages/product";
 
-import {
-  initializeFilters,
-  initializeCategories,
-  InitialReduxStateProps,
-} from "helper/initialReduxState";
-import { addFilters, addFiltersCache } from "@redux/actions/filters";
 import { getCurrentCategoryTitle } from "@redux/selectors/site";
 import { getFiltersCacheByKey } from "@redux/selectors/filters";
-import { useDispatch, useSelector } from "react-redux";
-import { initializeStore } from "@redux";
+import { addFilters, addFiltersCache } from "@redux/actions/filters";
 
+import { ProductService } from "api/ProductService";
 import { serialezeKey } from "@redux/reducers/filters";
-import { toggleCategoryLoader } from "@redux/actions/loader";
 import { getCategoryLoader } from "@redux/selectors/loader";
-
-import { compose } from "utils/compose";
-import { filterSearchParams } from "helper/filterSearchParams";
+import { toggleCategoryLoader } from "@redux/actions/loader";
 
 const Category = () => {
   const router = useRouter();
@@ -70,7 +61,7 @@ const Category = () => {
 
   useEffect(() => {
     if (!cachedProducts) {
-      fetchCategoryProducts().then(products => {
+      ProductService.getProducts(router).then(products => {
         const cachedKey = serialezeKey(router.query);
         dispatch(addFiltersCache(cachedKey, products));
         setProducts(products.products);
@@ -99,31 +90,6 @@ const Category = () => {
     return () => globalThis.removeEventListener("resize", resize);
   }, []);
 
-  const fetchCategoryProducts = async () => {
-    const { category, body, page } = filterSearchParams(router);
-
-    const searchParams = `${category}?page=${page || 1}`;
-    const url = `https://back.laitklimat.ru/api/getProducts/${searchParams}`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { projectId: "59", "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-
-    const {
-      filters,
-      products: _products,
-      products_info: { characteristics, ...restInfo },
-    } = await response.json();
-
-    for (const characteristic of characteristics) {
-      const product = _products.find(({ id }: any) => id === characteristic.id);
-      product.characteristics = characteristic;
-    }
-
-    return { products: _products, products_info: restInfo, filters };
-  };
-
   const resetFilters = () => {
     router.replace({
       pathname: router.pathname,
@@ -150,7 +116,7 @@ const Category = () => {
         )}
         <Hgroup h1={titles?.category || ""} h2={titles?.subSubCategory || ""} />
       </section>
-      {/* ******************* Chosen Filters ********************** */}
+      {/* ******************* TODO::: Chosen Filters ********************** */}
       {/* <ChosenFilters /> */}
       <section className="container main-content">
         {/* ******************* Filter ********************** */}
@@ -190,46 +156,9 @@ const Category = () => {
   );
 };
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const store = initializeStore();
-
-  // const {
-  //   utm_campaign,
-  //   utm_source,
-  //   utm_medium,
-  //   utm_content,
-  //   utm_term,
-  //   yclid,
-  //   ...restQuery
-  // } = ctx.query;
-
-  // const searchParam = Object.entries(restQuery)
-  //   .reduce(
-  //     // @ts-ignore
-  //     (acc, [key, values]) => `${acc}&${key}=${values.split(" ").join("+")}`,
-  //     ""
-  //   )
-  //   .slice(1);
-
-  // if (
-  //   [utm_campaign, utm_source, utm_medium, utm_content, utm_term, yclid].some(
-  //     v => v
-  //   )
-  // ) {
-  //   ctx.res.writeHead(302, {
-  //     Location: `/category?${searchParam}`,
-  //   });
-  //   ctx.res.end();
-  // }
-
-  const { initialStore } = await compose(
-    initializeCategories,
-    initializeFilters
-  )({ store, ctx, initialStore: {} } as InitialReduxStateProps);
-
+export const getServerSideProps = async () => {
   return {
     props: {
-      initialStore,
       bannerVariant: "secondary",
     },
   };

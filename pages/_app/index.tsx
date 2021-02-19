@@ -5,7 +5,6 @@ import { Router } from "next/router";
 
 import { useStore } from "@redux/index";
 import { Provider as ReduxProvider } from "react-redux";
-import { initializeCategories } from "@redux/actions/site";
 import { PersistGate } from "redux-persist/integration/react";
 
 import GlobalStyles from "@styles/GlobalStyles";
@@ -29,22 +28,17 @@ import "@styles/scss/index.scss";
 import "slick-carousel/slick/slick.css";
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const { bannerVariant, initialStore } = pageProps;
+  const { bannerVariant } = pageProps;
   const { store, persistor } = useStore(undefined);
 
-  // dispatch initial store
   useEffect(() => {
-    const { categories } = initialStore ?? {};
-    if (categories) {
-      store.dispatch(initializeCategories(categories));
-    }
     window.addEventListener("pagehide", () => {
       setCookie(storage.FILTERS, "[]");
       setCookie(storage.PRODUCTS, "[]");
     });
   }, []);
 
-  // hide next data
+  // --- hide next data
   useEffect(() => {
     const data = document.querySelector("#__NEXT_DATA__");
     if (data) {
@@ -56,7 +50,10 @@ const App = ({ Component, pageProps }: AppProps) => {
     <>
       <Head>
         <title>ЛАЙТ КЛИМАТ</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
       </Head>
       <GlobalStyles />
       <ReduxProvider store={store}>

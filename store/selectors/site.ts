@@ -9,12 +9,14 @@ export const getCategories = (state: AppState) =>
 export const getCurrentCategoryTitle = createSelector(
   getCategories,
   getCurrentCategoryId,
-  (categories: any[], currentCategoryId: string) => {
-    for (const category of categories) {
-      for (const subCategory of category.subCategories) {
-        for (const { name, id } of subCategory.subCategories) {
-          if (id === Number(currentCategoryId)) {
-            return { category: category.name, subSubCategory: name };
+  (categories: any[] | null, currentCategoryId: string) => {
+    if (categories) {
+      for (const category of categories) {
+        for (const subCategory of category.subCategories) {
+          for (const { name, id } of subCategory.subCategories) {
+            if (id === Number(currentCategoryId)) {
+              return { category: category.name, subSubCategory: name };
+            }
           }
         }
       }
@@ -24,6 +26,5 @@ export const getCurrentCategoryTitle = createSelector(
 
 export const getChat = (state: AppState) => get(state, ["site", "chat"]);
 
-export const getChatOpen = createSelector(getChat, (chat) => chat.isOpen);
-export const getChatProps = createSelector(getChat, (chat) => chat.props);
-
+export const getChatOpen = createSelector(getChat, chat => chat.isOpen);
+export const getChatProps = createSelector(getChat, chat => chat.props);

@@ -219,9 +219,10 @@ export const GridRow = styled.section`
       border-right: 1px solid #dddddd;
 
       .root-category-list-item {
-        position: relative;
-        padding: 0.7em 3.1em 0.7em 1.4em;
         cursor: pointer;
+        position: relative;
+        min-width: max-content;
+        padding: 0.7em 3.1em 0.7em 1.4em;
 
         ::after {
           content: "";
@@ -272,7 +273,15 @@ export const GridRow = styled.section`
               li {
                 padding: 2px 0;
 
-                :hover {
+                &.active {
+                  pointer-events: none;
+                  
+                  span {
+                    color: ${theme.colors.secondary};
+                  }
+                }
+
+                :hover:not(.active) {
                   span {
                     text-decoration: underline;
                     color: ${theme.colors.secondary};

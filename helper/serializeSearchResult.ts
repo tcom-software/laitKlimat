@@ -1,10 +1,6 @@
 import { getProductImage } from "./getProductImage";
 import { makePriceView } from "utils/makePriceView";
-import getConfig from "next/config";
-
-const {
-  publicRuntimeConfig: { uploadsUrl },
-} = getConfig();
+import { UPLOADS_URL } from "constants/api";
 
 export type SearchData = {
   name: string;
@@ -20,7 +16,7 @@ export const serializeSearchResult = (data: any): SearchData[] => {
     const { brand, series_name, price, model, id } = el;
     const name = `${brand} ${series_name || ""}-${model}`;
     const imagePath = getProductImage(el);
-    const image = `${uploadsUrl}${imagePath}`;
+    const image = `${UPLOADS_URL}/${imagePath}`;
     serializedData.push({
       name,
       image,

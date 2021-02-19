@@ -4,7 +4,7 @@ import { ActionCreatorType } from "@redux/types";
 export type SiteState = Readonly<typeof initialState>;
 
 const initialState = {
-  categories: [],
+  categories: null,
   chat: {
     isOpen: false,
     props: {},

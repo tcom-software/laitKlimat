@@ -11,10 +11,10 @@ const menu = [
     id: 1,
     title: "O компании",
     list: [
-        { href: "/certificates", text: "Наши сертификаты" },
-        { href: "/clients", text: "Наши клиенты" },
-        { href: "/gallery", text: "Фото наших монтажей" },
-        { href: "/reviews", text: "Отзывы наших клиентов" },
+      { href: "/certificates", text: "Наши сертификаты" },
+      { href: "/clients", text: "Наши клиенты" },
+      { href: "/gallery", text: "Фото наших монтажей" },
+      { href: "/reviews", text: "Отзывы наших клиентов" },
     ],
   },
   {
@@ -78,19 +78,17 @@ const Footer = () => {
                   <ul className="list">
                     {list.map(({ href, text }, idx) => (
                       <li key={idx}>
-                        {
-                          !!href ? (
-                              <NextLink href={href}>
-                                <Text tag="span" clr="white" sz="small">
-                                  {text}
-                                </Text>
-                              </NextLink>
-                          ) : (
-                              <Text tag="span" clr="white" sz="small">
-                                {text}
-                              </Text>
-                          )
-                        }
+                        {!!href ? (
+                          <NextLink href={href}>
+                            <Text tag="span" clr="white" sz="small">
+                              {text}
+                            </Text>
+                          </NextLink>
+                        ) : (
+                          <Text tag="span" clr="white" sz="small">
+                            {text}
+                          </Text>
+                        )}
                       </li>
                     ))}
                   </ul>
@@ -111,7 +109,7 @@ const Footer = () => {
         <address>
           <Location size="normal" />
           <Text tag="p" clr="white" sz="normal" className="copyright">
-            © 2012—2020 Компания Лайт Климат
+            {`© 2012—${new Date().getFullYear()} Компания Лайт Климат`}
           </Text>
         </address>
       </div>

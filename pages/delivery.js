@@ -1,21 +1,10 @@
-import { initializeStore } from "@redux/index";
 import Delivery from "@screens/Delivery";
-import { initializeCategories } from "helper/initialReduxState";
-import { compose } from "utils/compose";
 
 export default Delivery;
 
-export const getServerSideProps = async ctx => {
-  const store = initializeStore();
-  const { initialStore } = await compose(initializeCategories)({
-    initialStore: {},
-    store,
-    ctx,
-  });
-
+export const getServerSideProps = async () => {
   return {
     props: {
-      initialStore,
       bannerVariant: "secondary",
     },
   };

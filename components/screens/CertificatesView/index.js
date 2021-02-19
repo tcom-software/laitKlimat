@@ -4,6 +4,7 @@ import LazyLoadHOC from "HOC/LazyLoad";
 import { Text } from "@atoms";
 import { Hgroup } from "@molecules";
 import { Container } from "./styles";
+import { PROJECT_ID } from "constants/api";
 import CertificateView from "./CertificateView";
 
 const CertificatesView = ({ showModal }) => {
@@ -12,7 +13,7 @@ const CertificatesView = ({ showModal }) => {
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/getCertificates`, {
       headers: {
-        projectId: "59",
+        projectId: PROJECT_ID,
       },
     })
       .then(response => response.json())

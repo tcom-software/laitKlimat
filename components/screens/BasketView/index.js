@@ -30,14 +30,16 @@ import ButtonCredit from "@atoms/Button/ButtonCredit";
 
 import GTAG from "utils/gtag";
 import YM from "utils/yandex";
+import { BasketService } from "api/BasketService";
+import { ProductService } from "api/ProductService";
 
 const BasketView = () => {
-  // loading
+  const [phone, setPhone] = useState("");
+  // loadings
   const [loading, setLoading] = useState(false);
   const [productsLoading, setProductsLoading] = useState(false);
   // set by fetching from backend
   const [products, setProducts] = useState(null);
-  const [phone, setPhone] = useState("");
 
   const [paymentType, setPaymentType] = useState("");
   const [orderButtonText, setOrderButtonText] = useState("Оформить заказ");
@@ -59,24 +61,20 @@ const BasketView = () => {
 
   useEffect(() => {
     setProductsLoading(true);
-    fetch("/api/product", {
-      method: "POST",
-      body: JSON.stringify(Object.keys(basketProducts)),
-    })
-      .then(response => response.json())
-      .then(products => {
-        const serializedProducts = {};
 
-        for (const product of products) {
-          const serializedProduct = serializeProductCardDataFromFullProduct(
-            product
-          );
-          serializedProducts[serializedProduct.articule] = serializedProduct;
-        }
+    (async () => {
+      const serializedProducts = {};
+      for await (let id of Object.keys(basketProducts)) {
+        const product = await ProductService.getProduct(id);
+        const serializedProduct = serializeProductCardDataFromFullProduct(
+          product
+        );
+        serializedProducts[id] = serializedProduct;
+      }
 
-        setProducts(serializedProducts);
-        setProductsLoading(false);
-      });
+      setProducts(serializedProducts);
+      setProductsLoading(false);
+    })();
   }, []);
 
   useEffect(() => {
@@ -97,7 +95,7 @@ const BasketView = () => {
     });
   }, [paymentType]);
 
-  // delete all basket info when close the alert modal
+  // --- delete all basket info when close the alert modal
   const deleteBasket = () => {
     clearBasket();
     nameRef.current.value = "";
@@ -106,24 +104,20 @@ const BasketView = () => {
     setPhone("");
   };
 
-  // show order busket success
+  // --- show order busket success
   const showDone = () => {
-    console.log("ee");
     dispatch(
       showModal({
         modalType: "alert",
         modalProps: {
           heading: "Ваш заказ успешно принят",
-          // description: "Thanks sooo much",
           callBack: deleteBasket,
         },
       })
     );
   };
 
-  /**
-   * order basket
-   */
+  // --- order basket
   const handleOnSubmit = async e => {
     e.preventDefault();
     setLoading(true);
@@ -133,7 +127,7 @@ const BasketView = () => {
       {}
     );
 
-    const body = {
+    const basketData = {
       delivery_address: addressRef.current.value,
       delivery_type: delivaryTypeRef.current.value,
       email: emailRef.current.value,
@@ -146,17 +140,14 @@ const BasketView = () => {
     };
 
     if (process.env.NODE_ENV === "production") {
-      await fetch("/api/orderBasket", {
-        method: "POST",
-        body: JSON.stringify(body),
-      }).finally(() => {
+      BasketService.doOrder(basketData).finally(() => {
         YM.OformitZakaz();
         GTAG.OformitZakaz();
       });
     } else {
       await new Promise(res => {
         setTimeout(() => res(), 1000);
-      }).then(console.log({ products, body }));
+      }).then(() => console.log({ products, basketData }));
     }
 
     setLoading(false);
@@ -296,7 +287,7 @@ const Product = ({
   productImage,
   characteristic,
 
-  // TODO: add hasSale if you want display sale button
+  // TODO::: add hasSale if you want display sale button
   // hasSale,
 }) => {
   const dispatch = useDispatch();
