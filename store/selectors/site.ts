@@ -6,6 +6,9 @@ import { getCurrentCategoryId } from "./filters";
 export const getCategories = (state: AppState) =>
   get(state, ["site", "categories"]);
 
+export const getSecondLevelCategories = (state: AppState) =>
+  get(state, ["site", "secondLevelCategories"]);
+
 export const getCurrentCategoryTitle = createSelector(
   getCategories,
   getCurrentCategoryId,

@@ -5,6 +5,7 @@ export type SiteState = Readonly<typeof initialState>;
 
 const initialState = {
   categories: null,
+  secondLevelCategories: null,
   chat: {
     isOpen: false,
     props: {},
@@ -16,7 +17,8 @@ const siteReducer = (state = initialState, action: ActionCreatorType) => {
     case types.INITIALIZE_CATEGORIES:
       return {
         ...state,
-        categories: action.payload,
+        categories: action.payload.categories,
+        secondLevelCategories: action.payload.secondLevelCategories,
       };
     case types.SHOW_CHAT:
       return {

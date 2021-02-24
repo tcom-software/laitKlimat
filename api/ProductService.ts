@@ -5,6 +5,7 @@ import {
   SEARCH_PRODUCTS,
 } from "constants/api";
 import { filterSearchParams } from "helper/filterSearchParams";
+import { serializeSearchResult } from "helper/serializeSearchResult";
 
 export class ProductService {
   static async getProduct(id: string | number) {
@@ -41,8 +42,9 @@ export class ProductService {
   }
 
   static async searchProducts(search: string, page: number) {
-    const searchData = {
-      payload: {} as any,
+    const searchData: any = {
+      total: null,
+      products: null,
     };
 
     try {
@@ -51,7 +53,10 @@ export class ProductService {
         headers: { projectId: PROJECT_ID, "Content-Type": "application/json" },
         body: JSON.stringify({ search }),
       });
-      searchData.payload = await response.json();
+      const { total, searchResponse } = await response.json();
+      const products = serializeSearchResult(searchResponse);
+      searchData.total = total;
+      searchData.products = products;
     } catch (error) {
       console.log(error);
     }

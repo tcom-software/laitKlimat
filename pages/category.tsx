@@ -4,15 +4,15 @@ import { useForceUpdate } from "hooks/useForceUpdate";
 import { useRouter } from "next/router";
 import cn from "classnames";
 
-//atoms
+// atoms
 import Icon from "@atoms/Icon";
 import Text from "@atoms/Text";
 import Button from "@atoms/Button";
 
-//molecules
+// molecules
 import Hgroup from "@molecules/Hgroup";
 
-//organisms
+// organisms
 // TODO::: import ChosenFilters from "@organisms/ChosenFilters";
 import Filter from "@organisms/Filter";
 import Product from "@organisms/Product";
