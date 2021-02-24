@@ -53,8 +53,8 @@ const SubCatalog = ({ catalog, toggleCatalog, currentCategory }) => {
     return (
       <li key={list.id} className="sub-catalog-item">
         <Text
-          sz="smaller"
           tag="span"
+          sz="smaller"
           clr="primary"
           className="sub-catalog-item-title"
         >
@@ -114,6 +114,7 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
 
   const categories = useSelector(getCategories);
+  console.log({categories})
   const basketCount = useSelector(getBasketCount);
   useOutsideClickClose([catalogRef, catalogButtonRef], () =>
     setOpenCatalog(false)

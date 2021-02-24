@@ -46,14 +46,14 @@ const Search: FC<SearchProps> = ({
       setShowResults(true);
       scrollRef.current && (scrollRef.current.scrollTop = 0);
 
-      const {
-        payload: { total, searchResponse },
-      } = await ProductService.searchProducts(search, page);
-      const result = searchResponse && serializeSearchResult(searchResponse);
+      const { total, products } = await ProductService.searchProducts(
+        search,
+        page
+      );
 
       setTotal(total);
       setLoading(false);
-      setSearchResults(result);
+      setSearchResults(products);
     }, 400);
   }, [search]);
 
@@ -62,15 +62,12 @@ const Search: FC<SearchProps> = ({
       setLoading(true);
 
       (async () => {
-        const {
-          payload: { searchResponse },
-        } = await ProductService.searchProducts(search, page);
-        const result = searchResponse && serializeSearchResult(searchResponse);
+        const { products } = await ProductService.searchProducts(search, page);
         setLoading(false);
-        if (!result || result.length === 0) return;
+        if (!products || products.length === 0) return;
         setSearchResults(prevSearch => [
           ...(prevSearch || ([] as SearchData[])),
-          ...result,
+          ...products,
         ]);
       })();
     }

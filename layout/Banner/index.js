@@ -448,7 +448,7 @@ const Banner = ({ variant }) => {
                         </div>
                       </div>
                       <div className="image">
-                        <img src={img} />
+                        <img src={img} alt="carousel image" />
                       </div>
                     </div>
                   ))}
@@ -486,6 +486,7 @@ const Banner = ({ variant }) => {
                     <img
                       key={img}
                       className="team"
+                      alt="carousel image"
                       src={`/images/banner/certificate/${img}`}
                     />
                   ))}
