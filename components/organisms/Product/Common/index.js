@@ -41,37 +41,36 @@ export const Sale = ({
   data: { priceWithSetup, priceWithoutSetup, hasSale, price },
 }) => {
   const dispatch = useDispatch();
-  const showChatHandler = useCallback(
-    () =>
-      dispatch(
-        showChat({
-          type: "productSale",
-          text: `<span>На эту модель есть дополнительная скидка${
-            messageText ? messageText + "\n\n" : "\n"
-          }<span>Хотите узнать больше ?</span>`,
-        })
-      ),
-    []
-  );
 
-  let messageText;
-  switch (hasSale) {
-    case 1:
-      messageText = `\n\n<b>Цена с установкой</b>
-<em style='display: inline-block; margin-bottom: 4px;'>${priceWithSetup} ₽</em>
-<b>Цена без установки</b>
-<em>${priceWithoutSetup} ₽</em></span>`;
-      break;
-    case 2:
-      let sale = ((price - priceWithoutSetup) * 100) / price;
-      messageText = `\nдо ${sale | 0} %`;
-      break;
-    case 3:
-      messageText = ``;
-      break;
-    default:
-      messageText = ``;
-  }
+  const showChatHandler = () => {
+    let messageText;
+    switch (hasSale) {
+      case 1:
+        messageText = `\n\n<b>Цена с установкой</b>
+  <em style='display: inline-block; margin-bottom: 4px;'>${priceWithSetup} ₽</em>
+  <b>Цена без установки</b>
+  <em>${priceWithoutSetup} ₽</em></span>`;
+        break;
+      case 2:
+        let sale = ((price - priceWithoutSetup) * 100) / price;
+        messageText = `\nдо ${sale | 0} %`;
+        break;
+      case 3:
+        messageText = ``;
+        break;
+      default:
+        messageText = ``;
+    }
+
+    dispatch(
+      showChat({
+        type: "productSale",
+        text: `<span>На эту модель есть дополнительная скидка${
+          messageText ? messageText + "\n\n" : "\n"
+        }<span>Хотите узнать больше ?</span>`,
+      })
+    );
+  };
 
   return (
     <StyledSale className="sale" onClick={showChatHandler}>
@@ -91,14 +90,15 @@ export const ProductLinkWrapper = ({ children, articule }) => {
 };
 
 export const Table = ({ characteristic, productName }) => {
-  let isMitsubishi = false;
-  if (
-    productName
-      .toLocaleLowerCase()
-      .includes("MITSUBISHI HEAVY".toLocaleLowerCase())
-  ) {
-    isMitsubishi = true;
-  }
+  // --- remove comment if you want to set "MITSUBISHI HEAVY" delivery to 1000 rub
+  // let isMitsubishi = false;
+  // if (
+  //   productName
+  //     .toLocaleLowerCase()
+  //     .includes("MITSUBISHI HEAVY".toLocaleLowerCase())
+  // ) {
+  //   isMitsubishi = true;
+  // }
 
   return (
     <table>
@@ -106,13 +106,14 @@ export const Table = ({ characteristic, productName }) => {
         {characteristic
           .filter(({ value }) => value)
           .map(({ key, value }, idx) => {
-            let value1 =
-              key
-                .toLocaleLowerCase()
-                .includes("ДОСТАВКА В ПРЕДЕЛАХ МКАД".toLowerCase()) &&
-              isMitsubishi
-                ? "1000 ₽"
-                : value;
+            // --- remove comment if you want to set "MITSUBISHI HEAVY" delivery to 1000 rub
+            // const value1 =
+            //   key
+            //     .toLocaleLowerCase()
+            //     .includes("ДОСТАВКА В ПРЕДЕЛАХ МКАД".toLowerCase()) &&
+            //   isMitsubishi
+            //     ? "1000 ₽"
+            //     : value;
 
             return (
               <tr key={idx}>
@@ -123,7 +124,7 @@ export const Table = ({ characteristic, productName }) => {
                 </td>
                 <td>
                   <Text tag="span" sz="small">
-                    {value1}
+                    {value}
                   </Text>
                 </td>
               </tr>
