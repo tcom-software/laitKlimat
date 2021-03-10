@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { addProductsCache } from "@redux/actions/products";
 import { serializeProductData } from "helper/serializeProduct";
+import { ProductService } from "api/ProductService";
 
 interface CompareProps {
   modalRef: any;
@@ -30,9 +31,9 @@ const Compare: FC<CompareProps> = ({ modalRef, hideModal, modalProps }) => {
     const hasProduct = productIds.includes(lastProductId);
     if (!hasProduct) {
       setLoading(true);
-      fetchProduct(lastProductId)
+      ProductService.getProduct(lastProductId)
         .then(product => {
-          // serializeProductData(product);
+          dispatch(addProductsCache(lastProductId, product));
           const {
             characteristics: { characteristics },
           } = serializeProductData(product);
@@ -45,17 +46,6 @@ const Compare: FC<CompareProps> = ({ modalRef, hideModal, modalProps }) => {
       setSelectedProducts(products => [...products, product]);
     }
   }, [lastProductId]);
-
-  const fetchProduct = useCallback(async (productId: any) => {
-    const response = await fetch("/api/getProduct", {
-      method: "POST",
-      body: JSON.stringify({ productId }),
-    });
-    const product = await response.json();
-    dispatch(addProductsCache(productId, product));
-
-    return product;
-  }, []);
 
   const serializeCharacteristics = useMemo(() => {
     const chars = [];

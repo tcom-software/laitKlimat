@@ -4,10 +4,7 @@ import cn from "classnames";
 
 import { Icon, Loading, Text } from "@atoms";
 import { useOutsideClickClose } from "@hooks";
-import {
-  SearchData,
-  serializeSearchResult,
-} from "helper/serializeSearchResult";
+import { SearchData } from "helper/serializeSearchResult";
 import { StyledSearch } from "./styles";
 import { ProductService } from "api/ProductService";
 
