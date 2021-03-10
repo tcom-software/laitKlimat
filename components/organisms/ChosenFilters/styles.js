@@ -6,30 +6,26 @@ export const Container = styled.div`
   .inner {
     padding: 5px;
     display: flex;
+    flex-wrap: wrap;
     border-radius: 0.3em;
 
     .filter-button {
-      height: 40px;
-      padding: 5px 15px;
       display: flex;
+      color: #ffffff;
+      width: max-content;
       align-items: center;
       border-radius: 20em;
-      mix-blend-mode: soft-light;
+      margin: 0 1em 1em 0;
+      padding: 5px 6px 5px 15px;
       background-color: #2591d1;
-      width: max-content;
-      margin-right: 1em;
-      color: #ffffff;
       font-weight: bold;
       cursor: pointer;
 
       .filter-title {
-        margin-right: 0.7em;
-        position: relative;
+        font-size: 14px;
         overflow: hidden;
-
-        span {
-          text-transform: uppercase;
-        }
+        position: relative;
+        margin-right: 0.7em;
       }
 
       .filter-values {

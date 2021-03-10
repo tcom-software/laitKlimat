@@ -302,11 +302,13 @@ export const serializeProductData = (data: any) => {
                 tag: "span",
                 sz: "normal",
                 clr: "tercary",
-                text: productName
-                  .toLowerCase()
-                  .includes("MITSUBISHI HEAVY".toLowerCase())
-                  ? "1000 ₽"
-                  : "бесплатно",
+                // --- remove comment if you want to set "MITSUBISHI HEAVY" delivery to 1000 rub
+                // text: productName
+                //   .toLowerCase()
+                //   .includes("MITSUBISHI HEAVY".toLowerCase())
+                //   ? "1000 ₽"
+                //   : "бесплатно",
+                text: "бесплатно",
               },
             },
           },
