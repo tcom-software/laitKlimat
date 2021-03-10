@@ -13,9 +13,9 @@ import Button from "@atoms/Button";
 import Hgroup from "@molecules/Hgroup";
 
 // organisms
-// TODO::: import ChosenFilters from "@organisms/ChosenFilters";
 import Filter from "@organisms/Filter";
 import Product from "@organisms/Product";
+import { ChosenFilters } from "@organisms";
 import Pagination from "@organisms/Pagination";
 import PreviousViews from "@organisms/PreviousViews";
 
@@ -117,7 +117,7 @@ const Category = () => {
         <Hgroup h1={titles?.category || ""} h2={titles?.subSubCategory || ""} />
       </section>
       {/* ******************* TODO::: Chosen Filters ********************** */}
-      {/* <ChosenFilters /> */}
+      <ChosenFilters />
       <section className="container main-content">
         {/* ******************* Filter ********************** */}
         <form className="filters">

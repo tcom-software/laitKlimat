@@ -10,9 +10,9 @@ const ChosenFilters = () => {
   const [mc, setMC] = useState(null);
   const [priceRange, setPriceRange] = useState(null);
   const [otherRanges, setOtherRanges] = useState(null);
-  const [otherfilters, setOtherfilters] = useState(null);
-  const serialedKey = serialezeFiltersDataKey(router.query.c);
-  const filtersData = useSelector(getFiltersDataCacheByKey(serialedKey));
+  const [otherFilters, setOtherFilters] = useState(null);
+  const serializedKey = serialezeFiltersDataKey(router.query.c);
+  const filtersData = useSelector(getFiltersDataCacheByKey(serializedKey));
 
   useEffect(() => {
     /**
@@ -37,35 +37,33 @@ const ChosenFilters = () => {
       ...other
     } = router.query;
 
-    // manufacturerCountries
+    // --- manufacturerCountries
     setMC(manufacturerCountries?.split(" "));
 
-    // price range
+    // --- price range
     setPriceRange(price?.split(" "));
 
-    // other ranges
-    const otherRanges = {
+    // --- other ranges
+    const otherRanges = Object.entries({
       range2,
       range1,
       range4,
       range5,
-    };
-    const otherRangesArray = [];
+    })
+      // filter only none empty values
+      .filter(([_, value]) => value)
+      // transform values to array splitting by one space
+      .map(([key, value]) => [key, value.split(" ")]);
 
-    for (let key in otherRanges) {
-      otherRanges[key] &&
-        otherRangesArray.push([key, otherRanges[key]?.split(" ")]);
-    }
+    setOtherRanges(otherRanges);
 
-    // console.log(range5);
-    setOtherRanges(otherRangesArray);
-
-    // other filters
-    const otherFilters = Object.entries(other)?.map(([key, value]) => [
-      key,
-      value?.split(" "),
-    ]);
-    setOtherfilters(otherFilters);
+    // --- other filters
+    const otherFilters = Object.entries(other)
+      // filter only number keys that in range [0, 100]
+      ?.filter(([key, _]) => !isNaN(key) && key !== "" && Number(key) < 100)
+      // transform values to array splitting by one space
+      .map(([key, value]) => [key, value?.split(" ")]);
+    setOtherFilters(otherFilters);
   }, [router.query]);
 
   /**
@@ -105,7 +103,7 @@ const ChosenFilters = () => {
   const { data, manufacturerCountries = [], textFilters = [] } =
     filtersData || {};
 
-  if (!mc && !otherfilters && !priceRange) {
+  if (!mc && !otherFilters && !priceRange) {
     return null;
   }
 
@@ -191,7 +189,7 @@ const ChosenFilters = () => {
           ))}
         {/* other filters */}
         {data &&
-          otherfilters?.map(([key, value], idx) => (
+          otherFilters?.map(([key, value], idx) => (
             <div className="filter-button" key={key}>
               <span
                 className="filter-title"
@@ -203,7 +201,7 @@ const ChosenFilters = () => {
                 {value?.map(id => (
                   <span
                     onClick={() =>
-                      handleDeleteFilterElement(otherfilters[idx][1], key, id)
+                      handleDeleteFilterElement(otherFilters[idx][1], key, id)
                     }
                   >
                     <span>
