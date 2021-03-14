@@ -116,7 +116,6 @@ const Category = () => {
         )}
         <Hgroup h1={titles?.category || ""} h2={titles?.subSubCategory || ""} />
       </section>
-      {/* ******************* TODO::: Chosen Filters ********************** */}
       <ChosenFilters />
       <section className="container main-content">
         {/* ******************* Filter ********************** */}
@@ -137,12 +136,12 @@ const Category = () => {
             ))}
           </div>
         ) : null}
-        {/* ******************* Pagination ********************** */}
         {totalPage === 0 && products && !loading && (
           <Text tag="p" sz="normal" clr="tercary" className="no-products">
             Нет результатов
           </Text>
         )}
+        {/* ******************* Pagination ********************** */}
         <Pagination
           pages={totalPage}
           onPageChange={onPageChange}

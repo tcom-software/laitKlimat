@@ -13,41 +13,32 @@ import Button from "@atoms/Button";
 import Hgroup from "@molecules/Hgroup";
 
 // organisms
-import Filter from "@organisms/Filter";
+import { FilterForSearch } from "@organisms/Filter";
 import Product from "@organisms/Product";
 import Pagination from "@organisms/Pagination";
 
 import { Container } from "@styles/pages/product";
 
-import { getCurrentCategoryTitle } from "@redux/selectors/site";
-import { getFiltersCacheByKey } from "@redux/selectors/filters";
-import { addFilters, addFiltersCache } from "@redux/actions/filters";
-
 import { ProductService } from "api/ProductService";
-import { serialezeKey } from "@redux/reducers/filters";
 import { getCategoryLoader } from "@redux/selectors/loader";
 import { toggleCategoryLoader } from "@redux/actions/loader";
 
-const Category = () => {
+const SearchPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const forceUpdate = useForceUpdate();
   const loading = useSelector(getCategoryLoader);
-  const titles = useSelector(getCurrentCategoryTitle);
-  const cachedProducts = useSelector(
-    getFiltersCacheByKey(serialezeKey(router.query) || "")
-  );
 
   const [viewState, setViewState] = useState("box");
   const [products, setProducts] = useState<any[]>();
-  const [totalPage, setTotalPages] = useState<number>(0);
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   const hideLoader = useCallback(
     () => setTimeout(() => dispatch(toggleCategoryLoader(false)), 100),
     []
   );
 
-  const onPageChange = useCallback(
+  const handlePageChange = useCallback(
     ({ selected }: any) => {
       router.push({
         pathname: router.pathname,
@@ -58,20 +49,31 @@ const Category = () => {
   );
 
   useEffect(() => {
-    if (!cachedProducts) {
-      ProductService.getProducts(router).then(products => {
-        const cachedKey = serialezeKey(router.query);
-        dispatch(addFiltersCache(cachedKey, products));
-        setProducts(products.products);
-        setTotalPages(products.products_info.total);
+    const { page = 1, search, c, manufacturerCountries } = router.query as {
+      [x: string]: string | undefined;
+    };
+
+    search &&
+      ProductService.searchProducts({
+        body: {
+          search,
+          ...(c ? { categoryId: c.split(" ").map(n => Number(n)) } : {}),
+          ...(manufacturerCountries
+            ? {
+                manufacturerCountries: manufacturerCountries
+                  .split(" ")
+                  .map(n => Number(n)),
+              }
+            : {}),
+          page,
+        },
+        page,
+        noSerialize: true,
+      }).then(data => {
+        setTotalPages(data.total);
+        setProducts(data.products);
         hideLoader();
       });
-    } else {
-      setProducts(cachedProducts.products);
-      setTotalPages(cachedProducts.products_info.total);
-      hideLoader();
-    }
-    dispatch(addFilters(router.query));
   }, [router.query]);
 
   useEffect(() => {
@@ -112,12 +114,13 @@ const Category = () => {
             </button>
           </div>
         )}
-        <Hgroup h1={titles?.category || ""} h2={titles?.subSubCategory || ""} />
+        <Hgroup h1={`Поиск продуктов по слову \`${router.query.search}\``} />
       </section>
       <section className="container main-content">
         {/* ******************* Filter ********************** */}
         <form className="filters">
-          <Filter />
+          {/* <Filter /> */}
+          <FilterForSearch />
           <Button
             title="сброс"
             type="button"
@@ -129,23 +132,28 @@ const Category = () => {
         {products ? (
           <div className={cn("products", `${viewState}-view`)}>
             {products.map((product: any) => (
-              <Product key={product.id} view={viewState} data={product} />
+              <Product
+                key={product.id}
+                view={viewState}
+                data={{ ...product, type: "search" }}
+              />
             ))}
           </div>
         ) : null}
-        {totalPage === 0 && products && !loading && (
+        {totalPages === 0 && products && !loading && (
           <Text tag="p" sz="normal" clr="tercary" className="no-products">
             Нет результатов
           </Text>
         )}
         {/* ******************* Pagination ********************** */}
         <Pagination
-          pages={totalPage}
-          onPageChange={onPageChange}
+          pages={totalPages}
+          onPageChange={handlePageChange}
           forcePage={Number(router.query.page) - 1}
           initialPage={Number(router.query.page) - 1}
-          className={totalPage === 0 && products && !loading ? "hide" : ""}
+          className={totalPages === 0 && products && !loading ? "hide" : ""}
         />
+        <div style={{ display: "flex", width: "100%" }} />
       </section>
     </Container>
   );
@@ -159,4 +167,4 @@ export const getServerSideProps = async () => {
   };
 };
 
-export default Category;
+export default SearchPage;

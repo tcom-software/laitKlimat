@@ -2,6 +2,7 @@ export const PROJECT_ID = "59";
 export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 export const UPLOADS_URL = process.env.NEXT_PUBLIC_API_UPLOADS_URL;
 
+export const GET_BRANDS = `${BASE_URL}/api/getBrands`; // --- don't exist
 export const GET_FILTERS = `${BASE_URL}/api/getFilterData`;
 
 export const GET_PRODUCT = `${BASE_URL}/api/getProduct`;

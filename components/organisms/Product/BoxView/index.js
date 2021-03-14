@@ -32,9 +32,9 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
     brand,
     articule,
     brandLogo,
-    setupPrice,
     productName,
-    formatedPrice,
+    isSearchCard,
+    formattedPrice,
     characteristic,
     characteristics,
     productImageX300,
@@ -66,7 +66,7 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
           />
         </ProductLinkWrapper>
         <div className="right-side">
-          {Boolean(hasSale) && (
+          {Boolean(hasSale) && !isSearchCard && (
             <Sale
               data={{ priceWithSetup, priceWithoutSetup, hasSale, price }}
             />
@@ -83,12 +83,14 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
         <img src={brandLogo} alt="brand logo" />
         <ButtonOrderOneClick />
         <Text tag="span" sz="larg" clr="tercary" bold className="price">
-          {formatedPrice}
+          {formattedPrice}
         </Text>
       </section>
-      <section className="info">
-        <Table characteristic={characteristic} productName={productName} />
-      </section>
+      {isSearchCard || (
+        <section className="info">
+          <Table characteristic={characteristic} productName={productName} />
+        </section>
+      )}
       {globalThis.innerWidth <= 768 ? (
         <>
           <section className="btn-group-mobile" onClick={() => setOpen(true)}>

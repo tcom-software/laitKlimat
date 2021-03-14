@@ -1,3 +1,7 @@
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+
 import {
   InputFromTo,
   InputCheckbox,
@@ -5,19 +9,15 @@ import {
   InputCheckboxImageSearch,
 } from "@molecules";
 import { Loading } from "@atoms";
-import { useRouter } from "next/router";
 import { getLoader } from "@redux/selectors/loader";
-import { useDispatch, useSelector } from "react-redux";
 import { addFiltersDataCache } from "@redux/actions/filtersData";
-import { useCallback, useEffect, useMemo, useState } from "react";
 import { Container, OtherFilters, ShowOtherFilters } from "./styles";
 import { serialezeFiltersDataKey } from "@redux/reducers/filtersData";
 import { getFiltersDataCacheByKey } from "@redux/selectors/filtersData";
 
 import { FilterService } from "./FilterService";
 import { filterSearchParams } from "helper/filterSearchParams";
-// import { getFiltersCacheByKey } from "@redux/selectors/filters";
-// import { serialezeKey } from "@redux/reducers/filters";
+import { UPLOADS_URL } from "constants/api";
 
 const FILTERS_ID = {
   main: {
@@ -72,8 +72,6 @@ const Filter = () => {
   const [filtersByFilters, setFiltersByFilters] = useState(null);
   const serializedKey = serialezeFiltersDataKey(router.query.c);
   const filtersData = useSelector(getFiltersDataCacheByKey(serializedKey));
-  // const { filters } =
-  //   useSelector(getFiltersCacheByKey(serialezeKey(router.query) || "")) || {};
 
   useEffect(() => {
     setLoading(true);
@@ -93,7 +91,7 @@ const Filter = () => {
           addFiltersDataCache(router.query.c, {
             textFilters,
             manufacturerCountries,
-            data: characteristicAttributes, // other filters
+            data: characteristicAttributes, // --- other filters
           })
         );
       }
@@ -256,7 +254,7 @@ const Filter = () => {
       {showOther && data && (
         <OtherFilters>
           {Object.values(FILTERS_ID.other)
-            // leave only the necessary ones
+            // --- leave only the necessary ones
             .filter(id => data[id])
             .map(id => (
               <InputCheckbox
@@ -278,6 +276,44 @@ const Filter = () => {
         {showOther ? "свернуть" : "показать ещё фильтры"}
       </ShowOtherFilters>
     </>
+  );
+};
+
+export const FilterForSearch = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [brands, setBrands] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    (async () => {
+      const { brands } = await FilterService.getBrands();
+      const serializedBrands = brands.map(
+        ({ brand, brand_logo, id, product_count }) => ({
+          value: id,
+          label: brand,
+          count: product_count,
+          image: `${UPLOADS_URL}/manufacturer_logo/size150/${brand_logo}`,
+        })
+      );
+      setBrands(serializedBrands);
+      setLoading(false);
+    })();
+  }, []);
+
+  return (
+    <Container>
+      <div className="column column-one">
+        <InputFromTo title="Цена" inputName="price" />
+        <InputCheckboxImageSearch
+          loading={loading}
+          checkboxes={brands}
+          title="Производитель"
+          inputName="manufacturerCountries"
+        />
+      </div>
+    </Container>
   );
 };
 

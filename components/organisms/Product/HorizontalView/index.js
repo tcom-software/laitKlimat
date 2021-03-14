@@ -15,7 +15,8 @@ const ProductHorizontalView = ({ data, loading }) => {
     brandLogo,
     setupPrice,
     productName,
-    formatedPrice,
+    isSearchCard,
+    formattedPrice,
     characteristic,
     characteristics,
     productImageX300,
@@ -35,7 +36,7 @@ const ProductHorizontalView = ({ data, loading }) => {
       })}
     >
       <section className="product">
-        {Boolean(hasSale) && (
+        {!isSearchCard && Boolean(hasSale) && (
           <Sale data={{ priceWithSetup, priceWithoutSetup, hasSale, price }} />
         )}
         <ProductLinkWrapper articule={articule}>
@@ -57,7 +58,9 @@ const ProductHorizontalView = ({ data, loading }) => {
             <img src={brandLogo} alt={brand} />
           </picture>
         </div>
-        <Table characteristic={characteristic} productName={productName}/>
+        {isSearchCard || (
+          <Table characteristic={characteristic} productName={productName} />
+        )}
       </section>
       <section className="gift">
         <div className="articule">
@@ -72,7 +75,7 @@ const ProductHorizontalView = ({ data, loading }) => {
             цена
           </Text>
           <Text tag="span" sz="larg" clr="tercary" bold className="price">
-            {formatedPrice}
+            {formattedPrice}
           </Text>
         </div>
         <div className="btn-group">

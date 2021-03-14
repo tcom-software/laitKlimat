@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, PROJECT_ID } from "constants/api";
+import { GET_PRODUCTS, GET_BRANDS, PROJECT_ID } from "constants/api";
 import {
   serializeFiltersData,
   serializeManufacturerCountries,
@@ -35,5 +35,16 @@ export class FilterService {
       characteristicAttributes: serializedFiltersData,
       manufacturerCountries: serializedManufacturerCountries,
     };
+  }
+
+  // TODO::: don't exist in back end
+  static async getBrands() {
+    const response = await fetch(`${GET_BRANDS}`, {
+      headers: {
+        projectId: PROJECT_ID,
+      },
+    });
+
+    return await response.json();
   }
 }

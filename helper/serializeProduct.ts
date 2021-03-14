@@ -22,6 +22,7 @@ export const makeProductPhoto = (uploadsUrl: string, photo: any) => {
 export const serializeProductCardData = (data: any) => {
   const {
     id,
+    type: cardType, // --- card type -> 'search' for search page, or undefined
     price,
     brand,
     has_sale,
@@ -96,7 +97,8 @@ export const serializeProductCardData = (data: any) => {
     priceWithSetup,
     productImageX300,
     priceWithoutSetup,
-    formatedPrice: makePriceView(price, { unit: "₽", split: " " }),
+    isSearchCard: cardType === "search",
+    formattedPrice: makePriceView(price, { unit: "₽", split: " " }),
   };
 
   return serializedProductData;
@@ -413,7 +415,7 @@ export const serializeProductCardDataFromFullProduct = (data: any) => {
   const productImage = makeProductPhoto(UPLOADS_URL as string, photos[0]);
   const productName = makeProductName(data.product);
   const brandLogo = makeBrandLogo(UPLOADS_URL as string, manufacturer_logo);
-  const formatedPrice = makePriceView(price, { unit: "₽", split: " " });
+  const formattedPrice = makePriceView(price, { unit: "₽", split: " " });
 
   const characteristic = [
     {
@@ -431,14 +433,14 @@ export const serializeProductCardDataFromFullProduct = (data: any) => {
   // serialized data
   const serializedProductData = {
     brand,
+    price,
+    articule,
+    available,
     brandLogo,
     productName,
     productImage,
     characteristic,
-    articule,
-    formatedPrice,
-    price,
-    available,
+    formattedPrice,
   };
 
   return serializedProductData;

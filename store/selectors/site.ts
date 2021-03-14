@@ -28,6 +28,13 @@ export const getCurrentCategoryTitle = createSelector(
 );
 
 export const getChat = (state: AppState) => get(state, ["site", "chat"]);
+export const getSearchState = (state: AppState) =>
+  get(state, ["site", "search"]);
+
+export const getSearchText = createSelector(
+  getSearchState,
+  state => state.text
+);
 
 export const getChatOpen = createSelector(getChat, chat => chat.isOpen);
 export const getChatProps = createSelector(getChat, chat => chat.props);

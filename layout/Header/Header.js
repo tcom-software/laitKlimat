@@ -22,6 +22,7 @@ import CallUs from "@molecules/CallUs";
 import { tabs } from "data";
 import { useOutsideClickClose } from "@hooks";
 import { debounce } from "utils/debounce";
+import { changeSearchText, changeSearchState } from "@redux/actions/site";
 
 const Catalog = ({ categories, selectCatalog, selectedId }) => {
   const [mouseEnterHandler, clearTime] = debounce(50, args =>
@@ -114,8 +115,8 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
 
   const categories = useSelector(getCategories);
-  console.log({categories})
   const basketCount = useSelector(getBasketCount);
+
   useOutsideClickClose([catalogRef, catalogButtonRef], () =>
     setOpenCatalog(false)
   );
@@ -215,7 +216,11 @@ const Header = ({ changeCategory, showMenu, showNumberBox, showFilters }) => {
               </svg>
             </button>
           </div>
-          <Search />
+          <Search
+            withCategorySwitcher
+            getSearchValue={value => dispatch(changeSearchText(value))}
+            getSelectedCategory={value => dispatch(changeSearchState(value))}
+          />
           <CallUs showNumberBox={handleShowNumberBox} />
           <Link href="/basket">
             <a className="basket" title="корзина" aria-label="корзина">

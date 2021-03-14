@@ -17,8 +17,10 @@ export class ProductService {
     return product;
   }
 
-  static async getProducts(router: any) {
-    const { category, body, page } = filterSearchParams(router);
+  static async getProducts(router: any, noFilter: boolean = false) {
+    const { category, body, page } = noFilter
+      ? router
+      : filterSearchParams(router);
 
     const searchParams = `${category}?page=${page || 1}`;
     const response = await fetch(`${GET_PRODUCTS}/${searchParams}`, {
@@ -41,26 +43,36 @@ export class ProductService {
     return { products: _products, products_info: restInfo, filters };
   }
 
-  static async searchProducts(search: string, page: number) {
-    const searchData: any = {
+  static async searchProducts({
+    body = {},
+    page = 1,
+    noSerialize = false,
+  }: {
+    body: any;
+    page: any;
+    noSerialize?: boolean;
+  }) {
+    const searchPayload: any = {
       total: null,
       products: null,
     };
 
     try {
-      const response = await fetch(`${SEARCH_PRODUCTS}?page=${page || 1}`, {
+      const response = await fetch(`${SEARCH_PRODUCTS}?page=${page}`, {
         method: "POST",
         headers: { projectId: PROJECT_ID, "Content-Type": "application/json" },
-        body: JSON.stringify({ search }),
+        body: JSON.stringify(body),
       });
       const { total, searchResponse } = await response.json();
-      const products = serializeSearchResult(searchResponse);
-      searchData.total = total;
-      searchData.products = products;
+      const products = noSerialize
+        ? searchResponse
+        : serializeSearchResult(searchResponse);
+      searchPayload.total = total;
+      searchPayload.products = products;
     } catch (error) {
-      console.log(error);
+      console.log(`some error in searchProducts -> `, error);
     }
 
-    return searchData;
+    return searchPayload;
   }
 }

@@ -1,7 +1,7 @@
 import { Text } from "@atoms";
 import { StyledHgroup } from "./styles";
 
-const Hgroup = ({ h1, h2, className = "" }) => {
+const Hgroup = ({ h1, h2 = null, className = "" }) => {
   return (
     <StyledHgroup className={className} id="title">
       <Text tag="h1" sz="larg" clr="primary">
