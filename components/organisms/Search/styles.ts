@@ -20,7 +20,8 @@ export const StyledSearch = styled.div`
       position: absolute;
 
       + label input {
-        padding: 0 1.5em 0 calc(1.5em + 100px);
+        //padding: 0 1.5em 0 calc(1.5em + 100px);
+        padding: 12px;
       }
 
       &.open {

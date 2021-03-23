@@ -238,7 +238,7 @@ const CategorySwitcher: FC<CategorySwitcherProps> = ({
 
   return (
     <div className={cn({ "category-switcher": true, open: isOpen })} ref={ref}>
-      <div
+      {/*<div
         title={selectedCategory?.name}
         onClick={() => setOpen(s => !s)}
         className="category-switcher__button"
@@ -251,7 +251,7 @@ const CategorySwitcher: FC<CategorySwitcherProps> = ({
             d="M3.636 0l3.637 6.4H0L3.636 0zm0 16L0 9.6h7.273L3.636 16z"
           />
         </svg>
-      </div>
+      </div>*/}
       <div className="category-switcher__popup">
         <ul className="category-list">
           {serializedCategories?.map((category: any) => (
