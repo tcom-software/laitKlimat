@@ -90,6 +90,7 @@ export default class MyDocument extends Document {
             httpEquiv="Content-Security-Policy"
             components="upgrade-insecure-requests"
           />
+          <meta name="google-site-verification" content="g_HkLvFuOCfqXj26IAAK9S1bj4kdV1XoZmtZl90OISE" />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
