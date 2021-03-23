@@ -26,7 +26,7 @@ const TableComponent = ({ data }) => {
 };
 
 const Info = ({
-  data: { filter, table, creditFrom, productName, price, articule },
+  data: { filter, table, creditFrom, productName, price, articule},
 }) => {
   const router = useRouter();
   const dispatch = useDispatch();

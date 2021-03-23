@@ -20,6 +20,7 @@ export const makeProductPhoto = (uploadsUrl: string, photo: any) => {
 };
 
 export const serializeProductCardData = (data: any) => {
+  console.log(data, '[][][][]')
   const {
     id,
     type: cardType, // --- card type -> 'search' for search page, or undefined
@@ -28,9 +29,11 @@ export const serializeProductCardData = (data: any) => {
     has_sale,
     warranty,
     has_chat,
+    delivery,
     available,
     brand_logo,
     setup_price,
+    delivery_price,
     chat_with_percent,
     chat_without_percent,
     characteristics: charts,
@@ -56,7 +59,7 @@ export const serializeProductCardData = (data: any) => {
           : setup_price &&
             makePriceView(setup_price, { unit: "₽", split: " " }),
     },
-    { key: "Доставка в пределах МКАД", value: "бесплатно" },
+    { key: "Доставка в пределах МКАД", value: delivery === 1 ? `${delivery_price}` : "бесплатно"},
     {
       key: "В кредит от",
       value: makePriceView((price / 24) | 0, { unit: "₽", split: " " }),
@@ -114,6 +117,9 @@ export const serializeProductData = (data: any) => {
       category_id,
       description,
       manufacturer_logo,
+
+      delivery,
+      delivery_price,
 
       has_chat,
       has_sale,
@@ -310,7 +316,7 @@ export const serializeProductData = (data: any) => {
                 //   .includes("MITSUBISHI HEAVY".toLowerCase())
                 //   ? "1000 ₽"
                 //   : "бесплатно",
-                text: "бесплатно",
+                text: delivery === 1 ? `${delivery_price}` : "бесплатно",
               },
             },
           },
