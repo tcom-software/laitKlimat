@@ -338,13 +338,13 @@ export const Container = styled.div`
           grid-gap: 0.7em;
         }
 
-        button:last-of-type {
-          padding: 0;
-          border: none;
-          transform: none !important;
-          filter: none;
-          cursor: default;
-        }
+        // button:last-of-type {
+        //   padding: 0;
+        //   border: none;
+        //   transform: none !important;
+        //   filter: none;
+        //   cursor: default;
+        // }
       }
     }
   }

@@ -261,7 +261,7 @@ const BasketView = () => {
               options={[
                 { title: "Наличными курьеру" },
                 { title: "Банковской картой курьеру" },
-                { title: "Взять в кредит" },
+                // { title: "Взять в кредит" },
               ]}
             />
           </div>
@@ -332,7 +332,7 @@ const Product = ({
         </div>
         <div className="btn-group">
           <ButtonOrderOneClick />
-          <ButtonCredit creditData={{ productName, count, price }} />
+          {/* <ButtonCredit creditData={{ productName, count, price }} /> */}
         </div>
       </section>
       <img

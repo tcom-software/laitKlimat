@@ -44,14 +44,15 @@ const Delivery = () => {
                   По наличной оплате
                 </Text>
               </li>
-              <li>
+              {/* <li>
                 <Text tag="span" clr="primary" sz="small">
                   По безналичной оплате
                 </Text>
-              </li>
+              </li> */}
               <li>
                 <Text tag="span" clr="primary" sz="small">
-                  По карте (По терминалу) Без Переплат
+                  {/* По карте (По терминалу) Без Переплат */}
+                  По карте Без Переплат
                 </Text>
               </li>
             </ul>

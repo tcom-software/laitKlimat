@@ -81,7 +81,7 @@ const ProductHorizontalView = ({ data, loading }) => {
         <div className="btn-group">
           <ButtonOrderOneClick />
           <ButtonAddToBasket product={{ id: articule, price }} />
-          <ButtonCredit creditData={{ price, productName }} />
+          {/* <ButtonCredit creditData={{ price, productName }} /> */}
         </div>
       </section>
     </Container>

@@ -3,7 +3,7 @@ import { Image } from "@atoms";
 const logos = [
   "maestro",
   "master-card",
-  "uniteller",
+  // "uniteller",
   "american-express",
   "mir",
   "visa",

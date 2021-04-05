@@ -108,11 +108,11 @@ const Info = ({
       <div className="btn-group">
         <ButtonAddToBasket product={{ id: articule, price }} />
         <ButtonOrderOneClick />
-        <ButtonCredit creditData={{ price, productName }} />
+        {/* <ButtonCredit creditData={{ price, productName }} />
         <Button
           variant="tercary"
           title={`В кредит от <strong>${creditFrom}</strong>/месяц`}
-        />
+        /> */}
       </div>
     </section>
   );

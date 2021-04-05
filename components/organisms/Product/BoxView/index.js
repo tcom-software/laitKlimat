@@ -110,12 +110,12 @@ const ProductBoxView = ({ data, loading, addToPreviousViews }) => {
             />
             <ButtonOrderOneClick />
             <ButtonAddToBasket product={{ id: articule, price }} />
-            <ButtonCredit creditData={{ price, productName }} />
+            {/* <ButtonCredit creditData={{ price, productName }} /> */}
           </animated.section>
         </>
       ) : (
         <section className="btn-group row">
-          <ButtonCredit creditData={{ price, productName }} />
+          {/* <ButtonCredit creditData={{ price, productName }} /> */}
           <ButtonAddToBasket product={{ id: articule, price }} />
         </section>
       )}

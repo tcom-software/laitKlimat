@@ -59,10 +59,10 @@ export const serializeProductCardData = (data: any) => {
             makePriceView(setup_price, { unit: "₽", split: " " }),
     },
     { key: "Доставка в пределах МКАД", value: delivery == 1 ? `${delivery_price}` : "бесплатно"},
-    {
-      key: "В кредит от",
-      value: makePriceView((price / 24) | 0, { unit: "₽", split: " " }),
-    },
+    // {
+    //   key: "В кредит от",
+    //   value: makePriceView((price / 24) | 0, { unit: "₽", split: " " }),
+    // },
   ];
 
   if (charts) {
@@ -429,10 +429,10 @@ export const serializeProductCardDataFromFullProduct = (data: any) => {
         setup_price && makePriceView(setup_price, { unit: "₽", split: " " }),
     },
     { key: "Доставка в пределах МКАД", value: "бесплатно" },
-    {
-      key: "В кредит от",
-      value: makePriceView((price / 24) | 0, { unit: "₽", split: " " }),
-    },
+    // {
+    //   key: "В кредит от",
+    //   value: makePriceView((price / 24) | 0, { unit: "₽", split: " " }),
+    // },
   ];
 
   // serialized data
